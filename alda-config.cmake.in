@@ -1,0 +1,43 @@
+include(
+	FcpptExport
+)
+
+set(
+	ALDA_BINARY_DIR
+	@CMAKE_BINARY_DIR@
+)
+
+set(
+	ALDA_INSTALL_LIBRARY_DIR
+	@INSTALL_LIBRARY_DIR@
+)
+
+set(
+	FCPPT_EXPORT_IN_SOURCE_BUILD
+	@FCPPT_UTILS_IN_SOURCE_BUILD@
+)
+
+fcppt_export_init(
+	"alda"
+	"${ALDA_BINARY_DIR}"
+	"${ALDA_INSTALL_LIBRARY_DIR}"
+)
+
+fcppt_export_generate_targets(
+	"alda"
+	"${alda_USE_STATIC_LIBS}"
+)
+
+if(
+	alda_USE_STATIC_LIBS
+)
+	set(
+		alda_DEFINITIONS
+		"-D ALDA_STATIC_LINK"
+	)
+endif()
+
+set(
+	alda_INCLUDE_DIRS
+	"@Boost_INCLUDE_DIRS@;@fcppt_INCLUDE_DIRS@;@alda_INCLUDE_DIR@"
+)

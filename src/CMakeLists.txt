@@ -1,0 +1,305 @@
+find_package(
+	FcpptThreads
+	REQUIRED
+)
+
+add_definitions(
+	"${FcpptThreads_DEFINITIONS}"
+)
+
+set(
+	ALDA_FILES
+	include/alda/bindings/detail/extract_length.hpp
+	include/alda/bindings/detail/put_length.hpp
+	include/alda/bindings/dynamic_len.hpp
+	include/alda/bindings/float.hpp
+	include/alda/bindings/float_type.hpp
+	include/alda/bindings/fundamental.hpp
+	include/alda/bindings/fundamental_strong.hpp
+	include/alda/bindings/signed.hpp
+	include/alda/bindings/static.hpp
+	include/alda/bindings/unsigned.hpp
+	include/alda/call/default_function.hpp
+	include/alda/call/default_function_fwd.hpp
+	include/alda/call/detail/base_decl.hpp
+	include/alda/call/detail/base_fwd.hpp
+	include/alda/call/detail/base_impl.hpp
+	include/alda/call/detail/concrete_decl.hpp
+	include/alda/call/detail/concrete_fwd.hpp
+	include/alda/call/detail/concrete_impl.hpp
+	include/alda/call/detail/make_instance.hpp
+	include/alda/call/object.hpp
+	include/alda/call/object_decl.hpp
+	include/alda/call/object_fwd.hpp
+	include/alda/call/object_impl.hpp
+	include/alda/class_symbol.hpp
+	include/alda/endianness.hpp
+	include/alda/exception.hpp
+	include/alda/exception_fwd.hpp
+	include/alda/log_context.hpp
+	include/alda/log_location.hpp
+	include/alda/logger.hpp
+	include/alda/message/base_decl.hpp
+	include/alda/message/base_fwd.hpp
+	include/alda/message/base_unique_ptr.hpp
+	include/alda/message/concrete_decl.hpp
+	include/alda/message/concrete_fwd.hpp
+	include/alda/message/detail/extract_id.hpp
+	include/alda/message/id_binding.hpp
+	include/alda/message/impl/base_impl.hpp
+	include/alda/message/impl/concrete_impl.hpp
+	include/alda/message/instantiate_base.hpp
+	include/alda/message/instantiate_concrete.hpp
+	include/alda/message/make_class.hpp
+	include/alda/message/make_concrete_ptr.hpp
+	include/alda/message/make_id.hpp
+	include/alda/message/roles/type.hpp
+	include/alda/net/buffer/circular_receive/for_asio.hpp
+	include/alda/net/buffer/circular_receive/object.hpp
+	include/alda/net/buffer/circular_receive/object_fwd.hpp
+	include/alda/net/buffer/circular_receive/part.hpp
+	include/alda/net/buffer/circular_receive/part_fwd.hpp
+	include/alda/net/buffer/circular_receive/source.hpp
+	include/alda/net/buffer/circular_send/boost_type.hpp
+	include/alda/net/buffer/circular_send/object.hpp
+	include/alda/net/buffer/circular_send/object_fwd.hpp
+	include/alda/net/buffer/circular_send/optional_ref.hpp
+	include/alda/net/buffer/circular_send/optional_ref_fwd.hpp
+	include/alda/net/buffer/max_receive_size.hpp
+	include/alda/net/buffer/max_send_size.hpp
+	include/alda/net/client/connect_callback.hpp
+	include/alda/net/client/connect_callback_fwd.hpp
+	include/alda/net/client/connect_function.hpp
+	include/alda/net/client/data_callback.hpp
+	include/alda/net/client/data_callback_fwd.hpp
+	include/alda/net/client/data_function.hpp
+	include/alda/net/client/detail/object_impl_fwd.hpp
+	include/alda/net/client/error_callback.hpp
+	include/alda/net/client/error_callback_fwd.hpp
+	include/alda/net/client/error_function.hpp
+	include/alda/net/client/object.hpp
+	include/alda/net/client/object_fwd.hpp
+	include/alda/net/exception.hpp
+	include/alda/net/exception_fwd.hpp
+	include/alda/net/host.hpp
+	include/alda/net/id.hpp
+	include/alda/net/io_service_wrapper.hpp
+	include/alda/net/io_service_wrapper_fwd.hpp
+	include/alda/net/log_location.hpp
+	include/alda/net/parameters.hpp
+	include/alda/net/parameters_fwd.hpp
+	include/alda/net/port.hpp
+	include/alda/net/server/connect_callback.hpp
+	include/alda/net/server/connect_callback_fwd.hpp
+	include/alda/net/server/connect_function.hpp
+	include/alda/net/server/connection_id_container.hpp
+	include/alda/net/server/data_callback.hpp
+	include/alda/net/server/data_callback_fwd.hpp
+	include/alda/net/server/data_function.hpp
+	include/alda/net/server/detail/connection_container.hpp
+	include/alda/net/server/detail/connection_fwd.hpp
+	include/alda/net/server/detail/object_impl_fwd.hpp
+	include/alda/net/server/disconnect_callback.hpp
+	include/alda/net/server/disconnect_callback_fwd.hpp
+	include/alda/net/server/disconnect_function.hpp
+	include/alda/net/server/object.hpp
+	include/alda/net/server/object_fwd.hpp
+	include/alda/net/size_type.hpp
+	include/alda/net/value_type.hpp
+	include/alda/serialization/context_decl.hpp
+	include/alda/serialization/context_fwd.hpp
+	include/alda/serialization/define_context_function.hpp
+	include/alda/serialization/deserialize.hpp
+	include/alda/serialization/detail/dispatch/base_decl.hpp
+	include/alda/serialization/detail/dispatch/base_fwd.hpp
+	include/alda/serialization/detail/dispatch/base_impl.hpp
+	include/alda/serialization/detail/dispatch/concrete_decl.hpp
+	include/alda/serialization/detail/dispatch/concrete_impl.hpp
+	include/alda/serialization/detail/dispatch/map.hpp
+	include/alda/serialization/detail/dispatch/register_decl.hpp
+	include/alda/serialization/detail/dispatch/register_fwd.hpp
+	include/alda/serialization/detail/dispatch/register_impl.hpp
+	include/alda/serialization/detail/message_int_type.hpp
+	include/alda/serialization/detail/raw_container.hpp
+	include/alda/serialization/detail/read/element_decl.hpp
+	include/alda/serialization/detail/read/element_fwd.hpp
+	include/alda/serialization/detail/read/element_impl.hpp
+	include/alda/serialization/detail/read/load.hpp
+	include/alda/serialization/detail/read/make_object.hpp
+	include/alda/serialization/detail/read/object_decl.hpp
+	include/alda/serialization/detail/read/object_functions_impl.hpp
+	include/alda/serialization/detail/read/object_fwd.hpp
+	include/alda/serialization/detail/read/object_impl.hpp
+	include/alda/serialization/impl/context_impl.hpp
+	include/alda/serialization/instantiate_context.hpp
+	include/alda/serialization/instantiate_details.hpp
+	include/alda/serialization/instantiate_message.hpp
+	include/alda/serialization/istream.hpp
+	include/alda/serialization/length/deserialize.hpp
+	include/alda/serialization/length/extract.hpp
+	include/alda/serialization/length/put.hpp
+	include/alda/serialization/length/serialize.hpp
+	include/alda/serialization/ostream.hpp
+	include/alda/serialization/register_message.hpp
+	include/alda/serialization/serialize.hpp
+	include/alda/type_enum.hpp
+	src/bindings/float.cpp
+	src/exception.cpp
+	src/include/alda/src/log_parameters.hpp
+	src/include/alda/src/net/client/detail/object_impl.hpp
+	src/include/alda/src/net/server/detail/connection.hpp
+	src/include/alda/src/net/server/detail/object_impl.hpp
+	src/log_context.cpp
+	src/log_location.cpp
+	src/log_parameters.cpp
+	src/logger.cpp
+	src/net/buffer/circular_receive/for_asio.cpp
+	src/net/buffer/circular_receive/object.cpp
+	src/net/buffer/circular_receive/part.cpp
+	src/net/buffer/circular_send/object.cpp
+	src/net/client/detail/object_impl.cpp
+	src/net/client/object.cpp
+	src/net/exception.cpp
+	src/net/io_service_wrapper.cpp
+	src/net/log_location.cpp
+	src/net/parameters.cpp
+	src/net/server/detail/connection.cpp
+	src/net/server/detail/object_impl.cpp
+	src/net/server/object.cpp
+)
+
+fcppt_generate_symbol_header(
+	"ALDA_STATIC_LINK"
+	"alda"
+	"ALDA"
+	"alda"
+)
+
+include_directories(
+	${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+function(
+	alda_set_static_flags
+	TARGETNAME
+)
+	set_target_properties(
+		${TARGETNAME}
+		PROPERTIES
+		COMPILE_DEFINITIONS
+		"ALDA_STATIC_LINK"
+	)
+endfunction()
+
+function(
+	add_alda_library
+	VARIANT
+)
+	if(
+		${VARIANT} STREQUAL "STATIC"
+	)
+		set(
+			ALDA_LIB_NAME
+			"alda_static"
+		)
+	else()
+		set(
+			ALDA_LIB_NAME
+			"alda"
+		)
+	endif()
+
+	fcppt_utils_append_source_dir_and_make_groups(
+		"${ALDA_FILES}"
+		ALDA_FILES_ABS
+	)
+
+	add_library(
+		${ALDA_LIB_NAME}
+		${VARIANT}
+		${ALDA_FILES_ABS}
+	)
+
+	if(
+		${VARIANT} STREQUAL "STATIC"
+	)
+		alda_set_static_flags(
+			${ALDA_LIB_NAME}
+		)
+	endif()
+
+	target_link_libraries(
+		${ALDA_LIB_NAME}
+		${fcppt_core_TARGET}
+		${FcpptThreads_LIBRARIES}
+		${Boost_SYSTEM_LIBRARY}
+	)
+
+	set_target_properties(
+		${ALDA_LIB_NAME}
+		PROPERTIES
+		LINK_INTERFACE_LIBRARIES
+		""
+	)
+
+	fcppt_utils_library_output_path(
+		ALDA_LIBRARY_DIR
+	)
+
+	install(
+		TARGETS
+		${ALDA_LIB_NAME}
+		DESTINATION
+		"${ALDA_LIBRARY_DIR}"
+		EXPORT
+		aldaTargets
+	)
+endfunction()
+
+function(
+	alda_set_static_flags
+	TARGETNAME
+)
+	if(
+		ALDA_DEFAULT_LINK_TARGET
+		STREQUAL
+		"alda_static"
+	)
+		set_target_properties(
+			${TARGETNAME}
+			PROPERTIES
+			COMPILE_DEFINITIONS
+			"ALDA_STATIC_LINK"
+		)
+	endif()
+endfunction()
+
+if(
+	ENABLE_SHARED
+)
+	add_alda_library(
+		"SHARED"
+	)
+endif()
+
+if(
+	ENABLE_STATIC
+)
+	add_alda_library(
+		"STATIC"
+	)
+endif()
+
+install(
+	DIRECTORY
+	${CMAKE_SOURCE_DIR}/alda/include/alda
+	DESTINATION
+	${INSTALL_INCLUDE_DIR}
+)
+
+install(
+	FILES
+	${CMAKE_BINARY_DIR}/include/alda/symbol.hpp
+	DESTINATION
+	${INSTALL_INCLUDE_DIR}/alda
+)
