@@ -148,13 +148,6 @@ fcppt_utils_generate_config(
 )
 
 install(
-	FILES
-	${CMAKE_SOURCE_DIR}/CMakeModules/FindAlda.cmake
-	DESTINATION
-	${INSTALL_CMAKEMODULES_DIR}
-)
-
-install(
 	EXPORT
 	aldaTargets
 	DESTINATION
