@@ -292,7 +292,7 @@ endif()
 
 install(
 	DIRECTORY
-	${CMAKE_SOURCE_DIR}/alda/include/alda
+	${CMAKE_SOURCE_DIR}/include/alda
 	DESTINATION
 	${INSTALL_INCLUDE_DIR}
 )
