@@ -10,6 +10,8 @@ include(
 	FcpptCMakeUtils
 )
 
+fcppt_utils_prepare_config()
+
 include(
 	FcpptSymbol
 )
@@ -139,17 +141,4 @@ if(
 	)
 endif()
 
-fcppt_utils_include_path(
-	alda_INCLUDE_DIR
-)
-
-fcppt_utils_generate_config(
-	alda
-)
-
-install(
-	EXPORT
-	aldaTargets
-	DESTINATION
-	${INSTALL_CMAKECONFIG_DIR}
-)
+fcppt_utils_generate_config()

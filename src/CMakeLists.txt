@@ -242,17 +242,8 @@ function(
 		""
 	)
 
-	fcppt_utils_library_output_path(
-		ALDA_LIBRARY_DIR
-	)
-
-	install(
-		TARGETS
+	fcppt_utils_export_install_target(
 		${ALDA_LIB_NAME}
-		DESTINATION
-		"${ALDA_LIBRARY_DIR}"
-		EXPORT
-		aldaTargets
 	)
 endfunction()
 
