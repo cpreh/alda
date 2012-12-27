@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define ALDA_TYPE_ENUM_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/integral_c.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -37,7 +37,7 @@ struct type_enum
 {
 	typedef Enum type;
 
-	typedef boost::mpl::integral_c<
+	typedef std::integral_constant<
 		Enum,
 		Size
 	> size;

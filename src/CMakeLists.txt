@@ -19,8 +19,8 @@ set(
 	include/alda/bindings/signed.hpp
 	include/alda/bindings/static.hpp
 	include/alda/bindings/unsigned.hpp
+	include/alda/call/default_callback.hpp
 	include/alda/call/default_function.hpp
-	include/alda/call/default_function_fwd.hpp
 	include/alda/call/detail/base_decl.hpp
 	include/alda/call/detail/base_fwd.hpp
 	include/alda/call/detail/base_impl.hpp
@@ -68,14 +68,11 @@ set(
 	include/alda/net/buffer/max_receive_size.hpp
 	include/alda/net/buffer/max_send_size.hpp
 	include/alda/net/client/connect_callback.hpp
-	include/alda/net/client/connect_callback_fwd.hpp
 	include/alda/net/client/connect_function.hpp
 	include/alda/net/client/data_callback.hpp
-	include/alda/net/client/data_callback_fwd.hpp
 	include/alda/net/client/data_function.hpp
 	include/alda/net/client/detail/object_impl_fwd.hpp
 	include/alda/net/client/error_callback.hpp
-	include/alda/net/client/error_callback_fwd.hpp
 	include/alda/net/client/error_function.hpp
 	include/alda/net/client/object.hpp
 	include/alda/net/client/object_fwd.hpp
@@ -90,17 +87,14 @@ set(
 	include/alda/net/parameters_fwd.hpp
 	include/alda/net/port.hpp
 	include/alda/net/server/connect_callback.hpp
-	include/alda/net/server/connect_callback_fwd.hpp
 	include/alda/net/server/connect_function.hpp
 	include/alda/net/server/connection_id_container.hpp
 	include/alda/net/server/data_callback.hpp
-	include/alda/net/server/data_callback_fwd.hpp
 	include/alda/net/server/data_function.hpp
 	include/alda/net/server/detail/connection_container.hpp
 	include/alda/net/server/detail/connection_fwd.hpp
 	include/alda/net/server/detail/object_impl_fwd.hpp
 	include/alda/net/server/disconnect_callback.hpp
-	include/alda/net/server/disconnect_callback_fwd.hpp
 	include/alda/net/server/disconnect_function.hpp
 	include/alda/net/server/object.hpp
 	include/alda/net/server/object_fwd.hpp

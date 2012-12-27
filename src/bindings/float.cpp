@@ -25,15 +25,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/size_type.hpp>
 #include <majutsu/concepts/dynamic_memory/tag.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/cstdint.hpp>
 #include <cmath>
+#include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
 
 namespace
 {
 
-typedef boost::uint32_t fixed_int;
+typedef std::uint32_t fixed_int;
 
 typedef alda::bindings::float_::type float_type;
 

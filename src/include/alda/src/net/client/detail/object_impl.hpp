@@ -26,11 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/net/host.hpp>
 #include <alda/net/buffer/circular_receive/object.hpp>
 #include <alda/net/buffer/circular_send/object.hpp>
-#include <alda/net/client/connect_callback_fwd.hpp>
+#include <alda/net/client/connect_callback.hpp>
 #include <alda/net/client/connect_function.hpp>
-#include <alda/net/client/data_callback_fwd.hpp>
+#include <alda/net/client/data_callback.hpp>
 #include <alda/net/client/data_function.hpp>
-#include <alda/net/client/error_callback_fwd.hpp>
+#include <alda/net/client/error_callback.hpp>
 #include <alda/net/client/error_function.hpp>
 #include <alda/net/client/detail/object_impl_fwd.hpp>
 #include <fcppt/noncopyable.hpp>

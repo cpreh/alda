@@ -37,9 +37,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/src/net/server/detail/connection.hpp>
 #include <alda/src/net/server/detail/object_impl.hpp>
 #include <alda/src/log_parameters.hpp>
+#include <fcppt/from_std_string.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/location.hpp>
@@ -47,9 +48,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/verbose.hpp>
 #include <fcppt/log/parameters/object.hpp>
-#include <fcppt/from_std_string.hpp>
-#include <fcppt/ref.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/asio/buffer.hpp>
@@ -58,6 +56,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/range/adaptor/map.hpp>
 #include <boost/system/error_code.hpp>
 #include <cstddef>
+#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -248,17 +247,15 @@ alda::net::server::detail::object_impl::accept()
 			),
 			buffer_receive_size_,
 			buffer_send_size_,
-			fcppt::ref(
-				io_service_
-			)
+			io_service_
 		);
 
 	acceptor_.async_accept(
 		new_connection_->socket(),
-		std::tr1::bind(
+		std::bind(
 			&object_impl::accept_handler,
 			this,
-			std::tr1::placeholders::_1
+			std::placeholders::_1
 		)
 	);
 }
@@ -297,9 +294,7 @@ alda::net::server::detail::object_impl::read_handler(
 
 	data_signal_(
 		_con.id(),
-		fcppt::ref(
-			_con.received_data()
-		)
+		_con.received_data()
 	);
 
 	this->receive_data(
@@ -480,12 +475,12 @@ alda::net::server::detail::object_impl::send_data(
 			out_data.first,
 			out_data.second
 		),
-		std::tr1::bind(
+		std::bind(
 			&object_impl::write_handler,
 			this,
-			std::tr1::placeholders::_1,
-			std::tr1::placeholders::_2,
-			fcppt::ref(
+			std::placeholders::_1,
+			std::placeholders::_2,
+			std::ref(
 				_con
 			)
 		)
@@ -506,12 +501,12 @@ alda::net::server::detail::object_impl::receive_data(
 		alda::net::buffer::circular_receive::for_asio(
 			_con.received_data()
 		),
-		std::tr1::bind(
+		std::bind(
 			&object_impl::read_handler,
 			this,
-			std::tr1::placeholders::_1,
-			std::tr1::placeholders::_2,
-			fcppt::ref(
+			std::placeholders::_1,
+			std::placeholders::_2,
+			std::ref(
 				_con
 			)
 		)

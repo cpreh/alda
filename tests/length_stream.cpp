@@ -41,15 +41,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/role.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/function/object.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/cstdint.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/test/unit_test.hpp>
+#include <cstdint>
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
 
@@ -57,17 +56,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-namespace message_type
-{
-enum type
+enum class message_type
 {
 	message1,
 	size
 };
-}
 
 typedef alda::type_enum<
-	message_type::type,
+	message_type,
 	message_type::size
 > type_enum;
 
@@ -80,7 +76,7 @@ typedef alda::message::base_unique_ptr<
 >::type message_base_unique_ptr;
 
 typedef alda::bindings::fundamental<
-	boost::uint16_t
+	std::uint16_t
 > uint16_type;
 
 typedef alda::message::make_class<
@@ -155,7 +151,7 @@ struct dispatcher_function
 public:
 	explicit
 	dispatcher_function(
-		boost::uint16_t const _value
+		std::uint16_t const _value
 	)
 	:
 		value_(
@@ -183,7 +179,7 @@ public:
 		);
 	}
 private:
-	boost::uint16_t const value_;
+	std::uint16_t const value_;
 };
 
 }
@@ -203,7 +199,7 @@ FCPPT_PP_POP_WARNING
 		5u
 	);
 
-	typedef boost::uint16_t length_type;
+	typedef std::uint16_t length_type;
 
 	for(
 		unsigned index(
@@ -221,7 +217,7 @@ FCPPT_PP_POP_WARNING
 			>(
 				message1(
 					static_cast<
-						boost::uint16_t
+						std::uint16_t
 					>(
 						index
 					)
@@ -264,7 +260,7 @@ FCPPT_PP_POP_WARNING
 
 		dispatcher_function fun(
 			static_cast<
-				boost::uint16_t
+				std::uint16_t
 			>(
 				index
 			)
@@ -273,7 +269,7 @@ FCPPT_PP_POP_WARNING
 		dispatcher_object(
 			*result,
 			fun,
-			dispatcher::default_function()
+			dispatcher::default_callback()
 		);
 	}
 
@@ -313,7 +309,7 @@ FCPPT_PP_POP_WARNING
 		>(
 			message1(
 				static_cast<
-					boost::uint16_t
+					std::uint16_t
 				>(
 					0
 				)

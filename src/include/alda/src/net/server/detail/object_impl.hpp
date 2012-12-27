@@ -27,24 +27,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/net/buffer/max_receive_size.hpp>
 #include <alda/net/buffer/max_send_size.hpp>
 #include <alda/net/buffer/circular_send/optional_ref_fwd.hpp>
-#include <alda/net/server/connect_callback_fwd.hpp>
+#include <alda/net/server/connect_callback.hpp>
 #include <alda/net/server/connect_function.hpp>
 #include <alda/net/server/connection_id_container.hpp>
-#include <alda/net/server/data_callback_fwd.hpp>
+#include <alda/net/server/data_callback.hpp>
 #include <alda/net/server/data_function.hpp>
-#include <alda/net/server/disconnect_callback_fwd.hpp>
+#include <alda/net/server/disconnect_callback.hpp>
 #include <alda/net/server/disconnect_function.hpp>
 #include <alda/net/server/detail/connection_container.hpp>
 #include <alda/net/server/detail/connection_fwd.hpp>
 #include <alda/net/server/detail/object_impl_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/asio/io_service.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/system/error_code.hpp>
 #include <cstddef>
+#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -113,7 +113,7 @@ private:
 
 	alda::net::id::value_type id_counter_;
 
-	fcppt::unique_ptr<
+	std::unique_ptr<
 		alda::net::server::detail::connection
 	> new_connection_;
 

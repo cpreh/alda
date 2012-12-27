@@ -28,7 +28,7 @@ namespace alda
 {
 
 inline
-fcppt::endianness::format::type
+fcppt::endianness::format
 endianness()
 {
 	return fcppt::endianness::format::little;

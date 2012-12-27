@@ -18,25 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_NET_SERVER_DATA_CALLBACK_FWD_HPP_INCLUDED
-#define ALDA_NET_SERVER_DATA_CALLBACK_FWD_HPP_INCLUDED
+#ifndef ALDA_CALL_DEFAULT_CALLBACK_HPP_INCLUDED
+#define ALDA_CALL_DEFAULT_CALLBACK_HPP_INCLUDED
 
-#include <alda/net/server/data_function.hpp>
-#include <fcppt/function/object_fwd.hpp>
+#include <alda/call/default_function.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace alda
 {
-namespace net
-{
-namespace server
+namespace call
 {
 
-typedef fcppt::function::object<
-	alda::net::server::data_function
-> data_callback;
+template<
+	typename TypeEnum,
+	typename Result
+>
+struct default_callback
+{
+	typedef std::function<
+		typename alda::call::default_function<
+			TypeEnum,
+			Result
+		>::type
+	> type;
+};
 
-}
 }
 }
 

@@ -40,17 +40,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/composite.hpp>
 #include <majutsu/role.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/function/object.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/cstdint.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/test/unit_test.hpp>
+#include <cstdint>
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
 
@@ -58,18 +56,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-namespace message_type
-{
-enum type
+enum class message_type
 {
 	message1,
 	message2,
 	size
 };
-}
 
 typedef alda::type_enum<
-	message_type::type,
+	message_type,
 	message_type::size
 > type_enum;
 
@@ -82,11 +77,11 @@ typedef alda::message::base_unique_ptr<
 >::type message_base_unique_ptr;
 
 typedef alda::bindings::fundamental<
-	boost::uint16_t
+	std::uint16_t
 > uint16_type;
 
 typedef alda::bindings::fundamental<
-	boost::uint32_t
+	std::uint32_t
 > uint32_type;
 
 typedef alda::message::make_class<
@@ -207,7 +202,7 @@ public:
 			>()
 			==
 			static_cast<
-				boost::uint16_t
+				std::uint16_t
 			>(
 				1337
 			)
@@ -228,7 +223,7 @@ public:
 			>()
 			==
 			static_cast<
-				boost::uint32_t
+				std::uint32_t
 			>(
 				42
 			)
@@ -236,7 +231,7 @@ public:
 	}
 
 	result_type
-	default_function(
+	default_callback(
 		message_base const &
 	)
 	{
@@ -263,7 +258,7 @@ FCPPT_PP_POP_WARNING
 		>(
 			message1(
 				static_cast<
-					boost::uint16_t
+					std::uint16_t
 				>(
 					1337
 				)
@@ -288,11 +283,11 @@ FCPPT_PP_POP_WARNING
 
 	dispatcher_function receiver;
 
-	dispatcher::default_function const default_callback(
-		std::tr1::bind(
-			&dispatcher_function::default_function,
+	dispatcher::default_callback const default_callback(
+		std::bind(
+			&dispatcher_function::default_callback,
 			&receiver,
-			std::tr1::placeholders::_1
+			std::placeholders::_1
 		)
 	);
 
@@ -334,7 +329,7 @@ FCPPT_PP_POP_WARNING
 		>(
 			message2(
 				static_cast<
-					boost::uint32_t
+					std::uint32_t
 				>(
 					42
 				)

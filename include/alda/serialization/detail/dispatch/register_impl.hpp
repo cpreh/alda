@@ -27,12 +27,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/serialization/detail/dispatch/register_decl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/unique_ptr.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/at.hpp>
 #include <exception>
+#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -47,7 +47,7 @@ alda::serialization::detail::dispatch::register_<
 	context &_context
 )
 {
-	typedef fcppt::unique_ptr<
+	typedef std::unique_ptr<
 		alda::serialization::detail::dispatch::base<
 			TypeEnum
 		>

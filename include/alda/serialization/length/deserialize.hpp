@@ -28,11 +28,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/serialization/length/extract.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/type_traits/is_unsigned.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <ostream>
-#include <iosfwd>
 #include <cstddef>
+#include <iosfwd>
+#include <ostream>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -48,7 +48,7 @@ template<
 	typename TypeEnum
 >
 typename boost::enable_if<
-	boost::is_unsigned<
+	std::is_unsigned<
 		LengthType
 	>,
 	typename alda::message::base_unique_ptr<

@@ -62,28 +62,27 @@ place(
 )
 {
 	for(
-		typename Type::const_iterator it(
-			_value.begin()
+		auto const &elem : _value
+	)
+	{
+		place(
+			_tag,
+			static_cast<
+				Adapted const *
+			>(0),
+			elem,
+			_mem
 		);
-		it != _value.end();
+
 		_mem +=
 			needed_size(
 				_tag,
 				static_cast<
 					Adapted const *
 				>(0),
-				*it
-			),
-		++it
-	)
-		place(
-			_tag,
-			static_cast<
-				Adapted const *
-			>(0),
-			*it,
-			_mem
-		);
+				elem
+			);
+	}
 }
 
 template<
@@ -103,21 +102,10 @@ make(
 	Type ret;
 
 	for(
-		typename Type::iterator it(
-			ret.begin()
-		);
-		it != ret.end();
-		_mem +=
-			needed_size(
-				_tag,
-				static_cast<
-					Adapted const *
-				>(0),
-				*it
-			),
-		++it
+		auto &elem : ret
 	)
-		*it =
+	{
+		elem =
 			make(
 				_tag,
 				static_cast<
@@ -125,6 +113,16 @@ make(
 				>(0),
 				_mem
 			);
+
+		_mem +=
+			needed_size(
+				_tag,
+				static_cast<
+					Adapted const *
+				>(0),
+				elem
+			);
+	}
 
 	return ret;
 }

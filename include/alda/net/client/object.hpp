@@ -26,9 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/net/parameters_fwd.hpp>
 #include <alda/net/port.hpp>
 #include <alda/net/buffer/circular_send/object_fwd.hpp>
-#include <alda/net/client/connect_callback_fwd.hpp>
-#include <alda/net/client/data_callback_fwd.hpp>
-#include <alda/net/client/error_callback_fwd.hpp>
+#include <alda/net/client/connect_callback.hpp>
+#include <alda/net/client/data_callback.hpp>
+#include <alda/net/client/error_callback.hpp>
 #include <alda/net/client/object_fwd.hpp>
 #include <alda/net/client/detail/object_impl_fwd.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>

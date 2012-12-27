@@ -27,9 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/cstdint.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/test/unit_test.hpp>
+#include <cstdint>
 #include <limits>
 #include <fcppt/config/external_end.hpp>
 
@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-typedef boost::uint16_t int_type;
+typedef std::uint16_t int_type;
 
 typedef alda::bindings::fundamental<
 	int_type

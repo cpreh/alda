@@ -22,14 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/net/parameters_fwd.hpp>
 #include <alda/net/port.hpp>
 #include <alda/net/buffer/circular_send/optional_ref.hpp>
-#include <alda/net/server/connect_callback_fwd.hpp>
+#include <alda/net/server/connect_callback.hpp>
 #include <alda/net/server/connection_id_container.hpp>
-#include <alda/net/server/data_callback_fwd.hpp>
-#include <alda/net/server/disconnect_callback_fwd.hpp>
+#include <alda/net/server/data_callback.hpp>
+#include <alda/net/server/disconnect_callback.hpp>
 #include <alda/net/server/object.hpp>
 #include <alda/src/net/server/detail/object_impl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
 
@@ -41,9 +40,7 @@ alda::net::server::object::object(
 		fcppt::make_unique_ptr<
 			alda::net::server::detail::object_impl
 		>(
-			fcppt::cref(
-				_parameters
-			)
+			_parameters
 		)
 	)
 {

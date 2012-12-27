@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define ALDA_SERIALIZATION_DETAIL_MESSAGE_INT_TYPE_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
-#include <boost/cstdint.hpp>
+#include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -33,7 +33,7 @@ namespace serialization
 namespace detail
 {
 
-typedef boost::uint8_t message_int_type;
+typedef std::uint8_t message_int_type;
 
 }
 }

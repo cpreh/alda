@@ -21,13 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef ALDA_CALL_OBJECT_DECL_HPP_INCLUDED
 #define ALDA_CALL_OBJECT_DECL_HPP_INCLUDED
 
-#include <alda/call/default_function_fwd.hpp>
+#include <alda/call/default_callback.hpp>
 #include <alda/call/object_fwd.hpp>
 #include <alda/call/detail/base_fwd.hpp>
 #include <alda/message/base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_array.hpp>
+#include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -54,10 +55,10 @@ class object
 		Callee
 	> base;
 public:
-	typedef typename alda::call::default_function<
+	typedef typename alda::call::default_callback<
 		TypeEnum,
 		result_type
-	>::type default_function;
+	>::type default_callback;
 
 	typedef alda::message::base<
 		TypeEnum
@@ -71,12 +72,16 @@ public:
 	operator()(
 		message_base const &,
 		Callee &,
-		default_function const &
+		default_callback const &
 	) const;
 private:
 	typedef boost::ptr_array<
 		base,
-		TypeEnum::size::value
+		static_cast<
+			std::size_t
+		>(
+			TypeEnum::size::value
+		)
 	> instance_array;
 
 	instance_array instances_;

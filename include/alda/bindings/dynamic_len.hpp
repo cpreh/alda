@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/size_type.hpp>
 #include <majutsu/concepts/dynamic_memory/tag.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/cstdint.hpp>
+#include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -45,7 +45,7 @@ struct dynamic_len
 {
 	typedef Type type;
 
-	typedef boost::uint16_t length_type;
+	typedef std::uint16_t length_type;
 };
 
 template<
@@ -72,11 +72,7 @@ needed_size(
 	);
 
 	for(
-		typename Type::const_iterator elem_it(
-			_value.begin()
-		);
-		elem_it != _value.end();
-		++elem_it
+		auto const &elem : _value
 	)
 		ret +=
 			needed_size(
@@ -84,7 +80,7 @@ needed_size(
 				static_cast<
 					Adapted const *
 				>(0),
-				*elem_it
+				elem
 			);
 
 	return ret;
@@ -113,28 +109,27 @@ place(
 	);
 
 	for(
-		typename Type::const_iterator it(
-			_value.begin()
+		auto const &elem : _value
+	)
+	{
+		place(
+			_tag,
+			static_cast<
+				Adapted const *
+			>(0),
+			elem,
+			_mem
 		);
-		it != _value.end();
+
 		_mem +=
 			needed_size(
 				_tag,
 				static_cast<
 					Adapted const *
 				>(0),
-				*it
-			),
-		++it
-	)
-		place(
-			_tag,
-			static_cast<
-				Adapted const *
-			>(0),
-			*it,
-			_mem
-		);
+				elem
+			);
+	}
 }
 
 template<

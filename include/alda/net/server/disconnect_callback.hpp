@@ -21,8 +21,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef ALDA_NET_SERVER_DISCONNECT_CALLBACK_HPP_INCLUDED
 #define ALDA_NET_SERVER_DISCONNECT_CALLBACK_HPP_INCLUDED
 
-#include <alda/net/server/disconnect_callback_fwd.hpp>
-#include <fcppt/function/object.hpp>
+#include <alda/net/server/disconnect_function.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
+
+namespace alda
+{
+namespace net
+{
+namespace server
+{
+
+typedef std::function<
+	alda::net::server::disconnect_function
+> disconnect_callback;
+
+}
+}
+}
 
 #endif

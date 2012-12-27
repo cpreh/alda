@@ -28,8 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/raw_pointer.hpp>
 #include <majutsu/concepts/static_size.hpp>
 #include <majutsu/concepts/dynamic_memory/tag.hpp>
-#include <fcppt/null_ptr.hpp>
-#include <fcppt/static_assert_statement.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -37,8 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <exception>
 #include <limits>
-#include <boost/type_traits/make_unsigned.hpp>
-#include <boost/type_traits/is_signed.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -59,10 +56,11 @@ majutsu::fundamental<
 	Type
 >
 {
-	FCPPT_STATIC_ASSERT_STATEMENT(
-		boost::is_signed<
+	static_assert(
+		std::is_signed<
 			Type
-		>::value
+		>::value,
+		"alda::bindings::signed_ only works on signed types"
 	);
 };
 
@@ -81,7 +79,7 @@ place(
 	majutsu::raw_pointer const _mem
 )
 {
-	typedef typename boost::make_unsigned<
+	typedef typename std::make_unsigned<
 		Type
 	>::type unsigned_type;
 
@@ -148,7 +146,7 @@ place(
 				unsigned_type
 			> const *
 		>(
-			fcppt::null_ptr()
+			nullptr
 		),
 		converted,
 		_mem
@@ -167,7 +165,7 @@ make(
 	majutsu::const_raw_pointer const _beg
 )
 {
-	typedef typename boost::make_unsigned<
+	typedef typename std::make_unsigned<
 		Type
 	>::type unsigned_type;
 
@@ -180,7 +178,7 @@ make(
 					unsigned_type
 				> const *
 			>(
-				fcppt::null_ptr()
+				nullptr
 			),
 			_beg
 		)

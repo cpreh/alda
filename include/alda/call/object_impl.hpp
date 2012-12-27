@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef ALDA_CALL_OBJECT_IMPL_HPP_INCLUDED
 #define ALDA_CALL_OBJECT_IMPL_HPP_INCLUDED
 
-#include <alda/call/default_function.hpp>
 #include <alda/call/object_decl.hpp>
 #include <alda/call/detail/concrete_decl.hpp>
 #include <alda/call/detail/make_instance.hpp>
@@ -85,20 +84,30 @@ alda::call::object<
 >::operator()(
 	message_base const &_message,
 	Callee &_callee,
-	default_function const &_default_function
+	default_callback const &_default_callback
 ) const
 {
-	return
-		instances_.is_null(
+	typedef typename instance_array::size_type size_type;
+
+	size_type const index(
+		static_cast<
+			size_type
+		>(
 			_message.type()
 		)
+	);
+
+	return
+		instances_.is_null(
+			index
+		)
 		?
-			_default_function(
+			_default_callback(
 				_message
 			)
 		:
 			instances_[
-				_message.type()
+				index
 			].call(
 				_callee,
 				_message

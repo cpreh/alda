@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/if.hpp>
-#include <boost/type_traits/is_signed.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -48,7 +48,7 @@ template<
 struct fundamental
 :
 boost::mpl::if_<
-	boost::is_signed<
+	std::is_signed<
 		Type
 	>,
 	alda::bindings::signed_<

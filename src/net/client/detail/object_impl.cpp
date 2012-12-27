@@ -36,7 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/insert_to_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
@@ -48,13 +47,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/parameters/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/asio/buffer.hpp>
 #include <boost/asio/io_service.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/system/error_code.hpp>
 #include <cstddef>
+#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -134,11 +133,11 @@ alda::net::client::detail::object_impl::connect(
 
 	resolver_.async_resolve(
 		*query_,
-		std::tr1::bind(
+		std::bind(
 			&object_impl::resolve_handler,
 			this,
-			std::tr1::placeholders::_1,
-			std::tr1::placeholders::_2
+			std::placeholders::_1,
+			std::placeholders::_2
 		)
 	);
 }
@@ -231,10 +230,10 @@ alda::net::client::detail::object_impl::resolve_handler(
 
 	socket_.async_connect(
 		endpoint,
-		std::tr1::bind(
+		std::bind(
 			&object_impl::connect_handler,
 			this,
-			std::tr1::placeholders::_1,
+			std::placeholders::_1,
 			++_iterator
 		)
 	);
@@ -296,9 +295,7 @@ alda::net::client::detail::object_impl::read_handler(
 	);
 
 	data_signal_(
-		fcppt::ref(
-			receive_buffer_
-		)
+		receive_buffer_
 	);
 
 	this->receive_data();
@@ -382,10 +379,10 @@ alda::net::client::detail::object_impl::connect_handler(
 
 		socket_.async_connect(
 			endpoint,
-			std::tr1::bind(
+			std::bind(
 				&object_impl::connect_handler,
 				this,
-				std::tr1::placeholders::_1,
+				std::placeholders::_1,
 				++_iterator
 			)
 		);
@@ -423,11 +420,11 @@ alda::net::client::detail::object_impl::send_data()
 			out_data.first,
 			out_data.second
 		),
-		std::tr1::bind(
+		std::bind(
 			&alda::net::client::detail::object_impl::write_handler,
 			this,
-			std::tr1::placeholders::_1,
-			std::tr1::placeholders::_2
+			std::placeholders::_1,
+			std::placeholders::_2
 		)
 	);
 }
@@ -443,11 +440,11 @@ alda::net::client::detail::object_impl::receive_data()
 		alda::net::buffer::circular_receive::for_asio(
 			receive_buffer_
 		),
-		std::tr1::bind(
+		std::bind(
 			&object_impl::read_handler,
 			this,
-			std::tr1::placeholders::_1,
-			std::tr1::placeholders::_2
+			std::placeholders::_1,
+			std::placeholders::_2
 		)
 	);
 }

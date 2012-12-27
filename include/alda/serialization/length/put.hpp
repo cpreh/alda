@@ -24,13 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/endianness.hpp>
 #include <alda/message/base_decl.hpp>
 #include <alda/serialization/ostream.hpp>
-#include <fcppt/static_assert_expression.hpp>
 #include <fcppt/io/write.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/type_traits/is_unsigned.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <exception>
 #include <limits>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -46,7 +45,7 @@ template<
 	typename TypeEnum
 >
 typename boost::enable_if<
-	boost::is_unsigned<
+	std::is_unsigned<
 		LengthType
 	>,
 	void
@@ -64,14 +63,15 @@ put(
 
 	typedef typename message_base::size_type message_size_type;
 
-	FCPPT_STATIC_ASSERT_EXPRESSION(
+	static_assert(
 		sizeof(
 			message_size_type
 		)
 		>=
 		sizeof(
 			LengthType
-		)
+		),
+		"The LengthType cannot exceed the message_size_type"
 	);
 
 	if(

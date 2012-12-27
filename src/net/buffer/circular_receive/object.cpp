@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/next_prior.hpp>
 #include <cstddef>
+#include <iterator>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -60,7 +60,7 @@ alda::net::buffer::circular_receive::object::next_receive_part()
 				end_,
 				begin_ == impl_.data()
 				?
-					boost::prior(
+					std::prev(
 						impl_.data_end()
 					)
 				:
@@ -69,7 +69,7 @@ alda::net::buffer::circular_receive::object::next_receive_part()
 		:
 			alda::net::buffer::circular_receive::part(
 				end_,
-				boost::prior(
+				std::prev(
 					begin_
 				)
 			);
