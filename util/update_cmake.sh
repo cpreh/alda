@@ -1,25 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 
-function die()
-{
-	exit -1
-}
+set -e -u
 
-function update_cmake_file()
-{
-	local cmakefile="$1"
-
-	update_cmake \
-		"${cmakefile}" \
-		"${@:2}" \
-		|| die
-
-	mv "${cmakefile}".new "${cmakefile}" || die
-
-	chmod -x "${cmakefile}" || die
-}
-
-update_cmake_file \
+update_cmake \
 	src/CMakeLists.txt \
 	ALDA_FILES \
 	include \
