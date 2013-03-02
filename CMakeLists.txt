@@ -77,18 +77,17 @@ include_directories(
 )
 
 
-# TODO: Move majutsu out of sge!
 find_package(
-	sge
+	majutsu
 	REQUIRED
 )
 
 add_definitions(
-	${sge_DEFINITIONS}
+	${majutsu_DEFINITIONS}
 )
 
 include_directories(
-	${sge_INCLUDE_DIRS}
+	${majutsu_INCLUDE_DIRS}
 )
 
 
