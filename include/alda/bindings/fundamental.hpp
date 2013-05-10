@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/bindings/signed.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <majutsu/fundamental.hpp>
-#include <majutsu/concepts/static_size.hpp>
+#include <majutsu/static_size.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -68,8 +68,6 @@ FCPPT_PP_POP_WARNING
 
 namespace majutsu
 {
-namespace concepts
-{
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
@@ -83,16 +81,16 @@ struct static_size<
 	>
 >
 :
-majutsu::concepts::static_size<
+majutsu::static_size<
 	majutsu::fundamental<
 		Type
 	>
 >
-{};
+{
+};
 
 FCPPT_PP_POP_WARNING
 
-}
 }
 
 #endif

@@ -23,13 +23,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/integral_size.hpp>
+#include <majutsu/make.hpp>
+#include <majutsu/needed_size.hpp>
+#include <majutsu/place.hpp>
 #include <majutsu/raw_pointer.hpp>
 #include <majutsu/size_type.hpp>
-#include <majutsu/concepts/static_size.hpp>
-#include <majutsu/concepts/dynamic_memory/tag.hpp>
+#include <majutsu/static_size.hpp>
+#include <fcppt/no_init.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/multiplies.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace alda
@@ -52,7 +58,6 @@ template<
 >
 void
 place(
-	majutsu::concepts::dynamic_memory::tag const *const _tag,
 	alda::bindings::static_<
 		Type,
 		Adapted
@@ -65,21 +70,17 @@ place(
 		auto const &elem : _value
 	)
 	{
-		place(
-			_tag,
-			static_cast<
-				Adapted const *
-			>(0),
+		majutsu::place<
+			Adapted
+		>(
 			elem,
 			_mem
 		);
 
 		_mem +=
-			needed_size(
-				_tag,
-				static_cast<
-					Adapted const *
-				>(0),
+			majutsu::needed_size<
+				Adapted
+			>(
 				elem
 			);
 	}
@@ -91,7 +92,6 @@ template<
 >
 Type
 make(
-	majutsu::concepts::dynamic_memory::tag const *const _tag,
 	alda::bindings::static_<
 		Type,
 		Adapted
@@ -99,27 +99,25 @@ make(
 	majutsu::const_raw_pointer _mem
 )
 {
-	Type ret;
+	Type ret{
+		fcppt::no_init()
+	};
 
 	for(
 		auto &elem : ret
 	)
 	{
 		elem =
-			make(
-				_tag,
-				static_cast<
-					Adapted const *
-				>(0),
+			majutsu::make<
+				Adapted
+			>(
 				_mem
 			);
 
 		_mem +=
-			needed_size(
-				_tag,
-				static_cast<
-					Adapted const *
-				>(0),
+			majutsu::needed_size<
+				Adapted
+			>(
 				elem
 			);
 	}
@@ -131,8 +129,6 @@ make(
 }
 
 namespace majutsu
-{
-namespace concepts
 {
 
 FCPPT_PP_PUSH_WARNING
@@ -149,16 +145,17 @@ struct static_size<
 	>
 >
 :
-majutsu::integral_size<
-	Type::dim_wrapper::value
-	* sizeof(typename Type::value_type)
+boost::mpl::multiplies<
+	typename Type::dim_wrapper,
+	majutsu::static_size<
+		Adapted
+	>
 >
 {
 };
 
 FCPPT_PP_POP_WARNING
 
-}
 }
 
 #endif

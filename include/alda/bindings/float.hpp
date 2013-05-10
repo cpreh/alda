@@ -27,8 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/fundamental.hpp>
 #include <majutsu/raw_pointer.hpp>
 #include <majutsu/size_type.hpp>
-#include <majutsu/concepts/dynamic_memory/tag.hpp>
-#include <majutsu/concepts/static_size.hpp>
+#include <majutsu/static_size.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -55,7 +54,6 @@ FCPPT_PP_POP_WARNING
 ALDA_SYMBOL
 majutsu::size_type
 needed_size(
-	majutsu::concepts::dynamic_memory::tag const *,
 	alda::bindings::float_ const *,
 	alda::bindings::float_::type const &
 );
@@ -63,7 +61,6 @@ needed_size(
 ALDA_SYMBOL
 void
 place(
-	majutsu::concepts::dynamic_memory::tag const *,
 	alda::bindings::float_ const *,
 	alda::bindings::float_::type const &,
 	majutsu::raw_pointer
@@ -72,7 +69,6 @@ place(
 ALDA_SYMBOL
 alda::bindings::float_::type
 make(
-	majutsu::concepts::dynamic_memory::tag const *,
 	alda::bindings::float_ const *,
 	majutsu::const_raw_pointer
 );
@@ -81,8 +77,6 @@ make(
 }
 
 namespace majutsu
-{
-namespace concepts
 {
 
 FCPPT_PP_PUSH_WARNING
@@ -93,7 +87,7 @@ struct static_size<
 	alda::bindings::float_
 >
 :
-majutsu::concepts::static_size<
+majutsu::static_size<
 	majutsu::fundamental<
 		alda::bindings::float_type
 	>
@@ -103,7 +97,6 @@ majutsu::concepts::static_size<
 
 FCPPT_PP_POP_WARNING
 
-}
 }
 
 #endif

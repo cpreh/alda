@@ -23,9 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <alda/bindings/fundamental.hpp>
 #include <majutsu/const_raw_pointer.hpp>
+#include <majutsu/make.hpp>
+#include <majutsu/place.hpp>
 #include <majutsu/raw_pointer.hpp>
-#include <majutsu/concepts/static_size.hpp>
-#include <majutsu/concepts/dynamic_memory/tag.hpp>
+#include <majutsu/static_size.hpp>
+#include <fcppt/is_strong_typedef.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace alda
@@ -39,6 +44,13 @@ template<
 struct fundamental_strong
 {
 	typedef T type;
+
+	static_assert(
+		fcppt::is_strong_typedef<
+			T
+		>::value,
+		"T must be a strong typedef"
+	);
 };
 
 template<
@@ -46,7 +58,6 @@ template<
 >
 void
 place(
-	majutsu::concepts::dynamic_memory::tag const *const _tag,
 	alda::bindings::fundamental_strong<
 		Type
 	> const *,
@@ -54,15 +65,11 @@ place(
 	majutsu::raw_pointer const _mem
 )
 {
-	place(
-		_tag,
-		static_cast<
-			alda::bindings::fundamental<
-				typename Type::value_type
-			> const *
-		>(
-			0
-		),
+	majutsu::place<
+		alda::bindings::fundamental<
+			typename Type::value_type
+		>
+	>(
 		_type.get(),
 		_mem
 	);
@@ -73,7 +80,6 @@ template<
 >
 Type
 make(
-	majutsu::concepts::dynamic_memory::tag const *const _tag,
 	alda::bindings::fundamental_strong<
 		Type
 	> const *,
@@ -82,15 +88,11 @@ make(
 {
 	return
 		Type(
-			make(
-				_tag,
-				static_cast<
-					alda::bindings::fundamental<
-						typename Type::value_type
-					> const *
-				>(
-					0
-				),
+			majutsu::make<
+				alda::bindings::fundamental<
+					typename Type::value_type
+				>
+			>(
 				_beg
 			)
 		);
@@ -101,8 +103,9 @@ make(
 
 namespace majutsu
 {
-namespace concepts
-{
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename Type
@@ -118,9 +121,11 @@ static_size<
 		typename Type::value_type
 	>
 >
-{};
+{
+};
 
-}
+FCPPT_PP_POP_WARNING
+
 }
 
 #endif

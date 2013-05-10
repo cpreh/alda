@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda//endianness.hpp>
 #include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/raw_pointer.hpp>
-#include <majutsu/concepts/dynamic_memory/tag.hpp>
 #include <fcppt/algorithm/copy_n.hpp>
 #include <fcppt/endianness/convert.hpp>
 
@@ -41,7 +40,6 @@ template<
 >
 typename Concept::length_type
 extract_length(
-	majutsu::concepts::dynamic_memory::tag const *,
 	Concept const *,
 	majutsu::const_raw_pointer const _memory
 )

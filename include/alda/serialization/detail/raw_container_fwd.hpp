@@ -18,11 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_SERIALIZATION_DETAIL_RAW_CONTAINER_HPP_INCLUDED
-#define ALDA_SERIALIZATION_DETAIL_RAW_CONTAINER_HPP_INCLUDED
+#ifndef ALDA_SERIALIZATION_DETAIL_RAW_CONTAINER_FWD_HPP_INCLUDED
+#define ALDA_SERIALIZATION_DETAIL_RAW_CONTAINER_FWD_HPP_INCLUDED
 
-#include <alda/serialization/detail/raw_container_fwd.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
+#include <majutsu/raw_data.hpp>
+#include <fcppt/container/raw_vector_fwd.hpp>
 
+
+namespace alda
+{
+namespace serialization
+{
+namespace detail
+{
+
+typedef fcppt::container::raw_vector<
+	majutsu::raw_data
+> raw_container;
+
+}
+}
+}
 
 #endif

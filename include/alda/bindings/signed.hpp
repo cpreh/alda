@@ -25,9 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/bindings/unsigned.hpp>
 #include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/fundamental.hpp>
+#include <majutsu/make.hpp>
+#include <majutsu/place.hpp>
 #include <majutsu/raw_pointer.hpp>
-#include <majutsu/concepts/static_size.hpp>
-#include <majutsu/concepts/dynamic_memory/tag.hpp>
+#include <majutsu/static_size.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -71,7 +72,6 @@ template<
 >
 void
 place(
-	majutsu::concepts::dynamic_memory::tag const *const _tag,
 	alda::bindings::signed_<
 		Type
 	> const *,
@@ -139,15 +139,11 @@ place(
 			)
 	);
 
-	place(
-		_tag,
-		static_cast<
-			alda::bindings::unsigned_<
-				unsigned_type
-			> const *
-		>(
-			nullptr
-		),
+	majutsu::place<
+		alda::bindings::unsigned_<
+			unsigned_type
+		>
+	>(
 		converted,
 		_mem
 	);
@@ -158,7 +154,6 @@ template<
 >
 Type
 make(
-	majutsu::concepts::dynamic_memory::tag const *const _tag,
 	alda::bindings::signed_<
 		Type
 	> const *,
@@ -171,15 +166,11 @@ make(
 
 
 	unsigned_type const converted(
-		make(
-			_tag,
-			static_cast<
-				alda::bindings::unsigned_<
-					unsigned_type
-				> const *
-			>(
-				nullptr
-			),
+		majutsu::make<
+			alda::bindings::unsigned_<
+				unsigned_type
+			>
+		>(
 			_beg
 		)
 	);
@@ -223,8 +214,6 @@ make(
 
 namespace majutsu
 {
-namespace concepts
-{
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
@@ -238,7 +227,7 @@ struct static_size<
 	>
 >
 :
-majutsu::concepts::static_size<
+majutsu::static_size<
 	majutsu::fundamental<
 		Type
 	>
@@ -248,7 +237,6 @@ majutsu::concepts::static_size<
 
 FCPPT_PP_POP_WARNING
 
-}
 }
 
 #endif

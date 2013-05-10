@@ -24,9 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/endianness.hpp>
 #include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/fundamental.hpp>
+#include <majutsu/make.hpp>
+#include <majutsu/place.hpp>
 #include <majutsu/raw_pointer.hpp>
-#include <majutsu/concepts/static_size.hpp>
-#include <majutsu/concepts/dynamic_memory/tag.hpp>
+#include <majutsu/static_size.hpp>
 #include <fcppt/endianness/convert.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -68,7 +69,6 @@ template<
 >
 void
 place(
-	majutsu::concepts::dynamic_memory::tag const *const _tag,
 	alda::bindings::unsigned_<
 		Type
 	> const *,
@@ -76,15 +76,11 @@ place(
 	majutsu::raw_pointer const _mem
 )
 {
-	place(
-		_tag,
-		static_cast<
-			majutsu::fundamental<
-				Type
-			> const *
-		>(
-			nullptr
-		),
+	majutsu::place<
+		majutsu::fundamental<
+			Type
+		>
+	>(
 		fcppt::endianness::convert(
 			_type,
 			alda::endianness()
@@ -98,7 +94,6 @@ template<
 >
 Type
 make(
-	majutsu::concepts::dynamic_memory::tag const *const _tag,
 	alda::bindings::unsigned_<
 		Type
 	> const *,
@@ -107,15 +102,11 @@ make(
 {
 	return
 		fcppt::endianness::convert(
-			make(
-				_tag,
-				static_cast<
-					majutsu::fundamental<
-						Type
-					> const *
-				>(
-					nullptr
-				),
+			majutsu::make<
+				majutsu::fundamental<
+					Type
+				>
+			>(
 				_beg
 			),
 			alda::endianness()
@@ -126,8 +117,6 @@ make(
 }
 
 namespace majutsu
-{
-namespace concepts
 {
 
 FCPPT_PP_PUSH_WARNING
@@ -142,7 +131,7 @@ struct static_size<
 	>
 >
 :
-majutsu::concepts::static_size<
+majutsu::static_size<
 	majutsu::fundamental<
 		Type
 	>
@@ -152,7 +141,6 @@ majutsu::concepts::static_size<
 
 FCPPT_PP_POP_WARNING
 
-}
 }
 
 #endif

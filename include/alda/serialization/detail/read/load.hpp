@@ -25,12 +25,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/bindings/dynamic_len.hpp>
 #include <alda/serialization/istream.hpp>
 #include <alda/serialization/detail/raw_container.hpp>
-#include <majutsu/concepts/dynamic_memory/tag.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <majutsu/make.hpp>
+#include <majutsu/raw_data.hpp>
+#include <majutsu/static_size.hpp>
+#include <fcppt/no_init.hpp>
 #include <fcppt/algorithm/copy_n.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/io/read.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <array>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
@@ -54,44 +56,33 @@ struct load
 		alda::serialization::istream &_is
 	)
 	{
-		typename Type::type ret;
+		typedef std::array<
+			majutsu::raw_data,
+			majutsu::static_size<
+				Type
+			>::value
+		> buffer_type;
 
-		alda::serialization::detail::raw_container vec(
-			// ADL call
-			needed_size(
-				static_cast<
-					majutsu::concepts::dynamic_memory::tag const *
-				>(0),
-				static_cast<
-					Type const *
-				>(0),
-				ret
-			)
-		);
+		buffer_type buffer;
 
 		_is.read(
 			reinterpret_cast<
 				char *
 			>(
-				vec.data()
+				buffer.data()
 			),
 			static_cast<
 				std::streamsize
 			>(
-				vec.size()
+				buffer.size()
 			)
 		);
 
 		return
-			// ADL call
-			make(
-				static_cast<
-					majutsu::concepts::dynamic_memory::tag const *
-				>(0),
-				static_cast<
-					Type const *
-				>(0),
-				vec.data()
+			majutsu::make<
+				Type
+			>(
+				buffer.data()
 			);
 	}
 };
@@ -132,7 +123,7 @@ struct load<
 			)
 		);
 
-		raw_container vec(
+		alda::serialization::detail::raw_container vec(
 			sz + length_sz
 		);
 
@@ -162,14 +153,9 @@ struct load<
 		);
 
 		return
-			// ADL call
-			make(
-				static_cast<
-					majutsu::concepts::dynamic_memory::tag const *
-				>(0),
-				static_cast<
-					type const *
-				>(0),
+			majutsu::make<
+				type
+			>(
 				vec.data()
 			);
 	}

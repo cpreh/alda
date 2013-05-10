@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/bindings/float.hpp>
 #include <alda/bindings/fundamental.hpp>
 #include <majutsu/const_raw_pointer.hpp>
+#include <majutsu/make.hpp>
+#include <majutsu/place.hpp>
 #include <majutsu/raw_pointer.hpp>
 #include <majutsu/size_type.hpp>
-#include <majutsu/concepts/dynamic_memory/tag.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cmath>
 #include <cstdint>
@@ -147,7 +148,6 @@ deserialize(
 
 majutsu::size_type
 alda::bindings::needed_size(
-	majutsu::concepts::dynamic_memory::tag const *,
 	alda::bindings::float_ const *,
 	alda::bindings::float_::type const &
 )
@@ -157,17 +157,14 @@ alda::bindings::needed_size(
 
 void
 alda::bindings::place(
-	majutsu::concepts::dynamic_memory::tag const *const _tag,
 	alda::bindings::float_ const *,
 	alda::bindings::float_::type const &_val,
 	majutsu::raw_pointer const _mem
 )
 {
-	place(
-		_tag,
-		static_cast<
-			adapted const *
-		>(0),
+	majutsu::place<
+		adapted
+	>(
 		serialize(
 			_val
 		),
@@ -177,18 +174,15 @@ alda::bindings::place(
 
 alda::bindings::float_::type
 alda::bindings::make(
-	majutsu::concepts::dynamic_memory::tag const *const _tag,
 	alda::bindings::float_ const *,
 	majutsu::const_raw_pointer const _beg
 )
 {
 	return
 		deserialize(
-			make(
-				_tag,
-				static_cast<
-					adapted const *
-				>(0),
+			majutsu::make<
+				adapted
+			>(
 				_beg
 			)
 		);
