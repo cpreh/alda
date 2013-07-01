@@ -124,6 +124,7 @@ alda::net::client::detail::object_impl::connect(
 		fcppt::make_unique_ptr<
 			boost::asio::ip::tcp::resolver::query
 		>(
+			boost::asio::ip::tcp::v4(),
 			_host.get(),
 			fcppt::insert_to_std_string(
 				_port
@@ -207,11 +208,7 @@ alda::net::client::detail::object_impl::resolve_handler(
 	)
 	{
 		this->handle_error(
-			FCPPT_TEXT("resolving address: ")
-			+
-			fcppt::from_std_string(
-				_error.message()
-			),
+			FCPPT_TEXT("resolving address: "),
 			_error
 		);
 
@@ -357,10 +354,7 @@ alda::net::client::detail::object_impl::connect_handler(
 		)
 		{
 			this->handle_error(
-				FCPPT_TEXT("exhausted endpoints or connection aborted: ")+
-				fcppt::from_std_string(
-					_error.message()
-				),
+				FCPPT_TEXT("exhausted endpoints or connection aborted: "),
 				_error
 			);
 
