@@ -56,11 +56,11 @@ if(
 endif()
 
 include_directories(
-	${CMAKE_SOURCE_DIR}/include
+	${FCPPT_UTILS_PROJECT_SOURCE_DIR}/include
 )
 
 include_directories(
-	${CMAKE_BINARY_DIR}/include
+	${FCPPT_UTILS_PROJECT_BINARY_DIR}/include
 )
 
 find_package(
