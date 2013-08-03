@@ -39,15 +39,14 @@ namespace dispatch
 template<
 	typename TypeEnum
 >
-struct map
-{
-	typedef boost::ptr_map<
-		typename TypeEnum::type,
-		alda::serialization::detail::dispatch::base<
-			TypeEnum
-		>
-	> type;
-};
+using map
+=
+boost::ptr_map<
+	typename TypeEnum::type,
+	alda::serialization::detail::dispatch::base<
+		TypeEnum
+	>
+>;
 
 }
 }

@@ -36,15 +36,14 @@ template<
 	typename TypeEnum,
 	typename Result
 >
-struct default_callback
-{
-	typedef std::function<
-		typename alda::call::default_function<
-			TypeEnum,
-			Result
-		>::type
-	> type;
-};
+using default_callback
+=
+std::function<
+	alda::call::default_function<
+		TypeEnum,
+		Result
+	>
+>;
 
 }
 }

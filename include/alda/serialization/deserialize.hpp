@@ -46,9 +46,9 @@ namespace serialization
 template<
 	typename TypeEnum
 >
-typename alda::message::base_unique_ptr<
+alda::message::base_unique_ptr<
 	TypeEnum
->::type
+>
 deserialize(
 	alda::serialization::context<
 		TypeEnum
@@ -121,9 +121,9 @@ deserialize(
 		)
 	);
 
-	typedef typename alda::serialization::detail::dispatch::map<
+	typedef alda::serialization::detail::dispatch::map<
 		TypeEnum
-	>::type dispatch_map;
+	> dispatch_map;
 
 	typename dispatch_map::const_iterator const it(
 		_context.handlers().find(

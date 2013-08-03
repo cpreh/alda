@@ -35,14 +35,13 @@ namespace message
 template<
 	typename TypeEnum
 >
-struct base_unique_ptr
-{
-	typedef std::unique_ptr<
-		alda::message::base<
-			TypeEnum
-		>
-	> type;
-};
+using base_unique_ptr
+=
+std::unique_ptr<
+	alda::message::base<
+		TypeEnum
+	>
+>;
 
 }
 }

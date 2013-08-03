@@ -51,9 +51,9 @@ typename boost::enable_if<
 	std::is_unsigned<
 		LengthType
 	>,
-	typename alda::message::base_unique_ptr<
+	alda::message::base_unique_ptr<
 		TypeEnum
-	>::type
+	>
 >::type
 deserialize(
 	alda::serialization::context<
@@ -74,9 +74,9 @@ deserialize(
 		)
 	);
 
-	typedef typename alda::message::base_unique_ptr<
+	typedef alda::message::base_unique_ptr<
 		TypeEnum
-	>::type result_type;
+	> result_type;
 
 	if(
 		!length

@@ -51,7 +51,7 @@ typedef alda::message::make_class<
 			>
 		>
 	>
->::type message;
+> message;
 
 bool
 check_exception(

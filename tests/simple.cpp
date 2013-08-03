@@ -74,7 +74,7 @@ typedef alda::message::base<
 
 typedef alda::message::base_unique_ptr<
 	type_enum
->::type message_base_unique_ptr;
+> message_base_unique_ptr;
 
 typedef alda::bindings::fundamental<
 	std::uint16_t
@@ -90,13 +90,13 @@ typedef alda::message::make_class<
 			alda::message::make_id<
 				type_enum,
 				message_type::message1
-			>::type,
+			>,
 			majutsu::role<
 				uint16_type
 			>
 		>
 	>
->::type message1;
+> message1;
 
 typedef alda::message::make_class<
 	majutsu::composite<
@@ -104,13 +104,13 @@ typedef alda::message::make_class<
 			alda::message::make_id<
 				type_enum,
 				message_type::message2
-			>::type,
+			>,
 			majutsu::role<
 				uint32_type
 			>
 		>
 	>
->::type message2;
+> message2;
 
 typedef alda::serialization::context<
 	type_enum

@@ -35,17 +35,17 @@ template<
 	typename TypeEnum,
 	typename Message
 >
-typename alda::message::base_unique_ptr<
+alda::message::base_unique_ptr<
 	TypeEnum
->::type
+>
 make_concrete_ptr(
 	Message const &_value
 )
 {
 	return
-		typename alda::message::base_unique_ptr<
+		alda::message::base_unique_ptr<
 			TypeEnum
-		>::type(
+		>(
 			fcppt::make_unique_ptr<
 				alda::message::concrete<
 					TypeEnum,

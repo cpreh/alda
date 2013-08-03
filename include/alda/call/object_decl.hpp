@@ -55,10 +55,10 @@ class object
 		Callee
 	> base;
 public:
-	typedef typename alda::call::default_callback<
+	typedef alda::call::default_callback<
 		TypeEnum,
 		result_type
-	>::type default_callback;
+	> default_callback;
 
 	typedef alda::message::base<
 		TypeEnum

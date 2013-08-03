@@ -45,9 +45,9 @@ class object
 		object
 	);
 public:
-	typedef typename alda::message::base_unique_ptr<
+	typedef alda::message::base_unique_ptr<
 		TypeEnum
-	>::type message_unique_ptr;
+	> message_unique_ptr;
 
 	explicit
 	object(

@@ -45,9 +45,9 @@ public:
 
 	~context();
 
-	typedef typename alda::serialization::detail::dispatch::map<
+	typedef alda::serialization::detail::dispatch::map<
 		TypeEnum
-	>::type dispatch_map;
+	> dispatch_map;
 
 	dispatch_map const &
 	handlers() const;

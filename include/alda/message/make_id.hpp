@@ -37,20 +37,19 @@ template<
 	typename EnumType,
 	typename EnumType::type MessageType
 >
-struct make_id
-{
-	typedef majutsu::role<
-		majutsu::constant<
-			alda::message::id_binding,
-			static_cast<
-				alda::serialization::detail::message_int_type
-			>(
-				MessageType
-			)
-		>,
-		alda::message::roles::type
-	> type;
-};
+using make_id
+=
+majutsu::role<
+	majutsu::constant<
+		alda::message::id_binding,
+		static_cast<
+			alda::serialization::detail::message_int_type
+		>(
+			MessageType
+		)
+	>,
+	alda::message::roles::type
+>;
 
 }
 }

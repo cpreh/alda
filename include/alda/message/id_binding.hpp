@@ -30,9 +30,11 @@ namespace alda
 namespace message
 {
 
-typedef alda::bindings::fundamental<
+typedef
+alda::bindings::fundamental<
 	alda::serialization::detail::message_int_type
-> id_binding;
+>
+id_binding;
 
 }
 }

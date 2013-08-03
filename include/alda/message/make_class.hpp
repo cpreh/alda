@@ -33,13 +33,12 @@ namespace message
 template<
 	typename Message
 >
-struct make_class
-{
-	typedef majutsu::class_<
-		Message,
-		majutsu::memory::raw
-	> type;
-};
+using make_class
+=
+majutsu::class_<
+	Message,
+	majutsu::memory::raw
+>;
 
 }
 }

@@ -33,15 +33,14 @@ template<
 	typename TypeEnum,
 	typename Result
 >
-struct default_function
-{
-	typedef Result
-	type(
-		alda::message::base<
-			TypeEnum
-		> const &
-	);
-};
+using default_function
+=
+Result
+(
+	alda::message::base<
+		TypeEnum
+	> const &
+);
 
 }
 }

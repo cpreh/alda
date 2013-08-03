@@ -46,7 +46,7 @@ typedef alda::message::make_class<
 			>
 		>
 	>
->::type message;
+> message;
 
 void
 fuzzy_equal(
