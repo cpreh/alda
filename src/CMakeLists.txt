@@ -12,6 +12,8 @@ set(
 	include/alda/bindings/detail/extract_length.hpp
 	include/alda/bindings/detail/put_length.hpp
 	include/alda/bindings/dynamic_len.hpp
+	include/alda/bindings/dynamic_len_fwd.hpp
+	include/alda/bindings/enum.hpp
 	include/alda/bindings/float.hpp
 	include/alda/bindings/float_type.hpp
 	include/alda/bindings/fundamental.hpp
@@ -115,6 +117,7 @@ set(
 	include/alda/serialization/detail/dispatch/register_impl.hpp
 	include/alda/serialization/detail/message_int_type.hpp
 	include/alda/serialization/detail/raw_container.hpp
+	include/alda/serialization/detail/raw_container_fwd.hpp
 	include/alda/serialization/detail/read/element_decl.hpp
 	include/alda/serialization/detail/read/element_fwd.hpp
 	include/alda/serialization/detail/read/element_impl.hpp

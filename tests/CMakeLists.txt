@@ -49,6 +49,11 @@ function(
 endfunction()
 
 add_alda_test(
+	enum
+	"${fcppt_core_TARGET}"
+)
+
+add_alda_test(
 	float
 	""
 )
