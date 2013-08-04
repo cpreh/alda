@@ -140,6 +140,7 @@ set(
 	include/alda/serialization/register_message.hpp
 	include/alda/serialization/serialize.hpp
 	include/alda/type_enum.hpp
+	include/alda/type_enum_fcppt.hpp
 	src/bindings/float.cpp
 	src/exception.cpp
 	src/include/alda/src/log_parameters.hpp

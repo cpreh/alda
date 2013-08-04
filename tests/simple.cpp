@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <alda/exception.hpp>
-#include <alda/type_enum.hpp>
+#include <alda/type_enum_fcppt.hpp>
 #include <alda/bindings/fundamental.hpp>
 #include <alda/call/object.hpp>
 #include <alda/message/base_decl.hpp>
@@ -60,12 +60,11 @@ enum class message_type
 {
 	message1,
 	message2,
-	size
+	fcppt_maximum = message2
 };
 
-typedef alda::type_enum<
-	message_type,
-	message_type::size
+typedef alda::type_enum_fcppt<
+	message_type
 > type_enum;
 
 typedef alda::message::base<

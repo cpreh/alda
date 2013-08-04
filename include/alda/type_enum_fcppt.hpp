@@ -18,23 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_TYPE_ENUM_HPP_INCLUDED
-#define ALDA_TYPE_ENUM_HPP_INCLUDED
+#ifndef ALDA_TYPE_ENUM_FCPPT_HPP_INCLUDED
+#define ALDA_TYPE_ENUM_FCPPT_HPP_INCLUDED
+
+#include <alda/type_enum.hpp>
+#include <fcppt/enum_size.hpp>
 
 
 namespace alda
 {
 
 template<
-	typename Enum,
-	typename Size
+	typename Enum
 >
-struct type_enum
-{
-	typedef Enum type;
-
-	typedef Size size;
-};
+using type_enum_fcppt
+=
+alda::type_enum<
+	Enum,
+	typename
+	fcppt::enum_size<
+		Enum
+	>::type
+>;
 
 }
 
