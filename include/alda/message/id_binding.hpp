@@ -22,21 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define ALDA_MESSAGE_ID_BINDING_HPP_INCLUDED
 
 #include <alda/bindings/fundamental.hpp>
-#include <alda/serialization/detail/message_int_type.hpp>
+#include <alda/message/id_binding_decl.hpp>
 
-
-namespace alda
-{
-namespace message
-{
-
-typedef
-alda::bindings::fundamental<
-	alda::serialization::detail::message_int_type
->
-id_binding;
-
-}
-}
 
 #endif

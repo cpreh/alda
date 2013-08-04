@@ -18,11 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_TYPE_ENUM_FCPPT_HPP_INCLUDED
-#define ALDA_TYPE_ENUM_FCPPT_HPP_INCLUDED
+#ifndef ALDA_MESSAGE_ID_BINDING_FWD_HPP_INCLUDED
+#define ALDA_MESSAGE_ID_BINDING_FWD_HPP_INCLUDED
 
-#include <alda/type_enum.hpp>
-#include <alda/type_enum_fcppt_fwd.hpp>
+#include <alda/bindings/fundamental_fwd.hpp>
+#include <alda/serialization/detail/message_int_type.hpp>
 
+
+namespace alda
+{
+namespace message
+{
+
+typedef
+alda::bindings::fundamental<
+	alda::serialization::detail::message_int_type
+>
+id_binding;
+
+}
+}
 
 #endif

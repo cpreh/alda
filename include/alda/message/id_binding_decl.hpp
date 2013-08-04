@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_TYPE_ENUM_FCPPT_HPP_INCLUDED
-#define ALDA_TYPE_ENUM_FCPPT_HPP_INCLUDED
+#ifndef ALDA_MESSAGE_ID_BINDING_DECL_HPP_INCLUDED
+#define ALDA_MESSAGE_ID_BINDING_DECL_HPP_INCLUDED
 
-#include <alda/type_enum.hpp>
-#include <alda/type_enum_fcppt_fwd.hpp>
+#include <alda/bindings/fundamental_decl.hpp>
+#include <alda/message/id_binding_fwd.hpp>
 
 
 #endif

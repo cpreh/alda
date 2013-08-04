@@ -22,36 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define ALDA_MESSAGE_MAKE_ID_HPP_INCLUDED
 
 #include <alda/message/id_binding.hpp>
-#include <alda/message/roles/type.hpp>
-#include <alda/serialization/detail/message_int_type.hpp>
+#include <alda/message/make_id_fwd.hpp>
 #include <majutsu/constant.hpp>
 #include <majutsu/role.hpp>
 
-
-namespace alda
-{
-namespace message
-{
-
-template<
-	typename EnumType,
-	typename EnumType::type MessageType
->
-using make_id
-=
-majutsu::role<
-	majutsu::constant<
-		alda::message::id_binding,
-		static_cast<
-			alda::serialization::detail::message_int_type
-		>(
-			MessageType
-		)
-	>,
-	alda::message::roles::type
->;
-
-}
-}
 
 #endif

@@ -21,26 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef ALDA_MESSAGE_MAKE_CLASS_HPP_INCLUDED
 #define ALDA_MESSAGE_MAKE_CLASS_HPP_INCLUDED
 
+#include <alda/message/make_class_fwd.hpp>
 #include <majutsu/class.hpp>
 #include <majutsu/memory/raw.hpp>
 
-
-namespace alda
-{
-namespace message
-{
-
-template<
-	typename Message
->
-using make_class
-=
-majutsu::class_<
-	Message,
-	majutsu::memory::raw
->;
-
-}
-}
 
 #endif

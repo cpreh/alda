@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define ALDA_BINDINGS_FUNDAMENTAL_STRONG_HPP_INCLUDED
 
 #include <alda/bindings/fundamental.hpp>
+#include <alda/bindings/fundamental_strong_fwd.hpp>
 #include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/make.hpp>
 #include <majutsu/place.hpp>

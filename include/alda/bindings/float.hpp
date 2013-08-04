@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define ALDA_BINDINGS_FLOAT_HPP_INCLUDED
 
 #include <alda/symbol.hpp>
+#include <alda/bindings/float_fwd.hpp>
 #include <alda/bindings/float_type.hpp>
 #include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/fundamental.hpp>

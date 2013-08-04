@@ -18,11 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_TYPE_ENUM_FCPPT_HPP_INCLUDED
-#define ALDA_TYPE_ENUM_FCPPT_HPP_INCLUDED
+#ifndef ALDA_MESSAGE_MAKE_ID_FWD_HPP_INCLUDED
+#define ALDA_MESSAGE_MAKE_ID_FWD_HPP_INCLUDED
 
-#include <alda/type_enum.hpp>
-#include <alda/type_enum_fcppt_fwd.hpp>
+#include <alda/message/id_binding_decl.hpp>
+#include <alda/message/roles/type.hpp>
+#include <alda/serialization/detail/message_int_type.hpp>
+#include <majutsu/constant_fwd.hpp>
+#include <majutsu/role_fwd.hpp>
 
+
+namespace alda
+{
+namespace message
+{
+
+template<
+	typename EnumType,
+	typename EnumType::type MessageType
+>
+using make_id
+=
+majutsu::role<
+	majutsu::constant<
+		alda::message::id_binding,
+		static_cast<
+			alda::serialization::detail::message_int_type
+		>(
+			MessageType
+		)
+	>,
+	alda::message::roles::type
+>;
+
+}
+}
 
 #endif

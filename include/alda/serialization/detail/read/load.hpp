@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define ALDA_SERIALIZATION_DETAIL_READ_LOAD_HPP_INCLUDED
 
 #include <alda/endianness.hpp>
-#include <alda/bindings/dynamic_len.hpp>
-#include <alda/bindings/optional.hpp>
+#include <alda/bindings/dynamic_len_fwd.hpp>
+#include <alda/bindings/optional_fwd.hpp>
 #include <alda/serialization/istream.hpp>
 #include <alda/serialization/detail/raw_container.hpp>
 #include <majutsu/make.hpp>
@@ -99,17 +99,28 @@ struct load<
 	>
 >
 {
-	static typename alda::bindings::dynamic_len<T, A>::type
+	static
+	typename
+	alda::bindings::dynamic_len<
+		T,
+		A
+	>::type
 	get(
 		alda::serialization::istream &_is
 	)
 	{
-		typedef alda::bindings::dynamic_len<T, A> type;
+		typedef
+		alda::bindings::dynamic_len<
+			T,
+			A
+		> type;
 
 		typename type::type ret;
 
 		majutsu::size_type const length_sz(
-			sizeof(typename type::length_type)
+			sizeof(
+				typename type::length_type
+			)
 		);
 
 		typedef typename type::length_type length_type;

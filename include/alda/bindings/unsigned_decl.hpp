@@ -18,11 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_TYPE_ENUM_FCPPT_HPP_INCLUDED
-#define ALDA_TYPE_ENUM_FCPPT_HPP_INCLUDED
+#ifndef ALDA_BINDINGS_UNSIGNED_DECL_HPP_INCLUDED
+#define ALDA_BINDINGS_UNSIGNED_DECL_HPP_INCLUDED
 
-#include <alda/type_enum.hpp>
-#include <alda/type_enum_fcppt_fwd.hpp>
+#include <alda/bindings/unsigned_fwd.hpp>
+#include <majutsu/fundamental_decl.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
+
+namespace alda
+{
+namespace bindings
+{
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
+template<
+	typename Type
+>
+struct unsigned_
+:
+majutsu::fundamental<
+	Type
+>
+{
+	static_assert(
+		std::is_unsigned<
+			Type
+		>::value,
+		"alda::bindings::unsigned_ only works on unsigned types"
+	);
+};
+
+FCPPT_PP_POP_WARNING
+
+}
+}
 
 #endif

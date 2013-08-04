@@ -14,14 +14,25 @@ set(
 	include/alda/bindings/dynamic_len.hpp
 	include/alda/bindings/dynamic_len_fwd.hpp
 	include/alda/bindings/enum.hpp
+	include/alda/bindings/enum_fwd.hpp
 	include/alda/bindings/float.hpp
+	include/alda/bindings/float_fwd.hpp
 	include/alda/bindings/float_type.hpp
 	include/alda/bindings/fundamental.hpp
+	include/alda/bindings/fundamental_decl.hpp
+	include/alda/bindings/fundamental_fwd.hpp
 	include/alda/bindings/fundamental_strong.hpp
+	include/alda/bindings/fundamental_strong_fwd.hpp
 	include/alda/bindings/optional.hpp
+	include/alda/bindings/optional_fwd.hpp
 	include/alda/bindings/signed.hpp
+	include/alda/bindings/signed_decl.hpp
+	include/alda/bindings/signed_fwd.hpp
 	include/alda/bindings/static.hpp
+	include/alda/bindings/static_fwd.hpp
 	include/alda/bindings/unsigned.hpp
+	include/alda/bindings/unsigned_decl.hpp
+	include/alda/bindings/unsigned_fwd.hpp
 	include/alda/call/default_callback.hpp
 	include/alda/call/default_function.hpp
 	include/alda/call/detail/base_decl.hpp
@@ -49,13 +60,17 @@ set(
 	include/alda/message/concrete_fwd.hpp
 	include/alda/message/detail/extract_id.hpp
 	include/alda/message/id_binding.hpp
+	include/alda/message/id_binding_decl.hpp
+	include/alda/message/id_binding_fwd.hpp
 	include/alda/message/impl/base_impl.hpp
 	include/alda/message/impl/concrete_impl.hpp
 	include/alda/message/instantiate_base.hpp
 	include/alda/message/instantiate_concrete.hpp
 	include/alda/message/make_class.hpp
+	include/alda/message/make_class_fwd.hpp
 	include/alda/message/make_concrete_ptr.hpp
 	include/alda/message/make_id.hpp
+	include/alda/message/make_id_fwd.hpp
 	include/alda/message/roles/type.hpp
 	include/alda/net/buffer/circular_receive/for_asio.hpp
 	include/alda/net/buffer/circular_receive/object.hpp
@@ -142,6 +157,8 @@ set(
 	include/alda/serialization/serialize.hpp
 	include/alda/type_enum.hpp
 	include/alda/type_enum_fcppt.hpp
+	include/alda/type_enum_fcppt_fwd.hpp
+	include/alda/type_enum_fwd.hpp
 	src/bindings/float.cpp
 	src/exception.cpp
 	src/include/alda/src/log_parameters.hpp

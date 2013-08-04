@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define ALDA_BINDINGS_UNSIGNED_HPP_INCLUDED
 
 #include <alda/endianness.hpp>
+#include <alda/bindings/unsigned_decl.hpp>
 #include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/fundamental.hpp>
 #include <majutsu/make.hpp>
@@ -32,37 +33,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace alda
 {
 namespace bindings
 {
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-template<
-	typename Type
->
-struct unsigned_
-:
-majutsu::fundamental<
-	Type
->
-{
-	static_assert(
-		std::is_unsigned<
-			Type
-		>::value,
-		"alda::bindings::unsigned_ only works on unsigned types"
-	);
-};
-
-FCPPT_PP_POP_WARNING
 
 template<
 	typename Type
