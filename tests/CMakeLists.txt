@@ -64,6 +64,11 @@ add_alda_test(
 )
 
 add_alda_test(
+	optional
+	"${fcppt_core_TARGET}"
+)
+
+add_alda_test(
 	signed
 	"${fcppt_core_TARGET}"
 )

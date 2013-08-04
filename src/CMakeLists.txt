@@ -18,6 +18,7 @@ set(
 	include/alda/bindings/float_type.hpp
 	include/alda/bindings/fundamental.hpp
 	include/alda/bindings/fundamental_strong.hpp
+	include/alda/bindings/optional.hpp
 	include/alda/bindings/signed.hpp
 	include/alda/bindings/static.hpp
 	include/alda/bindings/unsigned.hpp

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <alda/endianness.hpp>
 #include <alda/bindings/dynamic_len.hpp>
+#include <alda/bindings/optional.hpp>
 #include <alda/serialization/istream.hpp>
 #include <alda/serialization/detail/raw_container.hpp>
 #include <majutsu/make.hpp>
@@ -158,6 +159,65 @@ struct load<
 			>(
 				vec.data()
 			);
+	}
+};
+
+template<
+	typename T,
+	typename A
+>
+struct load<
+	alda::bindings::optional<
+		T,
+		A
+	>
+>
+{
+	static
+	typename
+	alda::bindings::optional<
+		T,
+		A
+	>::type
+	get(
+		alda::serialization::istream &_is
+	)
+	{
+		typedef
+		alda::bindings::optional<
+			T,
+			A
+		> type;
+
+		typedef typename type::bool_type::type bool_type;
+
+		bool_type const is_set(
+			*fcppt::io::read<
+				bool_type
+			>(
+				_is,
+				alda::endianness()
+			)
+		);
+
+		typedef
+		typename
+		type::type
+		optional_type;
+
+		return
+			is_set
+			?
+				optional_type(
+					alda::serialization::detail::read::load<
+						A
+					>::get(
+						_is
+					)
+				)
+			:
+				optional_type()
+			;
 	}
 };
 
