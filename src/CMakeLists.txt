@@ -12,23 +12,29 @@ set(
 	include/alda/bindings/detail/extract_length.hpp
 	include/alda/bindings/detail/put_length.hpp
 	include/alda/bindings/dynamic_len.hpp
+	include/alda/bindings/dynamic_len_decl.hpp
 	include/alda/bindings/dynamic_len_fwd.hpp
 	include/alda/bindings/enum.hpp
+	include/alda/bindings/enum_decl.hpp
 	include/alda/bindings/enum_fwd.hpp
 	include/alda/bindings/float.hpp
+	include/alda/bindings/float_decl.hpp
 	include/alda/bindings/float_fwd.hpp
 	include/alda/bindings/float_type.hpp
 	include/alda/bindings/fundamental.hpp
 	include/alda/bindings/fundamental_decl.hpp
 	include/alda/bindings/fundamental_fwd.hpp
 	include/alda/bindings/fundamental_strong.hpp
+	include/alda/bindings/fundamental_strong_decl.hpp
 	include/alda/bindings/fundamental_strong_fwd.hpp
 	include/alda/bindings/optional.hpp
+	include/alda/bindings/optional_decl.hpp
 	include/alda/bindings/optional_fwd.hpp
 	include/alda/bindings/signed.hpp
 	include/alda/bindings/signed_decl.hpp
 	include/alda/bindings/signed_fwd.hpp
 	include/alda/bindings/static.hpp
+	include/alda/bindings/static_decl.hpp
 	include/alda/bindings/static_fwd.hpp
 	include/alda/bindings/unsigned.hpp
 	include/alda/bindings/unsigned_decl.hpp

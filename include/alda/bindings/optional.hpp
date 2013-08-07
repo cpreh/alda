@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef ALDA_BINDINGS_OPTIONAL_HPP_INCLUDED
 #define ALDA_BINDINGS_OPTIONAL_HPP_INCLUDED
 
-#include <alda/bindings/optional_fwd.hpp>
+#include <alda/bindings/optional_decl.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/make.hpp>
@@ -30,34 +30,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/raw_pointer.hpp>
 #include <majutsu/size_type.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <cstdint>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace alda
 {
 namespace bindings
 {
-
-template<
-	typename Type,
-	typename Adapted
->
-struct optional
-{
-	typedef
-	fcppt::optional<
-		Type
-	>
-	type;
-
-	typedef
-	alda::bindings::unsigned_<
-		std::uint8_t
-	>
-	bool_type;
-};
 
 template<
 	typename Type,

@@ -18,16 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_BINDINGS_FUNDAMENTAL_STRONG_HPP_INCLUDED
-#define ALDA_BINDINGS_FUNDAMENTAL_STRONG_HPP_INCLUDED
+#ifndef ALDA_BINDINGS_FLOAT_DECL_HPP_INCLUDED
+#define ALDA_BINDINGS_FLOAT_DECL_HPP_INCLUDED
 
-#include <alda/bindings/fundamental.hpp>
-#include <alda/bindings/fundamental_strong_decl.hpp>
-#include <majutsu/const_raw_pointer.hpp>
-#include <majutsu/make.hpp>
-#include <majutsu/place.hpp>
-#include <majutsu/raw_pointer.hpp>
-#include <majutsu/static_size.hpp>
+#include <alda/bindings/float_fwd.hpp>
+#include <alda/bindings/float_type.hpp>
+#include <majutsu/fundamental_decl.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -38,79 +34,20 @@ namespace alda
 namespace bindings
 {
 
-template<
-	typename Type
->
-void
-place(
-	alda::bindings::fundamental_strong<
-		Type
-	> const *,
-	Type const &_type,
-	majutsu::raw_pointer const _mem
-)
-{
-	majutsu::place<
-		alda::bindings::fundamental<
-			typename Type::value_type
-		>
-	>(
-		_type.get(),
-		_mem
-	);
-}
-
-template<
-	typename Type
->
-Type
-make(
-	alda::bindings::fundamental_strong<
-		Type
-	> const *,
-	majutsu::const_raw_pointer const _beg
-)
-{
-	return
-		Type(
-			majutsu::make<
-				alda::bindings::fundamental<
-					typename Type::value_type
-				>
-			>(
-				_beg
-			)
-		);
-}
-
-}
-}
-
-namespace majutsu
-{
-
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
-template<
-	typename Type
->
-struct static_size<
-	alda::bindings::fundamental_strong<
-		Type
-	>
->
+struct float_
 :
-static_size<
-	alda::bindings::fundamental<
-		typename Type::value_type
-	>
+majutsu::fundamental<
+	alda::bindings::float_type
 >
 {
 };
 
 FCPPT_PP_POP_WARNING
 
+}
 }
 
 #endif

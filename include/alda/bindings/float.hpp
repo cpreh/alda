@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define ALDA_BINDINGS_FLOAT_HPP_INCLUDED
 
 #include <alda/symbol.hpp>
-#include <alda/bindings/float_fwd.hpp>
+#include <alda/bindings/float_decl.hpp>
 #include <alda/bindings/float_type.hpp>
 #include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/fundamental.hpp>
@@ -38,19 +38,6 @@ namespace alda
 {
 namespace bindings
 {
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-struct float_
-:
-majutsu::fundamental<
-	alda::bindings::float_type
->
-{
-};
-
-FCPPT_PP_POP_WARNING
 
 ALDA_SYMBOL
 majutsu::size_type

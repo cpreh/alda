@@ -1,7 +1,7 @@
 #ifndef ALDA_BINDINGS_DYNAMIC_LEN_HPP_INCLUDED
 #define ALDA_BINDINGS_DYNAMIC_LEN_HPP_INCLUDED
 
-#include <alda/bindings/dynamic_len_fwd.hpp>
+#include <alda/bindings/dynamic_len_decl.hpp>
 #include <alda/bindings/detail/extract_length.hpp>
 #include <alda/bindings/detail/put_length.hpp>
 #include <majutsu/const_raw_pointer.hpp>
@@ -10,26 +10,12 @@
 #include <majutsu/place.hpp>
 #include <majutsu/raw_pointer.hpp>
 #include <majutsu/size_type.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <cstdint>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace alda
 {
 namespace bindings
 {
-
-template<
-	typename Type,
-	typename Adapted
->
-struct dynamic_len
-{
-	typedef Type type;
-
-	typedef std::uint16_t length_type;
-};
 
 template<
 	typename Type,

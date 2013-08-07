@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef ALDA_BINDINGS_STATIC_HPP_INCLUDED
 #define ALDA_BINDINGS_STATIC_HPP_INCLUDED
 
-#include <alda/bindings/static_fwd.hpp>
+#include <alda/bindings/static_decl.hpp>
 #include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/integral_size.hpp>
 #include <majutsu/make.hpp>
@@ -43,15 +43,6 @@ namespace alda
 {
 namespace bindings
 {
-
-template<
-	typename Type,
-	typename Adapted
->
-struct static_
-{
-	typedef Type type;
-};
 
 template<
 	typename Type,
