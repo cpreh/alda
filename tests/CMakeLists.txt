@@ -77,3 +77,8 @@ add_alda_test(
 	simple
 	"${fcppt_core_TARGET}"
 )
+
+add_alda_test(
+	variant
+	"${fcppt_core_TARGET}"
+)

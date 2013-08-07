@@ -18,58 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_SERIALIZATION_DETAIL_READ_ELEMENT_IMPL_HPP_INCLUDED
-#define ALDA_SERIALIZATION_DETAIL_READ_ELEMENT_IMPL_HPP_INCLUDED
+#ifndef ALDA_BINDINGS_VARIANT_FWD_HPP_INCLUDED
+#define ALDA_BINDINGS_VARIANT_FWD_HPP_INCLUDED
 
-#include <alda/serialization/istream.hpp>
-#include <alda/serialization/detail/read/element_decl.hpp>
-#include <alda/serialization/load/fwd.hpp>
-#include <majutsu/access_role.hpp>
 
+namespace alda
+{
+namespace bindings
+{
 
 template<
-	typename Class
+	typename Types,
+	typename AdaptedTypes
 >
-alda::serialization::detail::read::element<
-	Class
->::element(
-	alda::serialization::istream &_stream,
-	Class &_object
-)
-:
-	stream_(
-		_stream
-	),
-	object_(
-		_object
-	)
-{
+struct variant;
+
 }
-
-template<
-	typename Class
->
-template<
-	typename Role
->
-void
-alda::serialization::detail::read::element<
-	Class
->::operator()(
-	Role &
-) const
-{
-	object_. template set<
-		typename Role::alias
-	>(
-		alda::serialization::load<
-			typename majutsu::access_role<
-				Role
-			>::type
-		>::get(
-			stream_
-		)
-	);
 }
 
 #endif

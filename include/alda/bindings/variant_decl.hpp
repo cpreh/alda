@@ -18,58 +18,57 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_SERIALIZATION_DETAIL_READ_ELEMENT_IMPL_HPP_INCLUDED
-#define ALDA_SERIALIZATION_DETAIL_READ_ELEMENT_IMPL_HPP_INCLUDED
+#ifndef ALDA_BINDINGS_VARIANT_DECL_HPP_INCLUDED
+#define ALDA_BINDINGS_VARIANT_DECL_HPP_INCLUDED
 
-#include <alda/serialization/istream.hpp>
-#include <alda/serialization/detail/read/element_decl.hpp>
-#include <alda/serialization/load/fwd.hpp>
-#include <majutsu/access_role.hpp>
+#include <alda/bindings/unsigned_fwd.hpp>
+#include <alda/bindings/variant_fwd.hpp>
+#include <fcppt/variant/object_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/size.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 
-template<
-	typename Class
->
-alda::serialization::detail::read::element<
-	Class
->::element(
-	alda::serialization::istream &_stream,
-	Class &_object
-)
-:
-	stream_(
-		_stream
-	),
-	object_(
-		_object
-	)
+namespace alda
 {
-}
+namespace bindings
+{
 
 template<
-	typename Class
+	typename Types,
+	typename AdaptedTypes
 >
-template<
-	typename Role
->
-void
-alda::serialization::detail::read::element<
-	Class
->::operator()(
-	Role &
-) const
+struct variant
 {
-	object_. template set<
-		typename Role::alias
-	>(
-		alda::serialization::load<
-			typename majutsu::access_role<
-				Role
-			>::type
-		>::get(
-			stream_
-		)
+	static_assert(
+		boost::mpl::size<
+			Types
+		>::value
+		==
+		boost::mpl::size<
+			AdaptedTypes
+		>::value,
+		"Types and AdaptedTypes must be of same size"
 	);
+
+	typedef
+	fcppt::variant::object<
+		Types
+	> type;
+
+	typedef
+	AdaptedTypes
+	adapted_types;
+
+	typedef
+	alda::bindings::unsigned_<
+		std::uint8_t
+	>
+	index_type;
+};
+
+}
 }
 
 #endif

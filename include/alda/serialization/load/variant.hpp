@@ -18,58 +18,70 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_SERIALIZATION_DETAIL_READ_ELEMENT_IMPL_HPP_INCLUDED
-#define ALDA_SERIALIZATION_DETAIL_READ_ELEMENT_IMPL_HPP_INCLUDED
+#ifndef ALDA_SERIALIZATION_LOAD_VARIANT_HPP_INCLUDED
+#define ALDA_SERIALIZATION_LOAD_VARIANT_HPP_INCLUDED
 
+#include <alda/endianness.hpp>
+#include <alda/bindings/variant_decl.hpp>
 #include <alda/serialization/istream.hpp>
-#include <alda/serialization/detail/read/element_decl.hpp>
+#include <alda/serialization/detail/load_variant.hpp>
 #include <alda/serialization/load/fwd.hpp>
-#include <majutsu/access_role.hpp>
+#include <fcppt/io/read.hpp>
+#include <fcppt/mpl/invoke_on.hpp>
 
+
+namespace alda
+{
+namespace serialization
+{
 
 template<
-	typename Class
+	typename Types,
+	typename AdaptedTypes
 >
-alda::serialization::detail::read::element<
-	Class
->::element(
-	alda::serialization::istream &_stream,
-	Class &_object
-)
-:
-	stream_(
-		_stream
-	),
-	object_(
-		_object
+struct load<
+	alda::bindings::variant<
+		Types,
+		AdaptedTypes
+	>
+>
+{
+	static
+	typename
+	alda::bindings::variant<
+		Types,
+		AdaptedTypes
+	>::type
+	get(
+		alda::serialization::istream &_is
 	)
-{
-}
+	{
+		typedef
+		alda::bindings::variant<
+			Types,
+			AdaptedTypes
+		> type;
 
-template<
-	typename Class
->
-template<
-	typename Role
->
-void
-alda::serialization::detail::read::element<
-	Class
->::operator()(
-	Role &
-) const
-{
-	object_. template set<
-		typename Role::alias
-	>(
-		alda::serialization::load<
-			typename majutsu::access_role<
-				Role
-			>::type
-		>::get(
-			stream_
-		)
-	);
+		return
+			fcppt::mpl::invoke_on<
+				Types
+			>(
+				*fcppt::io::read<
+					typename type::index_type::type
+				>(
+					_is,
+					alda::endianness()
+				),
+				alda::serialization::detail::load_variant<
+					Types
+				>(
+					_is
+				)
+			);
+	}
+};
+
+}
 }
 
 #endif

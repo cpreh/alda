@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/serialization/length/deserialize.hpp>
 #include <alda/serialization/length/put.hpp>
 #include <alda/serialization/length/serialize.hpp>
+#include <alda/serialization/load/static_size.hpp>
 #include <majutsu/composite.hpp>
 #include <majutsu/role.hpp>
 #include <fcppt/nonassignable.hpp>

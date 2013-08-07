@@ -18,22 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_SERIALIZATION_DETAIL_READ_LOAD_HPP_INCLUDED
-#define ALDA_SERIALIZATION_DETAIL_READ_LOAD_HPP_INCLUDED
+#ifndef ALDA_SERIALIZATION_LOAD_DYNAMIC_LEN_HPP_INCLUDED
+#define ALDA_SERIALIZATION_LOAD_DYNAMIC_LEN_HPP_INCLUDED
 
 #include <alda/endianness.hpp>
-#include <alda/bindings/dynamic_len_fwd.hpp>
-#include <alda/bindings/optional_fwd.hpp>
+#include <alda/bindings/dynamic_len_decl.hpp>
 #include <alda/serialization/istream.hpp>
 #include <alda/serialization/detail/raw_container.hpp>
+#include <alda/serialization/load/fwd.hpp>
 #include <majutsu/make.hpp>
-#include <majutsu/raw_data.hpp>
-#include <majutsu/static_size.hpp>
-#include <fcppt/no_init.hpp>
+#include <majutsu/size_type.hpp>
 #include <fcppt/algorithm/copy_n.hpp>
 #include <fcppt/io/read.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <array>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
@@ -42,51 +39,6 @@ namespace alda
 {
 namespace serialization
 {
-namespace detail
-{
-namespace read
-{
-
-template<
-	typename Type
->
-struct load
-{
-	static typename Type::type
-	get(
-		alda::serialization::istream &_is
-	)
-	{
-		typedef std::array<
-			majutsu::raw_data,
-			majutsu::static_size<
-				Type
-			>::value
-		> buffer_type;
-
-		buffer_type buffer;
-
-		_is.read(
-			reinterpret_cast<
-				char *
-			>(
-				buffer.data()
-			),
-			static_cast<
-				std::streamsize
-			>(
-				buffer.size()
-			)
-		);
-
-		return
-			majutsu::make<
-				Type
-			>(
-				buffer.data()
-			);
-	}
-};
 
 template<
 	typename T,
@@ -136,16 +88,20 @@ struct load<
 		);
 
 		alda::serialization::detail::raw_container vec(
-			sz + length_sz
+			sz
+			+
+			length_sz
 		);
 
 		fcppt::algorithm::copy_n(
 			reinterpret_cast<
-				raw_container::const_pointer
+				alda::serialization::detail::raw_container::const_pointer
 			>(
 				&sz
 			),
-			sizeof(length_type),
+			sizeof(
+				length_type
+			),
 			vec.data()
 		);
 
@@ -173,67 +129,6 @@ struct load<
 	}
 };
 
-template<
-	typename T,
-	typename A
->
-struct load<
-	alda::bindings::optional<
-		T,
-		A
-	>
->
-{
-	static
-	typename
-	alda::bindings::optional<
-		T,
-		A
-	>::type
-	get(
-		alda::serialization::istream &_is
-	)
-	{
-		typedef
-		alda::bindings::optional<
-			T,
-			A
-		> type;
-
-		typedef typename type::bool_type::type bool_type;
-
-		bool_type const is_set(
-			*fcppt::io::read<
-				bool_type
-			>(
-				_is,
-				alda::endianness()
-			)
-		);
-
-		typedef
-		typename
-		type::type
-		optional_type;
-
-		return
-			is_set
-			?
-				optional_type(
-					alda::serialization::detail::read::load<
-						A
-					>::get(
-						_is
-					)
-				)
-			:
-				optional_type()
-			;
-	}
-};
-
-}
-}
 }
 }
 

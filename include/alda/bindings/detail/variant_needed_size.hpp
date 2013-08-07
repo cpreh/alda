@@ -18,58 +18,61 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_SERIALIZATION_DETAIL_READ_ELEMENT_IMPL_HPP_INCLUDED
-#define ALDA_SERIALIZATION_DETAIL_READ_ELEMENT_IMPL_HPP_INCLUDED
+#ifndef ALDA_BINDINGS_DETAIL_VARIANT_NEEDED_SIZE_HPP_INCLUDED
+#define ALDA_BINDINGS_DETAIL_VARIANT_NEEDED_SIZE_HPP_INCLUDED
 
-#include <alda/serialization/istream.hpp>
-#include <alda/serialization/detail/read/element_decl.hpp>
-#include <alda/serialization/load/fwd.hpp>
-#include <majutsu/access_role.hpp>
+#include <majutsu/needed_size.hpp>
+#include <majutsu/size_type.hpp>
+#include <fcppt/mpl/index_of.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/at.hpp>
+#include <fcppt/config/external_end.hpp>
 
+
+namespace alda
+{
+namespace bindings
+{
+namespace detail
+{
 
 template<
-	typename Class
+	typename Types,
+	typename AdaptedTypes
 >
-alda::serialization::detail::read::element<
-	Class
->::element(
-	alda::serialization::istream &_stream,
-	Class &_object
-)
-:
-	stream_(
-		_stream
-	),
-	object_(
-		_object
-	)
+struct variant_needed_size
 {
+	typedef
+	majutsu::size_type
+	result_type;
+
+	template<
+		typename Type
+	>
+	result_type
+	operator()(
+		Type const &_type
+	) const
+	{
+		return
+			majutsu::needed_size<
+				typename
+				boost::mpl::at<
+					AdaptedTypes,
+					typename
+					fcppt::mpl::index_of<
+						Types,
+						Type
+					>::type
+				>::type
+			>(
+				_type
+			);
+	}
+};
+
 }
-
-template<
-	typename Class
->
-template<
-	typename Role
->
-void
-alda::serialization::detail::read::element<
-	Class
->::operator()(
-	Role &
-) const
-{
-	object_. template set<
-		typename Role::alias
-	>(
-		alda::serialization::load<
-			typename majutsu::access_role<
-				Role
-			>::type
-		>::get(
-			stream_
-		)
-	);
+}
 }
 
 #endif

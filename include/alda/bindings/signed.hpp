@@ -101,13 +101,17 @@ place(
 			static_cast<
 				unsigned_type
 			>(
-				-_value
-			)
-			+
-			static_cast<
-				unsigned_type
-			>(
-				max
+				static_cast<
+					unsigned_type
+				>(
+					-_value
+				)
+				+
+				static_cast<
+					unsigned_type
+				>(
+					max
+				)
 			)
 		:
 			static_cast<
@@ -172,11 +176,15 @@ make(
 		>
 		converted_max
 		?
-			-
 			static_cast<
 				Type
 			>(
-				converted - converted_max
+				-
+				static_cast<
+					Type
+				>(
+					converted - converted_max
+				)
 			)
 		:
 			static_cast<

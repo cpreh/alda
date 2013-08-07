@@ -11,6 +11,9 @@ set(
 	ALDA_FILES
 	include/alda/bindings/detail/extract_length.hpp
 	include/alda/bindings/detail/put_length.hpp
+	include/alda/bindings/detail/variant_make.hpp
+	include/alda/bindings/detail/variant_needed_size.hpp
+	include/alda/bindings/detail/variant_place.hpp
 	include/alda/bindings/dynamic_len.hpp
 	include/alda/bindings/dynamic_len_decl.hpp
 	include/alda/bindings/dynamic_len_fwd.hpp
@@ -39,6 +42,9 @@ set(
 	include/alda/bindings/unsigned.hpp
 	include/alda/bindings/unsigned_decl.hpp
 	include/alda/bindings/unsigned_fwd.hpp
+	include/alda/bindings/variant.hpp
+	include/alda/bindings/variant_decl.hpp
+	include/alda/bindings/variant_fwd.hpp
 	include/alda/call/default_callback.hpp
 	include/alda/call/default_function.hpp
 	include/alda/call/detail/base_decl.hpp
@@ -137,13 +143,13 @@ set(
 	include/alda/serialization/detail/dispatch/register_decl.hpp
 	include/alda/serialization/detail/dispatch/register_fwd.hpp
 	include/alda/serialization/detail/dispatch/register_impl.hpp
+	include/alda/serialization/detail/load_variant.hpp
 	include/alda/serialization/detail/message_int_type.hpp
 	include/alda/serialization/detail/raw_container.hpp
 	include/alda/serialization/detail/raw_container_fwd.hpp
 	include/alda/serialization/detail/read/element_decl.hpp
 	include/alda/serialization/detail/read/element_fwd.hpp
 	include/alda/serialization/detail/read/element_impl.hpp
-	include/alda/serialization/detail/read/load.hpp
 	include/alda/serialization/detail/read/make_object.hpp
 	include/alda/serialization/detail/read/object_decl.hpp
 	include/alda/serialization/detail/read/object_functions_impl.hpp
@@ -158,6 +164,11 @@ set(
 	include/alda/serialization/length/extract.hpp
 	include/alda/serialization/length/put.hpp
 	include/alda/serialization/length/serialize.hpp
+	include/alda/serialization/load/dynamic_len.hpp
+	include/alda/serialization/load/fwd.hpp
+	include/alda/serialization/load/optional.hpp
+	include/alda/serialization/load/static_size.hpp
+	include/alda/serialization/load/variant.hpp
 	include/alda/serialization/ostream.hpp
 	include/alda/serialization/register_message.hpp
 	include/alda/serialization/serialize.hpp
