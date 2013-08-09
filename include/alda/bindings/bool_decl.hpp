@@ -18,63 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_SERIALIZATION_DETAIL_READ_MAKE_OBJECT_HPP_INCLUDED
-#define ALDA_SERIALIZATION_DETAIL_READ_MAKE_OBJECT_HPP_INCLUDED
+#ifndef ALDA_BINDINGS_BOOL_DECL_HPP_INCLUDED
+#define ALDA_BINDINGS_BOOL_DECL_HPP_INCLUDED
 
-#include <alda/serialization/istream.hpp>
-#include <alda/serialization/detail/read/element_impl.hpp>
-#include <majutsu/is_role.hpp>
-#include <fcppt/no_init.hpp>
+#include <alda/bindings/bool_fwd.hpp>
+#include <alda/bindings/unsigned_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/filter_view.hpp>
-#include <boost/mpl/for_each.hpp>
-#include <boost/mpl/placeholders.hpp>
+#include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
 
 namespace alda
 {
-namespace serialization
-{
-namespace detail
-{
-namespace read
+namespace bindings
 {
 
-template<
-	typename Message
->
-Message const
-make_object(
-	alda::serialization::istream &_stream
-)
+struct bool_
 {
-	Message obj{
-		fcppt::no_init()
-	};
+	typedef
+	bool
+	type;
 
-	boost::mpl::for_each<
-		boost::mpl::filter_view<
-			typename Message::memory_type::types,
-			majutsu::is_role<
-				boost::mpl::_1
-			>
-		>
-	>(
-		alda::serialization::detail::read::element<
-			Message
-		>(
-			_stream,
-			obj
-		)
-	);
-
-	return obj;
-}
+	typedef
+	alda::bindings::unsigned_<
+		std::uint8_t
+	>
+	wrapped_type;
+};
 
 }
 }
-}
-}
+
 
 #endif

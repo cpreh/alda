@@ -9,6 +9,9 @@ add_definitions(
 
 set(
 	ALDA_FILES
+	include/alda/bindings/bool.hpp
+	include/alda/bindings/bool_decl.hpp
+	include/alda/bindings/bool_fwd.hpp
 	include/alda/bindings/detail/extract_length.hpp
 	include/alda/bindings/detail/put_length.hpp
 	include/alda/bindings/detail/variant_make.hpp
@@ -27,9 +30,6 @@ set(
 	include/alda/bindings/fundamental.hpp
 	include/alda/bindings/fundamental_decl.hpp
 	include/alda/bindings/fundamental_fwd.hpp
-	include/alda/bindings/fundamental_strong.hpp
-	include/alda/bindings/fundamental_strong_decl.hpp
-	include/alda/bindings/fundamental_strong_fwd.hpp
 	include/alda/bindings/optional.hpp
 	include/alda/bindings/optional_decl.hpp
 	include/alda/bindings/optional_fwd.hpp
@@ -39,6 +39,9 @@ set(
 	include/alda/bindings/static.hpp
 	include/alda/bindings/static_decl.hpp
 	include/alda/bindings/static_fwd.hpp
+	include/alda/bindings/strong_typedef.hpp
+	include/alda/bindings/strong_typedef_decl.hpp
+	include/alda/bindings/strong_typedef_fwd.hpp
 	include/alda/bindings/unsigned.hpp
 	include/alda/bindings/unsigned_decl.hpp
 	include/alda/bindings/unsigned_fwd.hpp

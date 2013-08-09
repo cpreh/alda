@@ -18,11 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_BINDINGS_FUNDAMENTAL_STRONG_DECL_HPP_INCLUDED
-#define ALDA_BINDINGS_FUNDAMENTAL_STRONG_DECL_HPP_INCLUDED
-
-#include <alda/bindings/fundamental_strong_fwd.hpp>
-#include <fcppt/is_strong_typedef.hpp>
+#ifndef ALDA_BINDINGS_STRONG_TYPEDEF_FWD_HPP_INCLUDED
+#define ALDA_BINDINGS_STRONG_TYPEDEF_FWD_HPP_INCLUDED
 
 
 namespace alda
@@ -31,19 +28,10 @@ namespace bindings
 {
 
 template<
-	typename T
+	typename Type,
+	typename Adapted
 >
-struct fundamental_strong
-{
-	typedef T type;
-
-	static_assert(
-		fcppt::is_strong_typedef<
-			T
-		>::value,
-		"T must be a strong typedef"
-	);
-};
+struct strong_typedef;
 
 }
 }

@@ -79,6 +79,11 @@ add_alda_test(
 )
 
 add_alda_test(
+	strong_typedef
+	"${fcppt_core_TARGET}"
+)
+
+add_alda_test(
 	variant
 	"${fcppt_core_TARGET}"
 )

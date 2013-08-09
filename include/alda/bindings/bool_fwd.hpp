@@ -18,12 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_BINDINGS_OPTIONAL_DECL_HPP_INCLUDED
-#define ALDA_BINDINGS_OPTIONAL_DECL_HPP_INCLUDED
-
-#include <alda/bindings/bool_fwd.hpp>
-#include <alda/bindings/optional_fwd.hpp>
-#include <fcppt/optional_fwd.hpp>
+#ifndef ALDA_BINDINGS_BOOL_FWD_HPP_INCLUDED
+#define ALDA_BINDINGS_BOOL_FWD_HPP_INCLUDED
 
 
 namespace alda
@@ -31,22 +27,7 @@ namespace alda
 namespace bindings
 {
 
-template<
-	typename Type,
-	typename Adapted
->
-struct optional
-{
-	typedef
-	fcppt::optional<
-		Type
-	>
-	type;
-
-	typedef
-	alda::bindings::bool_
-	bool_type;
-};
+struct bool_;
 
 }
 }
