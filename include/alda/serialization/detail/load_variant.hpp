@@ -71,9 +71,7 @@ public:
 		typename Type
 	>
 	result_type
-	operator()(
-		Type const &_value
-	) const
+	operator()() const
 	{
 		return
 			result_type(

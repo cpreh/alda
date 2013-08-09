@@ -73,7 +73,8 @@ struct load<
 					alda::endianness()
 				),
 				alda::serialization::detail::load_variant<
-					Types
+					Types,
+					AdaptedTypes
 				>(
 					_is
 				)
