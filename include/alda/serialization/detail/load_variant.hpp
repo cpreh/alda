@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define ALDA_SERIALIZATION_DETAIL_LOAD_VARIANT_HPP_INCLUDED
 
 #include <alda/bindings/variant_decl.hpp>
-#include <alda/serialization/istream.hpp>
+#include <alda/serialization/istream_fwd.hpp>
 #include <alda/serialization/load/fwd.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/mpl/index_of.hpp>

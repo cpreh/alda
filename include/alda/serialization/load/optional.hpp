@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <alda/endianness.hpp>
 #include <alda/bindings/optional_decl.hpp>
-#include <alda/serialization/istream.hpp>
+#include <alda/serialization/istream_fwd.hpp>
 #include <alda/serialization/load/fwd.hpp>
 #include <fcppt/io/read.hpp>
 

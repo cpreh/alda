@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef ALDA_SERIALIZATION_DETAIL_READ_ELEMENT_IMPL_HPP_INCLUDED
 #define ALDA_SERIALIZATION_DETAIL_READ_ELEMENT_IMPL_HPP_INCLUDED
 
-#include <alda/serialization/istream.hpp>
+#include <alda/serialization/istream_fwd.hpp>
 #include <alda/serialization/detail/read/element_decl.hpp>
 #include <alda/serialization/load/fwd.hpp>
 #include <majutsu/access_role.hpp>

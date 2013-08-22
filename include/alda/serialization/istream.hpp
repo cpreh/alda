@@ -21,19 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef ALDA_SERIALIZATION_ISTREAM_HPP_INCLUDED
 #define ALDA_SERIALIZATION_ISTREAM_HPP_INCLUDED
 
+#include <alda/serialization/istream_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <iosfwd>
+#include <istream>
 #include <fcppt/config/external_end.hpp>
 
-
-namespace alda
-{
-namespace serialization
-{
-
-typedef std::istream istream;
-
-}
-}
 
 #endif
