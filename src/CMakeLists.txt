@@ -98,6 +98,7 @@ set(
 	include/alda/net/buffer/circular_send/object_fwd.hpp
 	include/alda/net/buffer/circular_send/optional_ref.hpp
 	include/alda/net/buffer/circular_send/optional_ref_fwd.hpp
+	include/alda/net/buffer/circular_send/sink.hpp
 	include/alda/net/buffer/max_receive_size.hpp
 	include/alda/net/buffer/max_send_size.hpp
 	include/alda/net/client/connect_callback.hpp
@@ -163,6 +164,7 @@ set(
 	include/alda/serialization/instantiate_details.hpp
 	include/alda/serialization/instantiate_message.hpp
 	include/alda/serialization/istream.hpp
+	include/alda/serialization/istream_fwd.hpp
 	include/alda/serialization/length/deserialize.hpp
 	include/alda/serialization/length/extract.hpp
 	include/alda/serialization/length/put.hpp
@@ -192,7 +194,9 @@ set(
 	src/net/buffer/circular_receive/for_asio.cpp
 	src/net/buffer/circular_receive/object.cpp
 	src/net/buffer/circular_receive/part.cpp
+	src/net/buffer/circular_receive/source.cpp
 	src/net/buffer/circular_send/object.cpp
+	src/net/buffer/circular_send/sink.cpp
 	src/net/client/detail/object_impl.cpp
 	src/net/client/object.cpp
 	src/net/exception.cpp
