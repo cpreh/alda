@@ -9,6 +9,12 @@ add_definitions(
 
 set(
 	ALDA_FILES
+	include/alda/bindings/array.hpp
+	include/alda/bindings/array_decl.hpp
+	include/alda/bindings/array_fwd.hpp
+	include/alda/bindings/bitfield.hpp
+	include/alda/bindings/bitfield_decl.hpp
+	include/alda/bindings/bitfield_fwd.hpp
 	include/alda/bindings/bool.hpp
 	include/alda/bindings/bool_decl.hpp
 	include/alda/bindings/bool_fwd.hpp
