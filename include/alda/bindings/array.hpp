@@ -18,17 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_BINDINGS_STATIC_HPP_INCLUDED
-#define ALDA_BINDINGS_STATIC_HPP_INCLUDED
+#ifndef ALDA_BINDINGS_ARRAY_HPP_INCLUDED
+#define ALDA_BINDINGS_ARRAY_HPP_INCLUDED
 
-#include <alda/bindings/array.hpp>
-#include <alda/bindings/static_decl.hpp>
+#include <alda/bindings/array_decl.hpp>
 #include <majutsu/const_raw_pointer.hpp>
+#include <majutsu/integral_size.hpp>
 #include <majutsu/make.hpp>
 #include <majutsu/needed_size.hpp>
 #include <majutsu/place.hpp>
 #include <majutsu/raw_pointer.hpp>
+#include <majutsu/size_type.hpp>
 #include <majutsu/static_size.hpp>
+#include <fcppt/container/array_size.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -45,24 +47,34 @@ template<
 >
 void
 place(
-	alda::bindings::static_<
+	alda::bindings::array<
 		Type,
 		Adapted
 	> const *,
 	Type const &_value,
-	majutsu::raw_pointer const _mem
+	majutsu::raw_pointer _mem
 )
 {
-	majutsu::place<
-		alda::bindings::array<
-			typename
-			Type::storage_type,
+	for(
+		auto const &elem
+		:
+		_value
+	)
+	{
+		majutsu::place<
 			Adapted
-		>
-	>(
-		_value.storage(),
-		_mem
-	);
+		>(
+			elem,
+			_mem
+		);
+
+		_mem +=
+			majutsu::needed_size<
+				Adapted
+			>(
+				elem
+			);
+	}
 }
 
 template<
@@ -71,25 +83,39 @@ template<
 >
 Type
 make(
-	alda::bindings::static_<
+	alda::bindings::array<
 		Type,
 		Adapted
 	> const *,
-	majutsu::const_raw_pointer const _mem
+	majutsu::const_raw_pointer _mem
 )
 {
-	return
-		Type(
+	// TODO: We should fold the array here
+	Type ret;
+
+	for(
+		auto &elem
+		:
+		ret
+	)
+	{
+		elem =
 			majutsu::make<
-				alda::bindings::array<
-					typename
-					Type::storage_type,
-					Adapted
-				>
+				Adapted
 			>(
 				_mem
-			)
-		);
+			);
+
+		_mem +=
+			majutsu::needed_size<
+				Adapted
+			>(
+				elem
+			);
+	}
+
+	return
+		ret;
 }
 
 }
@@ -106,18 +132,25 @@ template<
 	typename Adapted
 >
 struct static_size<
-	alda::bindings::static_<
+	alda::bindings::array<
 		Type,
 		Adapted
 	>
 >
 :
-majutsu::static_size<
-	alda::bindings::array<
-		typename
-		Type::storage_type,
+majutsu::integral_size<
+	// Can't use mpl::multiplies here because std::integral_constant doesn't work
+	static_cast<
+		majutsu::size_type
+	>(
+		fcppt::container::array_size<
+			Type
+		>::value
+	)
+	*
+	majutsu::static_size<
 		Adapted
-	>
+	>::value
 >
 {
 };

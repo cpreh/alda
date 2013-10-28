@@ -49,6 +49,11 @@ function(
 endfunction()
 
 add_alda_test(
+	bitfield
+	"${fcppt_core_TARGET}"
+)
+
+add_alda_test(
 	enum
 	"${fcppt_core_TARGET}"
 )
@@ -75,6 +80,11 @@ add_alda_test(
 
 add_alda_test(
 	simple
+	"${fcppt_core_TARGET}"
+)
+
+add_alda_test(
+	static
 	"${fcppt_core_TARGET}"
 )
 

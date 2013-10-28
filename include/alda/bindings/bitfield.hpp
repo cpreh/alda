@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_BINDINGS_STATIC_HPP_INCLUDED
-#define ALDA_BINDINGS_STATIC_HPP_INCLUDED
+#ifndef ALDA_BINDINGS_BITFIELD_HPP_INCLUDED
+#define ALDA_BINDINGS_BITFIELD_HPP_INCLUDED
 
 #include <alda/bindings/array.hpp>
-#include <alda/bindings/static_decl.hpp>
+#include <alda/bindings/bitfield_decl.hpp>
+#include <alda/bindings/unsigned.hpp>
 #include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/make.hpp>
-#include <majutsu/needed_size.hpp>
 #include <majutsu/place.hpp>
 #include <majutsu/raw_pointer.hpp>
 #include <majutsu/static_size.hpp>
@@ -40,40 +40,35 @@ namespace bindings
 {
 
 template<
-	typename Type,
-	typename Adapted
+	typename Type
 >
 void
 place(
-	alda::bindings::static_<
-		Type,
-		Adapted
+	alda::bindings::bitfield<
+		Type
 	> const *,
 	Type const &_value,
 	majutsu::raw_pointer const _mem
 )
 {
 	majutsu::place<
-		alda::bindings::array<
-			typename
-			Type::storage_type,
-			Adapted
-		>
+		typename
+		alda::bindings::bitfield<
+			Type
+		>::wrapped
 	>(
-		_value.storage(),
+		_value.array(),
 		_mem
 	);
 }
 
 template<
-	typename Type,
-	typename Adapted
+	typename Type
 >
 Type
 make(
-	alda::bindings::static_<
-		Type,
-		Adapted
+	alda::bindings::bitfield<
+		Type
 	> const *,
 	majutsu::const_raw_pointer const _mem
 )
@@ -81,11 +76,10 @@ make(
 	return
 		Type(
 			majutsu::make<
-				alda::bindings::array<
-					typename
-					Type::storage_type,
-					Adapted
-				>
+				typename
+				alda::bindings::bitfield<
+					Type
+				>::wrapped
 			>(
 				_mem
 			)
@@ -102,22 +96,19 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
-	typename Type,
-	typename Adapted
+	typename Type
 >
 struct static_size<
-	alda::bindings::static_<
-		Type,
-		Adapted
+	alda::bindings::bitfield<
+		Type
 	>
 >
 :
 majutsu::static_size<
-	alda::bindings::array<
-		typename
-		Type::storage_type,
-		Adapted
-	>
+	typename
+	alda::bindings::bitfield<
+		Type
+	>::wrapped
 >
 {
 };
