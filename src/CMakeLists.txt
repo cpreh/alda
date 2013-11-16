@@ -276,16 +276,10 @@ function(
 
 	target_link_libraries(
 		${ALDA_LIB_NAME}
+		PRIVATE
 		${fcppt_core_TARGET}
 		${FcpptThreads_LIBRARIES}
 		${Boost_SYSTEM_LIBRARY}
-	)
-
-	set_target_properties(
-		${ALDA_LIB_NAME}
-		PROPERTIES
-		LINK_INTERFACE_LIBRARIES
-		""
 	)
 
 	fcppt_utils_export_install_target(
