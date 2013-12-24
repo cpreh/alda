@@ -74,7 +74,7 @@ BOOST_AUTO_TEST_CASE(
 FCPPT_PP_POP_WARNING
 
 	bitfield test(
-		false
+		bitfield::null()
 	);
 
 	test[
