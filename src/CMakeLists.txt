@@ -18,6 +18,9 @@ set(
 	include/alda/bindings/bool.hpp
 	include/alda/bindings/bool_decl.hpp
 	include/alda/bindings/bool_fwd.hpp
+	include/alda/bindings/class.hpp
+	include/alda/bindings/class_decl.hpp
+	include/alda/bindings/class_fwd.hpp
 	include/alda/bindings/detail/extract_length.hpp
 	include/alda/bindings/detail/put_length.hpp
 	include/alda/bindings/detail/variant_make.hpp

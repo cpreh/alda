@@ -44,7 +44,7 @@ namespace read
 template<
 	typename Message
 >
-Message const
+Message
 make_object(
 	alda::serialization::istream &_stream
 )
