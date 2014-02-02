@@ -38,6 +38,48 @@ template<
 >
 alda::message::base<
 	TypeEnum
+>::base(
+	base const &
+) = default;
+
+template<
+	typename TypeEnum
+>
+alda::message::base<
+	TypeEnum
+> &
+alda::message::base<
+	TypeEnum
+>::operator=(
+	base const &
+) = default;
+
+template<
+	typename TypeEnum
+>
+alda::message::base<
+	TypeEnum
+>::base(
+	base &&
+) = default;
+
+template<
+	typename TypeEnum
+>
+alda::message::base<
+	TypeEnum
+> &
+alda::message::base<
+	TypeEnum
+>::operator=(
+	base &&
+) = default;
+
+template<
+	typename TypeEnum
+>
+alda::message::base<
+	TypeEnum
 >::~base()
 {
 }

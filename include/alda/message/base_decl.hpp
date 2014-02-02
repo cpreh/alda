@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/message/base_fwd.hpp>
 #include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/size_type.hpp>
-#include <fcppt/noncopyable.hpp>
 
 
 namespace alda
@@ -37,11 +36,26 @@ template<
 >
 class base
 {
-	FCPPT_NONCOPYABLE(
-		base
-	);
 protected:
 	base();
+
+	base(
+		base const &
+	);
+
+	base &
+	operator=(
+		base const &
+	);
+
+	base(
+		base &&
+	);
+
+	base &
+	operator=(
+		base &&
+	);
 public:
 	typedef typename TypeEnum::type type_enum;
 

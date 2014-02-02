@@ -50,6 +50,58 @@ template<
 alda::message::concrete<
 	TypeEnum,
 	Type
+>::concrete(
+	concrete const &
+) = default;
+
+template<
+	typename TypeEnum,
+	typename Type
+>
+alda::message::concrete<
+	TypeEnum,
+	Type
+> &
+alda::message::concrete<
+	TypeEnum,
+	Type
+>::operator=(
+	concrete const &
+) = default;
+
+template<
+	typename TypeEnum,
+	typename Type
+>
+alda::message::concrete<
+	TypeEnum,
+	Type
+>::concrete(
+	concrete &&
+) = default;
+
+template<
+	typename TypeEnum,
+	typename Type
+>
+alda::message::concrete<
+	TypeEnum,
+	Type
+> &
+alda::message::concrete<
+	TypeEnum,
+	Type
+>::operator=(
+	concrete &&
+) = default;
+
+template<
+	typename TypeEnum,
+	typename Type
+>
+alda::message::concrete<
+	TypeEnum,
+	Type
 >::~concrete()
 {
 }
