@@ -41,11 +41,16 @@ class concrete
 		TypeEnum
 	>
 {
-	typedef alda::message::base<
+	typedef
+	alda::message::base<
 		TypeEnum
-	> base_type;
+	>
+	base_type;
 public:
-	typedef typename base_type::type_enum type_enum;
+	typedef
+	typename
+	base_type::type_enum
+	type_enum;
 
 	explicit
 	concrete(
@@ -75,18 +80,36 @@ public:
 	Type const &
 	value() const;
 private:
-	typedef typename base_type::const_raw_pointer const_raw_pointer;
+	typedef
+	typename
+	base_type::const_raw_pointer
+	const_raw_pointer;
 
-	typedef typename base_type::size_type size_type;
+	typedef
+	typename
+	base_type::unique_ptr
+	unique_ptr;
+
+	typedef
+	typename
+	base_type::size_type
+	size_type;
 
 	type_enum
-	type() const;
+	type() const
+	override;
 
 	const_raw_pointer
-	data() const;
+	data() const
+	override;
 
 	size_type
-	size() const;
+	size() const
+	override;
+
+	unique_ptr
+	clone() const
+	override;
 
 	Type value_;
 };

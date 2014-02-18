@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define ALDA_MESSAGE_BASE_DECL_HPP_INCLUDED
 
 #include <alda/message/base_fwd.hpp>
+#include <alda/message/base_unique_ptr.hpp>
 #include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/size_type.hpp>
 
@@ -57,11 +58,25 @@ protected:
 		base &&
 	);
 public:
-	typedef typename TypeEnum::type type_enum;
+	typedef
+	typename
+	TypeEnum::type
+	type_enum;
 
-	typedef majutsu::const_raw_pointer const_raw_pointer;
+	typedef
+	majutsu::const_raw_pointer
+	const_raw_pointer;
 
-	typedef majutsu::size_type size_type;
+	typedef
+	majutsu::size_type
+	size_type;
+
+	typedef
+	typename
+	alda::message::base_unique_ptr<
+		TypeEnum
+	>
+	unique_ptr;
 
 	virtual
 	~base() = 0;
@@ -77,6 +92,10 @@ public:
 	virtual
 	size_type
 	size() const = 0;
+
+	virtual
+	unique_ptr
+	clone() const = 0;
 };
 
 }

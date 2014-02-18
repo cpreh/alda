@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <alda/message/concrete_decl.hpp>
 #include <alda/message/detail/extract_id.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 
 
 template<
@@ -174,6 +175,27 @@ alda::message::concrete<
 {
 	return
 		value_.memory().size();
+}
+
+template<
+	typename TypeEnum,
+	typename Type
+>
+typename alda::message::concrete<
+	TypeEnum,
+	Type
+>::unique_ptr
+alda::message::concrete<
+	TypeEnum,
+	Type
+>::clone() const
+{
+	return
+		fcppt::make_unique_ptr<
+			concrete
+		>(
+			*this
+		);
 }
 
 #endif
