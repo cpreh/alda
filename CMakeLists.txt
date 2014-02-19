@@ -68,22 +68,9 @@ find_package(
 	REQUIRED
 )
 
-add_definitions(
-	${fcppt_DEFINITIONS}
-)
-
-include_directories(
-	${fcppt_INCLUDE_DIRS}
-)
-
-
 find_package(
 	majutsu
 	REQUIRED
-)
-
-add_definitions(
-	${majutsu_DEFINITIONS}
 )
 
 include_directories(
@@ -140,4 +127,6 @@ if(
 	)
 endif()
 
-fcppt_utils_generate_config()
+fcppt_utils_generate_config(
+	TRUE
+)

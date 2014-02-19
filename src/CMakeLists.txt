@@ -229,18 +229,6 @@ include_directories(
 )
 
 function(
-	alda_set_static_flags
-	TARGETNAME
-)
-	set_target_properties(
-		${TARGETNAME}
-		PROPERTIES
-		COMPILE_DEFINITIONS
-		"ALDA_STATIC_LINK"
-	)
-endfunction()
-
-function(
 	add_alda_library
 	VARIANT
 )
@@ -269,13 +257,27 @@ function(
 		${ALDA_FILES_ABS}
 	)
 
-	if(
-		${VARIANT} STREQUAL "STATIC"
+	fcppt_utils_set_target_compiler_flags(
+		${ALDA_LIB_NAME}
 	)
-		alda_set_static_flags(
-			${ALDA_LIB_NAME}
-		)
-	endif()
+
+	target_include_directories(
+		${ALDA_LIB_NAME}
+		INTERFACE
+		${Boost_INCLUDE_DIRS}
+		${majutsu_INCLUDE_DIRS}
+	)
+
+	fcppt_utils_add_target_include_dir(
+		${ALDA_LIB_NAME}
+		TRUE
+	)
+
+	fcppt_utils_interface_static_link(
+		${ALDA_LIB_NAME}
+		${VARIANT}
+		"ALDA_STATIC_LINK"
+	)
 
 	target_link_libraries(
 		${ALDA_LIB_NAME}
@@ -288,24 +290,6 @@ function(
 	fcppt_utils_export_install_target(
 		${ALDA_LIB_NAME}
 	)
-endfunction()
-
-function(
-	alda_set_static_flags
-	TARGETNAME
-)
-	if(
-		ALDA_DEFAULT_LINK_TARGET
-		STREQUAL
-		"alda_static"
-	)
-		set_target_properties(
-			${TARGETNAME}
-			PROPERTIES
-			COMPILE_DEFINITIONS
-			"ALDA_STATIC_LINK"
-		)
-	endif()
 endfunction()
 
 if(
