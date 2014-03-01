@@ -90,6 +90,16 @@ alda::net::server::object::queue_send(
 		);
 }
 
+void
+alda::net::server::object::disconnect(
+	alda::net::id const _id
+)
+{
+	impl_->disconnect(
+		_id
+	);
+}
+
 fcppt::signal::auto_connection
 alda::net::server::object::register_connect(
 	alda::net::server::connect_callback const &_callback

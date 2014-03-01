@@ -88,6 +88,11 @@ public:
 		alda::net::id
 	);
 
+	void
+	disconnect(
+		alda::net::id
+	);
+
 	fcppt::signal::auto_connection
 	register_connect(
 		alda::net::server::connect_callback const &

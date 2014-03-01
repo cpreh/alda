@@ -82,6 +82,12 @@ public:
 	);
 
 	ALDA_SYMBOL
+	void
+	disconnect(
+		alda::net::id
+	);
+
+	ALDA_SYMBOL
 	fcppt::signal::auto_connection
 	register_connect(
 		alda::net::server::connect_callback const &

@@ -180,18 +180,10 @@ alda::net::server::detail::object_impl::queue_send(
 	alda::net::id const _id
 )
 {
-	alda::net::server::detail::connection_container::iterator const it(
-		connections_.find(
+	alda::net::server::detail::connection &con(
+		this->connection(
 			_id
 		)
-	);
-
-	FCPPT_ASSERT_PRE(
-		it != connections_.end()
-	);
-
-	alda::net::server::detail::connection &con(
-		*it->second
 	);
 
 	if(
@@ -200,6 +192,18 @@ alda::net::server::detail::object_impl::queue_send(
 		this->send_data(
 			con
 		);
+}
+
+void
+alda::net::server::detail::object_impl::disconnect(
+	alda::net::id const _id
+)
+{
+	this->connection(
+		_id
+	).socket().shutdown(
+		boost::asio::ip::tcp::socket::shutdown_both
+	);
 }
 
 fcppt::signal::auto_connection
@@ -438,15 +442,15 @@ alda::net::server::detail::object_impl::handle_error(
 		_con.id()
 	);
 
-	// remove the connection first, so really nothing will be sent anymore
 	if(
 		!connections_.erase(
 			id
 		)
 	)
-		throw net::exception(
-			FCPPT_TEXT("Invalid erase in net::server!")
-		);
+		throw
+			alda::net::exception(
+				FCPPT_TEXT("Invalid erase in net::server!")
+			);
 
 	disconnect_signal_(
 		id,
@@ -511,4 +515,23 @@ alda::net::server::detail::object_impl::receive_data(
 			)
 		)
 	);
+}
+
+alda::net::server::detail::connection &
+alda::net::server::detail::object_impl::connection(
+	alda::net::id const _id
+)
+{
+	alda::net::server::detail::connection_container::iterator const it(
+		connections_.find(
+			_id
+		)
+	);
+
+	FCPPT_ASSERT_PRE(
+		it != connections_.end()
+	);
+
+	return
+		*it->second;
 }
