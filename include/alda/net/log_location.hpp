@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef ALDA_NET_LOG_LOCATION_HPP_INCLUDED
 #define ALDA_NET_LOG_LOCATION_HPP_INCLUDED
 
-#include <alda/symbol.hpp>
+#include <alda/detail/symbol.hpp>
 #include <fcppt/log/location_fwd.hpp>
 
 
@@ -30,8 +30,8 @@ namespace alda
 namespace net
 {
 
-ALDA_SYMBOL
-fcppt::log::location const
+ALDA_DETAIL_SYMBOL
+fcppt::log::location
 log_location();
 
 }

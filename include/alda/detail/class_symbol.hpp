@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_CLASS_SYMBOL_HPP_INCLUDED
-#define ALDA_CLASS_SYMBOL_HPP_INCLUDED
+#ifndef ALDA_DETAIL_CLASS_SYMBOL_HPP_INCLUDED
+#define ALDA_DETAIL_CLASS_SYMBOL_HPP_INCLUDED
 
 #include <fcppt/class_symbol.hpp>
 
 
-#define ALDA_CLASS_SYMBOL FCPPT_CLASS_SYMBOL
+#define ALDA_DETAIL_CLASS_SYMBOL FCPPT_CLASS_SYMBOL
 
 #endif

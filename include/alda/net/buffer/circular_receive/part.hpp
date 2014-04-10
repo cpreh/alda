@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef ALDA_NET_BUFFER_CIRCULAR_RECEIVE_PART_HPP_INCLUDED
 #define ALDA_NET_BUFFER_CIRCULAR_RECEIVE_PART_HPP_INCLUDED
 
-#include <alda/symbol.hpp>
+#include <alda/detail/symbol.hpp>
 #include <alda/net/size_type.hpp>
 #include <alda/net/value_type.hpp>
 #include <alda/net/buffer/circular_receive/part_fwd.hpp>
@@ -47,25 +47,25 @@ public:
 
 	typedef alda::net::size_type size_type;
 
-	ALDA_SYMBOL
+	ALDA_DETAIL_SYMBOL
 	part(
 		pointer begin,
 		pointer end
 	);
 
-	ALDA_SYMBOL
+	ALDA_DETAIL_SYMBOL
 	pointer
 	begin() const;
 
-	ALDA_SYMBOL
+	ALDA_DETAIL_SYMBOL
 	pointer
 	end() const;
 
-	ALDA_SYMBOL
+	ALDA_DETAIL_SYMBOL
 	size_type
 	size() const;
 
-	ALDA_SYMBOL
+	ALDA_DETAIL_SYMBOL
 	bool
 	empty() const;
 private:

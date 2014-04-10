@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef ALDA_NET_IO_SERVICE_WRAPPER_HPP_INCLUDED
 #define ALDA_NET_IO_SERVICE_WRAPPER_HPP_INCLUDED
 
-#include <alda/symbol.hpp>
+#include <alda/detail/symbol.hpp>
 #include <alda/net/io_service_wrapper_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -40,13 +40,13 @@ class io_service_wrapper
 		io_service_wrapper
 	);
 public:
-	ALDA_SYMBOL
+	ALDA_DETAIL_SYMBOL
 	explicit
 	io_service_wrapper(
 		boost::asio::io_service &
 	);
 
-	ALDA_SYMBOL
+	ALDA_DETAIL_SYMBOL
 	boost::asio::io_service &
 	get() const;
 private:

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef ALDA_NET_BUFFER_CIRCULAR_RECEIVE_SOURCE_HPP_INCLUDED
 #define ALDA_NET_BUFFER_CIRCULAR_RECEIVE_SOURCE_HPP_INCLUDED
 
-#include <alda/symbol.hpp>
+#include <alda/detail/symbol.hpp>
 #include <alda/net/value_type.hpp>
 #include <alda/net/buffer/circular_receive/object_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -65,20 +65,20 @@ public:
 
 	FCPPT_PP_POP_WARNING
 
-	ALDA_SYMBOL
+	ALDA_DETAIL_SYMBOL
 	explicit
 	source(
 		alda::net::buffer::circular_receive::object &
 	);
 
-	ALDA_SYMBOL
+	ALDA_DETAIL_SYMBOL
 	std::streamsize
 	read(
 		char *,
 		std::streamsize
 	);
 
-	ALDA_SYMBOL
+	ALDA_DETAIL_SYMBOL
 	std::streampos
 	seek(
 		boost::iostreams::stream_offset,

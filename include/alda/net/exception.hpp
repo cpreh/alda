@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef ALDA_NET_EXCEPTION_HPP_INCLUDED
 #define ALDA_NET_EXCEPTION_HPP_INCLUDED
 
-#include <alda/class_symbol.hpp>
 #include <alda/exception.hpp>
-#include <alda/symbol.hpp>
+#include <alda/detail/class_symbol.hpp>
+#include <alda/detail/symbol.hpp>
 #include <alda/net/exception_fwd.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/assert/information_fwd.hpp>
@@ -34,18 +34,18 @@ namespace alda
 namespace net
 {
 
-class ALDA_CLASS_SYMBOL exception
+class ALDA_DETAIL_CLASS_SYMBOL exception
 :
 	public alda::exception
 {
 public:
-	ALDA_SYMBOL
+	ALDA_DETAIL_SYMBOL
 	explicit
 	exception(
 		fcppt::string const &
 	);
 
-	ALDA_SYMBOL
+	ALDA_DETAIL_SYMBOL
 	explicit
 	exception(
 		fcppt::assert_::information const &

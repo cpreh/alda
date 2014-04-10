@@ -21,14 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef ALDA_LOGGER_HPP_INCLUDED
 #define ALDA_LOGGER_HPP_INCLUDED
 
-#include <alda/symbol.hpp>
+#include <alda/detail/symbol.hpp>
 #include <fcppt/log/object_fwd.hpp>
 
 
 namespace alda
 {
 
-ALDA_SYMBOL
+ALDA_DETAIL_SYMBOL
 fcppt::log::object &
 logger();
 

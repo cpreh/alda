@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef ALDA_MESSAGE_CONCRETE_DECL_HPP_INCLUDED
 #define ALDA_MESSAGE_CONCRETE_DECL_HPP_INCLUDED
 
+#include <alda/detail/external_symbol.hpp>
 #include <alda/message/base_decl.hpp>
 #include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/size_type.hpp>
@@ -52,31 +53,38 @@ public:
 	base_type::type_enum
 	type_enum;
 
+	ALDA_DETAIL_EXTERNAL_SYMBOL
 	explicit
 	concrete(
 		Type const &
 	);
 
+	ALDA_DETAIL_EXTERNAL_SYMBOL
 	concrete(
 		concrete const &
 	);
 
+	ALDA_DETAIL_EXTERNAL_SYMBOL
 	concrete &
 	operator=(
 		concrete const &
 	);
 
+	ALDA_DETAIL_EXTERNAL_SYMBOL
 	concrete(
 		concrete &&
 	);
 
+	ALDA_DETAIL_EXTERNAL_SYMBOL
 	concrete &
 	operator=(
 		concrete &&
 	);
 
+	ALDA_DETAIL_EXTERNAL_SYMBOL
 	~concrete();
 
+	ALDA_DETAIL_EXTERNAL_SYMBOL
 	Type const &
 	value() const;
 private:

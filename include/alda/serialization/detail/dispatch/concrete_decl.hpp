@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef ALDA_SERIALIZATION_DETAIL_DISPATCH_CONCRETE_DECL_HPP_INCLUDED
 #define ALDA_SERIALIZATION_DETAIL_DISPATCH_CONCRETE_DECL_HPP_INCLUDED
 
+#include <alda/detail/external_symbol.hpp>
 #include <alda/serialization/detail/dispatch/base_decl.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -52,14 +53,17 @@ class concrete
 		TypeEnum
 	> base_type;
 public:
+	ALDA_DETAIL_EXTERNAL_SYMBOL
 	concrete();
 
+	ALDA_DETAIL_EXTERNAL_SYMBOL
 	~concrete();
 
 	typedef typename base_type::message_unique_ptr message_unique_ptr;
 
 	typedef typename base_type::reader reader;
 
+	ALDA_DETAIL_EXTERNAL_SYMBOL
 	message_unique_ptr
 	on_dispatch(
 		reader const &

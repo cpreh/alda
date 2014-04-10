@@ -70,7 +70,11 @@ set(
 	include/alda/call/object_decl.hpp
 	include/alda/call/object_fwd.hpp
 	include/alda/call/object_impl.hpp
-	include/alda/class_symbol.hpp
+	include/alda/detail/class_symbol.hpp
+	include/alda/detail/export_external_class_instantiation.hpp
+	include/alda/detail/export_external_function_instantiation.hpp
+	include/alda/detail/external_class_symbol.hpp
+	include/alda/detail/external_symbol.hpp
 	include/alda/endianness.hpp
 	include/alda/exception.hpp
 	include/alda/exception_fwd.hpp
@@ -220,8 +224,8 @@ set(
 fcppt_generate_symbol_header(
 	"ALDA_STATIC_LINK"
 	"alda"
-	"ALDA"
-	"alda"
+	"ALDA_DETAIL"
+	"alda/detail"
 )
 
 include_directories(

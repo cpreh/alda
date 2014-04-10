@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef ALDA_NET_PARAMETERS_HPP_INCLUDED
 #define ALDA_NET_PARAMETERS_HPP_INCLUDED
 
-#include <alda/symbol.hpp>
+#include <alda/detail/symbol.hpp>
 #include <alda/net/io_service_wrapper_fwd.hpp>
 #include <alda/net/parameters_fwd.hpp>
 #include <alda/net/buffer/max_receive_size.hpp>
@@ -40,7 +40,7 @@ class parameters
 		parameters
 	);
 public:
-	ALDA_SYMBOL
+	ALDA_DETAIL_SYMBOL
 	parameters(
 		alda::net::io_service_wrapper const &,
 		alda::net::buffer::max_send_size,

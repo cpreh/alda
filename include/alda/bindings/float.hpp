@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef ALDA_BINDINGS_FLOAT_HPP_INCLUDED
 #define ALDA_BINDINGS_FLOAT_HPP_INCLUDED
 
-#include <alda/symbol.hpp>
 #include <alda/bindings/float_decl.hpp>
 #include <alda/bindings/float_type.hpp>
+#include <alda/detail/symbol.hpp>
 #include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/fundamental.hpp>
 #include <majutsu/raw_pointer.hpp>
@@ -39,14 +39,14 @@ namespace alda
 namespace bindings
 {
 
-ALDA_SYMBOL
+ALDA_DETAIL_SYMBOL
 majutsu::size_type
 needed_size(
 	alda::bindings::float_ const *,
 	alda::bindings::float_::type const &
 );
 
-ALDA_SYMBOL
+ALDA_DETAIL_SYMBOL
 void
 place(
 	alda::bindings::float_ const *,
@@ -54,7 +54,7 @@ place(
 	majutsu::raw_pointer
 );
 
-ALDA_SYMBOL
+ALDA_DETAIL_SYMBOL
 alda::bindings::float_::type
 make(
 	alda::bindings::float_ const *,

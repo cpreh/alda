@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef ALDA_NET_BUFFER_CIRCULAR_SEND_OBJECT_HPP_INCLUDED
 #define ALDA_NET_BUFFER_CIRCULAR_SEND_OBJECT_HPP_INCLUDED
 
-#include <alda/symbol.hpp>
+#include <alda/detail/symbol.hpp>
 #include <alda/net/size_type.hpp>
 #include <alda/net/buffer/max_send_size.hpp>
 #include <alda/net/buffer/circular_send/boost_type.hpp>
@@ -46,42 +46,42 @@ class object
 public:
 	typedef alda::net::size_type size_type;
 
-	ALDA_SYMBOL
+	ALDA_DETAIL_SYMBOL
 	explicit
 	object(
 		alda::net::buffer::max_send_size
 	);
 
-	ALDA_SYMBOL
+	ALDA_DETAIL_SYMBOL
 	~object();
 
-	ALDA_SYMBOL
+	ALDA_DETAIL_SYMBOL
 	alda::net::buffer::circular_send::boost_type::const_array_range const
 	send_part() const;
 
-	ALDA_SYMBOL
+	ALDA_DETAIL_SYMBOL
 	void
 	erase_front(
 		alda::net::buffer::circular_send::object::size_type
 	);
 
-	ALDA_SYMBOL
+	ALDA_DETAIL_SYMBOL
 	bool
 	empty() const;
 
-	ALDA_SYMBOL
+	ALDA_DETAIL_SYMBOL
 	void
 	clear();
 
-	ALDA_SYMBOL
+	ALDA_DETAIL_SYMBOL
 	alda::net::buffer::circular_send::object::size_type
 	space_left() const;
 
-	ALDA_SYMBOL
+	ALDA_DETAIL_SYMBOL
 	alda::net::buffer::circular_send::boost_type &
 	get();
 
-	ALDA_SYMBOL
+	ALDA_DETAIL_SYMBOL
 	alda::net::buffer::circular_send::boost_type const &
 	get() const;
 private:

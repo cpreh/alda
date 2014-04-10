@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef ALDA_SERIALIZATION_DETAIL_DISPATCH_REGISTER_DECL_HPP_INCLUDED
 #define ALDA_SERIALIZATION_DETAIL_DISPATCH_REGISTER_DECL_HPP_INCLUDED
 
+#include <alda/detail/external_symbol.hpp>
 #include <alda/serialization/context_fwd.hpp>
 #include <alda/serialization/detail/dispatch/register_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -49,11 +50,13 @@ public:
 		TypeEnum
 	> context;
 
+	ALDA_DETAIL_EXTERNAL_SYMBOL
 	explicit
 	register_(
 		context &
 	);
 
+	ALDA_DETAIL_EXTERNAL_SYMBOL
 	~register_();
 };
 

@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef ALDA_MESSAGE_BASE_DECL_HPP_INCLUDED
 #define ALDA_MESSAGE_BASE_DECL_HPP_INCLUDED
 
+#include <alda/detail/external_class_symbol.hpp>
+#include <alda/detail/external_symbol.hpp>
 #include <alda/message/base_fwd.hpp>
 #include <alda/message/base_unique_ptr.hpp>
 #include <majutsu/const_raw_pointer.hpp>
@@ -35,24 +37,29 @@ namespace message
 template<
 	typename TypeEnum
 >
-class base
+class ALDA_DETAIL_EXTERNAL_CLASS_SYMBOL base
 {
 protected:
+	ALDA_DETAIL_EXTERNAL_SYMBOL
 	base();
 
+	ALDA_DETAIL_EXTERNAL_SYMBOL
 	base(
 		base const &
 	);
 
+	ALDA_DETAIL_EXTERNAL_SYMBOL
 	base &
 	operator=(
 		base const &
 	);
 
+	ALDA_DETAIL_EXTERNAL_SYMBOL
 	base(
 		base &&
 	);
 
+	ALDA_DETAIL_EXTERNAL_SYMBOL
 	base &
 	operator=(
 		base &&

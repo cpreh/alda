@@ -1,7 +1,7 @@
 #ifndef ALDA_NET_BUFFER_CIRCULAR_SEND_SINK_HPP_INCLUDED
 #define ALDA_NET_BUFFER_CIRCULAR_SEND_SINK_HPP_INCLUDED
 
-#include <alda/symbol.hpp>
+#include <alda/detail/symbol.hpp>
 #include <alda/net/value_type.hpp>
 #include <alda/net/buffer/circular_send/object_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -44,13 +44,13 @@ public:
 
 	FCPPT_PP_POP_WARNING
 
-	ALDA_SYMBOL
+	ALDA_DETAIL_SYMBOL
 	explicit
 	sink(
 		alda::net::buffer::circular_send::object &
 	);
 
-	ALDA_SYMBOL
+	ALDA_DETAIL_SYMBOL
 	std::streamsize
 	write(
 		char const *,
