@@ -283,12 +283,23 @@ function(
 		"ALDA_STATIC_LINK"
 	)
 
+	if(
+		WIN32
+	)
+		set(
+			ASIO_LIBS
+			WS2_32
+			Mswsock
+		)
+	endif()
+
 	target_link_libraries(
 		${ALDA_LIB_NAME}
 		PRIVATE
 		${fcppt_core_TARGET}
 		${FcpptThreads_LIBRARIES}
 		${Boost_SYSTEM_LIBRARY}
+		${ASIO_LIBS}
 	)
 
 	fcppt_utils_export_install_target(
