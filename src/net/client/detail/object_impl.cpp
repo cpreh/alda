@@ -120,7 +120,7 @@ alda::net::client::detail::object_impl::connect(
 			<< _port
 	);
 
-	query_.take(
+	query_ =
 		fcppt::make_unique_ptr<
 			boost::asio::ip::tcp::resolver::query
 		>(
@@ -129,8 +129,7 @@ alda::net::client::detail::object_impl::connect(
 			fcppt::insert_to_std_string(
 				_port
 			)
-		)
-	);
+		);
 
 	resolver_.async_resolve(
 		*query_,

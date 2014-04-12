@@ -33,8 +33,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/net/server/object_fwd.hpp>
 #include <alda/net/server/detail/object_impl_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace alda
@@ -105,7 +107,7 @@ public:
 		alda::net::server::data_callback const &
 	);
 private:
-	fcppt::scoped_ptr<
+	std::unique_ptr<
 		alda::net::server::detail::object_impl
 	> const impl_;
 };
