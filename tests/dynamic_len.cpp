@@ -18,7 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <alda/bindings/enum.hpp>
+#include <alda/bindings/dynamic_len.hpp>
+#include <alda/bindings/fundamental.hpp>
 #include <alda/message/make_class.hpp>
 #include <majutsu/composite.hpp>
 #include <majutsu/make_role_tag.hpp>
@@ -29,40 +30,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/test/unit_test.hpp>
-#include <cstdint>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
 namespace
 {
 
-enum class test_enum
-{
-	value0,
-	value1,
-	fcppt_maximum = value1
-};
+typedef
+alda::bindings::fundamental<
+	unsigned
+>
+uint_binding;
 
 typedef
-alda::bindings::enum_<
-	test_enum,
-	std::uint8_t
-> enum_binding;
+std::vector<
+	unsigned
+>
+uint_vector;
+
+typedef
+alda::bindings::dynamic_len<
+	uint_vector,
+	uint_binding
+>
+dynamic_len_binding;
 
 MAJUTSU_MAKE_ROLE_TAG(
-	enum_role
+	dynamic_len_role
 );
 
-typedef alda::message::make_class<
+typedef
+alda::message::make_class<
 	majutsu::composite<
 		boost::mpl::vector1<
 			majutsu::role<
-				enum_binding,
-				enum_role
+				dynamic_len_binding,
+				dynamic_len_role
 			>
 		>
 	>
-> message;
+>
+message;
 
 }
 
@@ -74,24 +83,19 @@ BOOST_AUTO_TEST_CASE(
 )
 {
 FCPPT_PP_POP_WARNING
+	uint_vector const vec{
+		1,
+		2
+	};
 
 	BOOST_CHECK(
 		message(
-			enum_role{} =
-				test_enum::value0
+			dynamic_len_role{} =
+				vec
 		).get<
-			enum_role
+			dynamic_len_role
 		>()
-		== test_enum::value0
-	);
-
-	BOOST_CHECK(
-		message(
-			enum_role{} =
-				test_enum::value1
-		).get<
-			enum_role
-		>()
-		== test_enum::value1
+		==
+		vec
 	);
 }

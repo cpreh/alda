@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/bindings/unsigned.hpp>
 #include <alda/message/make_class.hpp>
 #include <majutsu/composite.hpp>
+#include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
 #include <fcppt/math/vector/comparison.hpp>
 #include <fcppt/math/vector/static.hpp>
@@ -52,13 +53,18 @@ alda::bindings::static_<
 		int_vec2::value_type
 	>
 >
-vector_role;
+vector_binding;
+
+MAJUTSU_MAKE_ROLE_TAG(
+	vector_role
+);
 
 typedef
 alda::message::make_class<
 	majutsu::composite<
 		boost::mpl::vector1<
 			majutsu::role<
+				vector_binding,
 				vector_role
 			>
 		>
@@ -84,7 +90,8 @@ FCPPT_PP_POP_WARNING
 
 	BOOST_CHECK(
 		message(
-			test
+			vector_role{} =
+				test
 		).get<
 			vector_role
 		>()

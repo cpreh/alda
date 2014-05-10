@@ -39,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/serialization/serialize.hpp>
 #include <alda/serialization/load/static_size.hpp>
 #include <majutsu/composite.hpp>
+#include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -64,27 +65,46 @@ enum class message_type
 	fcppt_maximum = message2
 };
 
-typedef alda::type_enum_fcppt<
+typedef
+alda::type_enum_fcppt<
 	message_type
-> type_enum;
+>
+type_enum;
 
-typedef alda::message::base<
+typedef
+alda::message::base<
 	type_enum
-> message_base;
+>
+message_base;
 
-typedef alda::message::base_unique_ptr<
+typedef
+alda::message::base_unique_ptr<
 	type_enum
-> message_base_unique_ptr;
+>
+message_base_unique_ptr;
 
-typedef alda::bindings::fundamental<
+typedef
+alda::bindings::fundamental<
 	std::uint16_t
-> uint16_type;
+>
+uint16_type;
 
-typedef alda::bindings::fundamental<
+typedef
+alda::bindings::fundamental<
 	std::uint32_t
-> uint32_type;
+>
+uint32_type;
 
-typedef alda::message::make_class<
+MAJUTSU_MAKE_ROLE_TAG(
+	uint16_role
+);
+
+MAJUTSU_MAKE_ROLE_TAG(
+	uint32_role
+);
+
+typedef
+alda::message::make_class<
 	majutsu::composite<
 		boost::mpl::vector2<
 			alda::message::make_id<
@@ -92,13 +112,16 @@ typedef alda::message::make_class<
 				message_type::message1
 			>,
 			majutsu::role<
-				uint16_type
+				uint16_type,
+				uint16_role
 			>
 		>
 	>
-> message1;
+>
+message1;
 
-typedef alda::message::make_class<
+typedef
+alda::message::make_class<
 	majutsu::composite<
 		boost::mpl::vector2<
 			alda::message::make_id<
@@ -106,15 +129,19 @@ typedef alda::message::make_class<
 				message_type::message2
 			>,
 			majutsu::role<
-				uint32_type
+				uint32_type,
+				uint32_role
 			>
 		>
 	>
-> message2;
+>
+message2;
 
-typedef alda::serialization::context<
+typedef
+alda::serialization::context<
 	type_enum
-> context;
+>
+context;
 
 context &
 global_context();
@@ -198,7 +225,7 @@ public:
 
 		BOOST_CHECK(
 			_msg.get<
-				uint16_type
+				uint16_role
 			>()
 			==
 			static_cast<
@@ -219,7 +246,7 @@ public:
 
 		BOOST_CHECK(
 			_msg.get<
-				uint32_type
+				uint32_role
 			>()
 			==
 			static_cast<
@@ -257,11 +284,12 @@ FCPPT_PP_POP_WARNING
 			type_enum
 		>(
 			message1(
-				static_cast<
-					std::uint16_t
-				>(
-					1337
-				)
+				uint16_role{} =
+					static_cast<
+						std::uint16_t
+					>(
+						1337
+					)
 			)
 		)
 	);
@@ -328,11 +356,12 @@ FCPPT_PP_POP_WARNING
 			type_enum
 		>(
 			message2(
-				static_cast<
-					std::uint32_t
-				>(
-					42
-				)
+				uint32_role{} =
+					static_cast<
+						std::uint32_t
+					>(
+						42
+					)
 			)
 		)
 	);

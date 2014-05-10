@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/bindings/float.hpp>
 #include <alda/message/make_class.hpp>
 #include <majutsu/composite.hpp>
+#include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -38,11 +39,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
+MAJUTSU_MAKE_ROLE_TAG(
+	float_role
+);
+
 typedef alda::message::make_class<
 	majutsu::composite<
 		boost::mpl::vector1<
 			majutsu::role<
-				alda::bindings::float_
+				alda::bindings::float_,
+				float_role
 			>
 		>
 	>
@@ -138,12 +144,13 @@ test_conversion(
 )
 {
 	message const msg(
-		_value
+		float_role{} =
+			_value
 	);
 
 	fuzzy_equal(
 		msg.get<
-			alda::bindings::float_
+			float_role
 		>(),
 		_value
 	);

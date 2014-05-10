@@ -56,11 +56,11 @@ void
 alda::serialization::detail::read::element<
 	Class
 >::operator()(
-	Role &
+	Role const &
 ) const
 {
 	object_. template set<
-		typename Role::alias
+		typename Role::tag
 	>(
 		alda::serialization::load<
 			typename majutsu::access_role<

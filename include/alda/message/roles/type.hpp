@@ -21,6 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef ALDA_MESSAGE_ROLES_TYPE_HPP_INCLUDED
 #define ALDA_MESSAGE_ROLES_TYPE_HPP_INCLUDED
 
+#include <majutsu/make_role_tag.hpp>
+
+
 namespace alda
 {
 namespace message
@@ -28,9 +31,9 @@ namespace message
 namespace roles
 {
 
-struct type
-{
-};
+MAJUTSU_MAKE_ROLE_TAG(
+	type
+);
 
 }
 }

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/bindings/bitfield.hpp>
 #include <alda/message/make_class.hpp>
 #include <majutsu/composite.hpp>
+#include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
 #include <fcppt/container/bitfield/object.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -32,38 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-namespace
-{
-
-typedef
-fcppt::container::bitfield::object<
-	unsigned,
-	majutsu::integral_size<
-		64u
-	>
->
-bitfield;
-
-typedef
-alda::bindings::bitfield<
-	bitfield
->
-bitfield_role;
-
-typedef
-alda::message::make_class<
-	majutsu::composite<
-		boost::mpl::vector1<
-			majutsu::role<
-				bitfield_role
-			>
-		>
-	>
->
-message;
-
-}
-
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
@@ -72,6 +41,37 @@ BOOST_AUTO_TEST_CASE(
 )
 {
 FCPPT_PP_POP_WARNING
+	typedef
+	fcppt::container::bitfield::object<
+		unsigned,
+		majutsu::integral_size<
+			64u
+		>
+	>
+	bitfield;
+
+	typedef
+	alda::bindings::bitfield<
+		bitfield
+	>
+	bitfield_binding;
+
+	MAJUTSU_MAKE_ROLE_TAG(
+		bitfield_role
+	);
+
+	typedef
+	alda::message::make_class<
+		majutsu::composite<
+			boost::mpl::vector1<
+				majutsu::role<
+					bitfield_binding,
+					bitfield_role
+				>
+			>
+		>
+	>
+	message;
 
 	bitfield test(
 		bitfield::null()
@@ -83,7 +83,8 @@ FCPPT_PP_POP_WARNING
 
 	BOOST_CHECK(
 		message(
-			test
+			bitfield_role{} =
+				test
 		).get<
 			bitfield_role
 		>()

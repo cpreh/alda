@@ -39,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/serialization/length/serialize.hpp>
 #include <alda/serialization/load/static_size.hpp>
 #include <majutsu/composite.hpp>
+#include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/text.hpp>
@@ -63,23 +64,36 @@ enum class message_type
 	fcppt_maximum = message1
 };
 
-typedef alda::type_enum_fcppt<
+typedef
+alda::type_enum_fcppt<
 	message_type
-> type_enum;
+>
+type_enum;
 
-typedef alda::message::base<
+typedef
+alda::message::base<
 	type_enum
-> message_base;
+>
+message_base;
 
-typedef alda::message::base_unique_ptr<
+typedef
+alda::message::base_unique_ptr<
 	type_enum
-> message_base_unique_ptr;
+>
+message_base_unique_ptr;
 
-typedef alda::bindings::fundamental<
+typedef
+alda::bindings::fundamental<
 	std::uint16_t
-> uint16_type;
+>
+uint16_type;
 
-typedef alda::message::make_class<
+MAJUTSU_MAKE_ROLE_TAG(
+	uint16_role
+);
+
+typedef
+alda::message::make_class<
 	majutsu::composite<
 		boost::mpl::vector2<
 			alda::message::make_id<
@@ -87,15 +101,19 @@ typedef alda::message::make_class<
 				message_type::message1
 			>,
 			majutsu::role<
-				uint16_type
+				uint16_type,
+				uint16_role
 			>
 		>
 	>
-> message1;
+>
+message1;
 
-typedef alda::serialization::context<
+typedef
+alda::serialization::context<
 	type_enum
-> context;
+>
+context;
 
 context &
 global_context();
@@ -172,7 +190,7 @@ public:
 
 		BOOST_CHECK(
 			_msg.get<
-				uint16_type
+				uint16_role
 			>()
 			==
 			value_
@@ -216,11 +234,12 @@ FCPPT_PP_POP_WARNING
 				type_enum
 			>(
 				message1(
-					static_cast<
-						std::uint16_t
-					>(
-						index
-					)
+					uint16_role{} =
+						static_cast<
+							std::uint16_t
+						>(
+							index
+						)
 				)
 			)
 		);
@@ -308,11 +327,12 @@ FCPPT_PP_POP_WARNING
 			type_enum
 		>(
 			message1(
-				static_cast<
-					std::uint16_t
-				>(
-					0
-				)
+				uint16_role{} =
+					static_cast<
+						std::uint16_t
+					>(
+						0
+					)
 			)
 		)
 	);

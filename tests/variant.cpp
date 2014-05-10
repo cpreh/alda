@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/bindings/variant.hpp>
 #include <alda/message/make_class.hpp>
 #include <majutsu/composite.hpp>
+#include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
 #include <fcppt/variant/get.hpp>
 #include <fcppt/variant/object_impl.hpp>
@@ -69,7 +70,8 @@ typedef
 alda::bindings::variant<
 	types,
 	adapted_types
-> variant_role;
+>
+variant_binding;
 
 typedef
 fcppt::variant::object<
@@ -77,15 +79,22 @@ fcppt::variant::object<
 >
 variant_type;
 
-typedef alda::message::make_class<
+MAJUTSU_MAKE_ROLE_TAG(
+	variant_role
+);
+
+typedef
+alda::message::make_class<
 	majutsu::composite<
 		boost::mpl::vector1<
 			majutsu::role<
+				variant_binding,
 				variant_role
 			>
 		>
 	>
-> message;
+>
+message;
 
 }
 
@@ -102,13 +111,14 @@ FCPPT_PP_POP_WARNING
 			uint_type
 		>(
 			message(
-				variant_type(
-					static_cast<
-						uint_type
-					>(
-						42u
+				variant_role{} =
+					variant_type(
+						static_cast<
+							uint_type
+						>(
+							42u
+						)
 					)
-				)
 			).get<
 				variant_role
 			>()
@@ -126,13 +136,14 @@ FCPPT_PP_POP_WARNING
 			int_type
 		>(
 			message(
-				variant_type(
-					static_cast<
-						int_type
-					>(
-						13
+				variant_role{} =
+					variant_type(
+						static_cast<
+							int_type
+						>(
+							13
+						)
 					)
-				)
 			).get<
 				variant_role
 			>()

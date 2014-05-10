@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/bindings/unsigned.hpp>
 #include <alda/message/make_class.hpp>
 #include <majutsu/composite.hpp>
+#include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
 #include <fcppt/optional_comparison.hpp>
 #include <fcppt/optional_impl.hpp>
@@ -54,17 +55,25 @@ alda::bindings::optional<
 	alda::bindings::unsigned_<
 		base_type
 	>
-> optional_role;
+>
+optional_binding;
 
-typedef alda::message::make_class<
+MAJUTSU_MAKE_ROLE_TAG(
+	optional_role
+);
+
+typedef
+alda::message::make_class<
 	majutsu::composite<
 		boost::mpl::vector1<
 			majutsu::role<
+				optional_binding,
 				optional_role
 			>
 		>
 	>
-> message;
+>
+message;
 
 }
 
@@ -78,7 +87,8 @@ BOOST_AUTO_TEST_CASE(
 FCPPT_PP_POP_WARNING
 	BOOST_CHECK(
 		message(
-			optional_type()
+			optional_role{} =
+				optional_type()
 		).get<
 			optional_role
 		>()
@@ -87,9 +97,10 @@ FCPPT_PP_POP_WARNING
 	);
 
 	message const msg(
-		optional_type(
-			42u
-		)
+		optional_role{} =
+			optional_type(
+				42u
+			)
 	);
 
 	BOOST_REQUIRE(

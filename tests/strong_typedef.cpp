@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/bindings/unsigned.hpp>
 #include <alda/message/make_class.hpp>
 #include <majutsu/composite.hpp>
+#include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
 #include <fcppt/strong_typedef.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
@@ -53,17 +54,25 @@ alda::bindings::strong_typedef<
 	alda::bindings::unsigned_<
 		base_type
 	>
-> strong_role;
+>
+strong_binding;
 
-typedef alda::message::make_class<
+MAJUTSU_MAKE_ROLE_TAG(
+	strong_role
+);
+
+typedef
+alda::message::make_class<
 	majutsu::composite<
 		boost::mpl::vector1<
 			majutsu::role<
+				strong_binding,
 				strong_role
 			>
 		>
 	>
-> message;
+>
+message;
 
 }
 
@@ -78,11 +87,12 @@ FCPPT_PP_POP_WARNING
 
 	BOOST_CHECK(
 		message(
-			fcppt::strong_typedef_construct_cast<
-				strong_type
-			>(
-				42u
-			)
+			strong_role{} =
+				fcppt::strong_typedef_construct_cast<
+					strong_type
+				>(
+					42u
+				)
 		).get<
 			strong_role
 		>().get()

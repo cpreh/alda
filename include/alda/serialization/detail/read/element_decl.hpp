@@ -54,7 +54,7 @@ public:
 	>
 	void
 	operator()(
-		Role &
+		Role const &
 	) const;
 private:
 	alda::serialization::istream &stream_;

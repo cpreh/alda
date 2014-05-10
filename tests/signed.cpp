@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/bindings/fundamental.hpp>
 #include <alda/message/make_class.hpp>
 #include <majutsu/composite.hpp>
+#include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -37,21 +38,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-typedef std::uint16_t int_type;
+typedef
+std::uint16_t
+int_type;
 
-typedef alda::bindings::fundamental<
+typedef
+alda::bindings::fundamental<
 	int_type
-> int_alda_type;
+>
+int_alda_type;
 
-typedef alda::message::make_class<
+MAJUTSU_MAKE_ROLE_TAG(
+	int_role
+);
+
+typedef
+alda::message::make_class<
 	majutsu::composite<
 		boost::mpl::vector1<
 			majutsu::role<
-				int_alda_type
+				int_alda_type,
+				int_role
 			>
 		>
 	>
-> message;
+>
+message;
 
 bool
 check_exception(
@@ -67,12 +79,13 @@ test_conversion(
 )
 {
 	message const msg(
-		_value
+		int_role{} =
+			_value
 	);
 
 	BOOST_CHECK(
 		msg.get<
-			int_alda_type
+			int_role
 		>()
 		==
 		_value
