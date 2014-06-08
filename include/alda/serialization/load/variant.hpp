@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define ALDA_SERIALIZATION_LOAD_VARIANT_HPP_INCLUDED
 
 #include <alda/endianness.hpp>
+#include <alda/bindings/invalid_variant.hpp>
 #include <alda/bindings/variant_decl.hpp>
 #include <alda/serialization/istream_fwd.hpp>
 #include <alda/serialization/detail/load_variant.hpp>
@@ -77,7 +78,18 @@ struct load<
 					AdaptedTypes
 				>(
 					_is
-				)
+				),
+				[]()
+				->
+				typename
+				alda::bindings::variant<
+					Types,
+					AdaptedTypes
+				>::type
+				{
+					throw
+						alda::bindings::invalid_variant();
+				}
 			);
 	}
 };

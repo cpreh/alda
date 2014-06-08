@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <alda/serialization/detail/dispatch/concrete_decl.hpp>
 #include <alda/serialization/detail/read/object_decl.hpp>
-#include <fcppt/workarounds.hpp>
 
 
 template<
@@ -64,15 +63,9 @@ alda::serialization::detail::dispatch::concrete<
 ) const
 {
 	return
-#if defined(FCPPT_MSVC_DEPENDANT_TEMPLATE_BUG)
-		_reader.operator()<
-			Message
-		>();
-#else
 		_reader. template operator()<
 			Message
 		>();
-#endif
 }
 
 #endif

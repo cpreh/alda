@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef ALDA_BINDINGS_VARIANT_HPP_INCLUDED
 #define ALDA_BINDINGS_VARIANT_HPP_INCLUDED
 
+#include <alda/bindings/invalid_variant.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <alda/bindings/variant_decl.hpp>
 #include <alda/bindings/detail/variant_make.hpp>
@@ -151,7 +152,16 @@ make(
 				AdaptedTypes
 			>(
 				_mem
-			)
+			),
+			[]()
+			->
+			fcppt::variant::object<
+				Types
+			>
+			{
+				throw
+					alda::bindings::invalid_variant();
+			}
 		);
 }
 

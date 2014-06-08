@@ -39,6 +39,7 @@ set(
 	include/alda/bindings/fundamental.hpp
 	include/alda/bindings/fundamental_decl.hpp
 	include/alda/bindings/fundamental_fwd.hpp
+	include/alda/bindings/invalid_variant.hpp
 	include/alda/bindings/optional.hpp
 	include/alda/bindings/optional_decl.hpp
 	include/alda/bindings/optional_fwd.hpp
@@ -195,6 +196,7 @@ set(
 	include/alda/type_enum_fcppt_fwd.hpp
 	include/alda/type_enum_fwd.hpp
 	src/bindings/float.cpp
+	src/bindings/invalid_variant.cpp
 	src/exception.cpp
 	src/include/alda/src/log_parameters.hpp
 	src/include/alda/src/net/client/detail/object_impl.hpp
