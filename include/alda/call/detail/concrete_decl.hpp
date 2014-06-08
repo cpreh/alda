@@ -59,13 +59,15 @@ public:
 
 	concrete();
 
-	~concrete();
+	~concrete()
+	override;
 
 	typename Callee::result_type
 	call(
 		Callee &,
 		message_type const &
-	) const;
+	) const
+	override;
 };
 
 }

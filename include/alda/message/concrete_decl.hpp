@@ -82,7 +82,8 @@ public:
 	);
 
 	ALDA_DETAIL_EXTERNAL_SYMBOL
-	~concrete();
+	~concrete()
+	override;
 
 	ALDA_DETAIL_EXTERNAL_SYMBOL
 	Type const &

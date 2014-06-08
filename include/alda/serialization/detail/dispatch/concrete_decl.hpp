@@ -57,7 +57,8 @@ public:
 	concrete();
 
 	ALDA_DETAIL_EXTERNAL_SYMBOL
-	~concrete();
+	~concrete()
+	override;
 
 	typedef typename base_type::message_unique_ptr message_unique_ptr;
 
@@ -67,7 +68,8 @@ public:
 	message_unique_ptr
 	on_dispatch(
 		reader const &
-	) const;
+	) const
+	override;
 };
 
 }
