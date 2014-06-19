@@ -124,8 +124,6 @@ set(
 	include/alda/net/client/error_function.hpp
 	include/alda/net/client/object.hpp
 	include/alda/net/client/object_fwd.hpp
-	include/alda/net/exception.hpp
-	include/alda/net/exception_fwd.hpp
 	include/alda/net/host.hpp
 	include/alda/net/id.hpp
 	include/alda/net/io_service_wrapper.hpp
@@ -214,7 +212,6 @@ set(
 	src/net/buffer/circular_send/sink.cpp
 	src/net/client/detail/object_impl.cpp
 	src/net/client/object.cpp
-	src/net/exception.cpp
 	src/net/io_service_wrapper.cpp
 	src/net/log_location.cpp
 	src/net/parameters.cpp

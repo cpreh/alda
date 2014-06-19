@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <alda/net/exception.hpp>
 #include <alda/net/id.hpp>
 #include <alda/net/io_service_wrapper.hpp>
 #include <alda/net/log_location.hpp>
@@ -39,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/src/log_parameters.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/log/_.hpp>
@@ -387,18 +387,15 @@ alda::net::server::detail::object_impl::accept_handler(
 		*new_connection_
 	);
 
-	if(
-		!fcppt::container::ptr::insert_unique_ptr_map(
+	FCPPT_ASSERT_ERROR(
+		fcppt::container::ptr::insert_unique_ptr_map(
 			connections_,
 			current_con.id(),
 			move(
 				new_connection_
 			)
 		).second
-	)
-		throw net::exception(
-			FCPPT_TEXT("Double insert in net::server!")
-		);
+	);
 
 	// send signal to handlers
 	connect_signal_(
@@ -438,19 +435,15 @@ alda::net::server::detail::object_impl::handle_error(
 			<< FCPPT_TEXT(")")
 	);
 
-	net::id const id(
+	alda::net::id const id(
 		_con.id()
 	);
 
-	if(
-		!connections_.erase(
+	FCPPT_ASSERT_ERROR(
+		connections_.erase(
 			id
 		)
-	)
-		throw
-			alda::net::exception(
-				FCPPT_TEXT("Invalid erase in net::server!")
-			);
+	);
 
 	disconnect_signal_(
 		id,

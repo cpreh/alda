@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <alda/net/exception.hpp>
 #include <alda/net/host.hpp>
 #include <alda/net/io_service_wrapper.hpp>
 #include <alda/net/log_location.hpp>
