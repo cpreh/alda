@@ -26,6 +26,9 @@ set(
 	include/alda/bindings/detail/variant_make.hpp
 	include/alda/bindings/detail/variant_needed_size.hpp
 	include/alda/bindings/detail/variant_place.hpp
+	include/alda/bindings/duration.hpp
+	include/alda/bindings/duration_decl.hpp
+	include/alda/bindings/duration_fwd.hpp
 	include/alda/bindings/dynamic_len.hpp
 	include/alda/bindings/dynamic_len_decl.hpp
 	include/alda/bindings/dynamic_len_fwd.hpp

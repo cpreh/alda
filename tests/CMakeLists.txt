@@ -16,6 +16,11 @@ add_alda_test(
 )
 
 add_alda_test(
+	duration
+	"${fcppt_core_TARGET}"
+)
+
+add_alda_test(
 	dynamic_len
 	"${fcppt_core_TARGET}"
 )
