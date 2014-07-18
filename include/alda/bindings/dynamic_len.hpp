@@ -11,6 +11,7 @@
 #include <alda/bindings/detail/extract_length.hpp>
 #include <alda/bindings/detail/put_length.hpp>
 #include <majutsu/const_raw_pointer.hpp>
+#include <majutsu/dispatch_type.hpp>
 #include <majutsu/make.hpp>
 #include <majutsu/needed_size.hpp>
 #include <majutsu/place.hpp>
@@ -29,10 +30,12 @@ template<
 >
 majutsu::size_type
 needed_size(
-	alda::bindings::dynamic_len<
-		Type,
-		Adapted
-	> const *,
+	majutsu::dispatch_type<
+		alda::bindings::dynamic_len<
+			Type,
+			Adapted
+		>
+	>,
 	Type const &_value
 )
 {
@@ -46,7 +49,9 @@ needed_size(
 	);
 
 	for(
-		auto const &elem : _value
+		auto const &elem
+		:
+		_value
 	)
 		ret +=
 			majutsu::needed_size<
@@ -64,10 +69,12 @@ template<
 >
 void
 place(
-	alda::bindings::dynamic_len<
-		Type,
-		Adapted
-	> const *const _concept,
+	majutsu::dispatch_type<
+		alda::bindings::dynamic_len<
+			Type,
+			Adapted
+		>
+	> const _concept,
 	Type const &_value,
 	majutsu::raw_pointer _mem
 )
@@ -79,7 +86,9 @@ place(
 	);
 
 	for(
-		auto const &elem : _value
+		auto const &elem
+		:
+		_value
 	)
 	{
 		majutsu::place<
@@ -104,10 +113,12 @@ template<
 >
 Type
 make(
-	alda::bindings::dynamic_len<
-		Type,
-		Adapted
-	> const *const _concept,
+	majutsu::dispatch_type<
+		alda::bindings::dynamic_len<
+			Type,
+			Adapted
+		>
+	> const _concept,
 	majutsu::const_raw_pointer const _mem
 )
 {

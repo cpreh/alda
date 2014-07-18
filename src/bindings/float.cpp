@@ -7,6 +7,7 @@
 #include <alda/bindings/float.hpp>
 #include <alda/bindings/fundamental.hpp>
 #include <majutsu/const_raw_pointer.hpp>
+#include <majutsu/dispatch_type.hpp>
 #include <majutsu/make.hpp>
 #include <majutsu/place.hpp>
 #include <majutsu/raw_pointer.hpp>
@@ -134,7 +135,9 @@ deserialize(
 
 majutsu::size_type
 alda::bindings::needed_size(
-	alda::bindings::float_ const *,
+	majutsu::dispatch_type<
+		alda::bindings::float_
+	>,
 	alda::bindings::float_::type const &
 )
 {
@@ -143,7 +146,9 @@ alda::bindings::needed_size(
 
 void
 alda::bindings::place(
-	alda::bindings::float_ const *,
+	majutsu::dispatch_type<
+		alda::bindings::float_
+	>,
 	alda::bindings::float_::type const &_val,
 	majutsu::raw_pointer const _mem
 )
@@ -160,7 +165,9 @@ alda::bindings::place(
 
 alda::bindings::float_::type
 alda::bindings::make(
-	alda::bindings::float_ const *,
+	majutsu::dispatch_type<
+		alda::bindings::float_
+	>,
 	majutsu::const_raw_pointer const _beg
 )
 {

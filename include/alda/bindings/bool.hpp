@@ -10,6 +10,7 @@
 #include <alda/bindings/bool_decl.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <majutsu/const_raw_pointer.hpp>
+#include <majutsu/dispatch_type.hpp>
 #include <majutsu/make.hpp>
 #include <majutsu/place.hpp>
 #include <majutsu/static_size.hpp>
@@ -28,7 +29,9 @@ namespace bindings
 inline
 void
 place(
-	alda::bindings::bool_ const *,
+	majutsu::dispatch_type<
+		alda::bindings::bool_
+	>,
 	alda::bindings::bool_::type const _value,
 	majutsu::raw_pointer const _data
 )
@@ -48,7 +51,9 @@ place(
 inline
 alda::bindings::bool_::type
 make(
-	alda::bindings::bool_ const *,
+	majutsu::dispatch_type<
+		alda::bindings::bool_
+	>,
 	majutsu::const_raw_pointer const _data
 )
 {

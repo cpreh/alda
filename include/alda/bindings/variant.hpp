@@ -14,6 +14,7 @@
 #include <alda/bindings/detail/variant_needed_size.hpp>
 #include <alda/bindings/detail/variant_place.hpp>
 #include <majutsu/const_raw_pointer.hpp>
+#include <majutsu/dispatch_type.hpp>
 #include <majutsu/make.hpp>
 #include <majutsu/needed_size.hpp>
 #include <majutsu/place.hpp>
@@ -36,10 +37,12 @@ template<
 >
 void
 place(
-	alda::bindings::variant<
-		Types,
-		AdaptedTypes
-	> const *,
+	majutsu::dispatch_type<
+		alda::bindings::variant<
+			Types,
+			AdaptedTypes
+		>
+	>,
 	fcppt::variant::object<
 		Types
 	> const _value,
@@ -99,10 +102,12 @@ fcppt::variant::object<
 	Types
 >
 make(
-	alda::bindings::variant<
-		Types,
-		AdaptedTypes
-	> const *,
+	majutsu::dispatch_type<
+		alda::bindings::variant<
+			Types,
+			AdaptedTypes
+		>
+	>,
 	majutsu::const_raw_pointer _mem
 )
 {
@@ -157,10 +162,12 @@ template<
 >
 majutsu::size_type
 needed_size(
-	alda::bindings::variant<
-		Types,
-		AdaptedTypes
-	> const *,
+	majutsu::dispatch_type<
+		alda::bindings::variant<
+			Types,
+			AdaptedTypes
+		>
+	>,
 	fcppt::variant::object<
 		Types
 	> const _value

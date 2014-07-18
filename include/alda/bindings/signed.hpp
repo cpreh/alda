@@ -11,6 +11,7 @@
 #include <alda/bindings/signed_decl.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <majutsu/const_raw_pointer.hpp>
+#include <majutsu/dispatch_type.hpp>
 #include <majutsu/fundamental.hpp>
 #include <majutsu/make.hpp>
 #include <majutsu/place.hpp>
@@ -36,9 +37,11 @@ template<
 >
 void
 place(
-	alda::bindings::signed_<
-		Type
-	> const *,
+	majutsu::dispatch_type<
+		alda::bindings::signed_<
+			Type
+		>
+	>,
 	Type const &_value,
 	majutsu::raw_pointer const _mem
 )
@@ -122,9 +125,11 @@ template<
 >
 Type
 make(
-	alda::bindings::signed_<
-		Type
-	> const *,
+	majutsu::dispatch_type<
+		alda::bindings::signed_<
+			Type
+		>
+	>,
 	majutsu::const_raw_pointer const _beg
 )
 {

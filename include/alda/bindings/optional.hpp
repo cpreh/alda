@@ -10,6 +10,7 @@
 #include <alda/bindings/bool.hpp>
 #include <alda/bindings/optional_decl.hpp>
 #include <majutsu/const_raw_pointer.hpp>
+#include <majutsu/dispatch_type.hpp>
 #include <majutsu/make.hpp>
 #include <majutsu/needed_size.hpp>
 #include <majutsu/place.hpp>
@@ -29,10 +30,12 @@ template<
 >
 void
 place(
-	alda::bindings::optional<
-		Type,
-		Adapted
-	> const *,
+	majutsu::dispatch_type<
+		alda::bindings::optional<
+			Type,
+			Adapted
+		>
+	>,
 	fcppt::optional<
 		Type
 	> const _value,
@@ -83,10 +86,12 @@ fcppt::optional<
 	Type
 >
 make(
-	alda::bindings::optional<
-		Type,
-		Adapted
-	> const *,
+	majutsu::dispatch_type<
+		alda::bindings::optional<
+			Type,
+			Adapted
+		>
+	>,
 	majutsu::const_raw_pointer _mem
 )
 {
@@ -138,10 +143,12 @@ template<
 >
 majutsu::size_type
 needed_size(
-	alda::bindings::optional<
-		Type,
-		Adapted
-	> const *,
+	majutsu::dispatch_type<
+		alda::bindings::optional<
+			Type,
+			Adapted
+		>
+	>,
 	fcppt::optional<
 		Type
 	> const _value

@@ -11,6 +11,7 @@
 #include <alda/bindings/bitfield_decl.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <majutsu/const_raw_pointer.hpp>
+#include <majutsu/dispatch_type.hpp>
 #include <majutsu/make.hpp>
 #include <majutsu/place.hpp>
 #include <majutsu/raw_pointer.hpp>
@@ -30,9 +31,11 @@ template<
 >
 void
 place(
-	alda::bindings::bitfield<
-		Type
-	> const *,
+	majutsu::dispatch_type<
+		alda::bindings::bitfield<
+			Type
+		>
+	>,
 	Type const &_value,
 	majutsu::raw_pointer const _mem
 )
@@ -53,9 +56,11 @@ template<
 >
 Type
 make(
-	alda::bindings::bitfield<
-		Type
-	> const *,
+	majutsu::dispatch_type<
+		alda::bindings::bitfield<
+			Type
+		>
+	>,
 	majutsu::const_raw_pointer const _mem
 )
 {

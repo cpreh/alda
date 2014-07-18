@@ -12,11 +12,12 @@
 #include <alda/bindings/detail/extract_length.hpp>
 #include <alda/bindings/detail/put_length.hpp>
 #include <alda/serialization/detail/read/make_object.hpp>
-#include <fcppt/algorithm/copy_n.hpp>
-#include <fcppt/cast/to_char_ptr.hpp>
 #include <majutsu/const_raw_pointer.hpp>
+#include <majutsu/dispatch_type.hpp>
 #include <majutsu/size_type.hpp>
 #include <majutsu/raw_pointer.hpp>
+#include <fcppt/algorithm/copy_n.hpp>
+#include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/iostreams/device/array.hpp>
 #include <boost/iostreams/stream_buffer.hpp>
@@ -33,9 +34,11 @@ template<
 >
 majutsu::size_type
 needed_size(
-	alda::bindings::class_<
-		Type
-	> const *,
+	majutsu::dispatch_type<
+		alda::bindings::class_<
+			Type
+		>
+	>,
 	Type const &_value
 )
 {
@@ -55,9 +58,11 @@ template<
 >
 void
 place(
-	alda::bindings::class_<
-		Type
-	> const *const _concept,
+	majutsu::dispatch_type<
+		alda::bindings::class_<
+			Type
+		>
+	> const _concept,
 	Type const &_value,
 	majutsu::raw_pointer _mem
 )
@@ -80,9 +85,11 @@ template<
 >
 Type
 make(
-	alda::bindings::class_<
-		Type
-	> const *const _concept,
+	majutsu::dispatch_type<
+		alda::bindings::class_<
+			Type
+		>
+	> const _concept,
 	majutsu::const_raw_pointer const _mem
 )
 {

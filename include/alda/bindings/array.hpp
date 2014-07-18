@@ -9,6 +9,7 @@
 
 #include <alda/bindings/array_decl.hpp>
 #include <majutsu/const_raw_pointer.hpp>
+#include <majutsu/dispatch_type.hpp>
 #include <majutsu/integral_size.hpp>
 #include <majutsu/make.hpp>
 #include <majutsu/needed_size.hpp>
@@ -33,10 +34,12 @@ template<
 >
 void
 place(
-	alda::bindings::array<
-		Type,
-		Adapted
-	> const *,
+	majutsu::dispatch_type<
+		alda::bindings::array<
+			Type,
+			Adapted
+		>
+	>,
 	Type const &_value,
 	majutsu::raw_pointer _mem
 )
@@ -69,10 +72,12 @@ template<
 >
 Type
 make(
-	alda::bindings::array<
-		Type,
-		Adapted
-	> const *,
+	majutsu::dispatch_type<
+		alda::bindings::array<
+			Type,
+			Adapted
+		>
+	>,
 	majutsu::const_raw_pointer _mem
 )
 {

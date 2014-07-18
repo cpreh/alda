@@ -9,6 +9,7 @@
 
 #include <alda/bindings/strong_typedef_decl.hpp>
 #include <majutsu/const_raw_pointer.hpp>
+#include <majutsu/dispatch_type.hpp>
 #include <majutsu/make.hpp>
 #include <majutsu/place.hpp>
 #include <majutsu/raw_pointer.hpp>
@@ -29,10 +30,12 @@ template<
 >
 void
 place(
-	alda::bindings::strong_typedef<
-		Type,
-		Adapted
-	> const *,
+	majutsu::dispatch_type<
+		alda::bindings::strong_typedef<
+			Type,
+			Adapted
+		>
+	>,
 	Type const &_type,
 	majutsu::raw_pointer const _mem
 )
@@ -51,10 +54,12 @@ template<
 >
 Type
 make(
-	alda::bindings::strong_typedef<
-		Type,
-		Adapted
-	> const *,
+	majutsu::dispatch_type<
+		alda::bindings::strong_typedef<
+			Type,
+			Adapted
+		>
+	>,
 	majutsu::const_raw_pointer const _beg
 )
 {

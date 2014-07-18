@@ -9,6 +9,7 @@
 
 #include <alda//endianness.hpp>
 #include <majutsu/const_raw_pointer.hpp>
+#include <majutsu/dispatch_type.hpp>
 #include <majutsu/needed_size.hpp>
 #include <majutsu/raw_pointer.hpp>
 #include <fcppt/truncation_check_cast.hpp>
@@ -28,7 +29,9 @@ template<
 >
 void
 put_length(
-	Concept const *,
+	majutsu::dispatch_type<
+		Concept
+	>,
 	typename Concept::type const &_value,
 	majutsu::raw_pointer &_memory
 )

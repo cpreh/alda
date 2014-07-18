@@ -11,6 +11,7 @@
 #include <alda/bindings/float_type.hpp>
 #include <alda/detail/symbol.hpp>
 #include <majutsu/const_raw_pointer.hpp>
+#include <majutsu/dispatch_type.hpp>
 #include <majutsu/fundamental.hpp>
 #include <majutsu/raw_pointer.hpp>
 #include <majutsu/size_type.hpp>
@@ -28,14 +29,18 @@ namespace bindings
 ALDA_DETAIL_SYMBOL
 majutsu::size_type
 needed_size(
-	alda::bindings::float_ const *,
+	majutsu::dispatch_type<
+		alda::bindings::float_
+	>,
 	alda::bindings::float_::type const &
 );
 
 ALDA_DETAIL_SYMBOL
 void
 place(
-	alda::bindings::float_ const *,
+	majutsu::dispatch_type<
+		alda::bindings::float_
+	>,
 	alda::bindings::float_::type const &,
 	majutsu::raw_pointer
 );
@@ -43,7 +48,9 @@ place(
 ALDA_DETAIL_SYMBOL
 alda::bindings::float_::type
 make(
-	alda::bindings::float_ const *,
+	majutsu::dispatch_type<
+		alda::bindings::float_
+	>,
 	majutsu::const_raw_pointer
 );
 

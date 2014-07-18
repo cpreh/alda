@@ -9,6 +9,7 @@
 
 #include <alda/bindings/duration_decl.hpp>
 #include <majutsu/const_raw_pointer.hpp>
+#include <majutsu/dispatch_type.hpp>
 #include <majutsu/make.hpp>
 #include <majutsu/place.hpp>
 #include <majutsu/raw_pointer.hpp>
@@ -29,10 +30,12 @@ template<
 >
 void
 place(
-	alda::bindings::duration<
-		Adapted,
-		Ratio
-	> const *,
+	majutsu::dispatch_type<
+		alda::bindings::duration<
+			Adapted,
+			Ratio
+		>
+	>,
 	typename
 	alda::bindings::duration<
 		Adapted,
@@ -59,10 +62,12 @@ alda::bindings::duration<
 	Ratio
 >::type
 make(
-	alda::bindings::duration<
-		Adapted,
-		Ratio
-	> const *,
+	majutsu::dispatch_type<
+		alda::bindings::duration<
+			Adapted,
+			Ratio
+		>
+	>,
 	majutsu::const_raw_pointer const _mem
 )
 {

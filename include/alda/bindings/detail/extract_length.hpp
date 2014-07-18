@@ -9,6 +9,7 @@
 
 #include <alda//endianness.hpp>
 #include <majutsu/const_raw_pointer.hpp>
+#include <majutsu/dispatch_type.hpp>
 #include <majutsu/raw_pointer.hpp>
 #include <fcppt/algorithm/copy_n.hpp>
 #include <fcppt/endianness/convert.hpp>
@@ -26,7 +27,9 @@ template<
 >
 typename Concept::length_type
 extract_length(
-	Concept const *,
+	majutsu::dispatch_type<
+		Concept
+	>,
 	majutsu::const_raw_pointer const _memory
 )
 {
