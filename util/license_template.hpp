@@ -4,23 +4,3 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef ALDA_NET_CLIENT_CONNECT_FUNCTION_HPP_INCLUDED
-#define ALDA_NET_CLIENT_CONNECT_FUNCTION_HPP_INCLUDED
-
-
-namespace alda
-{
-namespace net
-{
-namespace client
-{
-
-typedef
-void
-connect_function();
-
-}
-}
-}
-
-#endif
