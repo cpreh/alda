@@ -26,7 +26,6 @@
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/pre.hpp>
-#include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/error.hpp>
@@ -43,6 +42,7 @@
 #include <boost/system/error_code.hpp>
 #include <cstddef>
 #include <functional>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -374,11 +374,12 @@ alda::net::server::detail::object_impl::accept_handler(
 	);
 
 	FCPPT_ASSERT_ERROR(
-		fcppt::container::ptr::insert_unique_ptr_map(
-			connections_,
-			current_con.id(),
-			move(
-				new_connection_
+		connections_.insert(
+			std::make_pair(
+				current_con.id(),
+				std::move(
+					new_connection_
+				)
 			)
 		).second
 	);

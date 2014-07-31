@@ -11,7 +11,6 @@
 #include <alda/message/detail/extract_id.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/container/ptr/replace_unique_ptr.hpp>
 
 
 namespace alda
@@ -49,19 +48,18 @@ public:
 	void
 	operator()() const
 	{
-		fcppt::container::ptr::replace_unique_ptr(
-			instances_,
+		instances_[
 			alda::message::detail::extract_id<
 				typename Message::types
-			>::type::value,
+			>::type::value
+		] =
 			fcppt::make_unique_ptr<
 				alda::call::detail::concrete<
 					TypeEnum,
 					Callee,
 					Message
 				>
-			>()
-		);
+			>();
 	}
 private:
 	InstanceArray &instances_;

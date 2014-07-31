@@ -8,17 +8,15 @@
 #define ALDA_SERIALIZATION_DETAIL_DISPATCH_REGISTER_IMPL_HPP_INCLUDED
 
 #include <alda/serialization/context_decl.hpp>
-#include <alda/serialization/detail/dispatch/base_fwd.hpp>
 #include <alda/serialization/detail/dispatch/concrete_decl.hpp>
 #include <alda/serialization/detail/dispatch/register_decl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/at.hpp>
 #include <exception>
-#include <memory>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -33,12 +31,6 @@ alda::serialization::detail::dispatch::register_<
 	context &_context
 )
 {
-	typedef std::unique_ptr<
-		alda::serialization::detail::dispatch::base<
-			TypeEnum
-		>
-	> dispatcher_base_unique_ptr;
-
 	typedef typename boost::mpl::at_c<
 		typename Message::memory_type::types,
 		0
@@ -46,14 +38,13 @@ alda::serialization::detail::dispatch::register_<
 
 	// TODO: fix this cast here, maybe replace majutsu::constant by an enum wrapper
 	if(
-		!fcppt::container::ptr::insert_unique_ptr_map(
-			_context.handlers_,
-			static_cast<
-				typename TypeEnum::type
-			>(
-				msg_type::value
-			),
-			dispatcher_base_unique_ptr(
+		!_context.handlers_.insert(
+			std::make_pair(
+				static_cast<
+					typename TypeEnum::type
+				>(
+					msg_type::value
+				),
 				fcppt::make_unique_ptr<
 					alda::serialization::detail::dispatch::concrete<
 						TypeEnum,

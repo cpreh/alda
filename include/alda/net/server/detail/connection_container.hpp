@@ -10,7 +10,8 @@
 #include <alda/net/id.hpp>
 #include <alda/net/server/detail/connection_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_map.hpp>
+#include <map>
+#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -23,10 +24,14 @@ namespace server
 namespace detail
 {
 
-typedef boost::ptr_map<
+typedef
+std::map<
 	alda::net::id,
-	alda::net::server::detail::connection
-> connection_container;
+	std::unique_ptr<
+		alda::net::server::detail::connection
+	>
+>
+connection_container;
 
 }
 }

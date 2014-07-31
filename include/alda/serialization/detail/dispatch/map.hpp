@@ -9,7 +9,8 @@
 
 #include <alda/serialization/detail/dispatch/base_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_map.hpp>
+#include <map>
+#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -27,10 +28,12 @@ template<
 >
 using map
 =
-boost::ptr_map<
+std::map<
 	typename TypeEnum::type,
-	alda::serialization::detail::dispatch::base<
-		TypeEnum
+	std::unique_ptr<
+		alda::serialization::detail::dispatch::base<
+			TypeEnum
+		>
 	>
 >;
 

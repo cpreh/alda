@@ -13,8 +13,9 @@
 #include <alda/message/base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_array.hpp>
+#include <array>
 #include <cstddef>
+#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -61,14 +62,18 @@ public:
 		default_callback const &
 	) const;
 private:
-	typedef boost::ptr_array<
-		base,
+	typedef
+	std::array<
+		std::unique_ptr<
+			base
+		>,
 		static_cast<
 			std::size_t
 		>(
 			TypeEnum::size::value
 		)
-	> instance_array;
+	>
+	instance_array;
 
 	instance_array instances_;
 };

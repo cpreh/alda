@@ -84,9 +84,9 @@ alda::call::object<
 	);
 
 	return
-		instances_.is_null(
+		!instances_[
 			index
-		)
+		]
 		?
 			_default_callback(
 				_message
@@ -94,7 +94,7 @@ alda::call::object<
 		:
 			instances_[
 				index
-			].call(
+			]->call(
 				_callee,
 				_message
 			);
