@@ -6,6 +6,7 @@
 
 #include <alda/type_enum_fcppt.hpp>
 #include <alda/bindings/fundamental.hpp>
+#include <alda/call/friend_dispatcher.hpp>
 #include <alda/call/object.hpp>
 #include <alda/message/base_decl.hpp>
 #include <alda/message/base_unique_ptr.hpp>
@@ -163,6 +164,8 @@ public:
 		)
 	{
 	}
+private:
+	ALDA_CALL_FRIEND_DISPATCHER;
 
 	typedef void result_type;
 
@@ -182,7 +185,7 @@ public:
 			value_
 		);
 	}
-private:
+
 	std::uint16_t const value_;
 };
 
