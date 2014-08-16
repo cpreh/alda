@@ -11,6 +11,7 @@
 #include <alda/call/detail/concrete_decl.hpp>
 #include <alda/message/base_fwd.hpp>
 #include <alda/message/concrete_decl.hpp>
+#include <fcppt/cast/static_downcast.hpp>
 
 
 template<
@@ -58,8 +59,7 @@ alda::call::detail::concrete<
 {
 	return
 		_callee(
-			// TODO: static_cast
-			dynamic_cast<
+			fcppt::cast::static_downcast<
 				alda::message::concrete<
 					TypeEnum,
 					Message
