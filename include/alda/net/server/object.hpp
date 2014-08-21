@@ -60,7 +60,7 @@ public:
 	);
 
 	ALDA_DETAIL_SYMBOL
-	alda::net::server::connection_id_container const
+	alda::net::server::connection_id_container
 	connections() const;
 
 	ALDA_DETAIL_SYMBOL

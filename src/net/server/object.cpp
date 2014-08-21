@@ -58,7 +58,7 @@ alda::net::server::object::send_buffer(
 		);
 }
 
-alda::net::server::connection_id_container const
+alda::net::server::connection_id_container
 alda::net::server::object::connections() const
 {
 	return

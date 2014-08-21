@@ -23,9 +23,11 @@
 #include <alda/src/net/server/detail/object_impl.hpp>
 #include <alda/src/log_parameters.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/optional_bind.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/container/find_opt.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/error.hpp>
@@ -136,23 +138,25 @@ alda::net::server::detail::object_impl::send_buffer(
 	alda::net::id const _id
 )
 {
-	alda::net::server::detail::connection_container::iterator const it(
-		connections_.find(
-			_id
-		)
-	);
-
 	return
-		it == connections_.end()
-		?
-			alda::net::buffer::circular_send::optional_ref()
-		:
-			alda::net::buffer::circular_send::optional_ref(
-				it->second->send_data()
-			);
+		fcppt::optional_bind(
+			fcppt::container::find_opt(
+				connections_,
+				_id
+			),
+			[](
+				alda::net::server::detail::connection_container::mapped_type const &_connection
+			)
+			{
+				return
+					alda::net::buffer::circular_send::optional_ref{
+						_connection->send_data()
+					};
+			}
+		);
 }
 
-alda::net::server::connection_id_container const
+alda::net::server::connection_id_container
 alda::net::server::detail::object_impl::connections() const
 {
 	return

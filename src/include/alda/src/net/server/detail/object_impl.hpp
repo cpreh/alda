@@ -66,7 +66,7 @@ public:
 		alda::net::id
 	);
 
-	alda::net::server::connection_id_container const
+	alda::net::server::connection_id_container
 	connections() const;
 
 	void
