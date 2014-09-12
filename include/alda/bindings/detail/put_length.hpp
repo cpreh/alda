@@ -12,8 +12,8 @@
 #include <majutsu/dispatch_type.hpp>
 #include <majutsu/needed_size.hpp>
 #include <majutsu/raw_pointer.hpp>
-#include <fcppt/truncation_check_cast.hpp>
 #include <fcppt/algorithm/copy_n.hpp>
+#include <fcppt/cast/truncation_check.hpp>
 #include <fcppt/endianness/convert.hpp>
 
 
@@ -41,7 +41,7 @@ put_length(
 
 	length_type const dest_sz(
 		fcppt::endianness::convert(
-			fcppt::truncation_check_cast<
+			fcppt::cast::truncation_check<
 				length_type
 			>(
 				majutsu::needed_size<

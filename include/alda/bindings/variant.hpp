@@ -20,7 +20,7 @@
 #include <majutsu/place.hpp>
 #include <majutsu/raw_pointer.hpp>
 #include <majutsu/size_type.hpp>
-#include <fcppt/truncation_check_cast.hpp>
+#include <fcppt/cast/truncation_check.hpp>
 #include <fcppt/mpl/invoke_on.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
@@ -62,7 +62,7 @@ place(
 	index_type;
 
 	index_type const index(
-		fcppt::truncation_check_cast<
+		fcppt::cast::truncation_check<
 			index_type
 		>(
 			_value.type_index()
@@ -186,7 +186,7 @@ needed_size(
 	index_type;
 
 	index_type const index(
-		fcppt::truncation_check_cast<
+		fcppt::cast::truncation_check<
 			index_type
 		>(
 			_value.type_index()
