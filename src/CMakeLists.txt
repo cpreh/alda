@@ -299,6 +299,7 @@ function(
 		${ALDA_LIB_NAME}
 		PRIVATE
 		${fcppt_core_TARGET}
+		${fcppt_log_TARGET}
 		${FcpptThreads_LIBRARIES}
 		${Boost_SYSTEM_LIBRARY}
 		${ASIO_LIBS}
