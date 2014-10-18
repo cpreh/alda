@@ -1,71 +1,98 @@
+include(
+	CMakeParseArguments
+)
+
 function(
 	ADD_ALDA_TEST
 	TESTNAME
-	ADDITIONAL_LIBRARIES
 )
+	set(
+		MULTI_ARGS
+		ADDITIONAL_DEPS
+	)
+
+	cmake_parse_arguments(
+		""
+		""
+		""
+		"${MULTI_ARGS}"
+		${ARGN}
+	)
+
 	fcppt_utils_add_test(
 		${TESTNAME}
-		"${ALDA_DEFAULT_LINK_TARGET};${ADDITIONAL_LIBRARIES}"
-		""
+		LINK_LIBS
+			${ALDA_DEFAULT_LINK_TARGET}
+			${_ADDITIONAL_DEPS}
 	)
 endfunction()
 
 add_alda_test(
 	bitfield
-	"${fcppt_core_TARGET}"
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
 )
 
 add_alda_test(
 	duration
-	"${fcppt_core_TARGET}"
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
 )
 
 add_alda_test(
 	dynamic_len
-	"${fcppt_core_TARGET}"
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
 )
 
 add_alda_test(
 	enum
-	"${fcppt_core_TARGET}"
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
 )
 
 add_alda_test(
 	float
-	""
 )
 
 add_alda_test(
 	length_stream
-	"${fcppt_core_TARGET}"
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
 )
 
 add_alda_test(
 	optional
-	"${fcppt_core_TARGET}"
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
 )
 
 add_alda_test(
 	signed
-	"${fcppt_core_TARGET}"
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
 )
 
 add_alda_test(
 	simple
-	"${fcppt_core_TARGET}"
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
 )
 
 add_alda_test(
 	static
-	"${fcppt_core_TARGET}"
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
 )
 
 add_alda_test(
 	strong_typedef
-	"${fcppt_core_TARGET}"
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
 )
 
 add_alda_test(
 	variant
-	"${fcppt_core_TARGET}"
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
 )
