@@ -7,9 +7,9 @@
 #ifndef ALDA_DETAIL_CLASS_SYMBOL_HPP_INCLUDED
 #define ALDA_DETAIL_CLASS_SYMBOL_HPP_INCLUDED
 
-#include <fcppt/class_symbol.hpp>
+#include <fcppt/symbol/class.hpp>
 
 
-#define ALDA_DETAIL_CLASS_SYMBOL FCPPT_CLASS_SYMBOL
+#define ALDA_DETAIL_CLASS_SYMBOL FCPPT_SYMBOL_CLASS
 
 #endif

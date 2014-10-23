@@ -224,10 +224,12 @@ set(
 )
 
 fcppt_generate_symbol_header(
-	"ALDA_STATIC_LINK"
-	"alda"
-	"ALDA_DETAIL"
-	"alda/detail"
+	STATIC_LINK_FLAG
+		"ALDA_STATIC_LINK"
+	EXPORTS_NAME
+		"alda"
+	SYMBOL_NAME
+		"ALDA_DETAIL"
 )
 
 include_directories(
