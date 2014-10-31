@@ -33,6 +33,9 @@ set(
 	include/alda/bindings/dynamic_len_decl.hpp
 	include/alda/bindings/dynamic_len_fwd.hpp
 	include/alda/bindings/enum.hpp
+	include/alda/bindings/enum_array.hpp
+	include/alda/bindings/enum_array_decl.hpp
+	include/alda/bindings/enum_array_fwd.hpp
 	include/alda/bindings/enum_decl.hpp
 	include/alda/bindings/enum_fwd.hpp
 	include/alda/bindings/float.hpp
@@ -70,6 +73,7 @@ set(
 	include/alda/call/detail/concrete_fwd.hpp
 	include/alda/call/detail/concrete_impl.hpp
 	include/alda/call/detail/make_instance.hpp
+	include/alda/call/friend_dispatcher.hpp
 	include/alda/call/object.hpp
 	include/alda/call/object_decl.hpp
 	include/alda/call/object_fwd.hpp

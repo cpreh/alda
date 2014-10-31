@@ -52,6 +52,12 @@ add_alda_test(
 )
 
 add_alda_test(
+	enum_array
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+)
+
+add_alda_test(
 	float
 )
 
