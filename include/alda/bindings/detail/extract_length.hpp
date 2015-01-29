@@ -11,8 +11,10 @@
 #include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/dispatch_type.hpp>
 #include <majutsu/raw_pointer.hpp>
-#include <fcppt/algorithm/copy_n.hpp>
 #include <fcppt/endianness/convert.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <algorithm>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace alda
@@ -37,7 +39,7 @@ extract_length(
 
 	length_type ret;
 
-	fcppt::algorithm::copy_n(
+	std::copy_n(
 		_memory,
 		sizeof(length_type),
 		reinterpret_cast<

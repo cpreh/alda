@@ -6,7 +6,6 @@
 
 #include <alda/net/buffer/circular_receive/source.hpp>
 #include <alda/net/buffer/circular_receive/object.hpp>
-#include <fcppt/algorithm/copy_n.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/iostreams/concepts.hpp>
@@ -55,7 +54,7 @@ alda::net::buffer::circular_receive::source::read(
 	)
 		return -1;
 
-	fcppt::algorithm::copy_n(
+	std::copy_n(
 		range.begin(),
 		real_count,
 		_dest

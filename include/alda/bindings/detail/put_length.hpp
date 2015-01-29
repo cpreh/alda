@@ -12,9 +12,11 @@
 #include <majutsu/dispatch_type.hpp>
 #include <majutsu/needed_size.hpp>
 #include <majutsu/raw_pointer.hpp>
-#include <fcppt/algorithm/copy_n.hpp>
 #include <fcppt/cast/truncation_check.hpp>
 #include <fcppt/endianness/convert.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <algorithm>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace alda
@@ -54,7 +56,7 @@ put_length(
 		)
 	);
 
-	fcppt::algorithm::copy_n(
+	std::copy_n(
 		reinterpret_cast<
 			majutsu::const_raw_pointer
 		>(
