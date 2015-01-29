@@ -14,9 +14,9 @@
 #include <alda/serialization/load/fwd.hpp>
 #include <majutsu/make.hpp>
 #include <majutsu/size_type.hpp>
-#include <fcppt/algorithm/copy_n.hpp>
 #include <fcppt/io/read.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <algorithm>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
@@ -79,7 +79,7 @@ struct load<
 			length_sz
 		);
 
-		fcppt::algorithm::copy_n(
+		std::copy_n(
 			reinterpret_cast<
 				alda::serialization::detail::raw_container::const_pointer
 			>(

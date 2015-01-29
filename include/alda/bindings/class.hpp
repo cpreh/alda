@@ -16,11 +16,11 @@
 #include <majutsu/dispatch_type.hpp>
 #include <majutsu/size_type.hpp>
 #include <majutsu/raw_pointer.hpp>
-#include <fcppt/algorithm/copy_n.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/iostreams/device/array.hpp>
 #include <boost/iostreams/stream_buffer.hpp>
+#include <algorithm>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -73,7 +73,7 @@ place(
 		_mem
 	);
 
-	fcppt::algorithm::copy_n(
+	std::copy_n(
 		_value.memory().data(),
 		_value.memory().size(),
 		_mem
