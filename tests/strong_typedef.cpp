@@ -12,6 +12,7 @@
 #include <majutsu/role.hpp>
 #include <fcppt/strong_typedef.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/cast/size_fun.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -75,7 +76,8 @@ FCPPT_PP_POP_WARNING
 		message(
 			strong_role{} =
 				fcppt::strong_typedef_construct_cast<
-					strong_type
+					strong_type,
+					fcppt::cast::size_fun
 				>(
 					42u
 				)
