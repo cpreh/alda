@@ -4,8 +4,8 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <alda/net/buffer/circular_receive/source.hpp>
 #include <alda/net/buffer/circular_receive/object.hpp>
+#include <alda/net/buffer/circular_receive/source.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/iostreams/concepts.hpp>

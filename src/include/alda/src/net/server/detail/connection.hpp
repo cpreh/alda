@@ -11,8 +11,8 @@
 #include <alda/net/value_type.hpp>
 #include <alda/net/buffer/max_receive_size.hpp>
 #include <alda/net/buffer/max_send_size.hpp>
-#include <alda/net/buffer/circular_send/object.hpp>
 #include <alda/net/buffer/circular_receive/object.hpp>
+#include <alda/net/buffer/circular_send/object.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/asio/io_service.hpp>

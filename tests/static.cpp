@@ -11,8 +11,8 @@
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
 #include <fcppt/math/vector/comparison.hpp>
-#include <fcppt/math/vector/static.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
+#include <fcppt/math/vector/static.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

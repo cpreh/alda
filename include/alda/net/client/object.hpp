@@ -17,8 +17,8 @@
 #include <alda/net/client/error_callback.hpp>
 #include <alda/net/client/object_fwd.hpp>
 #include <alda/net/client/detail/object_impl_fwd.hpp>
-#include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <memory>
 #include <fcppt/config/external_end.hpp>

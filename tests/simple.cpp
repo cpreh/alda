@@ -13,8 +13,8 @@
 #include <alda/message/instantiate_base.hpp>
 #include <alda/message/instantiate_concrete.hpp>
 #include <alda/message/make_class.hpp>
-#include <alda/message/make_id.hpp>
 #include <alda/message/make_concrete_ptr.hpp>
+#include <alda/message/make_id.hpp>
 #include <alda/serialization/context_fwd.hpp>
 #include <alda/serialization/define_context_function.hpp>
 #include <alda/serialization/deserialize.hpp>

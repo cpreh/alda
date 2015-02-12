@@ -19,9 +19,9 @@
 #include <alda/net/server/data_callback.hpp>
 #include <alda/net/server/disconnect_callback.hpp>
 #include <alda/net/server/detail/connection_container.hpp>
+#include <alda/src/log_parameters.hpp>
 #include <alda/src/net/server/detail/connection.hpp>
 #include <alda/src/net/server/detail/object_impl.hpp>
-#include <alda/src/log_parameters.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/optional_bind.hpp>
 #include <fcppt/text.hpp>

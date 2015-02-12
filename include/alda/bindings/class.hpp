@@ -14,12 +14,12 @@
 #include <alda/serialization/detail/read/make_object.hpp>
 #include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/dispatch_type.hpp>
-#include <majutsu/size_type.hpp>
 #include <majutsu/raw_pointer.hpp>
+#include <majutsu/size_type.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/iostreams/device/array.hpp>
 #include <boost/iostreams/stream_buffer.hpp>
+#include <boost/iostreams/device/array.hpp>
 #include <algorithm>
 #include <fcppt/config/external_end.hpp>
 

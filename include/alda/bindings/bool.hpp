@@ -13,8 +13,8 @@
 #include <majutsu/dispatch_type.hpp>
 #include <majutsu/make.hpp>
 #include <majutsu/place.hpp>
-#include <majutsu/static_size.hpp>
 #include <majutsu/raw_pointer.hpp>
+#include <majutsu/static_size.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>

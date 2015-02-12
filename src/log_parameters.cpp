@@ -7,10 +7,10 @@
 #include <alda/log_context.hpp>
 #include <alda/src/log_parameters.hpp>
 #include <fcppt/io/clog.hpp>
-#include <fcppt/log/parameters/object.hpp>
-#include <fcppt/log/parameters/with_context.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location_fwd.hpp>
+#include <fcppt/log/parameters/object.hpp>
+#include <fcppt/log/parameters/with_context.hpp>
 
 
 fcppt::log::parameters::object const

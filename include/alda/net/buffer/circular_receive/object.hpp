@@ -12,8 +12,8 @@
 #include <alda/net/buffer/max_receive_size.hpp>
 #include <alda/net/buffer/circular_receive/object_fwd.hpp>
 #include <alda/net/buffer/circular_receive/part_fwd.hpp>
-#include <fcppt/container/raw_vector_decl.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/container/raw_vector_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/range/join.hpp>
