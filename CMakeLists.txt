@@ -10,8 +10,6 @@ include(
 	FcpptCMakeUtils
 )
 
-fcppt_utils_prepare_config()
-
 include(
 	FcpptSymbol
 )
