@@ -227,9 +227,13 @@ set(
 	src/net/server/object.cpp
 )
 
+set(
+	ALDA_STATIC_LINK_FLAG
+	ALDA_STATIC_LINK
+)
 fcppt_generate_symbol_header(
 	STATIC_LINK_FLAG
-		"ALDA_STATIC_LINK"
+		"${ALDA_STATIC_LINK_FLAG}"
 	EXPORTS_NAME
 		"alda"
 	SYMBOL_NAME
@@ -247,14 +251,14 @@ function(
 	if(
 		${VARIANT} STREQUAL "STATIC"
 	)
-		set(
+		fcppt_utils_static_link_name(
+			alda
 			ALDA_LIB_NAME
-			"alda_static"
 		)
 	else()
 		set(
 			ALDA_LIB_NAME
-			"alda"
+			alda
 		)
 	endif()
 
@@ -288,7 +292,7 @@ function(
 	fcppt_utils_interface_static_link(
 		${ALDA_LIB_NAME}
 		${VARIANT}
-		"ALDA_STATIC_LINK"
+		"${ALDA_STATIC_LINK_FLAG}"
 	)
 
 	if(

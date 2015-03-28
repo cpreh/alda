@@ -22,7 +22,7 @@ function(
 	fcppt_utils_add_test(
 		${TESTNAME}
 		LINK_LIBS
-			${ALDA_DEFAULT_LINK_TARGET}
+			${alda_TARGET}
 			${_ADDITIONAL_DEPS}
 	)
 endfunction()

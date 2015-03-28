@@ -14,44 +14,11 @@ include(
 	FcpptSymbol
 )
 
-option(
-	ENABLE_SHARED
-	"Build alda as shared libraries"
-	TRUE
-)
+fcppt_utils_static_shared()
 
-option(
-	ENABLE_STATIC
-	"Build alda as as static libraries"
-	FALSE
+fcppt_utils_link_target(
+	alda
 )
-
-if(
-	ENABLE_SHARED
-)
-	set(
-		ALDA_DEFAULT_LINK_TARGET
-		"alda"
-	)
-endif()
-
-if(
-	ENABLE_STATIC
-)
-	set(
-		ALDA_DEFAULT_LINK_TARGET
-		"alda_static"
-	)
-endif()
-
-if(
-	NOT ENABLE_SHARED AND NOT ENABLE_STATIC
-)
-	message(
-		FATAL_ERROR
-		"You disabled both STATIC and SHARED"
-	)
-endif()
 
 include_directories(
 	${FCPPT_UTILS_PROJECT_SOURCE_DIR}/include
