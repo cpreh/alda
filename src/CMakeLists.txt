@@ -107,6 +107,8 @@ set(
 	include/alda/message/make_concrete_ptr.hpp
 	include/alda/message/make_id.hpp
 	include/alda/message/make_id_fwd.hpp
+	include/alda/message/optional_base_unique_ptr.hpp
+	include/alda/message/optional_base_unique_ptr_fwd.hpp
 	include/alda/message/roles/type.hpp
 	include/alda/net/buffer/circular_receive/for_asio.hpp
 	include/alda/net/buffer/circular_receive/object.hpp

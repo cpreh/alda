@@ -16,6 +16,9 @@
 #include <majutsu/place.hpp>
 #include <majutsu/raw_pointer.hpp>
 #include <majutsu/size_type.hpp>
+#include <fcppt/const.hpp>
+#include <fcppt/maybe.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/optional_impl.hpp>
 
 
@@ -38,7 +41,7 @@ place(
 	>,
 	fcppt::optional<
 		Type
-	> const _value,
+	> const &_opt_value,
 	majutsu::raw_pointer _mem
 )
 {
@@ -50,7 +53,7 @@ place(
 	tag;
 
 	typename tag::bool_type::type const has_value(
-		_value.has_value()
+		_opt_value.has_value()
 	);
 
 	majutsu::place<
@@ -67,15 +70,22 @@ place(
 			has_value
 		);
 
-	if(
-		_value.has_value()
-	)
-		majutsu::place<
-			Adapted
-		>(
-			*_value,
+	fcppt::maybe_void(
+		_opt_value,
+		[
 			_mem
-		);
+		](
+			Type const &_value
+		)
+		{
+			majutsu::place<
+				Adapted
+			>(
+				_value,
+				_mem
+			);
+		}
+	);
 }
 
 template<
@@ -151,7 +161,7 @@ needed_size(
 	>,
 	fcppt::optional<
 		Type
-	> const _value
+	> const &_opt_value
 )
 {
 	typedef
@@ -162,7 +172,7 @@ needed_size(
 	tag;
 
 	typename tag::bool_type::type const has_value(
-		_value.has_value()
+		_opt_value.has_value()
 	);
 
 	majutsu::size_type ret(
@@ -173,18 +183,24 @@ needed_size(
 		)
 	);
 
-	if(
-		_value.has_value()
-	)
-		ret +=
-			majutsu::needed_size<
-				Adapted
-			>(
-				*_value
-			);
-
 	return
-		ret;
+		fcppt::maybe(
+			_opt_value,
+			fcppt::const_(
+				ret
+			),
+			[
+				ret
+			](
+				Type const &_value
+			)
+			{
+				return
+					ret
+					+
+					_value;
+			}
+		);
 }
 
 }

@@ -15,6 +15,7 @@
 #include <alda/message/make_class.hpp>
 #include <alda/message/make_concrete_ptr.hpp>
 #include <alda/message/make_id.hpp>
+#include <alda/message/optional_base_unique_ptr.hpp>
 #include <alda/serialization/context_fwd.hpp>
 #include <alda/serialization/define_context_function.hpp>
 #include <alda/serialization/instantiate_context.hpp>
@@ -28,6 +29,9 @@
 #include <majutsu/composite.hpp>
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
+#include <fcppt/const.hpp>
+#include <fcppt/make_int_range_count.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cout.hpp>
@@ -68,6 +72,12 @@ alda::message::base_unique_ptr<
 	type_enum
 >
 message_base_unique_ptr;
+
+typedef
+alda::message::optional_base_unique_ptr<
+	type_enum
+>
+optional_message_base_unique_ptr;
 
 typedef
 alda::bindings::fundamental<
@@ -209,11 +219,11 @@ FCPPT_PP_POP_WARNING
 	typedef std::uint16_t length_type;
 
 	for(
-		unsigned index(
-			0u
-		);
-		index < count;
-		++index
+		unsigned const index
+		:
+		fcppt::make_int_range_count(
+			count
+		)
 	)
 		alda::serialization::length::serialize<
 			length_type
@@ -250,14 +260,14 @@ FCPPT_PP_POP_WARNING
 	dispatcher const dispatcher_object;
 
 	for(
-		unsigned index(
-			0u
-		);
-		index < count;
-		++index
+		unsigned const index
+		:
+		fcppt::make_int_range_count(
+			count
+		)
 	)
 	{
-		message_base_unique_ptr result(
+		optional_message_base_unique_ptr const result(
 			alda::serialization::length::deserialize<
 				length_type
 			>(
@@ -266,18 +276,37 @@ FCPPT_PP_POP_WARNING
 			)
 		);
 
-		dispatcher_function fun(
-			static_cast<
-				std::uint16_t
-			>(
-				index
-			)
-		);
+		BOOST_CHECK(
+			fcppt::maybe(
+				result,
+				fcppt::const_(
+					false
+				),
+				[
+					index,
+					&dispatcher_object
+				](
+					message_base_unique_ptr const &_ptr
+				)
+				{
+					dispatcher_function fun(
+						static_cast<
+							std::uint16_t
+						>(
+							index
+						)
+					);
 
-		dispatcher_object(
-			*result,
-			fun,
-			dispatcher::default_callback()
+					dispatcher_object(
+						*_ptr,
+						fun,
+						dispatcher::default_callback()
+					);
+
+					return
+						true;
+				}
+			)
 		);
 	}
 
@@ -288,7 +317,7 @@ FCPPT_PP_POP_WARNING
 	ifs.str("");
 
 	{
-		message_base_unique_ptr ptr(
+		optional_message_base_unique_ptr const ptr(
 			alda::serialization::length::deserialize<
 				length_type
 			>(
@@ -331,7 +360,7 @@ FCPPT_PP_POP_WARNING
 	);
 
 	{
-		message_base_unique_ptr ptr(
+		optional_message_base_unique_ptr const ptr(
 			alda::serialization::length::deserialize<
 				length_type
 			>(

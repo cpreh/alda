@@ -89,17 +89,13 @@ FCPPT_PP_POP_WARNING
 			)
 	);
 
-	BOOST_REQUIRE(
-		msg.get<
-			optional_role
-		>().has_value()
-	);
-
 	BOOST_CHECK(
-		*msg.get<
+		msg.get<
 			optional_role
 		>()
 		==
-		42u
+		optional_type(
+			42u
+		)
 	);
 }

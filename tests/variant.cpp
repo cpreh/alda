@@ -14,7 +14,7 @@
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/variant/get.hpp>
+#include <fcppt/variant/get_exn.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -93,7 +93,7 @@ BOOST_AUTO_TEST_CASE(
 {
 FCPPT_PP_POP_WARNING
 	BOOST_CHECK(
-		fcppt::variant::get<
+		fcppt::variant::get_exn<
 			uint_type
 		>(
 			message(
@@ -118,7 +118,7 @@ FCPPT_PP_POP_WARNING
 	);
 
 	BOOST_CHECK(
-		fcppt::variant::get<
+		fcppt::variant::get_exn<
 			int_type
 		>(
 			message(
