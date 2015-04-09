@@ -5,7 +5,10 @@
 
 
 #include <alda/type_enum_fcppt.hpp>
+#include <alda/bindings/dynamic_len.hpp>
 #include <alda/bindings/fundamental.hpp>
+#include <alda/bindings/optional.hpp>
+#include <alda/bindings/variant.hpp>
 #include <alda/call/friend_dispatcher.hpp>
 #include <alda/call/object.hpp>
 #include <alda/message/base_decl.hpp>
@@ -25,23 +28,34 @@
 #include <alda/serialization/length/deserialize.hpp>
 #include <alda/serialization/length/put.hpp>
 #include <alda/serialization/length/serialize.hpp>
+#include <alda/serialization/load/dynamic_len.hpp>
+#include <alda/serialization/load/optional.hpp>
 #include <alda/serialization/load/static_size.hpp>
+#include <alda/serialization/load/variant.hpp>
 #include <majutsu/composite.hpp>
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
 #include <fcppt/const.hpp>
+#include <fcppt/insert_to_std_string.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/maybe.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/optional_comparison.hpp>
+#include <fcppt/optional_output.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/size.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/variant/equal.hpp>
+#include <fcppt/variant/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/test/unit_test.hpp>
 #include <cstdint>
+#include <string>
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
 
@@ -85,14 +99,57 @@ alda::bindings::fundamental<
 >
 uint16_type;
 
+typedef
+alda::bindings::optional<
+	std::uint16_t,
+	uint16_type
+>
+optional_uint16_type;
+
+typedef
+alda::bindings::variant<
+	boost::mpl::vector1<
+		std::uint16_t
+	>,
+	boost::mpl::vector1<
+		uint16_type
+	>
+>
+variant_type;
+
+typedef
+alda::bindings::fundamental<
+	char
+>
+char_type;
+
+typedef
+alda::bindings::dynamic_len<
+	std::string,
+	char_type
+>
+string_type;
+
 MAJUTSU_MAKE_ROLE_TAG(
 	uint16_role
+);
+
+MAJUTSU_MAKE_ROLE_TAG(
+	optional_uint16_role
+);
+
+MAJUTSU_MAKE_ROLE_TAG(
+	variant_role
+);
+
+MAJUTSU_MAKE_ROLE_TAG(
+	string_role
 );
 
 typedef
 alda::message::make_class<
 	majutsu::composite<
-		boost::mpl::vector2<
+		boost::mpl::vector5<
 			alda::message::make_id<
 				type_enum,
 				message_type::message1
@@ -100,6 +157,18 @@ alda::message::make_class<
 			majutsu::role<
 				uint16_type,
 				uint16_role
+			>,
+			majutsu::role<
+				optional_uint16_type,
+				optional_uint16_role
+			>,
+			majutsu::role<
+				variant_type,
+				variant_role
+			>,
+			majutsu::role<
+				string_type,
+				string_role
 			>
 		>
 	>
@@ -187,12 +256,40 @@ private:
 		fcppt::io::cout()
 			<< FCPPT_TEXT("message1 received\n");
 
-		BOOST_CHECK(
+		BOOST_CHECK_EQUAL(
 			_msg.get<
 				uint16_role
-			>()
-			==
+			>(),
 			value_
+		);
+
+		BOOST_CHECK_EQUAL(
+			_msg.get<
+				optional_uint16_role
+			>(),
+			optional_uint16_type::type{
+				value_
+			}
+		);
+
+		BOOST_CHECK_EQUAL(
+			_msg.get<
+				variant_role
+			>(),
+			variant_type::type{
+				value_
+			}
+		);
+
+		BOOST_CHECK_EQUAL(
+			_msg.get<
+				string_role
+			>(),
+			string_type::type(
+				fcppt::insert_to_std_string(
+					value_
+				)
+			)
 		);
 	}
 
@@ -225,6 +322,15 @@ FCPPT_PP_POP_WARNING
 			count
 		)
 	)
+	{
+		auto const casted_index(
+			fcppt::cast::size<
+				std::uint16_t
+			>(
+				index
+			)
+		);
+
 		alda::serialization::length::serialize<
 			length_type
 		>(
@@ -234,14 +340,23 @@ FCPPT_PP_POP_WARNING
 			>(
 				message1(
 					uint16_role{} =
-						static_cast<
-							std::uint16_t
-						>(
-							index
+						casted_index,
+					optional_uint16_role{} =
+						optional_uint16_type::type{
+							casted_index
+						},
+					variant_role{} =
+						variant_type::type{
+							casted_index
+						},
+					string_role{} =
+						fcppt::insert_to_std_string(
+							casted_index
 						)
 				)
 			)
 		);
+	}
 
 	std::istringstream ifs;
 
@@ -290,7 +405,7 @@ FCPPT_PP_POP_WARNING
 				)
 				{
 					dispatcher_function fun(
-						static_cast<
+						fcppt::cast::size<
 							std::uint16_t
 						>(
 							index
@@ -346,11 +461,23 @@ FCPPT_PP_POP_WARNING
 		>(
 			message1(
 				uint16_role{} =
-					static_cast<
+					fcppt::literal<
 						std::uint16_t
 					>(
 						0
-					)
+					),
+				optional_uint16_role{} =
+					optional_uint16_type::type{},
+				variant_role{} =
+					variant_type::type{
+						fcppt::literal<
+							std::uint16_t
+						>(
+							0
+						)
+					},
+				string_role{} =
+					std::string()
 			)
 		)
 	);

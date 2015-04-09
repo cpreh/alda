@@ -11,6 +11,7 @@
 #include <alda/bindings/optional_decl.hpp>
 #include <alda/serialization/istream_fwd.hpp>
 #include <alda/serialization/load/fwd.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/io/read.hpp>
 
 
@@ -49,11 +50,13 @@ struct load<
 		typedef typename type::bool_type::type bool_type;
 
 		bool_type const is_set(
-			*fcppt::io::read<
-				bool_type
-			>(
-				_is,
-				alda::endianness()
+			FCPPT_ASSERT_OPTIONAL_ERROR(
+				fcppt::io::read<
+					bool_type
+				>(
+					_is,
+					alda::endianness()
+				)
 			)
 		);
 

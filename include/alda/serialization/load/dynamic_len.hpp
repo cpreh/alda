@@ -14,6 +14,7 @@
 #include <alda/serialization/load/fwd.hpp>
 #include <majutsu/make.hpp>
 #include <majutsu/size_type.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/io/read.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
@@ -65,11 +66,13 @@ struct load<
 
 		// At this point, the stream must be able to read its length
 		length_type const sz(
-			*fcppt::io::read<
-				length_type
-			>(
-				_is,
-				alda::endianness()
+			FCPPT_ASSERT_OPTIONAL_ERROR(
+				fcppt::io::read<
+					length_type
+				>(
+					_is,
+					alda::endianness()
+				)
 			)
 		);
 

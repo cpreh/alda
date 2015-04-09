@@ -198,7 +198,11 @@ needed_size(
 				return
 					ret
 					+
-					_value;
+					majutsu::needed_size<
+						Adapted
+					>(
+						_value
+					);
 			}
 		);
 }

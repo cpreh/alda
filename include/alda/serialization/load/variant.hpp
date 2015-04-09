@@ -13,6 +13,7 @@
 #include <alda/serialization/istream_fwd.hpp>
 #include <alda/serialization/detail/load_variant.hpp>
 #include <alda/serialization/load/fwd.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/io/read.hpp>
 #include <fcppt/mpl/invoke_on.hpp>
 
@@ -53,11 +54,13 @@ struct load<
 			fcppt::mpl::invoke_on<
 				Types
 			>(
-				*fcppt::io::read<
-					typename type::index_type::type
-				>(
-					_is,
-					alda::endianness()
+				FCPPT_ASSERT_OPTIONAL_ERROR(
+					fcppt::io::read<
+						typename type::index_type::type
+					>(
+						_is,
+						alda::endianness()
+					)
 				),
 				alda::serialization::detail::load_variant<
 					Types,

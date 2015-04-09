@@ -15,6 +15,7 @@
 #include <boost/mpl/filter_view.hpp>
 #include <boost/mpl/for_each.hpp>
 #include <boost/mpl/placeholders.hpp>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -55,7 +56,10 @@ make_object(
 		)
 	);
 
-	return obj;
+	return
+		std::move(
+			obj
+		);
 }
 
 }
