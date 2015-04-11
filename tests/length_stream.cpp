@@ -442,7 +442,7 @@ FCPPT_PP_POP_WARNING
 		);
 
 		BOOST_CHECK(
-			!ptr
+			!ptr.has_value()
 		);
 	}
 
@@ -497,7 +497,7 @@ FCPPT_PP_POP_WARNING
 		);
 
 		BOOST_CHECK(
-			!ptr
+			!ptr.has_value()
 		);
 	}
 
