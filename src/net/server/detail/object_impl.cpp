@@ -19,14 +19,17 @@
 #include <alda/net/server/data_callback.hpp>
 #include <alda/net/server/disconnect_callback.hpp>
 #include <alda/net/server/detail/connection_container.hpp>
+#include <alda/net/server/detail/connection_unique_ptr.hpp>
 #include <alda/src/log_parameters.hpp>
 #include <alda/src/net/server/detail/connection.hpp>
 #include <alda/src/net/server/detail/object_impl.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/optional_bind.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/container/find_opt.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
@@ -81,7 +84,6 @@ alda::net::server::detail::object_impl::object_impl(
 	id_counter_(
 		0u
 	),
-	new_connection_(),
 	connections_(),
 	connect_signal_(),
 	disconnect_signal_(),
@@ -232,8 +234,8 @@ alda::net::server::detail::object_impl::register_data(
 void
 alda::net::server::detail::object_impl::accept()
 {
-	new_connection_ =
-		fcppt::make_unique_ptr<
+	alda::net::server::detail::connection_unique_ptr connection(
+		fcppt::make_unique_ptr_fcppt<
 			alda::net::server::detail::connection
 		>(
 			alda::net::id(
@@ -242,14 +244,70 @@ alda::net::server::detail::object_impl::accept()
 			buffer_receive_size_,
 			buffer_send_size_,
 			io_service_
+		)
+	);
+
+	boost::asio::ip::tcp::socket &socket(
+		connection->socket()
+	);
+
+	class handler
+	{
+	public:
+		handler(
+			object_impl &_object,
+			alda::net::server::detail::connection_unique_ptr &&_connection
+		)
+		:
+			object_(
+				_object
+			),
+			connection_(
+				std::move(
+					_connection
+				)
+			)
+		{
+		}
+
+		handler(
+			handler const &
 		);
 
+		handler(
+			handler &&_other
+		) = default;
+
+		handler &
+		operator=(
+			handler const &
+		) = delete;
+
+		void
+		operator()(
+			boost::system::error_code const &_error
+		)
+		{
+			object_.accept_handler(
+				_error,
+				std::move(
+					connection_
+				)
+			);
+		}
+	private:
+		object_impl &object_;
+
+		alda::net::server::detail::connection_unique_ptr connection_;
+	};
+
 	acceptor_.async_accept(
-		new_connection_->socket(),
-		std::bind(
-			&object_impl::accept_handler,
-			this,
-			std::placeholders::_1
+		socket,
+		handler(
+			*this,
+			std::move(
+				connection
+			)
 		)
 	);
 }
@@ -344,7 +402,8 @@ alda::net::server::detail::object_impl::write_handler(
 
 void
 alda::net::server::detail::object_impl::accept_handler(
-	boost::system::error_code const &_error
+	boost::system::error_code const &_error,
+	alda::net::server::detail::connection_unique_ptr &&_new_connection
 )
 {
 	if(
@@ -366,35 +425,36 @@ alda::net::server::detail::object_impl::accept_handler(
 		::logger,
 		fcppt::log::_
 			<< FCPPT_TEXT("accepting a connection, id is ")
-			<< new_connection_->id()
+			<< _new_connection->id()
 	);
 
-	FCPPT_ASSERT_PRE(
-		new_connection_
+	alda::net::id const new_id(
+		_new_connection->id()
 	);
 
-	alda::net::server::detail::connection &current_con(
-		*new_connection_
+	std::pair<
+		alda::net::server::detail::connection_container::iterator,
+		bool
+	> const result(
+		connections_.emplace(
+			new_id,
+			std::move(
+				_new_connection
+			)
+		)
 	);
 
 	FCPPT_ASSERT_ERROR(
-		connections_.insert(
-			std::make_pair(
-				current_con.id(),
-				std::move(
-					new_connection_
-				)
-			)
-		).second
+		result.second
 	);
 
 	// send signal to handlers
 	connect_signal_(
-		current_con.id()
+		result.first->second->id()
 	);
 
 	this->receive_data(
-		current_con
+		*result.first->second
 	);
 
 	this->accept();
@@ -506,16 +566,11 @@ alda::net::server::detail::object_impl::connection(
 	alda::net::id const _id
 )
 {
-	alda::net::server::detail::connection_container::iterator const it(
-		connections_.find(
-			_id
-		)
-	);
-
-	FCPPT_ASSERT_PRE(
-		it != connections_.end()
-	);
-
 	return
-		*it->second;
+		*FCPPT_ASSERT_OPTIONAL_ERROR(
+			fcppt::container::find_opt(
+				connections_,
+				_id
+			)
+		);
 }

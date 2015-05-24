@@ -22,6 +22,7 @@
 #include <alda/net/server/disconnect_function.hpp>
 #include <alda/net/server/detail/connection_container.hpp>
 #include <alda/net/server/detail/connection_fwd.hpp>
+#include <alda/net/server/detail/connection_unique_ptr.hpp>
 #include <alda/net/server/detail/object_impl_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/object.hpp>
@@ -30,7 +31,6 @@
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/system/error_code.hpp>
 #include <cstddef>
-#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -104,10 +104,6 @@ private:
 
 	alda::net::id::value_type id_counter_;
 
-	std::unique_ptr<
-		alda::net::server::detail::connection
-	> new_connection_;
-
 	alda::net::server::detail::connection_container connections_;
 
 	fcppt::signal::object<
@@ -141,7 +137,8 @@ private:
 
 	void
 	accept_handler(
-		boost::system::error_code const &
+		boost::system::error_code const &,
+		alda::net::server::detail::connection_unique_ptr &&
 	);
 
 	void

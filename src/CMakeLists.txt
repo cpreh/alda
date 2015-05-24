@@ -148,6 +148,7 @@ set(
 	include/alda/net/server/data_function.hpp
 	include/alda/net/server/detail/connection_container.hpp
 	include/alda/net/server/detail/connection_fwd.hpp
+	include/alda/net/server/detail/connection_unique_ptr.hpp
 	include/alda/net/server/detail/object_impl_fwd.hpp
 	include/alda/net/server/disconnect_callback.hpp
 	include/alda/net/server/disconnect_function.hpp
