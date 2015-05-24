@@ -7,10 +7,14 @@
 #ifndef ALDA_CALL_DETAIL_MAKE_INSTANCE_HPP_INCLUDED
 #define ALDA_CALL_DETAIL_MAKE_INSTANCE_HPP_INCLUDED
 
+#include <alda/call/detail/base_impl.hpp>
 #include <alda/call/detail/concrete_decl.hpp>
 #include <alda/message/detail/extract_id.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 
 
 namespace alda
@@ -48,18 +52,39 @@ public:
 	void
 	operator()() const
 	{
+		typedef
+		alda::call::detail::base<
+			TypeEnum,
+			Callee
+		>
+		base;
+
+		typedef
+		fcppt::optional<
+			fcppt::unique_ptr<
+				base
+			>
+		>
+		optional_base_unique_ptr;
+
 		instances_[
 			alda::message::detail::extract_id<
 				typename Message::types
 			>::type::value
 		] =
-			fcppt::make_unique_ptr<
-				alda::call::detail::concrete<
-					TypeEnum,
-					Callee,
-					Message
-				>
-			>();
+			optional_base_unique_ptr(
+				fcppt::unique_ptr_to_base<
+					base
+				>(
+					fcppt::make_unique_ptr_fcppt<
+						alda::call::detail::concrete<
+							TypeEnum,
+							Callee,
+							Message
+						>
+					>()
+				)
+			);
 	}
 private:
 	InstanceArray &instances_;

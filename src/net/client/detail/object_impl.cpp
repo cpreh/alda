@@ -20,9 +20,12 @@
 #include <alda/src/net/client/detail/object_impl.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/insert_to_std_string.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
@@ -39,6 +42,7 @@
 #include <boost/system/error_code.hpp>
 #include <cstddef>
 #include <functional>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -105,8 +109,8 @@ alda::net::client::detail::object_impl::connect(
 			<< _port
 	);
 
-	query_ =
-		fcppt::make_unique_ptr<
+	query_unique_ptr query(
+		fcppt::make_unique_ptr_fcppt<
 			boost::asio::ip::tcp::resolver::query
 		>(
 			boost::asio::ip::tcp::v4(),
@@ -114,10 +118,13 @@ alda::net::client::detail::object_impl::connect(
 			fcppt::insert_to_std_string(
 				_port
 			)
-		);
+		)
+	);
 
+	// TODO: We should move the query through this function but
+	// asio makes it extremely difficult
 	resolver_.async_resolve(
-		*query_,
+		*query,
 		std::bind(
 			&object_impl::resolve_handler,
 			this,
@@ -125,6 +132,13 @@ alda::net::client::detail::object_impl::connect(
 			std::placeholders::_2
 		)
 	);
+
+	query_ =
+		optional_query_unique_ptr(
+			std::move(
+				query
+			)
+		);
 }
 
 void
@@ -432,7 +446,8 @@ alda::net::client::detail::object_impl::clear()
 {
 	resolver_.cancel();
 
-	query_.reset();
+	query_ =
+		optional_query_unique_ptr();
 
 	socket_.close();
 

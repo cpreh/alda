@@ -12,10 +12,12 @@
 #include <alda/call/detail/base_fwd.hpp>
 #include <alda/message/base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
+#include <fcppt/unique_ptr_decl.hpp>
+#include <fcppt/cast/size.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <array>
 #include <cstddef>
-#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -63,11 +65,22 @@ public:
 	) const;
 private:
 	typedef
+	fcppt::unique_ptr<
+		base
+	>
+	base_unique_ptr;
+
+	typedef
+	fcppt::optional<
+		base_unique_ptr
+	>
+	optional_base_unique_ptr;
+
+	// TODO: Use fcppt::container::enum_array?
+	typedef
 	std::array<
-		std::unique_ptr<
-			base
-		>,
-		static_cast<
+		optional_base_unique_ptr,
+		fcppt::cast::size<
 			std::size_t
 		>(
 			TypeEnum::size::value

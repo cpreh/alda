@@ -8,15 +8,16 @@
 #define ALDA_SERIALIZATION_DETAIL_DISPATCH_REGISTER_IMPL_HPP_INCLUDED
 
 #include <alda/serialization/context_decl.hpp>
+#include <alda/serialization/detail/dispatch/base_decl.hpp>
 #include <alda/serialization/detail/dispatch/concrete_decl.hpp>
 #include <alda/serialization/detail/dispatch/register_decl.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/at.hpp>
 #include <exception>
-#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -38,14 +39,18 @@ alda::serialization::detail::dispatch::register_<
 
 	// TODO: fix this cast here, maybe replace majutsu::constant by an enum wrapper
 	if(
-		!_context.handlers_.insert(
-			std::make_pair(
-				static_cast<
-					typename TypeEnum::type
-				>(
-					msg_type::value
-				),
-				fcppt::make_unique_ptr<
+		!_context.handlers_.emplace(
+			static_cast<
+				typename TypeEnum::type
+			>(
+				msg_type::value
+			),
+			fcppt::unique_ptr_to_base<
+				alda::serialization::detail::dispatch::base<
+					TypeEnum
+				>
+			>(
+				fcppt::make_unique_ptr_fcppt<
 					alda::serialization::detail::dispatch::concrete<
 						TypeEnum,
 						Message

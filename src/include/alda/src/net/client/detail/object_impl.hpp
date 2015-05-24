@@ -20,7 +20,9 @@
 #include <alda/net/client/error_function.hpp>
 #include <alda/net/client/detail/object_impl_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -90,9 +92,19 @@ private:
 
 	boost::asio::ip::tcp::resolver resolver_;
 
-	std::unique_ptr<
+	typedef
+	fcppt::unique_ptr<
 		boost::asio::ip::tcp::resolver::query
-	> query_;
+	>
+	query_unique_ptr;
+
+	typedef
+	fcppt::optional<
+		query_unique_ptr
+	>
+	optional_query_unique_ptr;
+
+	optional_query_unique_ptr query_;
 
 	alda::net::buffer::circular_receive::object receive_buffer_;
 

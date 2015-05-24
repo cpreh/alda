@@ -8,9 +8,9 @@
 #define ALDA_SERIALIZATION_DETAIL_DISPATCH_MAP_HPP_INCLUDED
 
 #include <alda/serialization/detail/dispatch/base_fwd.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <map>
-#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -30,7 +30,7 @@ using map
 =
 std::map<
 	typename TypeEnum::type,
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		alda::serialization::detail::dispatch::base<
 			TypeEnum
 		>

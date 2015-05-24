@@ -11,6 +11,10 @@
 #include <alda/call/detail/concrete_decl.hpp>
 #include <alda/call/detail/make_instance.hpp>
 #include <alda/message/base_decl.hpp>
+#include <fcppt/maybe.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/algorithm/array_init_move.hpp>
 #include <fcppt/mpl/for_each.hpp>
 
 
@@ -25,7 +29,17 @@ alda::call::object<
 	Callee
 >::object()
 :
-	instances_()
+	// TODO: Initialize this directly!
+	instances_(
+		fcppt::algorithm::array_init_move<
+			instance_array
+		>(
+			[]{
+				return
+					optional_base_unique_ptr();
+			}
+		)
+	)
 {
 	fcppt::mpl::for_each<
 		Messages
@@ -73,31 +87,39 @@ alda::call::object<
 	default_callback const &_default_callback
 ) const
 {
-	typedef typename instance_array::size_type size_type;
-
-	size_type const index(
-		static_cast<
-			size_type
-		>(
-			_message.type()
-		)
-	);
-
 	return
-		!instances_[
-			index
-		]
-		?
-			_default_callback(
-				_message
-			)
-		:
+		fcppt::maybe(
 			instances_[
-				index
-			]->call(
-				_callee,
-				_message
-			);
+				static_cast<
+					typename
+					instance_array::size_type
+				>(
+					_message.type()
+				)
+			],
+			[
+				&_message,
+				&_default_callback
+			]{
+				return
+					_default_callback(
+						_message
+					);
+			},
+			[
+				&_callee,
+				&_message
+			](
+				base_unique_ptr const &_dispatcher
+			)
+			{
+				return
+					_dispatcher->call(
+						_callee,
+						_message
+					);
+			}
+		);
 }
 
 #endif

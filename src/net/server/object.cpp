@@ -14,7 +14,7 @@
 #include <alda/net/server/disconnect_callback.hpp>
 #include <alda/net/server/object.hpp>
 #include <alda/src/net/server/detail/object_impl.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
 
@@ -23,7 +23,7 @@ alda::net::server::object::object(
 )
 :
 	impl_(
-		fcppt::make_unique_ptr<
+		fcppt::make_unique_ptr_fcppt<
 			alda::net::server::detail::object_impl
 		>(
 			_parameters

@@ -7,9 +7,11 @@
 #ifndef ALDA_MESSAGE_MAKE_CONCRETE_PTR_HPP_INCLUDED
 #define ALDA_MESSAGE_MAKE_CONCRETE_PTR_HPP_INCLUDED
 
+#include <alda/message/base_decl.hpp>
 #include <alda/message/base_unique_ptr.hpp>
 #include <alda/message/concrete_decl.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 
 
 namespace alda
@@ -29,10 +31,12 @@ make_concrete_ptr(
 )
 {
 	return
-		alda::message::base_unique_ptr<
-			TypeEnum
+		fcppt::unique_ptr_to_base<
+			alda::message::base<
+				TypeEnum
+			>
 		>(
-			fcppt::make_unique_ptr<
+			fcppt::make_unique_ptr_fcppt<
 				alda::message::concrete<
 					TypeEnum,
 					Message

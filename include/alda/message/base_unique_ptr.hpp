@@ -8,9 +8,7 @@
 #define ALDA_MESSAGE_BASE_UNIQUE_PTR_HPP_INCLUDED
 
 #include <alda/message/base_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace alda
@@ -23,7 +21,7 @@ template<
 >
 using base_unique_ptr
 =
-std::unique_ptr<
+fcppt::unique_ptr<
 	alda::message::base<
 		TypeEnum
 	>

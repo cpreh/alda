@@ -9,7 +9,8 @@
 
 #include <alda/message/concrete_decl.hpp>
 #include <alda/message/detail/extract_id.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 
 
 template<
@@ -177,10 +178,14 @@ alda::message::concrete<
 >::clone() const
 {
 	return
-		fcppt::make_unique_ptr<
-			concrete
+		fcppt::unique_ptr_to_base<
+			base_type
 		>(
-			*this
+			fcppt::make_unique_ptr_fcppt<
+				concrete
+			>(
+				*this
+			)
 		);
 }
 
