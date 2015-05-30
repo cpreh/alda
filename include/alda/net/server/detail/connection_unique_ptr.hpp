@@ -7,8 +7,8 @@
 #ifndef ALDA_NET_SERVER_DETAIL_CONNECTION_UNIQUE_PTR_HPP_INCLUDED
 #define ALDA_NET_SERVER_DETAIL_CONNECTION_UNIQUE_PTR_HPP_INCLUDED
 
-#include <fcppt/unique_ptr_impl.hpp>
 #include <alda/net/server/detail/connection_fwd.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace alda

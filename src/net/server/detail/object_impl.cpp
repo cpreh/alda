@@ -28,8 +28,8 @@
 #include <fcppt/optional_bind.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
-#include <fcppt/assert/pre.hpp>
 #include <fcppt/assert/optional_error.hpp>
+#include <fcppt/assert/pre.hpp>
 #include <fcppt/container/find_opt.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>

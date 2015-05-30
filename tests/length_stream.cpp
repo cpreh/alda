@@ -55,8 +55,8 @@
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/test/unit_test.hpp>
 #include <cstdint>
-#include <string>
 #include <sstream>
+#include <string>
 #include <fcppt/config/external_end.hpp>
 
 

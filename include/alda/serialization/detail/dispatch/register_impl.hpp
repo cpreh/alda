@@ -12,8 +12,8 @@
 #include <alda/serialization/detail/dispatch/concrete_decl.hpp>
 #include <alda/serialization/detail/dispatch/register_decl.hpp>
 #include <fcppt/make_unique_ptr_fcppt.hpp>
-#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/at.hpp>
