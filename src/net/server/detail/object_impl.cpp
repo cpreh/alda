@@ -234,7 +234,7 @@ alda::net::server::detail::object_impl::register_data(
 void
 alda::net::server::detail::object_impl::accept()
 {
-	alda::net::server::detail::connection_unique_ptr connection(
+	alda::net::server::detail::connection_unique_ptr con(
 		fcppt::make_unique_ptr_fcppt<
 			alda::net::server::detail::connection
 		>(
@@ -248,7 +248,7 @@ alda::net::server::detail::object_impl::accept()
 	);
 
 	boost::asio::ip::tcp::socket &socket(
-		connection->socket()
+		con->socket()
 	);
 
 	class handler
@@ -306,7 +306,7 @@ alda::net::server::detail::object_impl::accept()
 		handler(
 			*this,
 			std::move(
-				connection
+				con
 			)
 		)
 	);
