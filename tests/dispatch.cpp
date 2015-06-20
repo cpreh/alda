@@ -24,7 +24,6 @@
 #include <alda/serialization/register_message.hpp>
 #include <alda/serialization/serialize.hpp>
 #include <alda/serialization/load/static_size.hpp>
-#include <majutsu/composite.hpp>
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
 #include <fcppt/text.hpp>
@@ -37,6 +36,7 @@
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/test/unit_test.hpp>
 #include <cstdint>
+#include <iostream>
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
 
@@ -91,16 +91,14 @@ MAJUTSU_MAKE_ROLE_TAG(
 
 typedef
 alda::message::make_class<
-	majutsu::composite<
-		boost::mpl::vector2<
-			alda::message::make_id<
-				type_enum,
-				message_type::message1
-			>,
-			majutsu::role<
-				uint16_type,
-				uint16_role
-			>
+	boost::mpl::vector2<
+		alda::message::make_id<
+			type_enum,
+			message_type::message1
+		>,
+		majutsu::role<
+			uint16_type,
+			uint16_role
 		>
 	>
 >
@@ -108,16 +106,14 @@ message1;
 
 typedef
 alda::message::make_class<
-	majutsu::composite<
-		boost::mpl::vector2<
-			alda::message::make_id<
-				type_enum,
-				message_type::message2
-			>,
-			majutsu::role<
-				uint32_type,
-				uint32_role
-			>
+	boost::mpl::vector2<
+		alda::message::make_id<
+			type_enum,
+			message_type::message2
+		>,
+		majutsu::role<
+			uint32_type,
+			uint32_role
 		>
 	>
 >
@@ -209,15 +205,14 @@ public:
 		fcppt::io::cout()
 			<< FCPPT_TEXT("message1 received\n");
 
-		BOOST_CHECK(
+		BOOST_CHECK_EQUAL(
 			_msg.get<
 				uint16_role
-			>()
-			==
+			>(),
 			static_cast<
 				std::uint16_t
 			>(
-				1337
+				2//1337
 			)
 		);
 	}
@@ -230,11 +225,10 @@ public:
 		fcppt::io::cout()
 			<< FCPPT_TEXT("message2 received\n");
 
-		BOOST_CHECK(
+		BOOST_CHECK_EQUAL(
 			_msg.get<
 				uint32_role
-			>()
-			==
+			>(),
 			static_cast<
 				std::uint32_t
 			>(
@@ -248,6 +242,9 @@ public:
 		message_base const &
 	)
 	{
+		BOOST_CHECK(
+			false
+		);
 	}
 };
 
@@ -257,7 +254,7 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 BOOST_AUTO_TEST_CASE(
-	alda_simple
+	alda_dispatch
 )
 {
 FCPPT_PP_POP_WARNING
@@ -274,7 +271,7 @@ FCPPT_PP_POP_WARNING
 					static_cast<
 						std::uint16_t
 					>(
-						1337
+						2//1337
 					)
 			)
 		)
@@ -316,7 +313,8 @@ FCPPT_PP_POP_WARNING
 
 		BOOST_CHECK(
 			result->type()
-			== message_type::message1
+			==
+			message_type::message1
 		);
 
 		dispatcher_object(
@@ -367,7 +365,8 @@ FCPPT_PP_POP_WARNING
 
 		BOOST_CHECK(
 			result->type()
-			== message_type::message2
+			==
+			message_type::message2
 		);
 
 		dispatcher_object(

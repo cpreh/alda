@@ -9,10 +9,12 @@
 
 #include <alda/serialization/istream.hpp>
 #include <alda/serialization/load/fwd.hpp>
-#include <majutsu/is_static_size.hpp>
-#include <majutsu/make.hpp>
-#include <majutsu/raw_data.hpp>
-#include <majutsu/static_size.hpp>
+#include <majutsu/raw/is_static_size.hpp>
+#include <majutsu/raw/make.hpp>
+#include <majutsu/raw/data.hpp>
+#include <majutsu/raw/element_type.hpp>
+#include <majutsu/raw/static_size.hpp>
+#include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <array>
@@ -32,22 +34,23 @@ struct load<
 	Type,
 	typename
 	boost::enable_if<
-		majutsu::is_static_size<
+		majutsu::raw::is_static_size<
 			Type
 		>
 	>::type
 >
 {
 	static
-	typename
-	Type::type
+	majutsu::raw::element_type<
+		Type
+	>
 	get(
 		alda::serialization::istream &_is
 	)
 	{
 		typedef std::array<
-			majutsu::raw_data,
-			majutsu::static_size<
+			majutsu::raw::data,
+			majutsu::raw::static_size<
 				Type
 			>::value
 		> buffer_type;
@@ -55,7 +58,7 @@ struct load<
 		buffer_type buffer;
 
 		_is.read(
-			reinterpret_cast<
+			fcppt::cast::to_char_ptr<
 				char *
 			>(
 				buffer.data()
@@ -68,7 +71,7 @@ struct load<
 		);
 
 		return
-			majutsu::make<
+			majutsu::raw::make<
 				Type
 			>(
 				buffer.data()

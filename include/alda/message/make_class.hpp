@@ -8,8 +8,7 @@
 #define ALDA_MESSAGE_MAKE_CLASS_HPP_INCLUDED
 
 #include <alda/message/make_class_fwd.hpp>
-#include <majutsu/class.hpp>
-#include <majutsu/memory/raw.hpp>
+#include <majutsu/raw/record.hpp>
 
 
 #endif

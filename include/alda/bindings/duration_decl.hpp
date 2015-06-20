@@ -8,6 +8,7 @@
 #define ALDA_BINDINGS_DURATION_DECL_HPP_INCLUDED
 
 #include <alda/bindings/duration_fwd.hpp>
+#include <majutsu/raw/element_type.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <chrono>
 #include <fcppt/config/external_end.hpp>
@@ -26,11 +27,12 @@ struct duration
 {
 	typedef
 	std::chrono::duration<
-		typename
-		Adapted::type,
+		majutsu::raw::element_type<
+			Adapted
+		>,
 		Ratio
 	>
-	type;
+	element_type;
 };
 
 }

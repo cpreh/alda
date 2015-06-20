@@ -9,6 +9,8 @@
 
 #include <alda/serialization/istream_fwd.hpp>
 #include <alda/serialization/detail/read/element_fwd.hpp>
+#include <majutsu/role_fwd.hpp>
+#include <majutsu/role_value_type.hpp>
 #include <fcppt/nonassignable.hpp>
 
 
@@ -22,7 +24,7 @@ namespace read
 {
 
 template<
-	typename Class
+	typename Message
 >
 class element
 {
@@ -30,22 +32,27 @@ class element
 		element
 	);
 public:
+	explicit
 	element(
-		alda::serialization::istream &,
-		Class &
+		alda::serialization::istream &
 	);
 
 	template<
-		typename Role
+		typename Type,
+		typename Tag
 	>
-	void
+	majutsu::role_value_type<
+		Message,
+		Tag
+	>
 	operator()(
-		Role const &
+		majutsu::role<
+			Type,
+			Tag
+		>
 	) const;
 private:
 	alda::serialization::istream &stream_;
-
-	Class &object_;
 };
 
 }

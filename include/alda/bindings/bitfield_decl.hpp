@@ -24,15 +24,15 @@ struct bitfield
 {
 	typedef
 	Type
-	type;
+	element_type;
 
 	typedef
 	alda::bindings::array<
 		typename
-		type::array_type,
+		element_type::array_type,
 		alda::bindings::unsigned_<
 			typename
-			type::internal_type
+			element_type::internal_type
 		>
 	>
 	wrapped;

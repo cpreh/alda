@@ -9,13 +9,14 @@
 
 #include <alda/bindings/bool.hpp>
 #include <alda/bindings/optional_decl.hpp>
-#include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/dispatch_type.hpp>
-#include <majutsu/make.hpp>
-#include <majutsu/needed_size.hpp>
-#include <majutsu/place.hpp>
-#include <majutsu/raw_pointer.hpp>
-#include <majutsu/size_type.hpp>
+#include <majutsu/raw/const_pointer.hpp>
+#include <majutsu/raw/element_type.hpp>
+#include <majutsu/raw/make.hpp>
+#include <majutsu/raw/needed_size.hpp>
+#include <majutsu/raw/place.hpp>
+#include <majutsu/raw/pointer.hpp>
+#include <majutsu/raw/size_type.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/maybe.hpp>
 #include <fcppt/maybe_void.hpp>
@@ -39,10 +40,13 @@ place(
 			Adapted
 		>
 	>,
-	fcppt::optional<
-		Type
+	majutsu::raw::element_type<
+		alda::bindings::optional<
+			Type,
+			Adapted
+		>
 	> const &_opt_value,
-	majutsu::raw_pointer _mem
+	majutsu::raw::pointer _mem
 )
 {
 	typedef
@@ -50,22 +54,29 @@ place(
 		Type,
 		Adapted
 	>
-	tag;
+	binding;
 
-	typename tag::bool_type::type const has_value(
+	typedef
+	typename
+	binding::bool_type
+	bool_type;
+
+	majutsu::raw::element_type<
+		bool_type
+	> const has_value(
 		_opt_value.has_value()
 	);
 
-	majutsu::place<
-		typename tag::bool_type
+	majutsu::raw::place<
+		bool_type
 	>(
 		has_value,
 		_mem
 	);
 
 	_mem +=
-		majutsu::needed_size<
-			typename tag::bool_type
+		majutsu::raw::needed_size<
+			bool_type
 		>(
 			has_value
 		);
@@ -78,7 +89,7 @@ place(
 			Type const &_value
 		)
 		{
-			majutsu::place<
+			majutsu::raw::place<
 				Adapted
 			>(
 				_value,
@@ -92,8 +103,11 @@ template<
 	typename Type,
 	typename Adapted
 >
-fcppt::optional<
-	Type
+majutsu::raw::element_type<
+	alda::bindings::optional<
+		Type,
+		Adapted
+	>
 >
 make(
 	majutsu::dispatch_type<
@@ -102,7 +116,7 @@ make(
 			Adapted
 		>
 	>,
-	majutsu::const_raw_pointer _mem
+	majutsu::raw::const_pointer _mem
 )
 {
 	typedef
@@ -110,11 +124,18 @@ make(
 		Type,
 		Adapted
 	>
-	tag;
+	binding;
 
-	typename tag::bool_type::type const has_value(
-		majutsu::make<
-			typename tag::bool_type
+	typedef
+	typename
+	binding::bool_type
+	bool_type;
+
+	majutsu::raw::element_type<
+		bool_type
+	> const has_value(
+		majutsu::raw::make<
+			bool_type
 		>(
 			_mem
 		)
@@ -129,8 +150,8 @@ make(
 			>();
 
 	_mem +=
-		majutsu::needed_size<
-			typename tag::bool_type
+		majutsu::raw::needed_size<
+			bool_type
 		>(
 			has_value
 		);
@@ -139,7 +160,7 @@ make(
 		fcppt::optional<
 			Type
 		>(
-			majutsu::make<
+			majutsu::raw::make<
 				Adapted
 			>(
 				_mem
@@ -151,7 +172,7 @@ template<
 	typename Type,
 	typename Adapted
 >
-majutsu::size_type
+majutsu::raw::size_type
 needed_size(
 	majutsu::dispatch_type<
 		alda::bindings::optional<
@@ -159,8 +180,11 @@ needed_size(
 			Adapted
 		>
 	>,
-	fcppt::optional<
-		Type
+	majutsu::raw::element_type<
+		alda::bindings::optional<
+			Type,
+			Adapted
+		>
 	> const &_opt_value
 )
 {
@@ -169,15 +193,22 @@ needed_size(
 		Type,
 		Adapted
 	>
-	tag;
+	binding;
 
-	typename tag::bool_type::type const has_value(
+	typedef
+	typename
+	binding::bool_type
+	bool_type;
+
+	majutsu::raw::element_type<
+		bool_type
+	> const has_value(
 		_opt_value.has_value()
 	);
 
-	majutsu::size_type ret(
-		majutsu::needed_size<
-			typename tag::bool_type
+	majutsu::raw::size_type ret(
+		majutsu::raw::needed_size<
+			bool_type
 		>(
 			has_value
 		)
@@ -198,7 +229,7 @@ needed_size(
 				return
 					ret
 					+
-					majutsu::needed_size<
+					majutsu::raw::needed_size<
 						Adapted
 					>(
 						_value

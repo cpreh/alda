@@ -8,12 +8,13 @@
 #define ALDA_BINDINGS_STRONG_TYPEDEF_HPP_INCLUDED
 
 #include <alda/bindings/strong_typedef_decl.hpp>
-#include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/dispatch_type.hpp>
-#include <majutsu/make.hpp>
-#include <majutsu/place.hpp>
-#include <majutsu/raw_pointer.hpp>
-#include <majutsu/static_size.hpp>
+#include <majutsu/raw/const_pointer.hpp>
+#include <majutsu/raw/element_type.hpp>
+#include <majutsu/raw/make.hpp>
+#include <majutsu/raw/place.hpp>
+#include <majutsu/raw/pointer.hpp>
+#include <majutsu/raw/static_size.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -28,6 +29,7 @@ template<
 	typename Type,
 	typename Adapted
 >
+inline
 void
 place(
 	majutsu::dispatch_type<
@@ -36,14 +38,19 @@ place(
 			Adapted
 		>
 	>,
-	Type const &_type,
-	majutsu::raw_pointer const _mem
+	majutsu::raw::element_type<
+		alda::bindings::strong_typedef<
+			Type,
+			Adapted
+		>
+	> const &_value,
+	majutsu::raw::pointer const _mem
 )
 {
-	majutsu::place<
+	majutsu::raw::place<
 		Adapted
 	>(
-		_type.get(),
+		_value.get(),
 		_mem
 	);
 }
@@ -52,7 +59,13 @@ template<
 	typename Type,
 	typename Adapted
 >
-Type
+inline
+majutsu::raw::element_type<
+	alda::bindings::strong_typedef<
+		Type,
+		Adapted
+	>
+>
 make(
 	majutsu::dispatch_type<
 		alda::bindings::strong_typedef<
@@ -60,12 +73,12 @@ make(
 			Adapted
 		>
 	>,
-	majutsu::const_raw_pointer const _beg
+	majutsu::raw::const_pointer const _beg
 )
 {
 	return
 		Type(
-			majutsu::make<
+			majutsu::raw::make<
 				Adapted
 			>(
 				_beg
@@ -77,6 +90,8 @@ make(
 }
 
 namespace majutsu
+{
+namespace raw
 {
 
 FCPPT_PP_PUSH_WARNING
@@ -93,7 +108,7 @@ struct static_size<
 	>
 >
 :
-majutsu::static_size<
+majutsu::raw::static_size<
 	Adapted
 >
 {
@@ -101,6 +116,7 @@ majutsu::static_size<
 
 FCPPT_PP_POP_WARNING
 
+}
 }
 
 #endif

@@ -9,12 +9,13 @@
 
 #include <alda/bindings/bool_decl.hpp>
 #include <alda/bindings/unsigned.hpp>
-#include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/dispatch_type.hpp>
-#include <majutsu/make.hpp>
-#include <majutsu/place.hpp>
-#include <majutsu/raw_pointer.hpp>
-#include <majutsu/static_size.hpp>
+#include <majutsu/raw/const_pointer.hpp>
+#include <majutsu/raw/element_type.hpp>
+#include <majutsu/raw/make.hpp>
+#include <majutsu/raw/place.hpp>
+#include <majutsu/raw/pointer.hpp>
+#include <majutsu/raw/static_size.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -32,40 +33,59 @@ place(
 	majutsu::dispatch_type<
 		alda::bindings::bool_
 	>,
-	alda::bindings::bool_::type const _value,
-	majutsu::raw_pointer const _data
+	majutsu::raw::element_type<
+		alda::bindings::bool_
+	> const _value,
+	majutsu::raw::pointer const _data
 )
 {
-	majutsu::place<
+	majutsu::raw::place<
 		alda::bindings::bool_::wrapped_type
 	>(
-		static_cast<
-			alda::bindings::bool_::wrapped_type::type
-		>(
-			_value
-		),
+		_value
+		?
+			fcppt::literal<
+				majutsu::raw::element_type<
+					alda::bindings::bool_::wrapped_type
+				>
+			>(
+				1
+			)
+		:
+			fcppt::literal<
+				majutsu::raw::element_type<
+					alda::bindings::bool_::wrapped_type
+				>
+			>(
+				0
+			)
+		,
 		_data
 	);
 }
 
 inline
-alda::bindings::bool_::type
+majutsu::raw::element_type<
+	alda::bindings::bool_
+>
 make(
 	majutsu::dispatch_type<
 		alda::bindings::bool_
 	>,
-	majutsu::const_raw_pointer const _data
+	majutsu::raw::const_pointer const _data
 )
 {
 	return
-		majutsu::make<
+		majutsu::raw::make<
 			alda::bindings::bool_::wrapped_type
 		>(
 			_data
 		)
 		!=
 		fcppt::literal<
-			alda::bindings::bool_::wrapped_type::type
+			majutsu::raw::element_type<
+				alda::bindings::bool_::wrapped_type
+			>
 		>(
 			0
 		);
@@ -77,6 +97,8 @@ make(
 
 namespace majutsu
 {
+namespace raw
+{
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
@@ -86,7 +108,7 @@ struct static_size<
 	alda::bindings::bool_
 >
 :
-majutsu::static_size<
+majutsu::raw::static_size<
 	alda::bindings::bool_::wrapped_type
 >
 {
@@ -94,6 +116,7 @@ majutsu::static_size<
 
 FCPPT_PP_POP_WARNING
 
+}
 }
 
 #endif

@@ -18,9 +18,6 @@ set(
 	include/alda/bindings/bool.hpp
 	include/alda/bindings/bool_decl.hpp
 	include/alda/bindings/bool_fwd.hpp
-	include/alda/bindings/class.hpp
-	include/alda/bindings/class_decl.hpp
-	include/alda/bindings/class_fwd.hpp
 	include/alda/bindings/detail/extract_length.hpp
 	include/alda/bindings/detail/put_length.hpp
 	include/alda/bindings/detail/variant_make.hpp
@@ -49,6 +46,9 @@ set(
 	include/alda/bindings/optional.hpp
 	include/alda/bindings/optional_decl.hpp
 	include/alda/bindings/optional_fwd.hpp
+	include/alda/bindings/record.hpp
+	include/alda/bindings/record_decl.hpp
+	include/alda/bindings/record_fwd.hpp
 	include/alda/bindings/signed.hpp
 	include/alda/bindings/signed_decl.hpp
 	include/alda/bindings/signed_fwd.hpp

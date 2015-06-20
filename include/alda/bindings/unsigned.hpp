@@ -9,13 +9,14 @@
 
 #include <alda/endianness.hpp>
 #include <alda/bindings/unsigned_decl.hpp>
-#include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/dispatch_type.hpp>
-#include <majutsu/fundamental.hpp>
-#include <majutsu/make.hpp>
-#include <majutsu/place.hpp>
-#include <majutsu/raw_pointer.hpp>
-#include <majutsu/static_size.hpp>
+#include <majutsu/raw/const_pointer.hpp>
+#include <majutsu/raw/element_type.hpp>
+#include <majutsu/raw/fundamental.hpp>
+#include <majutsu/raw/make.hpp>
+#include <majutsu/raw/place.hpp>
+#include <majutsu/raw/pointer.hpp>
+#include <majutsu/raw/static_size.hpp>
 #include <fcppt/endianness/convert.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -30,6 +31,7 @@ namespace bindings
 template<
 	typename Type
 >
+inline
 void
 place(
 	majutsu::dispatch_type<
@@ -37,12 +39,16 @@ place(
 			Type
 		>
 	>,
-	Type const &_type,
-	majutsu::raw_pointer const _mem
+	majutsu::raw::element_type<
+		alda::bindings::unsigned_<
+			Type
+		>
+	> const &_type,
+	majutsu::raw::pointer const _mem
 )
 {
-	majutsu::place<
-		majutsu::fundamental<
+	majutsu::raw::place<
+		majutsu::raw::fundamental<
 			Type
 		>
 	>(
@@ -57,20 +63,25 @@ place(
 template<
 	typename Type
 >
-Type
+inline
+majutsu::raw::element_type<
+	alda::bindings::unsigned_<
+		Type
+	>
+>
 make(
 	majutsu::dispatch_type<
 		alda::bindings::unsigned_<
 			Type
 		>
 	>,
-	majutsu::const_raw_pointer const _beg
+	majutsu::raw::const_pointer const _beg
 )
 {
 	return
 		fcppt::endianness::convert(
-			majutsu::make<
-				majutsu::fundamental<
+			majutsu::raw::make<
+				majutsu::raw::fundamental<
 					Type
 				>
 			>(
@@ -85,6 +96,8 @@ make(
 
 namespace majutsu
 {
+namespace raw
+{
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
@@ -98,8 +111,8 @@ struct static_size<
 	>
 >
 :
-majutsu::static_size<
-	majutsu::fundamental<
+majutsu::raw::static_size<
+	majutsu::raw::fundamental<
 		Type
 	>
 >
@@ -108,6 +121,7 @@ majutsu::static_size<
 
 FCPPT_PP_POP_WARNING
 
+}
 }
 
 #endif

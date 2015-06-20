@@ -13,6 +13,7 @@
 #include <alda/serialization/istream_fwd.hpp>
 #include <alda/serialization/detail/load_variant.hpp>
 #include <alda/serialization/load/fwd.hpp>
+#include <majutsu/raw/element_type.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/io/read.hpp>
 #include <fcppt/mpl/invoke_on.hpp>
@@ -35,11 +36,12 @@ struct load<
 >
 {
 	static
-	typename
-	alda::bindings::variant<
-		Types,
-		AdaptedTypes
-	>::type
+	majutsu::raw::element_type<
+		alda::bindings::variant<
+			Types,
+			AdaptedTypes
+		>
+	>
 	get(
 		alda::serialization::istream &_is
 	)
@@ -56,7 +58,10 @@ struct load<
 			>(
 				FCPPT_ASSERT_OPTIONAL_ERROR(
 					fcppt::io::read<
-						typename type::index_type::type
+						majutsu::raw::element_type<
+							typename
+							type::index_type
+						>
 					>(
 						_is,
 						alda::endianness()
@@ -70,11 +75,12 @@ struct load<
 				),
 				[]()
 				->
-				typename
-				alda::bindings::variant<
-					Types,
-					AdaptedTypes
-				>::type
+				majutsu::raw::element_type<
+					alda::bindings::variant<
+						Types,
+						AdaptedTypes
+					>
+				>
 				{
 					throw
 						alda::bindings::invalid_variant();

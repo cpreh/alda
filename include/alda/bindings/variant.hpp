@@ -13,13 +13,14 @@
 #include <alda/bindings/detail/variant_make.hpp>
 #include <alda/bindings/detail/variant_needed_size.hpp>
 #include <alda/bindings/detail/variant_place.hpp>
-#include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/dispatch_type.hpp>
-#include <majutsu/make.hpp>
-#include <majutsu/needed_size.hpp>
-#include <majutsu/place.hpp>
-#include <majutsu/raw_pointer.hpp>
-#include <majutsu/size_type.hpp>
+#include <majutsu/raw/const_pointer.hpp>
+#include <majutsu/raw/element_type.hpp>
+#include <majutsu/raw/make.hpp>
+#include <majutsu/raw/needed_size.hpp>
+#include <majutsu/raw/place.hpp>
+#include <majutsu/raw/pointer.hpp>
+#include <majutsu/raw/size_type.hpp>
 #include <fcppt/cast/truncation_check.hpp>
 #include <fcppt/mpl/invoke_on.hpp>
 #include <fcppt/variant/apply_unary.hpp>
@@ -43,10 +44,13 @@ place(
 			AdaptedTypes
 		>
 	>,
-	fcppt::variant::object<
-		Types
-	> const _value,
-	majutsu::raw_pointer _mem
+	majutsu::raw::element_type<
+		alda::bindings::variant<
+			Types,
+			AdaptedTypes
+		>
+	> const &_value,
+	majutsu::raw::pointer _mem
 )
 {
 	typedef
@@ -54,31 +58,33 @@ place(
 		Types,
 		AdaptedTypes
 	>
-	tag;
+	binding;
 
 	typedef
 	typename
-	tag::index_type::type
+	binding::index_type
 	index_type;
 
-	index_type const index(
+	auto const index(
 		fcppt::cast::truncation_check<
-			index_type
+			majutsu::raw::element_type<
+				index_type
+			>
 		>(
 			_value.type_index()
 		)
 	);
 
-	majutsu::place<
-		typename tag::index_type
+	majutsu::raw::place<
+		index_type
 	>(
 		index,
 		_mem
 	);
 
 	_mem +=
-		majutsu::needed_size<
-			typename tag::index_type
+		majutsu::raw::needed_size<
+			index_type
 		>(
 			index
 		);
@@ -98,8 +104,11 @@ template<
 	typename Types,
 	typename AdaptedTypes
 >
-fcppt::variant::object<
-	Types
+majutsu::raw::element_type<
+	alda::bindings::variant<
+		Types,
+		AdaptedTypes
+	>
 >
 make(
 	majutsu::dispatch_type<
@@ -108,7 +117,7 @@ make(
 			AdaptedTypes
 		>
 	>,
-	majutsu::const_raw_pointer _mem
+	majutsu::raw::const_pointer _mem
 )
 {
 	typedef
@@ -116,19 +125,24 @@ make(
 		Types,
 		AdaptedTypes
 	>
-	tag;
+	binding;
 
-	typename tag::index_type::type const index(
-		majutsu::make<
-			typename tag::index_type
+	typedef
+	typename
+	binding::index_type
+	index_type;
+
+	auto const index(
+		majutsu::raw::make<
+			index_type
 		>(
 			_mem
 		)
 	);
 
 	_mem +=
-		majutsu::needed_size<
-			typename tag::index_type
+		majutsu::raw::needed_size<
+			index_type
 		>(
 			index
 		);
@@ -160,7 +174,7 @@ template<
 	typename Types,
 	typename AdaptedTypes
 >
-majutsu::size_type
+majutsu::raw::size_type
 needed_size(
 	majutsu::dispatch_type<
 		alda::bindings::variant<
@@ -168,9 +182,12 @@ needed_size(
 			AdaptedTypes
 		>
 	>,
-	fcppt::variant::object<
-		Types
-	> const _value
+	majutsu::raw::element_type<
+		alda::bindings::variant<
+			Types,
+			AdaptedTypes
+		>
+	> const &_value
 )
 {
 	typedef
@@ -178,24 +195,26 @@ needed_size(
 		Types,
 		AdaptedTypes
 	>
-	tag;
+	binding;
 
 	typedef
 	typename
-	tag::index_type::type
+	binding::index_type
 	index_type;
 
-	index_type const index(
+	auto const index(
 		fcppt::cast::truncation_check<
-			index_type
+			majutsu::raw::element_type<
+				index_type
+			>
 		>(
 			_value.type_index()
 		)
 	);
 
 	return
-		majutsu::needed_size<
-			typename tag::index_type
+		majutsu::raw::needed_size<
+			index_type
 		>(
 			index
 		)

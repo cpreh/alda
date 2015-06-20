@@ -7,7 +7,6 @@
 #include <alda/bindings/static.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <alda/message/make_class.hpp>
-#include <majutsu/composite.hpp>
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
 #include <fcppt/math/vector/comparison.hpp>
@@ -47,12 +46,10 @@ MAJUTSU_MAKE_ROLE_TAG(
 
 typedef
 alda::message::make_class<
-	majutsu::composite<
-		boost::mpl::vector1<
-			majutsu::role<
-				vector_binding,
-				vector_role
-			>
+	boost::mpl::vector1<
+		majutsu::role<
+			vector_binding,
+			vector_role
 		>
 	>
 >

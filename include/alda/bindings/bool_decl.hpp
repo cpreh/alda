@@ -23,7 +23,7 @@ struct bool_
 {
 	typedef
 	bool
-	type;
+	element_type;
 
 	typedef
 	alda::bindings::unsigned_<

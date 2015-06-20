@@ -6,9 +6,9 @@
 
 #include <alda/bindings/float.hpp>
 #include <alda/message/make_class.hpp>
-#include <majutsu/composite.hpp>
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
+#include <majutsu/raw/element_type.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -29,21 +29,25 @@ MAJUTSU_MAKE_ROLE_TAG(
 	float_role
 );
 
-typedef alda::message::make_class<
-	majutsu::composite<
-		boost::mpl::vector1<
-			majutsu::role<
-				alda::bindings::float_,
-				float_role
-			>
+typedef
+alda::message::make_class<
+	boost::mpl::vector1<
+		majutsu::role<
+			alda::bindings::float_,
+			float_role
 		>
 	>
-> message;
+>
+message;
 
 void
 fuzzy_equal(
-	alda::bindings::float_::type const _val1,
-	alda::bindings::float_::type const _val2
+	majutsu::raw::element_type<
+		alda::bindings::float_
+	> const _val1,
+	majutsu::raw::element_type<
+		alda::bindings::float_
+	> const _val2
 )
 {
 	std::cout
@@ -60,26 +64,32 @@ fuzzy_equal(
 		(_val2 < 0)
 	);
 
-	alda::bindings::float_::type const abs1(
+	typedef
+	majutsu::raw::element_type<
+		alda::bindings::float_
+	>
+	float_type;
+
+	float_type const abs1(
 		std::abs(
 			_val1
 		)
 	);
 
-	alda::bindings::float_::type const abs2(
+	float_type const abs2(
 		std::abs(
 			_val2
 		)
 	);
 
-	alda::bindings::float_::type const max(
+	float_type const max(
 		std::max(
 			abs1,
 			abs2
 		)
 	);
 
-	alda::bindings::float_::type const epsilon(
+	float_type const epsilon(
 		0.0001f
 	);
 
@@ -97,7 +107,7 @@ fuzzy_equal(
 		);
 	else
 	{
-		alda::bindings::float_::type const abs_diff(
+		float_type const abs_diff(
 			std::abs(
 				_val1
 				-
@@ -126,7 +136,9 @@ fuzzy_equal(
 
 void
 test_conversion(
-	alda::bindings::float_::type const _value
+	majutsu::raw::element_type<
+		alda::bindings::float_
+	> const _value
 )
 {
 	message const msg(

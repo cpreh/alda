@@ -21,7 +21,9 @@ template<
 >
 struct enum_array
 {
-	typedef Type type;
+	typedef
+	Type
+	element_type;
 };
 
 }

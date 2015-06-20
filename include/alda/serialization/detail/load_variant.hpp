@@ -10,6 +10,7 @@
 #include <alda/bindings/variant_decl.hpp>
 #include <alda/serialization/istream_fwd.hpp>
 #include <alda/serialization/load/fwd.hpp>
+#include <majutsu/raw/element_type.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/mpl/index_of.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -46,11 +47,12 @@ public:
 	}
 
 	typedef
-	typename
-	alda::bindings::variant<
-		Types,
-		AdaptedTypes
-	>::type
+	majutsu::raw::element_type<
+		alda::bindings::variant<
+			Types,
+			AdaptedTypes
+		>
+	>
 	result_type;
 
 	template<

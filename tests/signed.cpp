@@ -7,9 +7,9 @@
 #include <alda/exception.hpp>
 #include <alda/bindings/fundamental.hpp>
 #include <alda/message/make_class.hpp>
-#include <majutsu/composite.hpp>
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -25,7 +25,7 @@ namespace
 {
 
 typedef
-std::uint16_t
+std::int16_t
 int_type;
 
 typedef
@@ -40,12 +40,10 @@ MAJUTSU_MAKE_ROLE_TAG(
 
 typedef
 alda::message::make_class<
-	majutsu::composite<
-		boost::mpl::vector1<
-			majutsu::role<
-				int_alda_type,
-				int_role
-			>
+	boost::mpl::vector1<
+		majutsu::role<
+			int_alda_type,
+			int_role
 		>
 	>
 >
@@ -56,7 +54,8 @@ check_exception(
 	alda::exception const &
 )
 {
-	return true;
+	return
+		true;
 }
 
 void
@@ -90,7 +89,7 @@ BOOST_AUTO_TEST_CASE(
 FCPPT_PP_POP_WARNING
 
 	test_conversion(
-		static_cast<
+		fcppt::literal<
 			int_type
 		>(
 			0
@@ -98,7 +97,7 @@ FCPPT_PP_POP_WARNING
 	);
 
 	test_conversion(
-		static_cast<
+		fcppt::literal<
 			int_type
 		>(
 			1337
@@ -106,7 +105,7 @@ FCPPT_PP_POP_WARNING
 	);
 
 	test_conversion(
-		static_cast<
+		fcppt::literal<
 			int_type
 		>(
 			-1337
@@ -130,7 +129,7 @@ FCPPT_PP_POP_WARNING
 	);
 
 	test_conversion(
-		static_cast<
+		fcppt::literal<
 			int_type
 		>(
 			-max

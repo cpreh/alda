@@ -7,6 +7,7 @@
 #ifndef ALDA_SERIALIZATION_DESERIALIZE_HPP_INCLUDED
 #define ALDA_SERIALIZATION_DESERIALIZE_HPP_INCLUDED
 
+#include <alda/endianness.hpp>
 #include <alda/exception.hpp>
 #include <alda/message/base_unique_ptr.hpp>
 #include <alda/serialization/context_decl.hpp>
@@ -15,11 +16,15 @@
 #include <alda/serialization/detail/dispatch/base_decl.hpp>
 #include <alda/serialization/detail/dispatch/map.hpp>
 #include <alda/serialization/detail/read/object_decl.hpp>
+#include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/throw.hpp>
+#include <fcppt/cast/promote.hpp>
+#include <fcppt/cast/to_char_ptr.hpp>
+#include <fcppt/container/find_exn.hpp>
+#include <fcppt/io/read_exn.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
-#include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -48,25 +53,17 @@ deserialize(
 		sizeof(
 			alda::serialization::detail::message_int_type
 		)
-		== 1u,
+		==
+		1u,
 		"Only message types of size 1 are currently supported, sorry"
 	);
 
-	alda::serialization::detail::message_int_type type;
-
-	// TODO: fix endianness here
-	_stream.read(
-		reinterpret_cast<
-			char *
+	auto const type(
+		fcppt::io::read_exn<
+			alda::serialization::detail::message_int_type
 		>(
-			&type
-		),
-		static_cast<
-			std::streamsize
-		>(
-			sizeof(
-				alda::serialization::detail::message_int_type
-			)
+			_stream,
+			alda::endianness()
 		)
 	);
 
@@ -83,8 +80,6 @@ deserialize(
 		alda::exception
 	);
 
-	_stream.unget();
-
 	if(
 		type
 		>=
@@ -95,7 +90,15 @@ deserialize(
 		)
 	)
 		throw alda::exception(
-			FCPPT_TEXT("Invalid message received!")
+			FCPPT_TEXT("Invalid message ")
+			+
+			fcppt::insert_to_fcppt_string(
+				fcppt::cast::promote(
+					type
+				)
+			)
+			+
+			FCPPT_TEXT(" received!")
 		);
 
 	message_type const casted_type(
@@ -106,33 +109,27 @@ deserialize(
 		)
 	);
 
-	typedef alda::serialization::detail::dispatch::map<
+	typedef
+	alda::serialization::detail::read::object<
 		TypeEnum
-	> dispatch_map;
-
-	typename dispatch_map::const_iterator const it(
-		_context.handlers().find(
-			casted_type
-		)
-	);
-
-	if(
-		it == _context.handlers().end()
-	)
-		throw alda::exception(
-			FCPPT_TEXT("No handler for a message found.")
-		);
-
-	typedef alda::serialization::detail::read::object<
-		TypeEnum
-	> reader;
+	>
+	reader;
 
 	reader cur_reader(
 		_stream
 	);
 
 	return
-		it->second->on_dispatch(
+		fcppt::container::find_exn(
+			_context.handlers(),
+			casted_type,
+			[]{
+				return
+					alda::exception(
+						FCPPT_TEXT("No handler for a message found.")
+					);
+			}
+		)->on_dispatch(
 			cur_reader
 		);
 }

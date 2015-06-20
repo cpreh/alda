@@ -7,7 +7,6 @@
 #include <alda/bindings/dynamic_len.hpp>
 #include <alda/bindings/fundamental.hpp>
 #include <alda/message/make_class.hpp>
-#include <majutsu/composite.hpp>
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -48,12 +47,10 @@ MAJUTSU_MAKE_ROLE_TAG(
 
 typedef
 alda::message::make_class<
-	majutsu::composite<
-		boost::mpl::vector1<
-			majutsu::role<
-				dynamic_len_binding,
-				dynamic_len_role
-			>
+	boost::mpl::vector1<
+		majutsu::role<
+			dynamic_len_binding,
+			dynamic_len_role
 		>
 	>
 >

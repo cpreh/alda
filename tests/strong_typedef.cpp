@@ -7,7 +7,6 @@
 #include <alda/bindings/strong_typedef.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <alda/message/make_class.hpp>
-#include <majutsu/composite.hpp>
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
 #include <fcppt/strong_typedef.hpp>
@@ -50,12 +49,10 @@ MAJUTSU_MAKE_ROLE_TAG(
 
 typedef
 alda::message::make_class<
-	majutsu::composite<
-		boost::mpl::vector1<
-			majutsu::role<
-				strong_binding,
-				strong_role
-			>
+	boost::mpl::vector1<
+		majutsu::role<
+			strong_binding,
+			strong_role
 		>
 	>
 >

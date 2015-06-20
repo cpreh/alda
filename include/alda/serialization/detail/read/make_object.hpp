@@ -9,13 +9,7 @@
 
 #include <alda/serialization/istream_fwd.hpp>
 #include <alda/serialization/detail/read/element_impl.hpp>
-#include <majutsu/is_role.hpp>
-#include <fcppt/no_init.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/filter_view.hpp>
-#include <boost/mpl/for_each.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <majutsu/init.hpp>
 
 
 namespace alda
@@ -30,33 +24,22 @@ namespace read
 template<
 	typename Message
 >
+inline
 Message
 make_object(
 	alda::serialization::istream &_stream
 )
 {
-	Message obj{
-		fcppt::no_init()
-	};
-
-	boost::mpl::for_each<
-		boost::mpl::filter_view<
-			typename Message::memory_type::types,
-			majutsu::is_role<
-				boost::mpl::_1
-			>
-		>
-	>(
-		alda::serialization::detail::read::element<
+	return
+		majutsu::init<
 			Message
 		>(
-			_stream,
-			obj
-		)
-	);
-
-	return
-		obj;
+			alda::serialization::detail::read::element<
+				Message
+			>(
+				_stream
+			)
+		);
 }
 
 }

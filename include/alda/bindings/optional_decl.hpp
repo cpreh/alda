@@ -27,7 +27,7 @@ struct optional
 	fcppt::optional<
 		Type
 	>
-	type;
+	element_type;
 
 	typedef
 	alda::bindings::bool_

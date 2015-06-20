@@ -7,8 +7,8 @@
 #ifndef ALDA_BINDINGS_DETAIL_VARIANT_MAKE_HPP_INCLUDED
 #define ALDA_BINDINGS_DETAIL_VARIANT_MAKE_HPP_INCLUDED
 
-#include <majutsu/const_raw_pointer.hpp>
-#include <majutsu/make.hpp>
+#include <majutsu/raw/const_pointer.hpp>
+#include <majutsu/raw/make.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/mpl/index_of.hpp>
 #include <fcppt/variant/object_impl.hpp>
@@ -36,7 +36,7 @@ class variant_make
 public:
 	explicit
 	variant_make(
-		majutsu::const_raw_pointer const _mem
+		majutsu::raw::const_pointer const _mem
 	)
 	:
 		mem_(
@@ -59,7 +59,7 @@ public:
 	{
 		return
 			result_type(
-				majutsu::make<
+				majutsu::raw::make<
 					typename
 					boost::mpl::at<
 						AdaptedTypes,
@@ -75,7 +75,7 @@ public:
 			);
 	}
 private:
-	majutsu::const_raw_pointer const mem_;
+	majutsu::raw::const_pointer const mem_;
 };
 
 }

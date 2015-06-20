@@ -8,12 +8,13 @@
 #define ALDA_BINDINGS_DURATION_HPP_INCLUDED
 
 #include <alda/bindings/duration_decl.hpp>
-#include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/dispatch_type.hpp>
-#include <majutsu/make.hpp>
-#include <majutsu/place.hpp>
-#include <majutsu/raw_pointer.hpp>
-#include <majutsu/static_size.hpp>
+#include <majutsu/raw/const_pointer.hpp>
+#include <majutsu/raw/element_type.hpp>
+#include <majutsu/raw/make.hpp>
+#include <majutsu/raw/place.hpp>
+#include <majutsu/raw/pointer.hpp>
+#include <majutsu/raw/static_size.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -28,6 +29,7 @@ template<
 	typename Adapted,
 	typename Ratio
 >
+inline
 void
 place(
 	majutsu::dispatch_type<
@@ -36,15 +38,16 @@ place(
 			Ratio
 		>
 	>,
-	typename
-	alda::bindings::duration<
-		Adapted,
-		Ratio
-	>::type const &_duration,
-	majutsu::raw_pointer const _mem
+	majutsu::raw::element_type<
+		alda::bindings::duration<
+			Adapted,
+			Ratio
+		>
+	> const &_duration,
+	majutsu::raw::pointer const _mem
 )
 {
-	majutsu::place<
+	majutsu::raw::place<
 		Adapted
 	>(
 		_duration.count(),
@@ -56,11 +59,13 @@ template<
 	typename Adapted,
 	typename Ratio
 >
-typename
-alda::bindings::duration<
-	Adapted,
-	Ratio
->::type
+inline
+majutsu::raw::element_type<
+	alda::bindings::duration<
+		Adapted,
+		Ratio
+	>
+>
 make(
 	majutsu::dispatch_type<
 		alda::bindings::duration<
@@ -68,16 +73,17 @@ make(
 			Ratio
 		>
 	>,
-	majutsu::const_raw_pointer const _mem
+	majutsu::raw::const_pointer const _mem
 )
 {
 	return
-		typename
-		alda::bindings::duration<
-			Adapted,
-			Ratio
-		>::type(
-			majutsu::make<
+		majutsu::raw::element_type<
+			alda::bindings::duration<
+				Adapted,
+				Ratio
+			>
+		>(
+			majutsu::raw::make<
 				Adapted
 			>(
 				_mem
@@ -89,6 +95,8 @@ make(
 }
 
 namespace majutsu
+{
+namespace raw
 {
 
 FCPPT_PP_PUSH_WARNING
@@ -105,7 +113,7 @@ struct static_size<
 	>
 >
 :
-majutsu::static_size<
+majutsu::raw::static_size<
 	Adapted
 >
 {
@@ -113,6 +121,7 @@ majutsu::static_size<
 
 FCPPT_PP_POP_WARNING
 
+}
 }
 
 #endif

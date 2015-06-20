@@ -11,51 +11,56 @@
 #include <alda/serialization/detail/read/element_decl.hpp>
 #include <alda/serialization/load/fwd.hpp>
 #include <majutsu/access_role.hpp>
+#include <majutsu/role.hpp>
+#include <majutsu/role_value_type.hpp>
 
 
 template<
-	typename Class
+	typename Message
 >
 alda::serialization::detail::read::element<
-	Class
+	Message
 >::element(
-	alda::serialization::istream &_stream,
-	Class &_object
+	alda::serialization::istream &_stream
 )
 :
 	stream_(
 		_stream
-	),
-	object_(
-		_object
 	)
 {
 }
 
 template<
-	typename Class
+	typename Message
 >
 template<
-	typename Role
+	typename Type,
+	typename Tag
 >
-void
+majutsu::role_value_type<
+	Message,
+	Tag
+>
 alda::serialization::detail::read::element<
-	Class
+	Message
 >::operator()(
-	Role const &
+	majutsu::role<
+		Type,
+		Tag
+	>
 ) const
 {
-	object_. template set<
-		typename Role::tag
-	>(
+	return
 		alda::serialization::load<
-			typename majutsu::access_role<
-				Role
-			>::type
+			majutsu::access_role<
+				majutsu::role<
+					Type,
+					Tag
+				>
+			>
 		>::get(
 			stream_
-		)
-	);
+		);
 }
 
 #endif

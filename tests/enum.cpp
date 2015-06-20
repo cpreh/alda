@@ -6,7 +6,6 @@
 
 #include <alda/bindings/enum.hpp>
 #include <alda/message/make_class.hpp>
-#include <majutsu/composite.hpp>
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -33,22 +32,23 @@ typedef
 alda::bindings::enum_<
 	test_enum,
 	std::uint8_t
-> enum_binding;
+>
+enum_binding;
 
 MAJUTSU_MAKE_ROLE_TAG(
 	enum_role
 );
 
-typedef alda::message::make_class<
-	majutsu::composite<
-		boost::mpl::vector1<
-			majutsu::role<
-				enum_binding,
-				enum_role
-			>
+typedef
+alda::message::make_class<
+	boost::mpl::vector1<
+		majutsu::role<
+			enum_binding,
+			enum_role
 		>
 	>
-> message;
+>
+message;
 
 }
 

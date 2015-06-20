@@ -10,13 +10,13 @@
 #include <alda/exception.hpp>
 #include <alda/bindings/signed_decl.hpp>
 #include <alda/bindings/unsigned.hpp>
-#include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/dispatch_type.hpp>
-#include <majutsu/fundamental.hpp>
-#include <majutsu/make.hpp>
-#include <majutsu/place.hpp>
-#include <majutsu/raw_pointer.hpp>
-#include <majutsu/static_size.hpp>
+#include <majutsu/raw/const_pointer.hpp>
+#include <majutsu/raw/fundamental.hpp>
+#include <majutsu/raw/make.hpp>
+#include <majutsu/raw/place.hpp>
+#include <majutsu/raw/pointer.hpp>
+#include <majutsu/raw/static_size.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -43,7 +43,7 @@ place(
 		>
 	>,
 	Type const &_value,
-	majutsu::raw_pointer const _mem
+	majutsu::raw::pointer const _mem
 )
 {
 	typedef typename std::make_unsigned<
@@ -110,7 +110,7 @@ place(
 			)
 	);
 
-	majutsu::place<
+	majutsu::raw::place<
 		alda::bindings::unsigned_<
 			unsigned_type
 		>
@@ -130,7 +130,7 @@ make(
 			Type
 		>
 	>,
-	majutsu::const_raw_pointer const _beg
+	majutsu::raw::const_pointer const _beg
 )
 {
 	typedef typename std::make_unsigned<
@@ -139,7 +139,7 @@ make(
 
 
 	unsigned_type const converted(
-		majutsu::make<
+		majutsu::raw::make<
 			alda::bindings::unsigned_<
 				unsigned_type
 			>
@@ -174,7 +174,9 @@ make(
 				static_cast<
 					Type
 				>(
-					converted - converted_max
+					converted
+					-
+					converted_max
 				)
 			)
 		:
@@ -191,6 +193,8 @@ make(
 
 namespace majutsu
 {
+namespace raw
+{
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
@@ -204,8 +208,8 @@ struct static_size<
 	>
 >
 :
-majutsu::static_size<
-	majutsu::fundamental<
+majutsu::raw::static_size<
+	majutsu::raw::fundamental<
 		Type
 	>
 >
@@ -214,6 +218,7 @@ majutsu::static_size<
 
 FCPPT_PP_POP_WARNING
 
+}
 }
 
 #endif

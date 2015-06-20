@@ -126,7 +126,7 @@ alda::message::concrete<
 		>(
 			alda::message::detail::extract_id<
 				typename Type::types
-			>::type::value
+			>::value
 		);
 }
 
@@ -144,7 +144,7 @@ alda::message::concrete<
 >::data() const
 {
 	return
-		value_.memory().data();
+		value_.data();
 }
 
 template<
@@ -161,7 +161,7 @@ alda::message::concrete<
 >::size() const
 {
 	return
-		value_.memory().size();
+		value_.size();
 }
 
 template<

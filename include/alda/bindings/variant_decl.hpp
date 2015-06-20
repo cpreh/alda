@@ -41,7 +41,8 @@ struct variant
 	typedef
 	fcppt::variant::object<
 		Types
-	> type;
+	>
+	element_type;
 
 	typedef
 	AdaptedTypes

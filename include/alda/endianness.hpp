@@ -17,7 +17,8 @@ inline
 fcppt::endianness::format
 endianness()
 {
-	return fcppt::endianness::format::little;
+	return
+		fcppt::endianness::format::little;
 }
 
 }

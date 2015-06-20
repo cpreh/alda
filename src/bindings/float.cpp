@@ -6,12 +6,15 @@
 
 #include <alda/bindings/float.hpp>
 #include <alda/bindings/fundamental.hpp>
-#include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/dispatch_type.hpp>
-#include <majutsu/make.hpp>
-#include <majutsu/place.hpp>
-#include <majutsu/raw_pointer.hpp>
-#include <majutsu/size_type.hpp>
+#include <majutsu/raw/const_pointer.hpp>
+#include <majutsu/raw/element_type.hpp>
+#include <majutsu/raw/make.hpp>
+#include <majutsu/raw/place.hpp>
+#include <majutsu/raw/pointer.hpp>
+#include <majutsu/raw/size_type.hpp>
+#include <fcppt/literal.hpp>
+#include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cmath>
 #include <cstdint>
@@ -21,20 +24,28 @@
 namespace
 {
 
-typedef std::uint32_t fixed_int;
+typedef
+std::uint32_t
+fixed_int;
 
-typedef alda::bindings::float_::type float_type;
+typedef
+majutsu::raw::element_type<
+	alda::bindings::float_
+>
+float_type;
 
-typedef alda::bindings::fundamental<
+typedef
+alda::bindings::fundamental<
 	fixed_int
-> adapted;
+>
+adapted;
 
 fixed_int const sign_bit(
 	0x1u
 );
 
 float_type const exp(
-	static_cast<
+	fcppt::cast::int_to_float<
 		float_type
 	>(
 		1ul << 16
@@ -53,7 +64,7 @@ make_fixed(
 			std::log(
 				_val
 				+
-				static_cast<
+				fcppt::literal<
 					float_type
 				>(
 					1
@@ -70,14 +81,15 @@ unmake_fixed(
 {
 	return
 		std::exp(
-			static_cast<
+			fcppt::cast::int_to_float<
 				float_type
 			>(
 				_val
 			)
 			/ exp
 		)
-		- static_cast<
+		-
+		fcppt::literal<
 			float_type
 		>(
 			1
@@ -120,7 +132,8 @@ deserialize(
 			unmake_fixed(
 				_val
 			)
-			* static_cast<
+			*
+			fcppt::literal<
 				float_type
 			>(
 				-1
@@ -133,15 +146,20 @@ deserialize(
 
 }
 
-majutsu::size_type
+majutsu::raw::size_type
 alda::bindings::needed_size(
 	majutsu::dispatch_type<
 		alda::bindings::float_
 	>,
-	alda::bindings::float_::type const &
+	majutsu::raw::element_type<
+		alda::bindings::float_
+	> const &
 )
 {
-	return sizeof(fixed_int);
+	return
+		sizeof(
+			fixed_int
+		);
 }
 
 void
@@ -149,11 +167,13 @@ alda::bindings::place(
 	majutsu::dispatch_type<
 		alda::bindings::float_
 	>,
-	alda::bindings::float_::type const &_val,
-	majutsu::raw_pointer const _mem
+	majutsu::raw::element_type<
+		alda::bindings::float_
+	> const &_val,
+	majutsu::raw::pointer const _mem
 )
 {
-	majutsu::place<
+	majutsu::raw::place<
 		adapted
 	>(
 		serialize(
@@ -163,17 +183,19 @@ alda::bindings::place(
 	);
 }
 
-alda::bindings::float_::type
+majutsu::raw::element_type<
+	alda::bindings::float_
+>
 alda::bindings::make(
 	majutsu::dispatch_type<
 		alda::bindings::float_
 	>,
-	majutsu::const_raw_pointer const _beg
+	majutsu::raw::const_pointer const _beg
 )
 {
 	return
 		deserialize(
-			majutsu::make<
+			majutsu::raw::make<
 				adapted
 			>(
 				_beg

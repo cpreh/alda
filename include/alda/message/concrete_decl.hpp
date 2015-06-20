@@ -9,8 +9,6 @@
 
 #include <alda/detail/external_symbol.hpp>
 #include <alda/message/base_decl.hpp>
-#include <majutsu/const_raw_pointer.hpp>
-#include <majutsu/size_type.hpp>
 
 
 namespace alda

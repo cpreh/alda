@@ -24,7 +24,9 @@ template<
 >
 struct enum_
 {
-	typedef Enum type;
+	typedef
+	Enum
+	element_type;
 
 	static_assert(
 		std::is_enum<

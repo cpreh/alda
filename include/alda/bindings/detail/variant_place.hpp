@@ -7,8 +7,8 @@
 #ifndef ALDA_BINDINGS_DETAIL_VARIANT_PLACE_HPP_INCLUDED
 #define ALDA_BINDINGS_DETAIL_VARIANT_PLACE_HPP_INCLUDED
 
-#include <majutsu/place.hpp>
-#include <majutsu/raw_pointer.hpp>
+#include <majutsu/raw/place.hpp>
+#include <majutsu/raw/pointer.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/mpl/index_of.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -35,7 +35,7 @@ class variant_place
 public:
 	explicit
 	variant_place(
-		majutsu::raw_pointer const _mem
+		majutsu::raw::pointer const _mem
 	)
 	:
 		mem_(
@@ -56,7 +56,7 @@ public:
 		Type const &_type
 	) const
 	{
-		majutsu::place<
+		majutsu::raw::place<
 			typename
 			boost::mpl::at<
 				AdaptedTypes,
@@ -72,7 +72,7 @@ public:
 		);
 	}
 private:
-	majutsu::raw_pointer const mem_;
+	majutsu::raw::pointer const mem_;
 };
 
 }

@@ -7,16 +7,19 @@
 #ifndef ALDA_SERIALIZATION_DETAIL_DISPATCH_REGISTER_IMPL_HPP_INCLUDED
 #define ALDA_SERIALIZATION_DETAIL_DISPATCH_REGISTER_IMPL_HPP_INCLUDED
 
+#include <alda/message/roles/type.hpp>
 #include <alda/serialization/context_decl.hpp>
 #include <alda/serialization/detail/dispatch/base_decl.hpp>
 #include <alda/serialization/detail/dispatch/concrete_decl.hpp>
 #include <alda/serialization/detail/dispatch/register_decl.hpp>
+#include <majutsu/raw/extract_constant.hpp>
 #include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/cast/int_to_enum.hpp>
+#include <fcppt/cast/size.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/at.hpp>
 #include <exception>
 #include <fcppt/config/external_end.hpp>
 
@@ -32,18 +35,22 @@ alda::serialization::detail::dispatch::register_<
 	context &_context
 )
 {
-	typedef typename boost::mpl::at_c<
-		typename Message::memory_type::types,
-		0
-	>::type msg_type;
+	typedef
+	majutsu::raw::extract_constant<
+		typename
+		Message::types,
+		alda::message::roles::type
+	>
+	constant_value;
 
 	// TODO: fix this cast here, maybe replace majutsu::constant by an enum wrapper
 	if(
 		!_context.handlers_.emplace(
-			static_cast<
-				typename TypeEnum::type
+			fcppt::cast::int_to_enum<
+				typename
+				TypeEnum::type
 			>(
-				msg_type::value
+				constant_value::value
 			),
 			fcppt::unique_ptr_to_base<
 				alda::serialization::detail::dispatch::base<
@@ -62,10 +69,11 @@ alda::serialization::detail::dispatch::register_<
 	{
 		fcppt::io::cerr()
 			<< FCPPT_TEXT("Message type registered twice: ")
-			<< static_cast<
+			<<
+			fcppt::cast::size<
 				unsigned
 			>(
-				msg_type::value
+				constant_value::value
 			)
 			<< FCPPT_TEXT('\n');
 

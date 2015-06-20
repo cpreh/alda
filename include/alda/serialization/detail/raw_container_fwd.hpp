@@ -7,7 +7,7 @@
 #ifndef ALDA_SERIALIZATION_DETAIL_RAW_CONTAINER_FWD_HPP_INCLUDED
 #define ALDA_SERIALIZATION_DETAIL_RAW_CONTAINER_FWD_HPP_INCLUDED
 
-#include <majutsu/raw_data.hpp>
+#include <majutsu/raw/data.hpp>
 #include <fcppt/container/raw_vector_fwd.hpp>
 
 
@@ -18,9 +18,11 @@ namespace serialization
 namespace detail
 {
 
-typedef fcppt::container::raw_vector<
-	majutsu::raw_data
-> raw_container;
+typedef
+fcppt::container::raw_vector<
+	majutsu::raw::data
+>
+raw_container;
 
 }
 }

@@ -8,7 +8,7 @@
 #define ALDA_BINDINGS_UNSIGNED_DECL_HPP_INCLUDED
 
 #include <alda/bindings/unsigned_fwd.hpp>
-#include <majutsu/fundamental_decl.hpp>
+#include <majutsu/raw/fundamental_decl.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -30,10 +30,16 @@ template<
 >
 struct unsigned_
 :
-majutsu::fundamental<
+majutsu::raw::fundamental<
 	Type
 >
 {
+	typedef
+	majutsu::raw::fundamental<
+		Type
+	>
+	impl;
+
 	static_assert(
 		std::is_unsigned<
 			Type

@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <alda/exception.hpp>
 #include <alda/type_enum_fcppt.hpp>
 #include <alda/bindings/dynamic_len.hpp>
 #include <alda/bindings/fundamental.hpp>
@@ -32,9 +33,9 @@
 #include <alda/serialization/load/optional.hpp>
 #include <alda/serialization/load/static_size.hpp>
 #include <alda/serialization/load/variant.hpp>
-#include <majutsu/composite.hpp>
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
+#include <majutsu/raw/element_type.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/insert_to_std_string.hpp>
 #include <fcppt/literal.hpp>
@@ -45,6 +46,7 @@
 #include <fcppt/optional_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
+#include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -148,28 +150,26 @@ MAJUTSU_MAKE_ROLE_TAG(
 
 typedef
 alda::message::make_class<
-	majutsu::composite<
-		boost::mpl::vector5<
-			alda::message::make_id<
-				type_enum,
-				message_type::message1
-			>,
-			majutsu::role<
-				uint16_type,
-				uint16_role
-			>,
-			majutsu::role<
-				optional_uint16_type,
-				optional_uint16_role
-			>,
-			majutsu::role<
-				variant_type,
-				variant_role
-			>,
-			majutsu::role<
-				string_type,
-				string_role
-			>
+	boost::mpl::vector5<
+		alda::message::make_id<
+			type_enum,
+			message_type::message1
+		>,
+		majutsu::role<
+			uint16_type,
+			uint16_role
+		>,
+		majutsu::role<
+			optional_uint16_type,
+			optional_uint16_role
+		>,
+		majutsu::role<
+			variant_type,
+			variant_role
+		>,
+		majutsu::role<
+			string_type,
+			string_role
 		>
 	>
 >
@@ -267,25 +267,31 @@ private:
 			_msg.get<
 				optional_uint16_role
 			>(),
-			optional_uint16_type::type{
+			majutsu::raw::element_type<
+				optional_uint16_type
+			>(
 				value_
-			}
+			)
 		);
 
 		BOOST_CHECK_EQUAL(
 			_msg.get<
 				variant_role
 			>(),
-			variant_type::type{
+			majutsu::raw::element_type<
+				variant_type
+			>(
 				value_
-			}
+			)
 		);
 
 		BOOST_CHECK_EQUAL(
 			_msg.get<
 				string_role
 			>(),
-			string_type::type(
+			majutsu::raw::element_type<
+				string_type
+			>(
 				fcppt::insert_to_std_string(
 					value_
 				)
@@ -304,6 +310,7 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 BOOST_AUTO_TEST_CASE(
 	alda_length_stream
 )
+try
 {
 FCPPT_PP_POP_WARNING
 
@@ -342,13 +349,17 @@ FCPPT_PP_POP_WARNING
 					uint16_role{} =
 						casted_index,
 					optional_uint16_role{} =
-						optional_uint16_type::type{
+						majutsu::raw::element_type<
+							optional_uint16_type
+						>(
 							casted_index
-						},
+						),
 					variant_role{} =
-						variant_type::type{
+						majutsu::raw::element_type<
+							variant_type
+						>(
 							casted_index
-						},
+						),
 					string_role{} =
 						fcppt::insert_to_std_string(
 							casted_index
@@ -467,15 +478,19 @@ FCPPT_PP_POP_WARNING
 						0
 					),
 				optional_uint16_role{} =
-					optional_uint16_type::type{},
+					majutsu::raw::element_type<
+						optional_uint16_type
+					>(),
 				variant_role{} =
-					variant_type::type{
+					majutsu::raw::element_type<
+						variant_type
+					>(
 						fcppt::literal<
 							std::uint16_t
 						>(
 							0
 						)
-					},
+					),
 				string_role{} =
 					std::string()
 			)
@@ -503,5 +518,17 @@ FCPPT_PP_POP_WARNING
 
 	BOOST_CHECK(
 		ifs.good()
+	);
+}
+catch(
+	alda::exception const &_error
+)
+{
+	fcppt::io::cerr()
+		<< _error.string()
+		<< FCPPT_TEXT('\n');
+
+	BOOST_CHECK(
+		false
 	);
 }

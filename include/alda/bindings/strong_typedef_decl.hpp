@@ -32,9 +32,13 @@ struct strong_typedef
 		"Type must be an fcppt::strong_typedef"
 	);
 
-	typedef Type type;
+	typedef
+	Type
+	element_type;
 
-	typedef Adapted adapted;
+	typedef
+	Adapted
+	adapted;
 };
 
 }

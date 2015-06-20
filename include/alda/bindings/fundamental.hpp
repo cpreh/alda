@@ -10,14 +10,16 @@
 #include <alda/bindings/fundamental_decl.hpp>
 #include <alda/bindings/signed.hpp>
 #include <alda/bindings/unsigned.hpp>
-#include <majutsu/fundamental.hpp>
-#include <majutsu/static_size.hpp>
+#include <majutsu/raw/fundamental.hpp>
+#include <majutsu/raw/static_size.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace majutsu
+{
+namespace raw
 {
 
 FCPPT_PP_PUSH_WARNING
@@ -32,8 +34,8 @@ struct static_size<
 	>
 >
 :
-majutsu::static_size<
-	majutsu::fundamental<
+majutsu::raw::static_size<
+	majutsu::raw::fundamental<
 		Type
 	>
 >
@@ -42,6 +44,7 @@ majutsu::static_size<
 
 FCPPT_PP_POP_WARNING
 
+}
 }
 
 #endif

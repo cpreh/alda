@@ -10,8 +10,8 @@
 #include <alda/message/id_binding_decl.hpp>
 #include <alda/message/roles/type.hpp>
 #include <alda/serialization/detail/message_int_type.hpp>
-#include <majutsu/constant_fwd.hpp>
 #include <majutsu/role_fwd.hpp>
+#include <majutsu/raw/constant_fwd.hpp>
 
 
 namespace alda
@@ -26,7 +26,7 @@ template<
 using make_id
 =
 majutsu::role<
-	majutsu::constant<
+	majutsu::raw::constant<
 		alda::message::id_binding,
 		static_cast<
 			alda::serialization::detail::message_int_type

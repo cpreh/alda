@@ -10,12 +10,13 @@
 #include <alda/bindings/float_decl.hpp>
 #include <alda/bindings/float_type.hpp>
 #include <alda/detail/symbol.hpp>
-#include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/dispatch_type.hpp>
-#include <majutsu/fundamental.hpp>
-#include <majutsu/raw_pointer.hpp>
-#include <majutsu/size_type.hpp>
-#include <majutsu/static_size.hpp>
+#include <majutsu/raw/const_pointer.hpp>
+#include <majutsu/raw/element_type.hpp>
+#include <majutsu/raw/fundamental.hpp>
+#include <majutsu/raw/pointer.hpp>
+#include <majutsu/raw/size_type.hpp>
+#include <majutsu/raw/static_size.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -27,12 +28,14 @@ namespace bindings
 {
 
 ALDA_DETAIL_SYMBOL
-majutsu::size_type
+majutsu::raw::size_type
 needed_size(
 	majutsu::dispatch_type<
 		alda::bindings::float_
 	>,
-	alda::bindings::float_::type const &
+	majutsu::raw::element_type<
+		alda::bindings::float_
+	> const &
 );
 
 ALDA_DETAIL_SYMBOL
@@ -41,23 +44,29 @@ place(
 	majutsu::dispatch_type<
 		alda::bindings::float_
 	>,
-	alda::bindings::float_::type const &,
-	majutsu::raw_pointer
+	majutsu::raw::element_type<
+		alda::bindings::float_
+	> const &,
+	majutsu::raw::pointer
 );
 
 ALDA_DETAIL_SYMBOL
-alda::bindings::float_::type
+majutsu::raw::element_type<
+	alda::bindings::float_
+>
 make(
 	majutsu::dispatch_type<
 		alda::bindings::float_
 	>,
-	majutsu::const_raw_pointer
+	majutsu::raw::const_pointer
 );
 
 }
 }
 
 namespace majutsu
+{
+namespace raw
 {
 
 FCPPT_PP_PUSH_WARNING
@@ -68,8 +77,8 @@ struct static_size<
 	alda::bindings::float_
 >
 :
-majutsu::static_size<
-	majutsu::fundamental<
+majutsu::raw::static_size<
+	majutsu::raw::fundamental<
 		alda::bindings::float_type
 	>
 >
@@ -78,6 +87,7 @@ majutsu::static_size<
 
 FCPPT_PP_POP_WARNING
 
+}
 }
 
 #endif

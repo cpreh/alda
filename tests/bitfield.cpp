@@ -6,9 +6,9 @@
 
 #include <alda/bindings/bitfield.hpp>
 #include <alda/message/make_class.hpp>
-#include <majutsu/composite.hpp>
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
+#include <majutsu/raw/integral_size.hpp>
 #include <fcppt/container/bitfield/object.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -30,7 +30,7 @@ FCPPT_PP_POP_WARNING
 	typedef
 	fcppt::container::bitfield::object<
 		unsigned,
-		majutsu::integral_size<
+		majutsu::raw::integral_size<
 			64u
 		>
 	>
@@ -48,12 +48,10 @@ FCPPT_PP_POP_WARNING
 
 	typedef
 	alda::message::make_class<
-		majutsu::composite<
-			boost::mpl::vector1<
-				majutsu::role<
-					bitfield_binding,
-					bitfield_role
-				>
+		boost::mpl::vector1<
+			majutsu::role<
+				bitfield_binding,
+				bitfield_role
 			>
 		>
 	>

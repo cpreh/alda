@@ -7,8 +7,7 @@
 #ifndef ALDA_MESSAGE_MAKE_CLASS_FWD_HPP_INCLUDED
 #define ALDA_MESSAGE_MAKE_CLASS_FWD_HPP_INCLUDED
 
-#include <majutsu/class_fwd.hpp>
-#include <majutsu/memory/raw_fwd.hpp>
+#include <majutsu/raw/record_fwd.hpp>
 
 
 namespace alda
@@ -21,9 +20,8 @@ template<
 >
 using make_class
 =
-majutsu::class_<
-	Message,
-	majutsu::memory::raw
+majutsu::raw::record<
+	Message
 >;
 
 }

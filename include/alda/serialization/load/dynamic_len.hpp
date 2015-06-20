@@ -12,9 +12,11 @@
 #include <alda/serialization/istream.hpp>
 #include <alda/serialization/detail/raw_container.hpp>
 #include <alda/serialization/load/fwd.hpp>
-#include <majutsu/make.hpp>
-#include <majutsu/size_type.hpp>
+#include <majutsu/raw/element_type.hpp>
+#include <majutsu/raw/make.hpp>
+#include <majutsu/raw/size_type.hpp>
 #include <fcppt/assert/optional_error.hpp>
+#include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/io/read.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
@@ -39,11 +41,12 @@ struct load<
 >
 {
 	static
-	typename
-	alda::bindings::dynamic_len<
-		T,
-		A
-	>::type
+	majutsu::raw::element_type<
+		alda::bindings::dynamic_len<
+			T,
+			A
+		>
+	>
 	get(
 		alda::serialization::istream &_is
 	)
@@ -52,11 +55,14 @@ struct load<
 		alda::bindings::dynamic_len<
 			T,
 			A
-		> type;
+		>
+		type;
 
-		typename type::type ret;
+		majutsu::raw::element_type<
+			type
+		> ret;
 
-		majutsu::size_type const length_sz(
+		majutsu::raw::size_type const length_sz(
 			sizeof(
 				typename type::length_type
 			)
@@ -83,7 +89,7 @@ struct load<
 		);
 
 		std::copy_n(
-			reinterpret_cast<
+			fcppt::cast::to_char_ptr<
 				alda::serialization::detail::raw_container::const_pointer
 			>(
 				&sz
@@ -95,7 +101,7 @@ struct load<
 		);
 
 		_is.read(
-			reinterpret_cast<
+			fcppt::cast::to_char_ptr<
 				char *
 			>(
 				vec.data()
@@ -110,7 +116,7 @@ struct load<
 		);
 
 		return
-			majutsu::make<
+			majutsu::raw::make<
 				type
 			>(
 				vec.data()

@@ -8,7 +8,6 @@
 #include <alda/bindings/unsigned.hpp>
 #include <alda/bindings/variant.hpp>
 #include <alda/message/make_class.hpp>
-#include <majutsu/composite.hpp>
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -71,12 +70,10 @@ MAJUTSU_MAKE_ROLE_TAG(
 
 typedef
 alda::message::make_class<
-	majutsu::composite<
-		boost::mpl::vector1<
-			majutsu::role<
-				variant_binding,
-				variant_role
-			>
+	boost::mpl::vector1<
+		majutsu::role<
+			variant_binding,
+			variant_role
 		>
 	>
 >

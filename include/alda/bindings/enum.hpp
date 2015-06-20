@@ -9,13 +9,15 @@
 
 #include <alda/bindings/enum_decl.hpp>
 #include <alda/bindings/unsigned.hpp>
-#include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/dispatch_type.hpp>
-#include <majutsu/make.hpp>
-#include <majutsu/place.hpp>
-#include <majutsu/raw_pointer.hpp>
-#include <majutsu/static_size.hpp>
+#include <majutsu/raw/const_pointer.hpp>
+#include <majutsu/raw/element_type.hpp>
+#include <majutsu/raw/make.hpp>
+#include <majutsu/raw/place.hpp>
+#include <majutsu/raw/pointer.hpp>
+#include <majutsu/raw/static_size.hpp>
 #include <fcppt/cast_to_enum.hpp>
+#include <fcppt/cast/enum_to_int.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -30,6 +32,7 @@ template<
 	typename Enum,
 	typename Underlying
 >
+inline
 void
 place(
 	majutsu::dispatch_type<
@@ -38,16 +41,21 @@ place(
 			Underlying
 		>
 	>,
-	Enum const &_enum,
-	majutsu::raw_pointer const _mem
+	majutsu::raw::element_type<
+		alda::bindings::enum_<
+			Enum,
+			Underlying
+		>
+	> const &_enum,
+	majutsu::raw::pointer const _mem
 )
 {
-	majutsu::place<
+	majutsu::raw::place<
 		alda::bindings::unsigned_<
 			Underlying
 		>
 	>(
-		static_cast<
+		fcppt::cast::enum_to_int<
 			Underlying
 		>(
 			_enum
@@ -60,7 +68,13 @@ template<
 	typename Enum,
 	typename Underlying
 >
-Enum
+inline
+majutsu::raw::element_type<
+	alda::bindings::enum_<
+		Enum,
+		Underlying
+	>
+>
 make(
 	majutsu::dispatch_type<
 		alda::bindings::enum_<
@@ -68,14 +82,14 @@ make(
 			Underlying
 		>
 	>,
-	majutsu::const_raw_pointer const _beg
+	majutsu::raw::const_pointer const _beg
 )
 {
 	return
 		fcppt::cast_to_enum<
 			Enum
 		>(
-			majutsu::make<
+			majutsu::raw::make<
 				alda::bindings::unsigned_<
 					Underlying
 				>
@@ -89,6 +103,8 @@ make(
 }
 
 namespace majutsu
+{
+namespace raw
 {
 
 FCPPT_PP_PUSH_WARNING
@@ -105,7 +121,7 @@ struct static_size<
 	>
 >
 :
-majutsu::static_size<
+majutsu::raw::static_size<
 	alda::bindings::unsigned_<
 		Underlying
 	>
@@ -115,6 +131,7 @@ majutsu::static_size<
 
 FCPPT_PP_POP_WARNING
 
+}
 }
 
 #endif

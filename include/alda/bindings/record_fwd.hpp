@@ -4,8 +4,8 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef ALDA_BINDINGS_CLASS_FWD_HPP_INCLUDED
-#define ALDA_BINDINGS_CLASS_FWD_HPP_INCLUDED
+#ifndef ALDA_BINDINGS_RECORD_FWD_HPP_INCLUDED
+#define ALDA_BINDINGS_RECORD_FWD_HPP_INCLUDED
 
 
 namespace alda
@@ -16,7 +16,7 @@ namespace bindings
 template<
 	typename Type
 >
-struct class_;
+struct record;
 
 }
 }

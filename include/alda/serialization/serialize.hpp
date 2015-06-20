@@ -9,6 +9,7 @@
 
 #include <alda/message/base_decl.hpp>
 #include <alda/serialization/ostream.hpp>
+#include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
@@ -22,6 +23,7 @@ namespace serialization
 template<
 	typename TypeEnum
 >
+inline
 void
 serialize(
 	alda::serialization::ostream &_stream,
@@ -31,7 +33,7 @@ serialize(
 )
 {
 	_stream.write(
-		reinterpret_cast<
+		fcppt::cast::to_char_ptr<
 			alda::serialization::ostream::char_type const *
 		>(
 			_message.data()

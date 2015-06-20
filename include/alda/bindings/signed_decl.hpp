@@ -8,7 +8,7 @@
 #define ALDA_BINDINGS_SIGNED_DECL_HPP_INCLUDED
 
 #include <alda/bindings/signed_fwd.hpp>
-#include <majutsu/fundamental_decl.hpp>
+#include <majutsu/raw/fundamental_decl.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -30,7 +30,7 @@ template<
 >
 struct signed_
 :
-majutsu::fundamental<
+majutsu::raw::fundamental<
 	Type
 >
 {

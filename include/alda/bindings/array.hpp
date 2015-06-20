@@ -8,15 +8,17 @@
 #define ALDA_BINDINGS_ARRAY_HPP_INCLUDED
 
 #include <alda/bindings/array_decl.hpp>
-#include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/dispatch_type.hpp>
-#include <majutsu/integral_size.hpp>
-#include <majutsu/make.hpp>
-#include <majutsu/needed_size.hpp>
-#include <majutsu/place.hpp>
-#include <majutsu/raw_pointer.hpp>
-#include <majutsu/size_type.hpp>
-#include <majutsu/static_size.hpp>
+#include <majutsu/raw/const_pointer.hpp>
+#include <majutsu/raw/element_type.hpp>
+#include <majutsu/raw/integral_size.hpp>
+#include <majutsu/raw/make.hpp>
+#include <majutsu/raw/needed_size.hpp>
+#include <majutsu/raw/place.hpp>
+#include <majutsu/raw/pointer.hpp>
+#include <majutsu/raw/size_type.hpp>
+#include <majutsu/raw/static_size.hpp>
+#include <fcppt/cast/size.hpp>
 #include <fcppt/container/array_size.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -40,8 +42,13 @@ place(
 			Adapted
 		>
 	>,
-	Type const &_value,
-	majutsu::raw_pointer _mem
+	majutsu::raw::element_type<
+		alda::bindings::array<
+			Type,
+			Adapted
+		>
+	> const &_value,
+	majutsu::raw::pointer _mem
 )
 {
 	for(
@@ -50,7 +57,7 @@ place(
 		_value
 	)
 	{
-		majutsu::place<
+		majutsu::raw::place<
 			Adapted
 		>(
 			elem,
@@ -58,7 +65,7 @@ place(
 		);
 
 		_mem +=
-			majutsu::needed_size<
+			majutsu::raw::needed_size<
 				Adapted
 			>(
 				elem
@@ -70,7 +77,12 @@ template<
 	typename Type,
 	typename Adapted
 >
-Type
+majutsu::raw::element_type<
+	alda::bindings::array<
+		Type,
+		Adapted
+	>
+>
 make(
 	majutsu::dispatch_type<
 		alda::bindings::array<
@@ -78,7 +90,7 @@ make(
 			Adapted
 		>
 	>,
-	majutsu::const_raw_pointer _mem
+	majutsu::raw::const_pointer _mem
 )
 {
 	// TODO: We should fold the array here
@@ -91,14 +103,14 @@ make(
 	)
 	{
 		elem =
-			majutsu::make<
+			majutsu::raw::make<
 				Adapted
 			>(
 				_mem
 			);
 
 		_mem +=
-			majutsu::needed_size<
+			majutsu::raw::needed_size<
 				Adapted
 			>(
 				elem
@@ -113,6 +125,8 @@ make(
 }
 
 namespace majutsu
+{
+namespace raw
 {
 
 FCPPT_PP_PUSH_WARNING
@@ -129,17 +143,17 @@ struct static_size<
 	>
 >
 :
-majutsu::integral_size<
+majutsu::raw::integral_size<
 	// Can't use mpl::multiplies here because std::integral_constant doesn't work
-	static_cast<
-		majutsu::size_type
+	fcppt::cast::size<
+		majutsu::raw::size_type
 	>(
 		fcppt::container::array_size<
 			Type
 		>::value
 	)
 	*
-	majutsu::static_size<
+	majutsu::raw::static_size<
 		Adapted
 	>::value
 >
@@ -148,6 +162,7 @@ majutsu::integral_size<
 
 FCPPT_PP_POP_WARNING
 
+}
 }
 
 #endif

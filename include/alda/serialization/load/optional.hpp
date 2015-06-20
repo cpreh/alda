@@ -11,6 +11,7 @@
 #include <alda/bindings/optional_decl.hpp>
 #include <alda/serialization/istream_fwd.hpp>
 #include <alda/serialization/load/fwd.hpp>
+#include <majutsu/raw/element_type.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/io/read.hpp>
 
@@ -32,11 +33,12 @@ struct load<
 >
 {
 	static
-	typename
-	alda::bindings::optional<
-		T,
-		A
-	>::type
+	majutsu::raw::element_type<
+		alda::bindings::optional<
+			T,
+			A
+		>
+	>
 	get(
 		alda::serialization::istream &_is
 	)
@@ -47,7 +49,12 @@ struct load<
 			A
 		> type;
 
-		typedef typename type::bool_type::type bool_type;
+		typedef
+		majutsu::raw::element_type<
+			typename
+			type::bool_type
+		>
+		bool_type;
 
 		bool_type const is_set(
 			FCPPT_ASSERT_OPTIONAL_ERROR(
@@ -61,8 +68,9 @@ struct load<
 		);
 
 		typedef
-		typename
-		type::type
+		majutsu::raw::element_type<
+			type
+		>
 		optional_type;
 
 		return

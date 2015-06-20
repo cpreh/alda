@@ -24,9 +24,13 @@ template<
 >
 struct dynamic_len
 {
-	typedef Type type;
+	typedef
+	Type
+	element_type;
 
-	typedef std::uint16_t length_type;
+	typedef
+	std::uint16_t
+	length_type;
 };
 
 }

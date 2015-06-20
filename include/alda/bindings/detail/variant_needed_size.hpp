@@ -7,8 +7,8 @@
 #ifndef ALDA_BINDINGS_DETAIL_VARIANT_NEEDED_SIZE_HPP_INCLUDED
 #define ALDA_BINDINGS_DETAIL_VARIANT_NEEDED_SIZE_HPP_INCLUDED
 
-#include <majutsu/needed_size.hpp>
-#include <majutsu/size_type.hpp>
+#include <majutsu/raw/needed_size.hpp>
+#include <majutsu/raw/size_type.hpp>
 #include <fcppt/mpl/index_of.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/at.hpp>
@@ -29,7 +29,7 @@ template<
 struct variant_needed_size
 {
 	typedef
-	majutsu::size_type
+	majutsu::raw::size_type
 	result_type;
 
 	template<
@@ -41,7 +41,7 @@ struct variant_needed_size
 	) const
 	{
 		return
-			majutsu::needed_size<
+			majutsu::raw::needed_size<
 				typename
 				boost::mpl::at<
 					AdaptedTypes,

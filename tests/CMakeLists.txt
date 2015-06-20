@@ -34,6 +34,12 @@ add_alda_test(
 )
 
 add_alda_test(
+	dispatch
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+)
+
+add_alda_test(
 	duration
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
@@ -74,13 +80,13 @@ add_alda_test(
 )
 
 add_alda_test(
-	signed
+	record
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 )
 
 add_alda_test(
-	simple
+	signed
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 )

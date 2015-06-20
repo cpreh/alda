@@ -4,18 +4,18 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef ALDA_BINDINGS_CLASS_HPP_INCLUDED
-#define ALDA_BINDINGS_CLASS_HPP_INCLUDED
+#ifndef ALDA_BINDINGS_RECORD_HPP_INCLUDED
+#define ALDA_BINDINGS_RECORD_HPP_INCLUDED
 
-#include <alda/bindings/class_decl.hpp>
+#include <alda/bindings/record_decl.hpp>
 #include <alda/bindings/dynamic_len.hpp>
 #include <alda/bindings/detail/extract_length.hpp>
 #include <alda/bindings/detail/put_length.hpp>
 #include <alda/serialization/detail/read/make_object.hpp>
-#include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/dispatch_type.hpp>
-#include <majutsu/raw_pointer.hpp>
-#include <majutsu/size_type.hpp>
+#include <majutsu/raw/const_pointer.hpp>
+#include <majutsu/raw/pointer.hpp>
+#include <majutsu/raw/size_type.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/iostreams/stream_buffer.hpp>
@@ -32,10 +32,11 @@ namespace bindings
 template<
 	typename Type
 >
-majutsu::size_type
+inline
+majutsu::raw::size_type
 needed_size(
 	majutsu::dispatch_type<
-		alda::bindings::class_<
+		alda::bindings::record<
 			Type
 		>
 	>,
@@ -45,12 +46,12 @@ needed_size(
 	return
 		sizeof(
 			typename
-			alda::bindings::class_<
+			alda::bindings::record<
 				Type
 			>::length_type
 		)
 		+
-		_value.memory().size();
+		_value.size();
 }
 
 template<
@@ -59,12 +60,12 @@ template<
 void
 place(
 	majutsu::dispatch_type<
-		alda::bindings::class_<
+		alda::bindings::record<
 			Type
 		>
 	> const _concept,
 	Type const &_value,
-	majutsu::raw_pointer _mem
+	majutsu::raw::pointer _mem
 )
 {
 	alda::bindings::detail::put_length(
@@ -74,8 +75,8 @@ place(
 	);
 
 	std::copy_n(
-		_value.memory().data(),
-		_value.memory().size(),
+		_value.data(),
+		_value.size(),
 		_mem
 	);
 }
@@ -86,16 +87,16 @@ template<
 Type
 make(
 	majutsu::dispatch_type<
-		alda::bindings::class_<
+		alda::bindings::record<
 			Type
 		>
 	> const _concept,
-	majutsu::const_raw_pointer const _mem
+	majutsu::raw::const_pointer const _mem
 )
 {
 	typedef
 	typename
-	alda::bindings::class_<
+	alda::bindings::record<
 		Type
 	>::length_type
 	length_type;
@@ -107,17 +108,23 @@ make(
 		)
 	);
 
-	typedef boost::iostreams::stream_buffer<
+	typedef
+	boost::iostreams::stream_buffer<
 		boost::iostreams::array_source
-	> streambuf;
+	>
+	streambuf;
 
 	streambuf buffer(
 		fcppt::cast::to_char_ptr<
 			char const *
 		>(
-			_mem + sizeof(length_type)
+			_mem
+			+
+			sizeof(length_type)
 		),
-		length  - sizeof(length_type)
+		length
+		-
+		sizeof(length_type)
 	);
 
 	std::istream stream(

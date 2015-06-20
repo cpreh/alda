@@ -8,10 +8,12 @@
 #define ALDA_BINDINGS_DETAIL_PUT_LENGTH_HPP_INCLUDED
 
 #include <alda//endianness.hpp>
-#include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/dispatch_type.hpp>
-#include <majutsu/needed_size.hpp>
-#include <majutsu/raw_pointer.hpp>
+#include <majutsu/raw/const_pointer.hpp>
+#include <majutsu/raw/element_type.hpp>
+#include <majutsu/raw/needed_size.hpp>
+#include <majutsu/raw/pointer.hpp>
+#include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/cast/truncation_check.hpp>
 #include <fcppt/endianness/convert.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -34,19 +36,23 @@ put_length(
 	majutsu::dispatch_type<
 		Concept
 	>,
-	typename Concept::type const &_value,
-	majutsu::raw_pointer &_memory
+	majutsu::raw::element_type<
+		Concept
+	> const &_value,
+	majutsu::raw::pointer &_memory
 )
 {
-	typedef typename
-	Concept::length_type length_type;
+	typedef
+	typename
+	Concept::length_type
+	length_type;
 
 	length_type const dest_sz(
 		fcppt::endianness::convert(
 			fcppt::cast::truncation_check<
 				length_type
 			>(
-				majutsu::needed_size<
+				majutsu::raw::needed_size<
 					Concept
 				>(
 					_value
@@ -57,16 +63,21 @@ put_length(
 	);
 
 	std::copy_n(
-		reinterpret_cast<
-			majutsu::const_raw_pointer
+		fcppt::cast::to_char_ptr<
+			majutsu::raw::const_pointer
 		>(
 			&dest_sz
 		),
-		sizeof(length_type),
+		sizeof(
+			length_type
+		),
 		_memory
 	);
 
-	_memory += sizeof(length_type);
+	_memory +=
+		sizeof(
+			length_type
+		);
 }
 
 }

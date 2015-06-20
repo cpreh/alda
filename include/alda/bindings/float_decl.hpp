@@ -9,7 +9,7 @@
 
 #include <alda/bindings/float_fwd.hpp>
 #include <alda/bindings/float_type.hpp>
-#include <majutsu/fundamental_decl.hpp>
+#include <majutsu/raw/fundamental_decl.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -25,7 +25,7 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 struct float_
 :
-majutsu::fundamental<
+majutsu::raw::fundamental<
 	alda::bindings::float_type
 >
 {

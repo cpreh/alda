@@ -9,13 +9,14 @@
 
 #include <alda/bindings/array.hpp>
 #include <alda/bindings/static_decl.hpp>
-#include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/dispatch_type.hpp>
-#include <majutsu/make.hpp>
-#include <majutsu/needed_size.hpp>
-#include <majutsu/place.hpp>
-#include <majutsu/raw_pointer.hpp>
-#include <majutsu/static_size.hpp>
+#include <majutsu/raw/const_pointer.hpp>
+#include <majutsu/raw/element_type.hpp>
+#include <majutsu/raw/make.hpp>
+#include <majutsu/raw/needed_size.hpp>
+#include <majutsu/raw/place.hpp>
+#include <majutsu/raw/pointer.hpp>
+#include <majutsu/raw/static_size.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -30,6 +31,7 @@ template<
 	typename Type,
 	typename Adapted
 >
+inline
 void
 place(
 	majutsu::dispatch_type<
@@ -38,11 +40,16 @@ place(
 			Adapted
 		>
 	>,
-	Type const &_value,
-	majutsu::raw_pointer const _mem
+	majutsu::raw::element_type<
+		alda::bindings::static_<
+			Type,
+			Adapted
+		>
+	> const &_value,
+	majutsu::raw::pointer const _mem
 )
 {
-	majutsu::place<
+	majutsu::raw::place<
 		alda::bindings::array<
 			typename
 			Type::storage_type,
@@ -58,7 +65,12 @@ template<
 	typename Type,
 	typename Adapted
 >
-Type
+majutsu::raw::element_type<
+	alda::bindings::static_<
+		Type,
+		Adapted
+	>
+>
 make(
 	majutsu::dispatch_type<
 		alda::bindings::static_<
@@ -66,12 +78,12 @@ make(
 			Adapted
 		>
 	>,
-	majutsu::const_raw_pointer const _mem
+	majutsu::raw::const_pointer const _mem
 )
 {
 	return
 		Type(
-			majutsu::make<
+			majutsu::raw::make<
 				alda::bindings::array<
 					typename
 					Type::storage_type,
@@ -88,6 +100,8 @@ make(
 
 namespace majutsu
 {
+namespace raw
+{
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
@@ -103,7 +117,7 @@ struct static_size<
 	>
 >
 :
-majutsu::static_size<
+majutsu::raw::static_size<
 	alda::bindings::array<
 		typename
 		Type::storage_type,
@@ -115,6 +129,7 @@ majutsu::static_size<
 
 FCPPT_PP_POP_WARNING
 
+}
 }
 
 #endif

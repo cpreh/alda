@@ -21,7 +21,9 @@ template<
 >
 struct static_
 {
-	typedef Type type;
+	typedef
+	Type
+	element_type;
 };
 
 }

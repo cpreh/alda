@@ -9,8 +9,8 @@
 
 #include <alda/message/id_binding.hpp>
 #include <alda/message/make_id_fwd.hpp>
-#include <majutsu/constant.hpp>
 #include <majutsu/role.hpp>
+#include <majutsu/raw/constant.hpp>
 
 
 #endif

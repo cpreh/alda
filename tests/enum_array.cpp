@@ -7,7 +7,6 @@
 #include <alda/bindings/enum_array.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <alda/message/make_class.hpp>
-#include <majutsu/composite.hpp>
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
 #include <fcppt/algorithm/enum_array_fold.hpp>
@@ -71,12 +70,10 @@ FCPPT_PP_POP_WARNING
 
 	typedef
 	alda::message::make_class<
-		majutsu::composite<
-			boost::mpl::vector1<
-				majutsu::role<
-					array_binding,
-					array_role
-				>
+		boost::mpl::vector1<
+			majutsu::role<
+				array_binding,
+				array_role
 			>
 		>
 	>
