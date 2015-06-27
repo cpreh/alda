@@ -23,6 +23,7 @@
 #include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
