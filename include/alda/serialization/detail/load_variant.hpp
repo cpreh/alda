@@ -12,6 +12,7 @@
 #include <alda/serialization/load/fwd.hpp>
 #include <majutsu/raw/element_type.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/tag.hpp>
 #include <fcppt/mpl/index_of.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/at.hpp>
@@ -59,7 +60,11 @@ public:
 		typename Type
 	>
 	result_type
-	operator()() const
+	operator()(
+		fcppt::tag<
+			Type
+		>
+	) const
 	{
 		return
 			result_type(

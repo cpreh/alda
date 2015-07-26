@@ -13,6 +13,7 @@
 #include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/tag.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 
@@ -50,7 +51,11 @@ public:
 		typename Message
 	>
 	void
-	operator()() const
+	operator()(
+		fcppt::tag<
+			Message
+		>
+	) const
 	{
 		typedef
 		alda::call::detail::base<

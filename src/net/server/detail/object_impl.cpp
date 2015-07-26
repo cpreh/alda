@@ -39,6 +39,9 @@
 #include <fcppt/log/object.hpp>
 #include <fcppt/log/verbose.hpp>
 #include <fcppt/log/parameters/object.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/asio/buffer.hpp>
@@ -271,12 +274,16 @@ alda::net::server::detail::object_impl::accept()
 		{
 		}
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4822)
+		// Asio checks for the presence of a copy-constructor but doesn't use it
 		handler(
 			handler const &
 		);
+FCPPT_PP_POP_WARNING
 
 		handler(
-			handler &&_other
+			handler &&
 		) = default;
 
 		handler &

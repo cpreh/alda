@@ -10,6 +10,7 @@
 #include <alda/message/make_concrete_ptr.hpp>
 #include <alda/serialization/detail/read/make_object.hpp>
 #include <alda/serialization/detail/read/object_decl.hpp>
+#include <fcppt/tag.hpp>
 
 
 template<
@@ -23,7 +24,11 @@ typename alda::serialization::detail::read::object<
 >::message_unique_ptr
 alda::serialization::detail::read::object<
 	TypeEnum
->::operator()() const
+>::operator()(
+	fcppt::tag<
+		Message
+	>
+) const
 {
 	return
 		alda::message::make_concrete_ptr<

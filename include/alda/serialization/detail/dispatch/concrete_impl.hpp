@@ -9,6 +9,7 @@
 
 #include <alda/serialization/detail/dispatch/concrete_decl.hpp>
 #include <alda/serialization/detail/read/object_decl.hpp>
+#include <fcppt/tag.hpp>
 
 
 template<
@@ -49,9 +50,11 @@ alda::serialization::detail::dispatch::concrete<
 ) const
 {
 	return
-		_reader. template operator()<
-			Message
-		>();
+		_reader(
+			fcppt::tag<
+				Message
+			>()
+		);
 }
 
 #endif

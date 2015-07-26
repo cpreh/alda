@@ -136,6 +136,9 @@ FCPPT_PP_POP_WARNING
 		)
 	);
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4127)
+
 	if(
 		min
 		+
@@ -150,4 +153,7 @@ FCPPT_PP_POP_WARNING
 			alda::exception,
 			::check_exception
 		);
+
+FCPPT_PP_POP_WARNING
+
 }

@@ -12,6 +12,7 @@
 #include <alda/serialization/istream_fwd.hpp>
 #include <alda/serialization/detail/read/object_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/tag_fwd.hpp>
 
 
 namespace alda
@@ -46,7 +47,11 @@ public:
 	>
 	ALDA_DETAIL_EXTERNAL_SYMBOL
 	message_unique_ptr
-	operator()() const;
+	operator()(
+		fcppt::tag<
+			Message
+		>
+	) const;
 private:
 	alda::serialization::istream &stream_;
 };

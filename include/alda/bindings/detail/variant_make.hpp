@@ -10,6 +10,7 @@
 #include <majutsu/raw/const_pointer.hpp>
 #include <majutsu/raw/make.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/tag.hpp>
 #include <fcppt/mpl/index_of.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -55,7 +56,11 @@ public:
 		typename Type
 	>
 	result_type
-	operator()() const
+	operator()(
+		fcppt::tag<
+			Type
+		>
+	) const
 	{
 		return
 			result_type(

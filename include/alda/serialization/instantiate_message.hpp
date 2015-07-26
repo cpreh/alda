@@ -12,6 +12,7 @@
 #include <alda/serialization/detail/dispatch/concrete_impl.hpp>
 #include <alda/serialization/detail/dispatch/register_impl.hpp>
 #include <alda/serialization/detail/read/object_functions_impl.hpp>
+#include <fcppt/tag.hpp>
 
 
 #define ALDA_SERIALIZATION_INSTANTIATE_MESSAGE(\
@@ -41,8 +42,10 @@ alda::serialization::detail::read::object<\
 >::message_unique_ptr \
 alda::serialization::detail::read::object<\
 	type_enum\
->::operator()<\
-	message_type\
->() const
+>::operator()(\
+	fcppt::tag<\
+		message_type \
+	> \
+) const
 
 #endif

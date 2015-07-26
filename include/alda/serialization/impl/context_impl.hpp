@@ -41,7 +41,8 @@ alda::serialization::context<
 	TypeEnum
 >::handlers() const
 {
-	return handlers_;
+	return
+		handlers_;
 }
 
 #endif
