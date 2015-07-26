@@ -11,6 +11,7 @@
 #include <majutsu/role.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
