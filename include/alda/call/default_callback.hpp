@@ -8,9 +8,7 @@
 #define ALDA_CALL_DEFAULT_CALLBACK_HPP_INCLUDED
 
 #include <alda/call/default_function.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/function_impl.hpp>
 
 
 namespace alda
@@ -24,7 +22,7 @@ template<
 >
 using default_callback
 =
-std::function<
+fcppt::function<
 	alda::call::default_function<
 		TypeEnum,
 		Result

@@ -33,7 +33,6 @@
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/location.hpp>
 #include <fcppt/log/verbose.hpp>
-#include <fcppt/log/parameters/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>

@@ -8,9 +8,7 @@
 #define ALDA_NET_CLIENT_DATA_CALLBACK_HPP_INCLUDED
 
 #include <alda/net/client/data_function.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/function_impl.hpp>
 
 
 namespace alda
@@ -20,9 +18,11 @@ namespace net
 namespace client
 {
 
-typedef std::function<
+typedef
+fcppt::function<
 	alda::net::client::data_function
-> data_callback;
+>
+data_callback;
 
 }
 }

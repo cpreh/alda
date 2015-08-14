@@ -426,7 +426,16 @@ FCPPT_PP_POP_WARNING
 					dispatcher_object(
 						*_ptr,
 						fun,
-						dispatcher::default_callback()
+						dispatcher::default_callback{
+							[](
+								message_base const &
+							)
+							{
+								BOOST_CHECK(
+									false
+								);
+							}
+						}
 					);
 
 					return
