@@ -9,10 +9,10 @@
 
 #include <alda/serialization/istream.hpp>
 #include <alda/serialization/load/fwd.hpp>
-#include <majutsu/raw/is_static_size.hpp>
-#include <majutsu/raw/make.hpp>
 #include <majutsu/raw/data.hpp>
 #include <majutsu/raw/element_type.hpp>
+#include <majutsu/raw/is_static_size.hpp>
+#include <majutsu/raw/make.hpp>
 #include <majutsu/raw/static_size.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>

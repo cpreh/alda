@@ -7,8 +7,8 @@
 #ifndef ALDA_BINDINGS_RECORD_HPP_INCLUDED
 #define ALDA_BINDINGS_RECORD_HPP_INCLUDED
 
-#include <alda/bindings/record_decl.hpp>
 #include <alda/bindings/dynamic_len.hpp>
+#include <alda/bindings/record_decl.hpp>
 #include <alda/bindings/detail/extract_length.hpp>
 #include <alda/bindings/detail/put_length.hpp>
 #include <alda/serialization/detail/read/make_object.hpp>

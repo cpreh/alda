@@ -7,8 +7,8 @@
 #ifndef ALDA_BINDINGS_RECORD_DECL_HPP_INCLUDED
 #define ALDA_BINDINGS_RECORD_DECL_HPP_INCLUDED
 
-#include <alda/bindings/record_fwd.hpp>
 #include <alda/bindings/dynamic_len_decl.hpp>
+#include <alda/bindings/record_fwd.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
