@@ -31,7 +31,7 @@
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre.hpp>
-#include <fcppt/container/find_opt.hpp>
+#include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/error.hpp>
@@ -145,7 +145,7 @@ alda::net::server::detail::object_impl::send_buffer(
 {
 	return
 		fcppt::optional_bind(
-			fcppt::container::find_opt(
+			fcppt::container::find_opt_mapped(
 				connections_,
 				_id
 			),
@@ -575,7 +575,7 @@ alda::net::server::detail::object_impl::connection(
 {
 	return
 		*FCPPT_ASSERT_OPTIONAL_ERROR(
-			fcppt::container::find_opt(
+			fcppt::container::find_opt_mapped(
 				connections_,
 				_id
 			)

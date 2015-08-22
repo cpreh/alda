@@ -17,11 +17,12 @@
 #include <alda/serialization/detail/dispatch/map.hpp>
 #include <alda/serialization/detail/read/object_decl.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/optional_to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/throw.hpp>
 #include <fcppt/cast/promote.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
-#include <fcppt/container/find_exn.hpp>
+#include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/io/read_exn.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
@@ -120,9 +121,11 @@ deserialize(
 	);
 
 	return
-		fcppt::container::find_exn(
-			_context.handlers(),
-			casted_type,
+		fcppt::optional_to_exception(
+			fcppt::container::find_opt_mapped(
+				_context.handlers(),
+				casted_type
+			),
 			[]{
 				return
 					alda::exception(
