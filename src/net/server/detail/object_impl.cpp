@@ -24,7 +24,7 @@
 #include <alda/src/net/server/detail/connection.hpp>
 #include <alda/src/net/server/detail/object_impl.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_bind.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
@@ -238,7 +238,7 @@ void
 alda::net::server::detail::object_impl::accept()
 {
 	alda::net::server::detail::connection_unique_ptr con(
-		fcppt::make_unique_ptr_fcppt<
+		fcppt::make_unique_ptr<
 			alda::net::server::detail::connection
 		>(
 			alda::net::id(

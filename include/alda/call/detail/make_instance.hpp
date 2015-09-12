@@ -10,7 +10,7 @@
 #include <alda/call/detail/base_impl.hpp>
 #include <alda/call/detail/concrete_decl.hpp>
 #include <alda/message/detail/extract_id.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/tag.hpp>
@@ -81,7 +81,7 @@ public:
 				fcppt::unique_ptr_to_base<
 					base
 				>(
-					fcppt::make_unique_ptr_fcppt<
+					fcppt::make_unique_ptr<
 						alda::call::detail::concrete<
 							TypeEnum,
 							Callee,

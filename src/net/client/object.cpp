@@ -13,7 +13,7 @@
 #include <alda/net/client/error_callback.hpp>
 #include <alda/net/client/object.hpp>
 #include <alda/src/net/client/detail/object_impl.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
 
@@ -22,7 +22,7 @@ alda::net::client::object::object(
 )
 :
 	impl_(
-		fcppt::make_unique_ptr_fcppt<
+		fcppt::make_unique_ptr<
 			alda::net::client::detail::object_impl
 		>(
 			_parameters

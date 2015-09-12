@@ -9,7 +9,7 @@
 
 #include <alda/message/concrete_decl.hpp>
 #include <alda/message/detail/extract_id.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 
 
@@ -181,7 +181,7 @@ alda::message::concrete<
 		fcppt::unique_ptr_to_base<
 			base_type
 		>(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				concrete
 			>(
 				*this

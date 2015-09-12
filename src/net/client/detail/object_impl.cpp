@@ -20,7 +20,7 @@
 #include <alda/src/net/client/detail/object_impl.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/insert_to_std_string.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/strong_typedef_output.hpp>
@@ -110,7 +110,7 @@ alda::net::client::detail::object_impl::connect(
 	);
 
 	query_unique_ptr query(
-		fcppt::make_unique_ptr_fcppt<
+		fcppt::make_unique_ptr<
 			boost::asio::ip::tcp::resolver::query
 		>(
 			boost::asio::ip::tcp::v4(),

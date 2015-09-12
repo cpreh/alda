@@ -10,7 +10,7 @@
 #include <alda/message/base_decl.hpp>
 #include <alda/message/base_unique_ptr.hpp>
 #include <alda/message/concrete_decl.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 
 
@@ -36,7 +36,7 @@ make_concrete_ptr(
 				TypeEnum
 			>
 		>(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				alda::message::concrete<
 					TypeEnum,
 					Message
