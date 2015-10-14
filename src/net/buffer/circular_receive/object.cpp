@@ -36,7 +36,7 @@ alda::net::buffer::circular_receive::object::~object()
 {
 }
 
-alda::net::buffer::circular_receive::part const
+alda::net::buffer::circular_receive::part
 alda::net::buffer::circular_receive::object::next_receive_part()
 {
 	return
@@ -88,7 +88,7 @@ alda::net::buffer::circular_receive::object::bytes_received(
 	);
 }
 
-alda::net::buffer::circular_receive::object::joined_range const
+alda::net::buffer::circular_receive::object::joined_range
 alda::net::buffer::circular_receive::object::range() const
 {
 	return

@@ -45,32 +45,37 @@ alda::net::server::detail::connection::~connection()
 {
 }
 
-alda::net::id const
+alda::net::id
 alda::net::server::detail::connection::id() const
 {
-	return id_;
+	return
+		id_;
 }
 
 boost::asio::ip::tcp::socket &
 alda::net::server::detail::connection::socket()
 {
-	return socket_;
+	return
+		socket_;
 }
 
 alda::net::buffer::circular_send::object &
 alda::net::server::detail::connection::send_data()
 {
-	return send_data_;
+	return
+		send_data_;
 }
 
 alda::net::buffer::circular_receive::object &
 alda::net::server::detail::connection::received_data()
 {
-	return received_data_;
+	return
+		received_data_;
 }
 
 bool &
 alda::net::server::detail::connection::sending()
 {
-	return sending_;
+	return
+		sending_;
 }

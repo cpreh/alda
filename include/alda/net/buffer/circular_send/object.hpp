@@ -42,7 +42,7 @@ public:
 	~object();
 
 	ALDA_DETAIL_SYMBOL
-	alda::net::buffer::circular_send::boost_type::const_array_range const
+	alda::net::buffer::circular_send::boost_type::const_array_range
 	send_part() const;
 
 	ALDA_DETAIL_SYMBOL

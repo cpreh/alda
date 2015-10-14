@@ -61,7 +61,7 @@ public:
 		alda::net::port
 	);
 
-	alda::net::buffer::circular_send::optional_ref const
+	alda::net::buffer::circular_send::optional_ref
 	send_buffer(
 		alda::net::id
 	);

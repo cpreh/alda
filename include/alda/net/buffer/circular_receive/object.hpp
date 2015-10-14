@@ -56,7 +56,7 @@ public:
 
 	// To which part can we receive next?
 	ALDA_DETAIL_SYMBOL
-	alda::net::buffer::circular_receive::part const
+	alda::net::buffer::circular_receive::part
 	next_receive_part();
 
 	// Tell the buffer how much was actually read
@@ -77,7 +77,7 @@ public:
 
 	// the range that can be read
 	ALDA_DETAIL_SYMBOL
-	joined_range const
+	joined_range
 	range() const;
 
 	// remove already processed data

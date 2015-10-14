@@ -138,7 +138,7 @@ alda::net::server::detail::object_impl::listen(
 	this->accept();
 }
 
-alda::net::buffer::circular_send::optional_ref const
+alda::net::buffer::circular_send::optional_ref
 alda::net::server::detail::object_impl::send_buffer(
 	alda::net::id const _id
 )

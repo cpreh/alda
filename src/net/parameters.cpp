@@ -31,17 +31,20 @@ alda::net::parameters::parameters(
 alda::net::io_service_wrapper const &
 alda::net::parameters::io_service_wrapper() const
 {
-	return io_service_wrapper_;
+	return
+		io_service_wrapper_;
 }
 
-alda::net::buffer::max_send_size const
+alda::net::buffer::max_send_size
 alda::net::parameters::max_send_size() const
 {
-	return max_send_size_;
+	return
+		max_send_size_;
 }
 
-alda::net::buffer::max_receive_size const
+alda::net::buffer::max_receive_size
 alda::net::parameters::max_receive_size() const
 {
-	return max_receive_size_;
+	return
+		max_receive_size_;
 }

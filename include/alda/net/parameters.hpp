@@ -36,10 +36,10 @@ public:
 	alda::net::io_service_wrapper const &
 	io_service_wrapper() const;
 
-	alda::net::buffer::max_send_size const
+	alda::net::buffer::max_send_size
 	max_send_size() const;
 
-	alda::net::buffer::max_receive_size const
+	alda::net::buffer::max_receive_size
 	max_receive_size() const;
 private:
 	alda::net::io_service_wrapper const &io_service_wrapper_;

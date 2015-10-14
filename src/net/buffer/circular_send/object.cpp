@@ -23,7 +23,7 @@ alda::net::buffer::circular_send::object::~object()
 {
 }
 
-alda::net::buffer::circular_send::boost_type::const_array_range const
+alda::net::buffer::circular_send::boost_type::const_array_range
 alda::net::buffer::circular_send::object::send_part() const
 {
 	return

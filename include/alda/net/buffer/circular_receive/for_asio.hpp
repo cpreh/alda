@@ -22,7 +22,7 @@ namespace buffer
 namespace circular_receive
 {
 
-boost::asio::mutable_buffers_1 const
+boost::asio::mutable_buffers_1
 for_asio(
 	alda::net::buffer::circular_receive::object &
 );

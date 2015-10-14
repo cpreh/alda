@@ -13,7 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-boost::asio::mutable_buffers_1 const
+boost::asio::mutable_buffers_1
 alda::net::buffer::circular_receive::for_asio(
 	alda::net::buffer::circular_receive::object &_buffer
 )

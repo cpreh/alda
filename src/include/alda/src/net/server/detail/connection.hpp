@@ -44,7 +44,7 @@ public:
 
 	~connection();
 
-	alda::net::id const
+	alda::net::id
 	id() const;
 
 	boost::asio::ip::tcp::socket &

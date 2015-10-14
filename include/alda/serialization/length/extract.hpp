@@ -35,7 +35,7 @@ typename boost::enable_if<
 	fcppt::optional<
 		LengthType
 	>
->::type const
+>::type
 extract(
 	alda::serialization::istream &_stream
 )

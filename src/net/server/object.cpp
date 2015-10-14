@@ -47,7 +47,7 @@ alda::net::server::object::listen(
 		);
 }
 
-alda::net::buffer::circular_send::optional_ref const
+alda::net::buffer::circular_send::optional_ref
 alda::net::server::object::send_buffer(
 	alda::net::id const _id
 )
