@@ -9,7 +9,7 @@
 #include <alda/message/make_class.hpp>
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
-#include <fcppt/algorithm/enum_array_fold_static.hpp>
+#include <fcppt/algorithm/enum_array_init.hpp>
 #include <fcppt/cast/enum_to_int.hpp>
 #include <fcppt/container/enum_array.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -80,7 +80,7 @@ FCPPT_PP_POP_WARNING
 	message;
 
 	array test(
-		fcppt::algorithm::enum_array_fold_static<
+		fcppt::algorithm::enum_array_init<
 			array
 		>(
 			[](
