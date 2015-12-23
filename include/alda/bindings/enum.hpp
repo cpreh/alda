@@ -8,7 +8,6 @@
 #define ALDA_BINDINGS_ENUM_HPP_INCLUDED
 
 #include <alda/bindings/enum_decl.hpp>
-#include <alda/bindings/unsigned.hpp>
 #include <majutsu/dispatch_type.hpp>
 #include <majutsu/raw/const_pointer.hpp>
 #include <majutsu/raw/element_type.hpp>
@@ -30,7 +29,7 @@ namespace bindings
 
 template<
 	typename Enum,
-	typename Underlying
+	typename Adapted
 >
 inline
 void
@@ -38,25 +37,25 @@ place(
 	majutsu::dispatch_type<
 		alda::bindings::enum_<
 			Enum,
-			Underlying
+			Adapted
 		>
 	>,
 	majutsu::raw::element_type<
 		alda::bindings::enum_<
 			Enum,
-			Underlying
+			Adapted
 		>
 	> const &_enum,
 	majutsu::raw::pointer const _mem
 )
 {
 	majutsu::raw::place<
-		alda::bindings::unsigned_<
-			Underlying
-		>
+		Adapted
 	>(
 		fcppt::cast::enum_to_int<
-			Underlying
+			majutsu::raw::element_type<
+				Adapted
+			>
 		>(
 			_enum
 		),
@@ -66,20 +65,20 @@ place(
 
 template<
 	typename Enum,
-	typename Underlying
+	typename Adapted
 >
 inline
 majutsu::raw::element_type<
 	alda::bindings::enum_<
 		Enum,
-		Underlying
+		Adapted
 	>
 >
 make(
 	majutsu::dispatch_type<
 		alda::bindings::enum_<
 			Enum,
-			Underlying
+			Adapted
 		>
 	>,
 	majutsu::raw::const_pointer const _beg
@@ -90,9 +89,7 @@ make(
 			Enum
 		>(
 			majutsu::raw::make<
-				alda::bindings::unsigned_<
-					Underlying
-				>
+				Adapted
 			>(
 				_beg
 			)
@@ -112,19 +109,17 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename Enum,
-	typename Underlying
+	typename Adapted
 >
 struct static_size<
 	alda::bindings::enum_<
 		Enum,
-		Underlying
+		Adapted
 	>
 >
 :
 majutsu::raw::static_size<
-	alda::bindings::unsigned_<
-		Underlying
-	>
+	Adapted
 >
 {
 };

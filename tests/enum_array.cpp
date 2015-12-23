@@ -12,6 +12,7 @@
 #include <fcppt/algorithm/enum_array_init.hpp>
 #include <fcppt/cast/enum_to_int.hpp>
 #include <fcppt/container/enum_array.hpp>
+#include <fcppt/endianness/format.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -59,7 +60,8 @@ FCPPT_PP_POP_WARNING
 	alda::bindings::enum_array<
 		array,
 		alda::bindings::unsigned_<
-			int_type
+			int_type,
+			fcppt::endianness::format::little
 		>
 	>
 	array_binding;

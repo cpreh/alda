@@ -9,6 +9,7 @@
 
 #include <alda/bindings/bool_fwd.hpp>
 #include <alda/bindings/unsigned_fwd.hpp>
+#include <fcppt/endianness/format.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
@@ -27,13 +28,13 @@ struct bool_
 
 	typedef
 	alda::bindings::unsigned_<
-		std::uint8_t
+		std::uint8_t,
+		fcppt::endianness::format::little
 	>
 	wrapped_type;
 };
 
 }
 }
-
 
 #endif

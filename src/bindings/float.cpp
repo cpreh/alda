@@ -15,6 +15,7 @@
 #include <majutsu/raw/size_type.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/cast/int_to_float.hpp>
+#include <fcppt/endianness/format.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cmath>
 #include <cstdint>
@@ -23,6 +24,10 @@
 
 namespace
 {
+
+constexpr fcppt::endianness::format const endianness{
+	fcppt::endianness::format::little
+};
 
 typedef
 std::uint32_t
@@ -36,7 +41,8 @@ float_type;
 
 typedef
 alda::bindings::fundamental<
-	fixed_int
+	fixed_int,
+	endianness
 >
 adapted;
 

@@ -7,7 +7,6 @@
 #ifndef ALDA_SERIALIZATION_LOAD_VARIANT_HPP_INCLUDED
 #define ALDA_SERIALIZATION_LOAD_VARIANT_HPP_INCLUDED
 
-#include <alda/endianness.hpp>
 #include <alda/bindings/invalid_variant.hpp>
 #include <alda/bindings/variant_decl.hpp>
 #include <alda/serialization/istream_fwd.hpp>
@@ -64,7 +63,7 @@ struct load<
 						>
 					>(
 						_is,
-						alda::endianness()
+						type::index_type::endianness
 					)
 				),
 				alda::serialization::detail::load_variant<

@@ -8,8 +8,7 @@
 #define ALDA_BINDINGS_DYNAMIC_LEN_HPP_INCLUDED
 
 #include <alda/bindings/dynamic_len_decl.hpp>
-#include <alda/bindings/detail/extract_length.hpp>
-#include <alda/bindings/detail/put_length.hpp>
+#include <alda/bindings/unsigned.hpp>
 #include <majutsu/dispatch_type.hpp>
 #include <majutsu/raw/const_pointer.hpp>
 #include <majutsu/raw/element_type.hpp>
@@ -18,6 +17,7 @@
 #include <majutsu/raw/place.hpp>
 #include <majutsu/raw/pointer.hpp>
 #include <majutsu/raw/size_type.hpp>
+#include <fcppt/cast/truncation_check.hpp>
 
 
 namespace alda
@@ -27,31 +27,33 @@ namespace bindings
 
 template<
 	typename Type,
-	typename Adapted
+	typename Adapted,
+	typename Length
 >
 majutsu::raw::size_type
 needed_size(
 	majutsu::dispatch_type<
 		alda::bindings::dynamic_len<
 			Type,
-			Adapted
+			Adapted,
+			Length
 		>
 	>,
 	majutsu::raw::element_type<
 		alda::bindings::dynamic_len<
 			Type,
-			Adapted
+			Adapted,
+			Length
 		>
 	> const &_value
 )
 {
 	majutsu::raw::size_type ret(
+		// TODO: needed_size?
 		sizeof(
-			typename
-			alda::bindings::dynamic_len<
-				Type,
-				Adapted
-			>::length_type
+			majutsu::raw::element_type<
+				Length
+			>
 		)
 	);
 
@@ -67,35 +69,71 @@ needed_size(
 				elem
 			);
 
-	return ret;
+	return
+		ret;
 }
 
 template<
 	typename Type,
-	typename Adapted
+	typename Adapted,
+	typename Length
 >
 void
 place(
 	majutsu::dispatch_type<
 		alda::bindings::dynamic_len<
 			Type,
-			Adapted
+			Adapted,
+			Length
 		>
-	> const _concept,
+	>,
 	majutsu::raw::element_type<
 		alda::bindings::dynamic_len<
 			Type,
-			Adapted
+			Adapted,
+			Length
 		>
 	> const &_value,
 	majutsu::raw::pointer _mem
 )
 {
-	alda::bindings::detail::put_length(
-		_concept,
-		_value,
-		_mem
-	);
+	{
+		typedef
+		majutsu::raw::element_type<
+			Length
+		>
+		length_type;
+
+		length_type const length(
+			fcppt::cast::truncation_check<
+				length_type
+			>(
+				majutsu::raw::needed_size<
+					alda::bindings::dynamic_len<
+						Type,
+						Adapted,
+						Length
+					>
+				>(
+					_value
+				)
+			)
+		);
+
+		majutsu::raw::place<
+			Length
+		>(
+			length,
+			_mem
+		);
+
+		_mem +=
+			majutsu::raw::needed_size<
+				Length
+			>(
+				length
+			);
+	}
 
 	for(
 		auto const &elem
@@ -121,35 +159,33 @@ place(
 
 template<
 	typename Type,
-	typename Adapted
+	typename Adapted,
+	typename Length
 >
 majutsu::raw::element_type<
 	alda::bindings::dynamic_len<
 		Type,
-		Adapted
+		Adapted,
+		Length
 	>
 >
 make(
 	majutsu::dispatch_type<
 		alda::bindings::dynamic_len<
 			Type,
-			Adapted
+			Adapted,
+			Length
 		>
-	> const _concept,
+	>,
 	majutsu::raw::const_pointer const _mem
 )
 {
-	typedef
-	typename
-	alda::bindings::dynamic_len<
-		Type,
-		Adapted
-	>::length_type
-	length_type;
-
-	length_type const my_size(
-		alda::bindings::detail::extract_length(
-			_concept,
+	majutsu::raw::element_type<
+		Length
+	> const my_size(
+		majutsu::raw::make<
+			Length
+		>(
 			_mem
 		)
 	);
@@ -158,7 +194,13 @@ make(
 
 	for(
 		majutsu::raw::const_pointer cur_mem(
-			_mem + sizeof(length_type)
+			_mem
+			+
+			majutsu::raw::needed_size<
+				Length
+			>(
+				my_size
+			)
 		);
 		cur_mem != _mem + my_size;
 	)

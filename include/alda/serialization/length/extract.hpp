@@ -7,7 +7,7 @@
 #ifndef ALDA_SERIALIZATION_LENGTH_EXTRACT_HPP_INCLUDED
 #define ALDA_SERIALIZATION_LENGTH_EXTRACT_HPP_INCLUDED
 
-#include <alda/endianness.hpp>
+#include <alda/serialization/endianness.hpp>
 #include <alda/serialization/istream.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/io/read.hpp>
@@ -62,7 +62,7 @@ extract(
 				LengthType
 			>(
 				_stream,
-				alda::endianness()
+				alda::serialization::endianness()
 			);
 }
 

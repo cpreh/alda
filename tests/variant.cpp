@@ -10,6 +10,8 @@
 #include <alda/message/make_class.hpp>
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
+#include <fcppt/literal.hpp>
+#include <fcppt/endianness/format.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -40,13 +42,20 @@ boost::mpl::vector2<
 >
 types;
 
+constexpr
+fcppt::endianness::format const endianness{
+	fcppt::endianness::format::little
+};
+
 typedef
 boost::mpl::vector2<
 	alda::bindings::unsigned_<
-		uint_type
+		uint_type,
+		endianness
 	>,
 	alda::bindings::signed_<
-		int_type
+		int_type,
+		endianness
 	>
 >
 adapted_types;
@@ -89,14 +98,14 @@ BOOST_AUTO_TEST_CASE(
 )
 {
 FCPPT_PP_POP_WARNING
-	BOOST_CHECK(
+	BOOST_CHECK_EQUAL(
 		fcppt::variant::get_exn<
 			uint_type
 		>(
 			message(
 				variant_role{} =
 					variant_type(
-						static_cast<
+						fcppt::literal<
 							uint_type
 						>(
 							42u
@@ -105,9 +114,8 @@ FCPPT_PP_POP_WARNING
 			).get<
 				variant_role
 			>()
-		)
-		==
-		static_cast<
+		),
+		fcppt::literal<
 			uint_type
 		>(
 			42u

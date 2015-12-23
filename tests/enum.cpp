@@ -5,9 +5,11 @@
 
 
 #include <alda/bindings/enum.hpp>
+#include <alda/bindings/unsigned.hpp>
 #include <alda/message/make_class.hpp>
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
+#include <fcppt/endianness/format.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -31,7 +33,10 @@ enum class test_enum
 typedef
 alda::bindings::enum_<
 	test_enum,
-	std::uint8_t
+	alda::bindings::unsigned_<
+		std::uint8_t,
+		fcppt::endianness::format::little
+	>
 >
 enum_binding;
 

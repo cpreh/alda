@@ -7,7 +7,6 @@
 #ifndef ALDA_SERIALIZATION_LOAD_OPTIONAL_HPP_INCLUDED
 #define ALDA_SERIALIZATION_LOAD_OPTIONAL_HPP_INCLUDED
 
-#include <alda/endianness.hpp>
 #include <alda/bindings/optional_decl.hpp>
 #include <alda/serialization/istream_fwd.hpp>
 #include <alda/serialization/load/fwd.hpp>
@@ -62,7 +61,7 @@ struct load<
 					bool_type
 				>(
 					_is,
-					alda::endianness()
+					type::bool_type::wrapped_type::endianness
 				)
 			)
 		);

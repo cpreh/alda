@@ -9,6 +9,7 @@
 #include <alda/message/make_class.hpp>
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
+#include <fcppt/endianness/format.hpp>
 #include <fcppt/math/vector/comparison.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/static.hpp>
@@ -35,7 +36,8 @@ typedef
 alda::bindings::static_<
 	int_vec2,
 	alda::bindings::unsigned_<
-		int_vec2::value_type
+		int_vec2::value_type,
+		fcppt::endianness::format::little
 	>
 >
 vector_binding;

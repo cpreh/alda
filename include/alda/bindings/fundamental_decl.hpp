@@ -10,6 +10,7 @@
 #include <alda/bindings/fundamental_fwd.hpp>
 #include <alda/bindings/signed_decl.hpp>
 #include <alda/bindings/unsigned_decl.hpp>
+#include <fcppt/endianness/format_fwd.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -28,7 +29,8 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
-	typename Type
+	typename Type,
+	fcppt::endianness::format Endianness
 >
 struct fundamental
 :
@@ -37,10 +39,12 @@ boost::mpl::if_<
 		Type
 	>,
 	alda::bindings::signed_<
-		Type
+		Type,
+		Endianness
 	>,
 	alda::bindings::unsigned_<
-		Type
+		Type,
+		Endianness
 	>
 >::type
 {

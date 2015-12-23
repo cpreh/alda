@@ -12,6 +12,7 @@
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
 #include <fcppt/literal.hpp>
+#include <fcppt/endianness/format.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -31,7 +32,8 @@ int_type;
 
 typedef
 alda::bindings::fundamental<
-	int_type
+	int_type,
+	fcppt::endianness::format::little
 >
 int_alda_type;
 

@@ -18,8 +18,6 @@ set(
 	include/alda/bindings/bool.hpp
 	include/alda/bindings/bool_decl.hpp
 	include/alda/bindings/bool_fwd.hpp
-	include/alda/bindings/detail/extract_length.hpp
-	include/alda/bindings/detail/put_length.hpp
 	include/alda/bindings/detail/variant_make.hpp
 	include/alda/bindings/detail/variant_needed_size.hpp
 	include/alda/bindings/detail/variant_place.hpp
@@ -83,7 +81,6 @@ set(
 	include/alda/detail/export_external_function_instantiation.hpp
 	include/alda/detail/external_class_symbol.hpp
 	include/alda/detail/external_symbol.hpp
-	include/alda/endianness.hpp
 	include/alda/exception.hpp
 	include/alda/exception_fwd.hpp
 	include/alda/log_context.hpp
@@ -181,6 +178,7 @@ set(
 	include/alda/serialization/detail/read/object_functions_impl.hpp
 	include/alda/serialization/detail/read/object_fwd.hpp
 	include/alda/serialization/detail/read/object_impl.hpp
+	include/alda/serialization/endianness.hpp
 	include/alda/serialization/impl/context_impl.hpp
 	include/alda/serialization/instantiate_context.hpp
 	include/alda/serialization/instantiate_details.hpp

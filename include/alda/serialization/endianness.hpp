@@ -4,16 +4,19 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef ALDA_ENDIANNESS_HPP_INCLUDED
-#define ALDA_ENDIANNESS_HPP_INCLUDED
+#ifndef ALDA_SERIALIZATION_ENDIANNESS_HPP_INCLUDED
+#define ALDA_SERIALIZATION_ENDIANNESS_HPP_INCLUDED
 
 #include <fcppt/endianness/format.hpp>
 
 
 namespace alda
 {
+namespace serialization
+{
 
 inline
+constexpr
 fcppt::endianness::format
 endianness()
 {
@@ -21,6 +24,7 @@ endianness()
 		fcppt::endianness::format::little;
 }
 
+}
 }
 
 #endif

@@ -17,7 +17,9 @@
 #include <majutsu/raw/place.hpp>
 #include <majutsu/raw/pointer.hpp>
 #include <majutsu/raw/static_size.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/endianness/format.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -33,25 +35,30 @@ namespace bindings
 {
 
 template<
-	typename Type
+	typename Type,
+	fcppt::endianness::format Endianness
 >
 void
 place(
 	majutsu::dispatch_type<
 		alda::bindings::signed_<
-			Type
+			Type,
+			Endianness
 		>
 	>,
 	Type const &_value,
 	majutsu::raw::pointer const _mem
 )
 {
-	typedef typename std::make_unsigned<
+	typedef
+	typename
+	std::make_unsigned<
 		Type
-	>::type unsigned_type;
+	>::type
+	unsigned_type;
 
 	Type const null(
-		static_cast<
+		fcppt::literal<
 			Type
 		>(
 			0
@@ -112,7 +119,8 @@ place(
 
 	majutsu::raw::place<
 		alda::bindings::unsigned_<
-			unsigned_type
+			unsigned_type,
+			Endianness
 		>
 	>(
 		converted,
@@ -121,27 +129,32 @@ place(
 }
 
 template<
-	typename Type
+	typename Type,
+	fcppt::endianness::format Endianness
 >
 Type
 make(
 	majutsu::dispatch_type<
 		alda::bindings::signed_<
-			Type
+			Type,
+			Endianness
 		>
 	>,
 	majutsu::raw::const_pointer const _beg
 )
 {
-	typedef typename std::make_unsigned<
+	typedef
+	typename
+	std::make_unsigned<
 		Type
-	>::type unsigned_type;
-
+	>::type
+	unsigned_type;
 
 	unsigned_type const converted(
 		majutsu::raw::make<
 			alda::bindings::unsigned_<
-				unsigned_type
+				unsigned_type,
+				Endianness
 			>
 		>(
 			_beg
@@ -200,11 +213,13 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
-	typename Type
+	typename Type,
+	fcppt::endianness::format Endianness
 >
 struct static_size<
 	alda::bindings::signed_<
-		Type
+		Type,
+		Endianness
 	>
 >
 :

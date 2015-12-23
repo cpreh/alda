@@ -7,7 +7,6 @@
 #ifndef ALDA_SERIALIZATION_LOAD_DYNAMIC_LEN_HPP_INCLUDED
 #define ALDA_SERIALIZATION_LOAD_DYNAMIC_LEN_HPP_INCLUDED
 
-#include <alda/endianness.hpp>
 #include <alda/bindings/dynamic_len_decl.hpp>
 #include <alda/serialization/istream.hpp>
 #include <alda/serialization/detail/raw_container.hpp>
@@ -30,21 +29,24 @@ namespace serialization
 {
 
 template<
-	typename T,
-	typename A
+	typename Type,
+	typename Adapted,
+	typename Length
 >
 struct load<
 	alda::bindings::dynamic_len<
-		T,
-		A
+		Type,
+		Adapted,
+		Length
 	>
 >
 {
 	static
 	majutsu::raw::element_type<
 		alda::bindings::dynamic_len<
-			T,
-			A
+			Type,
+			Adapted,
+			Length
 		>
 	>
 	get(
@@ -53,8 +55,9 @@ struct load<
 	{
 		typedef
 		alda::bindings::dynamic_len<
-			T,
-			A
+			Type,
+			Adapted,
+			Length
 		>
 		type;
 
@@ -62,13 +65,17 @@ struct load<
 			type
 		> ret;
 
+		typedef
+		majutsu::raw::element_type<
+			Length
+		>
+		length_type;
+
 		majutsu::raw::size_type const length_sz(
 			sizeof(
-				typename type::length_type
+				length_type
 			)
 		);
-
-		typedef typename type::length_type length_type;
 
 		// At this point, the stream must be able to read its length
 		length_type const sz(
@@ -77,7 +84,7 @@ struct load<
 					length_type
 				>(
 					_is,
-					alda::endianness()
+					Length::endianness
 				)
 			)
 		);

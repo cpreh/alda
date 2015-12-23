@@ -7,9 +7,10 @@
 #ifndef ALDA_SERIALIZATION_LENGTH_PUT_HPP_INCLUDED
 #define ALDA_SERIALIZATION_LENGTH_PUT_HPP_INCLUDED
 
-#include <alda/endianness.hpp>
 #include <alda/message/base_decl.hpp>
+#include <alda/serialization/endianness.hpp>
 #include <alda/serialization/ostream.hpp>
+#include <fcppt/cast/size.hpp>
 #include <fcppt/io/write.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -61,7 +62,7 @@ put(
 	);
 
 	if(
-		static_cast<
+		fcppt::cast::size<
 			message_size_type
 		>(
 			std::numeric_limits<
@@ -75,12 +76,12 @@ put(
 
 	fcppt::io::write(
 		_stream,
-		static_cast<
+		fcppt::cast::size<
 			LengthType
 		>(
 			_message.size()
 		),
-		alda::endianness()
+		alda::serialization::endianness()
 	);
 }
 

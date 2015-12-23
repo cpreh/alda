@@ -11,6 +11,7 @@
 #include <majutsu/role.hpp>
 #include <fcppt/optional_comparison.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/endianness/format.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -38,7 +39,8 @@ typedef
 alda::bindings::optional<
 	base_type,
 	alda::bindings::unsigned_<
-		base_type
+		base_type,
+		fcppt::endianness::format::little
 	>
 >
 optional_binding;

@@ -15,7 +15,7 @@ namespace bindings
 
 template<
 	typename Enum,
-	typename Underlying
+	typename Adapted
 >
 struct enum_;
 

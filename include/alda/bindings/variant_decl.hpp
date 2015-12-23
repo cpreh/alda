@@ -9,6 +9,7 @@
 
 #include <alda/bindings/unsigned_fwd.hpp>
 #include <alda/bindings/variant_fwd.hpp>
+#include <fcppt/endianness/format.hpp>
 #include <fcppt/variant/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/size.hpp>
@@ -50,7 +51,8 @@ struct variant
 
 	typedef
 	alda::bindings::unsigned_<
-		std::uint8_t
+		std::uint8_t,
+		fcppt::endianness::format::little
 	>
 	index_type;
 };

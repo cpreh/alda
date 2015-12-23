@@ -9,14 +9,17 @@
 
 #include <alda/bindings/dynamic_len.hpp>
 #include <alda/bindings/record_decl.hpp>
-#include <alda/bindings/detail/extract_length.hpp>
-#include <alda/bindings/detail/put_length.hpp>
+#include <alda/bindings/unsigned.hpp>
 #include <alda/serialization/detail/read/make_object.hpp>
 #include <majutsu/dispatch_type.hpp>
 #include <majutsu/raw/const_pointer.hpp>
+#include <majutsu/raw/element_type.hpp>
+#include <majutsu/raw/make.hpp>
+#include <majutsu/raw/place.hpp>
 #include <majutsu/raw/pointer.hpp>
 #include <majutsu/raw/size_type.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
+#include <fcppt/cast/truncation_check.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/iostreams/stream_buffer.hpp>
 #include <boost/iostreams/device/array.hpp>
@@ -45,10 +48,12 @@ needed_size(
 {
 	return
 		sizeof(
-			typename
-			alda::bindings::record<
-				Type
-			>::length_type
+			majutsu::raw::element_type<
+				typename
+				alda::bindings::record<
+					Type
+				>::length_type
+			>
 		)
 		+
 		_value.size();
@@ -63,16 +68,49 @@ place(
 		alda::bindings::record<
 			Type
 		>
-	> const _concept,
+	>,
 	Type const &_value,
 	majutsu::raw::pointer _mem
 )
 {
-	alda::bindings::detail::put_length(
-		_concept,
-		_value,
+	typedef
+	typename
+	alda::bindings::record<
+		Type
+	>::length_type
+	length_binding;
+
+	typedef
+	majutsu::raw::element_type<
+		length_binding
+	>
+	length_type;
+
+	length_type const length(
+		fcppt::cast::truncation_check<
+			length_type
+		>(
+			majutsu::raw::needed_size<
+				alda::bindings::record<
+					Type
+				>
+			>(
+				_value
+			)
+		)
+	);
+
+	majutsu::raw::place<
+		length_binding
+	>(
+		length,
 		_mem
 	);
+
+	_mem +=
+		sizeof(
+			length_type
+		);
 
 	std::copy_n(
 		_value.data(),
@@ -90,7 +128,7 @@ make(
 		alda::bindings::record<
 			Type
 		>
-	> const _concept,
+	>,
 	majutsu::raw::const_pointer const _mem
 )
 {
@@ -99,11 +137,18 @@ make(
 	alda::bindings::record<
 		Type
 	>::length_type
+	length_binding;
+
+	typedef
+	majutsu::raw::element_type<
+		length_binding
+	>
 	length_type;
 
 	length_type const length(
-		alda::bindings::detail::extract_length(
-			_concept,
+		majutsu::raw::make<
+			length_binding
+		>(
 			_mem
 		)
 	);

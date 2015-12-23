@@ -8,6 +8,7 @@
 #define ALDA_MESSAGE_ID_BINDING_FWD_HPP_INCLUDED
 
 #include <alda/bindings/fundamental_fwd.hpp>
+#include <alda/serialization/endianness.hpp>
 #include <alda/serialization/detail/message_int_type.hpp>
 
 
@@ -18,7 +19,8 @@ namespace message
 
 typedef
 alda::bindings::fundamental<
-	alda::serialization::detail::message_int_type
+	alda::serialization::detail::message_int_type,
+	alda::serialization::endianness()
 >
 id_binding;
 

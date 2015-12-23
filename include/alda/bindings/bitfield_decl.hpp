@@ -10,6 +10,7 @@
 #include <alda/bindings/array_fwd.hpp>
 #include <alda/bindings/bitfield_fwd.hpp>
 #include <alda/bindings/unsigned_fwd.hpp>
+#include <fcppt/endianness/format_fwd.hpp>
 
 
 namespace alda
@@ -18,7 +19,8 @@ namespace bindings
 {
 
 template<
-	typename Type
+	typename Type,
+	fcppt::endianness::format Endianness
 >
 struct bitfield
 {
@@ -32,7 +34,8 @@ struct bitfield
 		element_type::array_type,
 		alda::bindings::unsigned_<
 			typename
-			element_type::internal_type
+			element_type::internal_type,
+			Endianness
 		>
 	>
 	wrapped;

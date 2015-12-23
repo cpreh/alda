@@ -6,15 +6,18 @@
 
 #include <alda/bindings/dynamic_len.hpp>
 #include <alda/bindings/fundamental.hpp>
+#include <alda/bindings/unsigned.hpp>
 #include <alda/message/make_class.hpp>
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
+#include <fcppt/endianness/format.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/test/unit_test.hpp>
+#include <iostream>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -22,9 +25,22 @@
 namespace
 {
 
+constexpr
+fcppt::endianness::format const endianness{
+	fcppt::endianness::format::little
+};
+
+typedef
+alda::bindings::unsigned_<
+	std::uint16_t,
+	endianness
+>
+length_binding;
+
 typedef
 alda::bindings::fundamental<
-	unsigned
+	unsigned,
+	endianness
 >
 uint_binding;
 
@@ -37,7 +53,8 @@ uint_vector;
 typedef
 alda::bindings::dynamic_len<
 	uint_vector,
-	uint_binding
+	uint_binding,
+	length_binding
 >
 dynamic_len_binding;
 
@@ -71,14 +88,47 @@ FCPPT_PP_POP_WARNING
 		2
 	};
 
-	BOOST_CHECK(
+	uint_vector const result(
 		message(
 			dynamic_len_role{} =
 				vec
 		).get<
 			dynamic_len_role
 		>()
-		==
+	);
+
+	auto const output(
+		[](
+			uint_vector const &_vec
+		){
+			std::clog << '(';
+
+			for(
+				auto const &elem
+				:
+				_vec
+			)
+				std::clog << elem << ',';
+
+			std::clog << ')';
+		}
+	);
+
+	output(
 		vec
+	);
+
+	std::clog << "==";
+
+	output(
+		result
+	);
+
+	std::clog << "\n";
+
+	BOOST_CHECK(
+		vec
+		==
+		result
 	);
 }

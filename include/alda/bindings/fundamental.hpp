@@ -12,6 +12,7 @@
 #include <alda/bindings/unsigned.hpp>
 #include <majutsu/raw/fundamental.hpp>
 #include <majutsu/raw/static_size.hpp>
+#include <fcppt/endianness/format_fwd.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -26,11 +27,13 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
-	typename Type
+	typename Type,
+	fcppt::endianness::format Endianness
 >
 struct static_size<
 	alda::bindings::fundamental<
-		Type
+		Type,
+		Endianness
 	>
 >
 :

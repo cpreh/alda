@@ -9,6 +9,7 @@
 
 #include <alda/bindings/unsigned_fwd.hpp>
 #include <majutsu/raw/fundamental_decl.hpp>
+#include <fcppt/endianness/format.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -26,7 +27,8 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
-	typename Type
+	typename Type,
+	fcppt::endianness::format Endianness
 >
 struct unsigned_
 :
@@ -39,6 +41,12 @@ majutsu::raw::fundamental<
 		Type
 	>
 	impl;
+
+	static
+	constexpr
+	fcppt::endianness::format const endianness{
+		Endianness
+	};
 
 	static_assert(
 		std::is_unsigned<

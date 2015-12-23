@@ -27,6 +27,7 @@
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/endianness/format.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -69,15 +70,22 @@ alda::message::base_unique_ptr<
 >
 message_base_unique_ptr;
 
+constexpr
+fcppt::endianness::format const endianness{
+	fcppt::endianness::format::little
+};
+
 typedef
 alda::bindings::fundamental<
-	std::uint16_t
+	std::uint16_t,
+	endianness
 >
 uint16_type;
 
 typedef
 alda::bindings::fundamental<
-	std::uint32_t
+	std::uint32_t,
+	endianness
 >
 uint32_type;
 

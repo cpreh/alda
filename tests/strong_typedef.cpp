@@ -12,6 +12,7 @@
 #include <fcppt/strong_typedef.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/cast/size_fun.hpp>
+#include <fcppt/endianness/format.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -38,7 +39,8 @@ typedef
 alda::bindings::strong_typedef<
 	strong_type,
 	alda::bindings::unsigned_<
-		base_type
+		base_type,
+		fcppt::endianness::format::little
 	>
 >
 strong_binding;

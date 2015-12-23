@@ -9,6 +9,7 @@
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
 #include <majutsu/raw/integral_size.hpp>
+#include <fcppt/endianness/format.hpp>
 #include <fcppt/container/bitfield/comparison.hpp>
 #include <fcppt/container/bitfield/object.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -39,7 +40,8 @@ FCPPT_PP_POP_WARNING
 
 	typedef
 	alda::bindings::bitfield<
-		bitfield
+		bitfield,
+		fcppt::endianness::format::little
 	>
 	bitfield_binding;
 

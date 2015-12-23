@@ -10,6 +10,7 @@
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
 #include <majutsu/raw/element_type.hpp>
+#include <fcppt/endianness/format.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -27,7 +28,8 @@ namespace
 typedef
 alda::bindings::duration<
 	alda::bindings::unsigned_<
-		std::uint32_t
+		std::uint32_t,
+		fcppt::endianness::format::little
 	>,
 	std::milli
 >

@@ -7,6 +7,8 @@
 #ifndef ALDA_BINDINGS_BITFIELD_FWD_HPP_INCLUDED
 #define ALDA_BINDINGS_BITFIELD_FWD_HPP_INCLUDED
 
+#include <fcppt/endianness/format_fwd.hpp>
+
 
 namespace alda
 {
@@ -14,7 +16,8 @@ namespace bindings
 {
 
 template<
-	typename Type
+	typename Type,
+	fcppt::endianness::format
 >
 struct bitfield;
 

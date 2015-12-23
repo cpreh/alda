@@ -9,6 +9,7 @@
 #include <alda/bindings/dynamic_len.hpp>
 #include <alda/bindings/fundamental.hpp>
 #include <alda/bindings/optional.hpp>
+#include <alda/bindings/unsigned.hpp>
 #include <alda/bindings/variant.hpp>
 #include <alda/call/friend_dispatcher.hpp>
 #include <alda/call/object.hpp>
@@ -46,6 +47,7 @@
 #include <fcppt/optional_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
+#include <fcppt/endianness/format.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -95,9 +97,15 @@ alda::message::optional_base_unique_ptr<
 >
 optional_message_base_unique_ptr;
 
+constexpr
+fcppt::endianness::format const endianness{
+	fcppt::endianness::format::little
+};
+
 typedef
 alda::bindings::fundamental<
-	std::uint16_t
+	std::uint16_t,
+	endianness
 >
 uint16_type;
 
@@ -121,14 +129,19 @@ variant_type;
 
 typedef
 alda::bindings::fundamental<
-	char
+	char,
+	endianness
 >
 char_type;
 
 typedef
 alda::bindings::dynamic_len<
 	std::string,
-	char_type
+	char_type,
+	alda::bindings::unsigned_<
+		std::uint16_t,
+		endianness
+	>
 >
 string_type;
 

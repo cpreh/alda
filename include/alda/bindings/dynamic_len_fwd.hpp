@@ -15,7 +15,8 @@ namespace bindings
 
 template<
 	typename Type,
-	typename Adapted
+	typename Adapted,
+	typename Length
 >
 struct dynamic_len;
 
