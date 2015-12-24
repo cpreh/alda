@@ -14,6 +14,7 @@
 #include <majutsu/raw/element_type.hpp>
 #include <majutsu/raw/make.hpp>
 #include <majutsu/raw/needed_size.hpp>
+#include <majutsu/raw/needed_size_static.hpp>
 #include <majutsu/raw/place.hpp>
 #include <majutsu/raw/pointer.hpp>
 #include <majutsu/raw/size_type.hpp>
@@ -49,12 +50,9 @@ needed_size(
 )
 {
 	majutsu::raw::size_type ret(
-		// TODO: needed_size?
-		sizeof(
-			majutsu::raw::element_type<
-				Length
-			>
-		)
+		majutsu::raw::needed_size_static<
+			Length
+		>()
 	);
 
 	for(
@@ -117,6 +115,10 @@ place(
 				>(
 					_value
 				)
+				-
+				majutsu::raw::needed_size_static<
+					Length
+				>()
 			)
 		);
 
@@ -192,17 +194,19 @@ make(
 
 	Type ret;
 
+	majutsu::raw::const_pointer const start(
+		_mem
+		+
+		majutsu::raw::needed_size_static<
+			Length
+		>()
+	);
+
 	for(
 		majutsu::raw::const_pointer cur_mem(
-			_mem
-			+
-			majutsu::raw::needed_size<
-				Length
-			>(
-				my_size
-			)
+			start
 		);
-		cur_mem != _mem + my_size;
+		cur_mem != start + my_size;
 	)
 	{
 		typename

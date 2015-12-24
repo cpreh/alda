@@ -9,9 +9,9 @@
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
 #include <majutsu/raw/integral_size.hpp>
-#include <fcppt/endianness/format.hpp>
 #include <fcppt/container/bitfield/comparison.hpp>
 #include <fcppt/container/bitfield/object.hpp>
+#include <fcppt/endianness/format.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

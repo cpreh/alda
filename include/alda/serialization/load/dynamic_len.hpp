@@ -13,6 +13,7 @@
 #include <alda/serialization/load/fwd.hpp>
 #include <majutsu/raw/element_type.hpp>
 #include <majutsu/raw/make.hpp>
+#include <majutsu/raw/needed_size_static.hpp>
 #include <majutsu/raw/size_type.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
@@ -71,13 +72,6 @@ struct load<
 		>
 		length_type;
 
-		majutsu::raw::size_type const length_sz(
-			sizeof(
-				length_type
-			)
-		);
-
-		// At this point, the stream must be able to read its length
 		length_type const sz(
 			FCPPT_ASSERT_OPTIONAL_ERROR(
 				fcppt::io::read<
@@ -87,6 +81,12 @@ struct load<
 					Length::endianness
 				)
 			)
+		);
+
+		majutsu::raw::size_type const length_sz(
+			majutsu::raw::needed_size_static<
+				Length
+			>()
 		);
 
 		alda::serialization::detail::raw_container vec(
@@ -101,9 +101,7 @@ struct load<
 			>(
 				&sz
 			),
-			sizeof(
-				length_type
-			),
+			length_sz,
 			vec.data()
 		);
 
@@ -118,7 +116,7 @@ struct load<
 			static_cast<
 				std::streamsize
 			>(
-				sz - length_sz
+				sz
 			)
 		);
 
