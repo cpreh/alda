@@ -41,10 +41,10 @@
 #include <fcppt/insert_to_std_string.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_int_range_count.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/optional_comparison.hpp>
-#include <fcppt/optional_output.hpp>
+#include <fcppt/optional/comparison.hpp>
+#include <fcppt/optional/output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/endianness/format.hpp>
@@ -416,7 +416,7 @@ FCPPT_PP_POP_WARNING
 		);
 
 		BOOST_CHECK(
-			fcppt::maybe(
+			fcppt::optional::maybe(
 				result,
 				fcppt::const_(
 					false

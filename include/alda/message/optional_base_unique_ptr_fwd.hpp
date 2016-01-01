@@ -8,7 +8,7 @@
 #define ALDA_MESSAGE_OPTIONAL_BASE_UNIQUE_PTR_FWD_HPP_INCLUDED
 
 #include <alda/message/base_unique_ptr.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace alda
@@ -21,7 +21,7 @@ template<
 >
 using optional_base_unique_ptr
 =
-fcppt::optional<
+fcppt::optional::object<
 	alda::message::base_unique_ptr<
 		TypeEnum
 	>

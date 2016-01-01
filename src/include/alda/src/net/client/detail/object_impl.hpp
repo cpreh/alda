@@ -20,7 +20,7 @@
 #include <alda/net/client/error_function.hpp>
 #include <alda/net/client/detail/object_impl_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
+#include <fcppt/optional/object_decl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
@@ -99,7 +99,7 @@ private:
 	query_unique_ptr;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		query_unique_ptr
 	>
 	optional_query_unique_ptr;

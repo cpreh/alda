@@ -17,7 +17,7 @@
 #include <alda/serialization/detail/dispatch/map.hpp>
 #include <alda/serialization/detail/read/object_decl.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
-#include <fcppt/optional_to_exception.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/throw.hpp>
 #include <fcppt/cast/promote.hpp>
@@ -121,7 +121,7 @@ deserialize(
 	);
 
 	return
-		fcppt::optional_to_exception(
+		fcppt::optional::to_exception(
 			fcppt::container::find_opt_mapped(
 				_context.handlers(),
 				casted_type

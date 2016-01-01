@@ -9,7 +9,7 @@
 
 #include <alda/bindings/bool_fwd.hpp>
 #include <alda/bindings/optional_fwd.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace alda
@@ -24,7 +24,7 @@ template<
 struct optional
 {
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		Type
 	>
 	element_type;

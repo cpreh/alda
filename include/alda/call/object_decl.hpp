@@ -12,7 +12,7 @@
 #include <alda/call/detail/base_fwd.hpp>
 #include <alda/message/base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
+#include <fcppt/optional/object_decl.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -71,7 +71,7 @@ private:
 	base_unique_ptr;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		base_unique_ptr
 	>
 	optional_base_unique_ptr;

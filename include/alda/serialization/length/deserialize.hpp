@@ -12,7 +12,7 @@
 #include <alda/serialization/deserialize.hpp>
 #include <alda/serialization/istream.hpp>
 #include <alda/serialization/length/extract.hpp>
-#include <fcppt/optional_bind.hpp>
+#include <fcppt/optional/bind.hpp>
 #include <fcppt/algorithm/repeat.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -56,7 +56,7 @@ deserialize(
 	result_type;
 
 	return
-		fcppt::optional_bind(
+		fcppt::optional::bind(
 			alda::serialization::length::extract<
 				LengthType
 			>(

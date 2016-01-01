@@ -9,8 +9,8 @@
 #include <alda/message/make_class.hpp>
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
-#include <fcppt/optional_comparison.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/comparison.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -30,7 +30,7 @@ std::uint32_t
 base_type;
 
 typedef
-fcppt::optional<
+fcppt::optional::object<
 	base_type
 >
 optional_type;

@@ -18,9 +18,9 @@
 #include <majutsu/raw/pointer.hpp>
 #include <majutsu/raw/size_type.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/maybe.hpp>
-#include <fcppt/maybe_void.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 
 namespace alda
@@ -81,7 +81,7 @@ place(
 			has_value
 		);
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		_opt_value,
 		[
 			_mem
@@ -145,7 +145,7 @@ make(
 		!has_value
 	)
 		return
-			fcppt::optional<
+			fcppt::optional::object<
 				Type
 			>();
 
@@ -157,7 +157,7 @@ make(
 		);
 
 	return
-		fcppt::optional<
+		fcppt::optional::object<
 			Type
 		>(
 			majutsu::raw::make<
@@ -215,7 +215,7 @@ needed_size(
 	);
 
 	return
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			_opt_value,
 			fcppt::const_(
 				ret

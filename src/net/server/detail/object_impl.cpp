@@ -25,7 +25,7 @@
 #include <alda/src/net/server/detail/object_impl.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional_bind.hpp>
+#include <fcppt/optional/bind.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
@@ -144,7 +144,7 @@ alda::net::server::detail::object_impl::send_buffer(
 )
 {
 	return
-		fcppt::optional_bind(
+		fcppt::optional::bind(
 			fcppt::container::find_opt_mapped(
 				connections_,
 				_id

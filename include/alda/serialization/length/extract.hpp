@@ -9,7 +9,7 @@
 
 #include <alda/serialization/endianness.hpp>
 #include <alda/serialization/istream.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/io/read.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -32,7 +32,7 @@ typename boost::enable_if<
 	std::is_unsigned<
 		LengthType
 	>,
-	fcppt::optional<
+	fcppt::optional::object<
 		LengthType
 	>
 >::type
@@ -40,7 +40,7 @@ extract(
 	alda::serialization::istream &_stream
 )
 {
-	typedef fcppt::optional<
+	typedef fcppt::optional::object<
 		LengthType
 	> return_type;
 
