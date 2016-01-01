@@ -12,8 +12,8 @@
 #include <alda/serialization/deserialize.hpp>
 #include <alda/serialization/istream.hpp>
 #include <alda/serialization/length/extract.hpp>
-#include <fcppt/optional/bind.hpp>
 #include <fcppt/algorithm/repeat.hpp>
+#include <fcppt/optional/bind.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <cstddef>

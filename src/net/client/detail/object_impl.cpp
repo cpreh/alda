@@ -21,7 +21,6 @@
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/insert_to_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
@@ -33,6 +32,7 @@
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/location.hpp>
 #include <fcppt/log/verbose.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>

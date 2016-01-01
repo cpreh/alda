@@ -20,9 +20,9 @@
 #include <alda/net/client/error_function.hpp>
 #include <alda/net/client/detail/object_impl_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional/object_decl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
+#include <fcppt/optional/object_decl.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>

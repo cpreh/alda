@@ -11,11 +11,11 @@
 #include <alda/call/detail/concrete_decl.hpp>
 #include <alda/call/detail/make_instance.hpp>
 #include <alda/message/base_decl.hpp>
-#include <fcppt/optional/maybe.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/algorithm/array_init_move.hpp>
 #include <fcppt/mpl/for_each.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 
 template<

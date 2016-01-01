@@ -12,9 +12,9 @@
 #include <alda/call/detail/base_fwd.hpp>
 #include <alda/message/base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional/object_decl.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/cast/size.hpp>
+#include <fcppt/optional/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <array>
 #include <cstddef>

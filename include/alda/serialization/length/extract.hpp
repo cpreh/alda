@@ -9,8 +9,8 @@
 
 #include <alda/serialization/endianness.hpp>
 #include <alda/serialization/istream.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/io/read.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <iosfwd>

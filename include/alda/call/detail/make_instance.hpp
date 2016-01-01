@@ -12,10 +12,10 @@
 #include <alda/message/detail/extract_id.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/tag.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 
 namespace alda

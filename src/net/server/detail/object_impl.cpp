@@ -25,7 +25,6 @@
 #include <alda/src/net/server/detail/object_impl.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional/bind.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
@@ -38,6 +37,7 @@
 #include <fcppt/log/location.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/log/verbose.hpp>
+#include <fcppt/optional/bind.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
