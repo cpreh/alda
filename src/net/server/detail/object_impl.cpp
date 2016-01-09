@@ -24,7 +24,9 @@
 #include <alda/src/net/server/detail/connection.hpp>
 #include <alda/src/net/server/detail/object_impl.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
@@ -150,12 +152,16 @@ alda::net::server::detail::object_impl::send_buffer(
 				_id
 			),
 			[](
-				alda::net::server::detail::connection_container::mapped_type const &_connection
+				fcppt::reference_wrapper<
+					alda::net::server::detail::connection_container::mapped_type
+				> const _connection
 			)
 			{
 				return
 					alda::net::buffer::circular_send::optional_ref{
-						_connection->send_data()
+						fcppt::make_ref(
+							_connection.get()->send_data()
+						)
 					};
 			}
 		);
@@ -579,5 +585,5 @@ alda::net::server::detail::object_impl::connection(
 				connections_,
 				_id
 			)
-		);
+		).get();
 }

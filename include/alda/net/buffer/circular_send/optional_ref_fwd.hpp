@@ -8,7 +8,7 @@
 #define ALDA_NET_BUFFER_CIRCULAR_SEND_OPTIONAL_REF_FWD_HPP_INCLUDED
 
 #include <alda/net/buffer/circular_send/object_fwd.hpp>
-#include <fcppt/optional/object_fwd.hpp>
+#include <fcppt/optional/reference_fwd.hpp>
 
 
 namespace alda
@@ -20,9 +20,11 @@ namespace buffer
 namespace circular_send
 {
 
-typedef fcppt::optional::object<
-	alda::net::buffer::circular_send::object &
-> optional_ref;
+typedef
+fcppt::optional::reference<
+	alda::net::buffer::circular_send::object
+>
+optional_ref;
 
 }
 }

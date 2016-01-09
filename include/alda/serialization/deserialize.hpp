@@ -132,7 +132,7 @@ deserialize(
 						FCPPT_TEXT("No handler for a message found.")
 					);
 			}
-		)->on_dispatch(
+		).get()->on_dispatch(
 			cur_reader
 		);
 }
