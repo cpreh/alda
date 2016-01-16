@@ -227,7 +227,7 @@ make_generic(
 									](
 										majutsu::raw::element_type<
 											Adapted
-										> &&_element
+										> &&_elem
 									)
 									{
 										std::get<
@@ -237,7 +237,9 @@ make_generic(
 										>(
 											_array
 										) =
-											_element;
+											std::move(
+												_elem
+											);
 
 										return
 											majutsu::raw::stream::return_<

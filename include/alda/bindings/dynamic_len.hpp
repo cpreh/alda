@@ -8,16 +8,25 @@
 #define ALDA_BINDINGS_DYNAMIC_LEN_HPP_INCLUDED
 
 #include <alda/bindings/dynamic_len_decl.hpp>
+#include <alda/bindings/length_count_policy.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <majutsu/dispatch_type.hpp>
 #include <majutsu/raw/const_pointer.hpp>
 #include <majutsu/raw/element_type.hpp>
 #include <majutsu/raw/make.hpp>
+#include <majutsu/raw/make_generic.hpp>
 #include <majutsu/raw/needed_size.hpp>
 #include <majutsu/raw/needed_size_static.hpp>
 #include <majutsu/raw/place.hpp>
 #include <majutsu/raw/pointer.hpp>
 #include <majutsu/raw/size_type.hpp>
+#include <majutsu/raw/stream/bind.hpp>
+#include <majutsu/raw/stream/reference.hpp>
+#include <majutsu/raw/stream/result.hpp>
+#include <majutsu/raw/stream/return.hpp>
+#include <fcppt/make_int_range_count.hpp>
+#include <fcppt/algorithm/fold.hpp>
+#include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/truncation_check.hpp>
 
 
@@ -29,7 +38,8 @@ namespace bindings
 template<
 	typename Type,
 	typename Adapted,
-	typename Length
+	typename Length,
+	typename LengthPolicy
 >
 majutsu::raw::size_type
 needed_size(
@@ -37,14 +47,16 @@ needed_size(
 		alda::bindings::dynamic_len<
 			Type,
 			Adapted,
-			Length
+			Length,
+			LengthPolicy
 		>
 	>,
 	majutsu::raw::element_type<
 		alda::bindings::dynamic_len<
 			Type,
 			Adapted,
-			Length
+			Length,
+			LengthPolicy
 		>
 	> const &_value
 )
@@ -74,7 +86,8 @@ needed_size(
 template<
 	typename Type,
 	typename Adapted,
-	typename Length
+	typename Length,
+	typename LengthPolicy
 >
 void
 place(
@@ -82,14 +95,16 @@ place(
 		alda::bindings::dynamic_len<
 			Type,
 			Adapted,
-			Length
+			Length,
+			LengthPolicy
 		>
 	>,
 	majutsu::raw::element_type<
 		alda::bindings::dynamic_len<
 			Type,
 			Adapted,
-			Length
+			Length,
+			LengthPolicy
 		>
 	> const &_value,
 	majutsu::raw::pointer _mem
@@ -106,19 +121,9 @@ place(
 			fcppt::cast::truncation_check<
 				length_type
 			>(
-				majutsu::raw::needed_size<
-					alda::bindings::dynamic_len<
-						Type,
-						Adapted,
-						Length
-					>
-				>(
+				LengthPolicy::place(
 					_value
 				)
-				-
-				majutsu::raw::needed_size_static<
-					Length
-				>()
 			)
 		);
 
@@ -162,13 +167,15 @@ place(
 template<
 	typename Type,
 	typename Adapted,
-	typename Length
+	typename Length,
+	typename LengthPolicy
 >
 majutsu::raw::element_type<
 	alda::bindings::dynamic_len<
 		Type,
 		Adapted,
-		Length
+		Length,
+		LengthPolicy
 	>
 >
 make(
@@ -176,7 +183,8 @@ make(
 		alda::bindings::dynamic_len<
 			Type,
 			Adapted,
-			Length
+			Length,
+			LengthPolicy
 		>
 	>,
 	majutsu::raw::const_pointer const _mem
@@ -184,17 +192,17 @@ make(
 {
 	majutsu::raw::element_type<
 		Length
-	> const my_size(
-		majutsu::raw::make<
-			Length
-		>(
-			_mem
+	> const num_elements(
+		LengthPolicy::make(
+			majutsu::raw::make<
+				Length
+			>(
+				_mem
+			)
 		)
 	);
 
-	Type ret;
-
-	majutsu::raw::const_pointer const start(
+	majutsu::raw::const_pointer cur_mem(
 		_mem
 		+
 		majutsu::raw::needed_size_static<
@@ -202,37 +210,192 @@ make(
 		>()
 	);
 
-	for(
-		majutsu::raw::const_pointer cur_mem(
-			start
-		);
-		cur_mem != start + my_size;
-	)
-	{
-		typename
-		Type::value_type elem(
-			majutsu::raw::make<
-				Adapted
-			>(
-				cur_mem
+	return
+		fcppt::algorithm::map<
+			Type
+		>(
+			fcppt::make_int_range_count(
+				num_elements
+			),
+			[
+				&cur_mem
+			](
+				majutsu::raw::element_type<
+					Length
+				>
 			)
-		);
+			{
+				typename
+				Type::value_type elem(
+					majutsu::raw::make<
+						Adapted
+					>(
+						cur_mem
+					)
+				);
 
-		ret.push_back(
-			elem
-		);
+				cur_mem +=
+					majutsu::raw::needed_size<
+						Adapted
+					>(
+						elem
+					);
 
-		cur_mem +=
-			majutsu::raw::needed_size<
-				Adapted
-			>(
-				elem
-			);
-	}
+				return
+					elem;
+			}
+		);
+}
+
+template<
+	typename Stream,
+	typename Type,
+	typename Adapted,
+	typename Length,
+	typename LengthPolicy
+>
+majutsu::raw::stream::result<
+	Stream,
+	alda::bindings::dynamic_len<
+		Type,
+		Adapted,
+		Length,
+		LengthPolicy
+	>
+>
+make_generic(
+	majutsu::dispatch_type<
+		alda::bindings::dynamic_len<
+			Type,
+			Adapted,
+			Length,
+			LengthPolicy
+		>
+	>,
+	majutsu::dispatch_type<
+		Stream
+	>,
+	majutsu::raw::stream::reference<
+		Stream
+	> _stream
+)
+{
+	typedef
+	majutsu::raw::stream::result<
+		Stream,
+		alda::bindings::dynamic_len<
+			Type,
+			Adapted,
+			Length,
+			LengthPolicy
+		>
+	>
+	result_type;
 
 	return
-		ret;
+		majutsu::raw::stream::bind<
+			Stream
+		>(
+			majutsu::raw::make_generic<
+				Stream,
+				Length
+			>(
+				_stream
+			),
+			[
+				&_stream
+			](
+				majutsu::raw::element_type<
+					Length
+				> const _my_size
+			)
+			{
+				// TODO: Break out early
+				// TODO: reserve the output size
+				return
+					fcppt::algorithm::fold(
+						fcppt::make_int_range_count(
+							LengthPolicy::make(
+								_my_size
+							)
+						),
+						majutsu::raw::stream::return_<
+							Stream
+						>(
+							majutsu::raw::element_type<
+								alda::bindings::dynamic_len<
+									Type,
+									Adapted,
+									Length,
+									LengthPolicy
+								>
+							>()
+						),
+						[
+							&_stream
+						](
+							majutsu::raw::element_type<
+								Length
+							>,
+							result_type &&_result
+						)
+						{
+							return
+								majutsu::raw::stream::bind<
+									Stream
+								>(
+									std::move(
+										_result
+									),
+									[
+										&_stream
+									](
+										Type &&_array
+									)
+									{
+										return
+											majutsu::raw::stream::bind<
+												Stream
+											>(
+												majutsu::raw::make_generic<
+													Stream,
+													Adapted
+												>(
+													_stream
+												),
+												[
+													&_array
+												](
+													majutsu::raw::element_type<
+														Adapted
+													> &&_element
+												)
+												{
+													_array.push_back(
+														std::move(
+															_element
+														)
+													);
+
+													return
+														majutsu::raw::stream::return_<
+															Stream
+														>(
+															std::move(
+																_array
+															)
+														);
+												}
+											);
+									}
+								);
+						}
+					);
+			}
+		);
+
 }
+
 
 }
 }

@@ -22,6 +22,7 @@
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/test/unit_test.hpp>
 #include <array>
+#include <sstream>
 #include <fcppt/config/external_end.hpp>
 
 

@@ -18,7 +18,8 @@ namespace bindings
 template<
 	typename Type,
 	typename Adapted,
-	typename Length
+	typename Length,
+	typename LengthPolicy
 >
 struct dynamic_len
 {

@@ -7,6 +7,8 @@
 #ifndef ALDA_BINDINGS_DYNAMIC_LEN_FWD_HPP_INCLUDED
 #define ALDA_BINDINGS_DYNAMIC_LEN_FWD_HPP_INCLUDED
 
+#include <alda/bindings/length_count_policy_fwd.hpp>
+
 
 namespace alda
 {
@@ -16,7 +18,9 @@ namespace bindings
 template<
 	typename Type,
 	typename Adapted,
-	typename Length
+	typename Length,
+	typename LengthPolicy =
+		alda::bindings::length_count_policy
 >
 struct dynamic_len;
 

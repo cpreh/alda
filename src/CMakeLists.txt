@@ -41,6 +41,8 @@ set(
 	include/alda/bindings/fundamental_decl.hpp
 	include/alda/bindings/fundamental_fwd.hpp
 	include/alda/bindings/invalid_variant.hpp
+	include/alda/bindings/length_count_policy.hpp
+	include/alda/bindings/length_count_policy_fwd.hpp
 	include/alda/bindings/optional.hpp
 	include/alda/bindings/optional_decl.hpp
 	include/alda/bindings/optional_fwd.hpp
