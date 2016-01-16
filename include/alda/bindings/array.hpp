@@ -15,7 +15,7 @@
 #include <majutsu/raw/make.hpp>
 #include <majutsu/raw/make_generic.hpp>
 #include <majutsu/raw/needed_size.hpp>
-#include <majutsu/raw/place.hpp>
+#include <majutsu/raw/place_and_update.hpp>
 #include <majutsu/raw/pointer.hpp>
 #include <majutsu/raw/size_type.hpp>
 #include <majutsu/raw/static_size.hpp>
@@ -23,7 +23,7 @@
 #include <majutsu/raw/stream/reference.hpp>
 #include <majutsu/raw/stream/result.hpp>
 #include <majutsu/raw/stream/return.hpp>
-#include <fcppt/tag_value.hpp>
+#include <fcppt/make_int_range_count.hpp>
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/container/array_size.hpp>
@@ -31,8 +31,8 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <array>
-#include <boost/mpl/range_c.hpp>
+#include <cstddef>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -67,21 +67,12 @@ place(
 		:
 		_value
 	)
-	{
-		majutsu::raw::place<
+		majutsu::raw::place_and_update<
 			Adapted
 		>(
 			elem,
 			_mem
 		);
-
-		_mem +=
-			majutsu::raw::needed_size<
-				Adapted
-			>(
-				elem
-			);
-	}
 }
 
 template<
@@ -173,13 +164,11 @@ make_generic(
 	// TODO: We should fold the array
 	return
 		fcppt::algorithm::fold(
-			boost::mpl::range_c<
-				std::size_t,
-				0,
+			fcppt::make_int_range_count(
 				fcppt::container::array_size<
 					Type
 				>::value
-			>{},
+			),
 			majutsu::raw::stream::return_<
 				Stream
 			>(
@@ -193,16 +182,10 @@ make_generic(
 			[
 				&_stream
 			](
-				auto const _index,
+				std::size_t const _index,
 				result_type &&_result
 			)
 			{
-				constexpr auto const index(
-					fcppt::tag_value(
-						_index
-					)
-				);
-
 				return
 					majutsu::raw::stream::bind<
 						Stream
@@ -212,7 +195,7 @@ make_generic(
 						),
 						[
 							&_stream,
-							index
+							_index
 						](
 							Type &&_array
 						)
@@ -229,18 +212,16 @@ make_generic(
 									),
 									[
 										&_array,
-										index
+										_index
 									](
 										majutsu::raw::element_type<
 											Adapted
 										> &&_elem
 									)
 									{
-										std::get<
-											index
-										>(
-											_array
-										) =
+										_array[
+											_index
+										] =
 											std::move(
 												_elem
 											);

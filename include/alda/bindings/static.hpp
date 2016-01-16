@@ -13,13 +13,21 @@
 #include <majutsu/raw/const_pointer.hpp>
 #include <majutsu/raw/element_type.hpp>
 #include <majutsu/raw/make.hpp>
+#include <majutsu/raw/make_generic.hpp>
 #include <majutsu/raw/needed_size.hpp>
 #include <majutsu/raw/place.hpp>
 #include <majutsu/raw/pointer.hpp>
 #include <majutsu/raw/static_size.hpp>
+#include <majutsu/raw/stream/bind.hpp>
+#include <majutsu/raw/stream/reference.hpp>
+#include <majutsu/raw/stream/result.hpp>
+#include <majutsu/raw/stream/return.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace alda
@@ -92,6 +100,69 @@ make(
 			>(
 				_mem
 			)
+		);
+}
+
+template<
+	typename Stream,
+	typename Type,
+	typename Adapted
+>
+majutsu::raw::stream::result<
+	Stream,
+	alda::bindings::static_<
+		Type,
+		Adapted
+	>
+>
+make_generic(
+	majutsu::dispatch_type<
+		alda::bindings::static_<
+			Type,
+			Adapted
+		>
+	>,
+	majutsu::dispatch_type<
+		Stream
+	>,
+	majutsu::raw::stream::reference<
+		Stream
+	> _stream
+)
+{
+	typedef
+	typename
+	Type::storage_type
+	array_type;
+
+	return
+		majutsu::raw::stream::bind<
+			Stream
+		>(
+			majutsu::raw::make_generic<
+				Stream,
+				alda::bindings::array<
+					array_type,
+					Adapted
+				>
+			>(
+				_stream
+			),
+			[](
+				array_type &&_result
+			)
+			{
+				return
+					majutsu::raw::stream::return_<
+						Stream
+					>(
+						Type(
+							std::move(
+								_result
+							)
+						)
+					);
+			}
 		);
 }
 
