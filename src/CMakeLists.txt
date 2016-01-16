@@ -44,9 +44,6 @@ set(
 	include/alda/bindings/optional.hpp
 	include/alda/bindings/optional_decl.hpp
 	include/alda/bindings/optional_fwd.hpp
-	include/alda/bindings/record.hpp
-	include/alda/bindings/record_decl.hpp
-	include/alda/bindings/record_fwd.hpp
 	include/alda/bindings/signed.hpp
 	include/alda/bindings/signed_decl.hpp
 	include/alda/bindings/signed_fwd.hpp

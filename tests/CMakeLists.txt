@@ -80,12 +80,6 @@ add_alda_test(
 )
 
 add_alda_test(
-	record
-	ADDITIONAL_DEPS
-		${fcppt_core_TARGET}
-)
-
-add_alda_test(
 	signed
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
