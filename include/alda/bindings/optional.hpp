@@ -13,14 +13,22 @@
 #include <majutsu/raw/const_pointer.hpp>
 #include <majutsu/raw/element_type.hpp>
 #include <majutsu/raw/make.hpp>
+#include <majutsu/raw/make_generic.hpp>
 #include <majutsu/raw/needed_size.hpp>
 #include <majutsu/raw/place.hpp>
 #include <majutsu/raw/pointer.hpp>
 #include <majutsu/raw/size_type.hpp>
+#include <majutsu/raw/stream/bind.hpp>
+#include <majutsu/raw/stream/reference.hpp>
+#include <majutsu/raw/stream/result.hpp>
+#include <majutsu/raw/stream/return.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/object_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace alda
@@ -165,6 +173,104 @@ make(
 			>(
 				_mem
 			)
+		);
+}
+
+template<
+	typename Stream,
+	typename Type,
+	typename Adapted
+>
+majutsu::raw::stream::result<
+	Stream,
+	alda::bindings::optional<
+		Type,
+		Adapted
+	>
+>
+make_generic(
+	majutsu::dispatch_type<
+		alda::bindings::optional<
+			Type,
+			Adapted
+		>
+	>,
+	majutsu::dispatch_type<
+		Stream
+	>,
+	majutsu::raw::stream::reference<
+		Stream
+	> _stream
+)
+{
+	typedef
+	typename
+	alda::bindings::optional<
+		Type,
+		Adapted
+	>::bool_type
+	bool_type;
+
+	return
+		majutsu::raw::stream::bind<
+			Stream
+		>(
+			majutsu::raw::make_generic<
+				Stream,
+				bool_type
+			>(
+				_stream
+			),
+			[
+				&_stream
+			](
+				majutsu::raw::element_type<
+					bool_type
+				> const _has_value
+			)
+			{
+				return
+					_has_value
+					?
+						majutsu::raw::stream::bind<
+							Stream
+						>(
+							majutsu::raw::make_generic<
+								Stream,
+								Adapted
+							>(
+								_stream
+							),
+							[](
+								majutsu::raw::element_type<
+									Adapted
+								> &&_inner
+							)
+							{
+								return
+									majutsu::raw::stream::return_<
+										Stream
+									>(
+										fcppt::optional::object<
+											Type
+										>(
+											std::move(
+												_inner
+											)
+										)
+									);
+							}
+						)
+					:
+						majutsu::raw::stream::return_<
+							Stream
+						>(
+							fcppt::optional::object<
+								Type
+							>()
+						)
+					;
+			}
 		);
 }
 

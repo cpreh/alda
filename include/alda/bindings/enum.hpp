@@ -12,9 +12,14 @@
 #include <majutsu/raw/const_pointer.hpp>
 #include <majutsu/raw/element_type.hpp>
 #include <majutsu/raw/make.hpp>
+#include <majutsu/raw/make_generic.hpp>
 #include <majutsu/raw/place.hpp>
 #include <majutsu/raw/pointer.hpp>
 #include <majutsu/raw/static_size.hpp>
+#include <majutsu/raw/stream/bind.hpp>
+#include <majutsu/raw/stream/reference.hpp>
+#include <majutsu/raw/stream/result.hpp>
+#include <majutsu/raw/stream/return.hpp>
 #include <fcppt/cast_to_enum.hpp>
 #include <fcppt/cast/enum_to_int.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -93,6 +98,64 @@ make(
 			>(
 				_beg
 			)
+		);
+}
+
+template<
+	typename Stream,
+	typename Enum,
+	typename Adapted
+>
+inline
+majutsu::raw::stream::result<
+	Stream,
+	alda::bindings::enum_<
+		Enum,
+		Adapted
+	>
+>
+make_generic(
+	majutsu::dispatch_type<
+		alda::bindings::enum_<
+			Enum,
+			Adapted
+		>
+	>,
+	majutsu::dispatch_type<
+		Stream
+	>,
+	majutsu::raw::stream::reference<
+		Stream
+	> _stream
+)
+{
+	return
+		majutsu::raw::stream::bind<
+			Stream
+		>(
+			majutsu::raw::make_generic<
+				Stream,
+				Adapted
+			>(
+				_stream
+			),
+			[](
+				majutsu::raw::element_type<
+					Adapted
+				> const _element
+			)
+			{
+				return
+					majutsu::raw::stream::return_<
+						Stream
+					>(
+						fcppt::cast_to_enum<
+							Enum
+						>(
+							_element
+						)
+					);
+			}
 		);
 }
 

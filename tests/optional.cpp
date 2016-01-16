@@ -8,10 +8,14 @@
 #include <alda/bindings/unsigned.hpp>
 #include <alda/message/make_class.hpp>
 #include <majutsu/make_role_tag.hpp>
+#include <majutsu/get.hpp>
 #include <majutsu/role.hpp>
+#include <majutsu/raw/make_generic.hpp>
+#include <majutsu/raw/write.hpp>
+#include <majutsu/raw/stream/istream.hpp>
 #include <fcppt/endianness/format.hpp>
-#include <fcppt/optional/comparison.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object.hpp>
+#include <fcppt/optional/output.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -19,6 +23,7 @@
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/test/unit_test.hpp>
 #include <cstdint>
+#include <sstream>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -70,14 +75,13 @@ BOOST_AUTO_TEST_CASE(
 )
 {
 FCPPT_PP_POP_WARNING
-	BOOST_CHECK(
+	BOOST_CHECK_EQUAL(
 		message(
 			optional_role{} =
 				optional_type()
 		).get<
 			optional_role
-		>()
-		==
+		>(),
 		optional_type()
 	);
 
@@ -88,11 +92,62 @@ FCPPT_PP_POP_WARNING
 			)
 	);
 
-	BOOST_CHECK(
+	BOOST_CHECK_EQUAL(
 		msg.get<
 			optional_role
-		>()
-		==
+		>(),
+		optional_type(
+			42u
+		)
+	);
+}
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
+BOOST_AUTO_TEST_CASE(
+	alda_optional_stream
+)
+{
+FCPPT_PP_POP_WARNING
+
+	std::stringstream stream;
+
+	majutsu::raw::write(
+		stream,
+		message(
+			optional_role{} =
+				optional_type(
+					42u
+				)
+		)
+	);
+
+	typedef
+	fcppt::optional::object<
+		message
+	>
+	optional_message;
+
+	optional_message const result(
+		majutsu::raw::make_generic<
+			majutsu::raw::stream::istream,
+			message
+		>(
+			stream
+		)
+	);
+
+	BOOST_REQUIRE(
+		result.has_value()
+	);
+
+	BOOST_CHECK_EQUAL(
+		majutsu::get<
+			optional_role
+		>(
+			result.get_unsafe()
+		),
 		optional_type(
 			42u
 		)

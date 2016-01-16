@@ -9,19 +9,11 @@
 
 #include <alda/bindings/dynamic_len_decl.hpp>
 #include <alda/serialization/istream.hpp>
-#include <alda/serialization/detail/raw_container.hpp>
 #include <alda/serialization/load/fwd.hpp>
 #include <majutsu/raw/element_type.hpp>
-#include <majutsu/raw/make.hpp>
-#include <majutsu/raw/needed_size_static.hpp>
-#include <majutsu/raw/size_type.hpp>
+#include <majutsu/raw/make_generic.hpp>
+#include <majutsu/raw/stream/istream.hpp>
 #include <fcppt/assert/optional_error.hpp>
-#include <fcppt/cast/to_char_ptr.hpp>
-#include <fcppt/io/read.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <algorithm>
-#include <iosfwd>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace alda
@@ -54,78 +46,19 @@ struct load<
 		alda::serialization::istream &_is
 	)
 	{
-		typedef
-		alda::bindings::dynamic_len<
-			Type,
-			Adapted,
-			Length
-		>
-		type;
-
-		majutsu::raw::element_type<
-			type
-		> ret;
-
-		typedef
-		majutsu::raw::element_type<
-			Length
-		>
-		length_type;
-
-		length_type const sz(
-			FCPPT_ASSERT_OPTIONAL_ERROR(
-				fcppt::io::read<
-					length_type
-				>(
-					_is,
-					Length::endianness
-				)
-			)
-		);
-
-		majutsu::raw::size_type const length_sz(
-			majutsu::raw::needed_size_static<
-				Length
-			>()
-		);
-
-		alda::serialization::detail::raw_container vec(
-			sz
-			+
-			length_sz
-		);
-
-		std::copy_n(
-			fcppt::cast::to_char_ptr<
-				alda::serialization::detail::raw_container::const_pointer
-			>(
-				&sz
-			),
-			length_sz,
-			vec.data()
-		);
-
-		_is.read(
-			fcppt::cast::to_char_ptr<
-				char *
-			>(
-				vec.data()
-				+
-				length_sz
-			),
-			static_cast<
-				std::streamsize
-			>(
-				sz
-			)
-		);
-
 		return
-			majutsu::raw::make<
-				type
-			>(
-				vec.data()
-			);
+			FCPPT_ASSERT_OPTIONAL_ERROR((
+				majutsu::raw::make_generic<
+					majutsu::raw::stream::istream,
+					alda::bindings::dynamic_len<
+						Type,
+						Adapted,
+						Length
+					>
+				>(
+					_is
+				)
+			));
 	}
 };
 
