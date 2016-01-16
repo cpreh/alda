@@ -28,6 +28,12 @@ function(
 endfunction()
 
 add_alda_test(
+	array
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+)
+
+add_alda_test(
 	bitfield
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
