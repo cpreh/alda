@@ -197,6 +197,12 @@ make_generic(
 				result_type &&_result
 			)
 			{
+				constexpr auto const index(
+					fcppt::tag_value(
+						_index
+					)
+				);
+
 				return
 					majutsu::raw::stream::bind<
 						Stream
@@ -206,7 +212,7 @@ make_generic(
 						),
 						[
 							&_stream,
-							_index
+							index
 						](
 							Type &&_array
 						)
@@ -223,7 +229,7 @@ make_generic(
 									),
 									[
 										&_array,
-										_index
+										index
 									](
 										majutsu::raw::element_type<
 											Adapted
@@ -231,9 +237,7 @@ make_generic(
 									)
 									{
 										std::get<
-											fcppt::tag_value(
-												_index
-											)
+											index
 										>(
 											_array
 										) =
