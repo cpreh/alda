@@ -10,9 +10,6 @@
 #include <alda/bindings/invalid_variant.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <alda/bindings/variant_decl.hpp>
-#include <alda/bindings/detail/variant_make.hpp>
-#include <alda/bindings/detail/variant_needed_size.hpp>
-#include <alda/bindings/detail/variant_place.hpp>
 #include <majutsu/dispatch_type.hpp>
 #include <majutsu/raw/const_pointer.hpp>
 #include <majutsu/raw/element_type.hpp>
@@ -21,10 +18,16 @@
 #include <majutsu/raw/place.hpp>
 #include <majutsu/raw/pointer.hpp>
 #include <majutsu/raw/size_type.hpp>
+#include <fcppt/decltype_sink.hpp>
+#include <fcppt/tag_type.hpp>
 #include <fcppt/cast/truncation_check.hpp>
+#include <fcppt/mpl/index_of.hpp>
 #include <fcppt/mpl/invoke_on.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/at.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace alda
@@ -90,12 +93,29 @@ place(
 		);
 
 	fcppt::variant::apply_unary(
-		alda::bindings::detail::variant_place<
-			Types,
-			AdaptedTypes
-		>(
+		[
 			_mem
-		),
+		](
+			auto const &_type
+		)
+		{
+			majutsu::raw::place<
+				typename
+				boost::mpl::at<
+					AdaptedTypes,
+					typename
+					fcppt::mpl::index_of<
+						Types,
+						FCPPT_DECLTYPE_SINK(
+							_type
+						)
+					>::type
+				>::type
+			>(
+				_type,
+				_mem
+			);
+		},
 		_value
 	);
 }
@@ -152,12 +172,35 @@ make(
 			Types
 		>(
 			index,
-			alda::bindings::detail::variant_make<
-				Types,
-				AdaptedTypes
-			>(
+			[
 				_mem
-			),
+			](
+				auto const _tag
+			)
+			{
+				return
+					fcppt::variant::object<
+						Types
+					>(
+						majutsu::raw::make<
+							typename
+							boost::mpl::at<
+								AdaptedTypes,
+								typename
+								fcppt::mpl::index_of<
+									Types,
+									fcppt::tag_type<
+										FCPPT_DECLTYPE_SINK(
+											_tag
+										)
+									>
+								>::type
+							>::type
+						>(
+							_mem
+						)
+					);
+			},
 			[]()
 			->
 			fcppt::variant::object<
@@ -220,10 +263,27 @@ needed_size(
 		)
 		+
 		fcppt::variant::apply_unary(
-			alda::bindings::detail::variant_needed_size<
-				Types,
-				AdaptedTypes
-			>(),
+			[](
+				auto const &_type
+			)
+			{
+				return
+					majutsu::raw::needed_size<
+						typename
+						boost::mpl::at<
+							AdaptedTypes,
+							typename
+							fcppt::mpl::index_of<
+								Types,
+								FCPPT_DECLTYPE_SINK(
+									_type
+								)
+							>::type
+						>::type
+					>(
+						_type
+					);
+			},
 			_value
 		);
 }
