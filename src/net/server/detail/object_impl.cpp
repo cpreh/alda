@@ -26,7 +26,7 @@
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
@@ -152,7 +152,7 @@ alda::net::server::detail::object_impl::send_buffer(
 				_id
 			),
 			[](
-				fcppt::reference_wrapper<
+				fcppt::reference<
 					alda::net::server::detail::connection_container::mapped_type
 				> const _connection
 			)
