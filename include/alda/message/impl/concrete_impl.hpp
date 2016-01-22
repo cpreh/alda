@@ -8,10 +8,36 @@
 #define ALDA_MESSAGE_IMPL_CONCRETE_IMPL_HPP_INCLUDED
 
 #include <alda/message/concrete_decl.hpp>
+#include <alda/message/record_impl.hpp>
 #include <alda/message/detail/extract_id.hpp>
+#include <alda/raw/to_buffer.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/cast/int_to_enum.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
+
+template<
+	typename TypeEnum,
+	typename Type
+>
+alda::message::concrete<
+	TypeEnum,
+	Type
+>::concrete(
+	Type &&_value
+)
+:
+	base_type(),
+	value_(
+		std::move(
+			_value
+		)
+	)
+{
+}
 
 template<
 	typename TypeEnum,
@@ -104,14 +130,16 @@ alda::message::concrete<
 	Type
 >::value() const
 {
-	return value_;
+	return
+		value_;
 }
 
 template<
 	typename TypeEnum,
 	typename Type
 >
-typename alda::message::concrete<
+typename
+alda::message::concrete<
 	TypeEnum,
 	Type
 >::type_enum
@@ -121,11 +149,11 @@ alda::message::concrete<
 >::type() const
 {
 	return
-		static_cast<
+		fcppt::cast::int_to_enum<
 			type_enum
 		>(
 			alda::message::detail::extract_id<
-				typename Type::types
+				Type
 			>::value
 		);
 }
@@ -134,41 +162,24 @@ template<
 	typename TypeEnum,
 	typename Type
 >
-typename alda::message::concrete<
-	TypeEnum,
-	Type
->::const_raw_pointer
+alda::raw::buffer
 alda::message::concrete<
 	TypeEnum,
 	Type
->::data() const
+>::to_buffer() const
 {
 	return
-		value_.data();
+		alda::raw::to_buffer(
+			value_.get_base()
+		);
 }
 
 template<
 	typename TypeEnum,
 	typename Type
 >
-typename alda::message::concrete<
-	TypeEnum,
-	Type
->::size_type
+typename
 alda::message::concrete<
-	TypeEnum,
-	Type
->::size() const
-{
-	return
-		value_.size();
-}
-
-template<
-	typename TypeEnum,
-	typename Type
->
-typename alda::message::concrete<
 	TypeEnum,
 	Type
 >::unique_ptr

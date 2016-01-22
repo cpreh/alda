@@ -8,21 +8,18 @@
 #define ALDA_BINDINGS_ARRAY_HPP_INCLUDED
 
 #include <alda/bindings/array_decl.hpp>
-#include <majutsu/dispatch_type.hpp>
-#include <majutsu/raw/const_pointer.hpp>
-#include <majutsu/raw/element_type.hpp>
-#include <majutsu/raw/integral_size.hpp>
-#include <majutsu/raw/make.hpp>
-#include <majutsu/raw/make_generic.hpp>
-#include <majutsu/raw/needed_size.hpp>
-#include <majutsu/raw/place_and_update.hpp>
-#include <majutsu/raw/pointer.hpp>
-#include <majutsu/raw/size_type.hpp>
-#include <majutsu/raw/static_size.hpp>
-#include <majutsu/raw/stream/bind.hpp>
-#include <majutsu/raw/stream/reference.hpp>
-#include <majutsu/raw/stream/result.hpp>
-#include <majutsu/raw/stream/return.hpp>
+#include <alda/raw/dispatch_type.hpp>
+#include <alda/raw/element_type.hpp>
+#include <alda/raw/integral_size.hpp>
+#include <alda/raw/make_generic.hpp>
+#include <alda/raw/place_and_update.hpp>
+#include <alda/raw/pointer.hpp>
+#include <alda/raw/size_type.hpp>
+#include <alda/raw/static_size.hpp>
+#include <alda/raw/stream/bind.hpp>
+#include <alda/raw/stream/reference.hpp>
+#include <alda/raw/stream/result.hpp>
+#include <alda/raw/stream/return.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/cast/size.hpp>
@@ -47,19 +44,19 @@ template<
 >
 void
 place(
-	majutsu::dispatch_type<
+	alda::raw::dispatch_type<
 		alda::bindings::array<
 			Type,
 			Adapted
 		>
 	>,
-	majutsu::raw::element_type<
+	alda::raw::element_type<
 		alda::bindings::array<
 			Type,
 			Adapted
 		>
 	> const &_value,
-	majutsu::raw::pointer _mem
+	alda::raw::pointer _mem
 )
 {
 	for(
@@ -67,7 +64,7 @@ place(
 		:
 		_value
 	)
-		majutsu::raw::place_and_update<
+		alda::raw::place_and_update<
 			Adapted
 		>(
 			elem,
@@ -76,59 +73,11 @@ place(
 }
 
 template<
-	typename Type,
-	typename Adapted
->
-majutsu::raw::element_type<
-	alda::bindings::array<
-		Type,
-		Adapted
-	>
->
-make(
-	majutsu::dispatch_type<
-		alda::bindings::array<
-			Type,
-			Adapted
-		>
-	>,
-	majutsu::raw::const_pointer _mem
-)
-{
-	// TODO: We should fold the array here
-	Type ret;
-
-	for(
-		auto &elem
-		:
-		ret
-	)
-	{
-		elem =
-			majutsu::raw::make<
-				Adapted
-			>(
-				_mem
-			);
-
-		_mem +=
-			majutsu::raw::needed_size<
-				Adapted
-			>(
-				elem
-			);
-	}
-
-	return
-		ret;
-}
-
-template<
 	typename Stream,
 	typename Type,
 	typename Adapted
 >
-majutsu::raw::stream::result<
+alda::raw::stream::result<
 	Stream,
 	alda::bindings::array<
 		Type,
@@ -136,22 +85,22 @@ majutsu::raw::stream::result<
 	>
 >
 make_generic(
-	majutsu::dispatch_type<
+	alda::raw::dispatch_type<
 		alda::bindings::array<
 			Type,
 			Adapted
 		>
 	>,
-	majutsu::dispatch_type<
+	alda::raw::dispatch_type<
 		Stream
 	>,
-	majutsu::raw::stream::reference<
+	alda::raw::stream::reference<
 		Stream
 	> _stream
 )
 {
 	typedef
-	majutsu::raw::stream::result<
+	alda::raw::stream::result<
 		Stream,
 		alda::bindings::array<
 			Type,
@@ -169,10 +118,10 @@ make_generic(
 					Type
 				>::value
 			),
-			majutsu::raw::stream::return_<
+			alda::raw::stream::return_<
 				Stream
 			>(
-				majutsu::raw::element_type<
+				alda::raw::element_type<
 					alda::bindings::array<
 						Type,
 						Adapted
@@ -187,7 +136,7 @@ make_generic(
 			)
 			{
 				return
-					majutsu::raw::stream::bind<
+					alda::raw::stream::bind<
 						Stream
 					>(
 						std::move(
@@ -201,10 +150,10 @@ make_generic(
 						)
 						{
 							return
-								majutsu::raw::stream::bind<
+								alda::raw::stream::bind<
 									Stream
 								>(
-									majutsu::raw::make_generic<
+									alda::raw::make_generic<
 										Stream,
 										Adapted
 									>(
@@ -214,7 +163,7 @@ make_generic(
 										&_array,
 										_index
 									](
-										majutsu::raw::element_type<
+										alda::raw::element_type<
 											Adapted
 										> &&_elem
 									)
@@ -227,7 +176,7 @@ make_generic(
 											);
 
 										return
-											majutsu::raw::stream::return_<
+											alda::raw::stream::return_<
 												Stream
 											>(
 												std::move(
@@ -245,7 +194,7 @@ make_generic(
 }
 }
 
-namespace majutsu
+namespace alda
 {
 namespace raw
 {
@@ -265,17 +214,17 @@ struct static_size<
 >
 :
 // FIXME: We have to check if Type has a static size
-majutsu::raw::integral_size<
+alda::raw::integral_size<
 	// Can't use mpl::multiplies here because std::integral_constant doesn't work
 	fcppt::cast::size<
-		majutsu::raw::size_type
+		alda::raw::size_type
 	>(
 		fcppt::container::array_size<
 			Type
 		>::value
 	)
 	*
-	majutsu::raw::static_size<
+	alda::raw::static_size<
 		Adapted
 	>::value
 >

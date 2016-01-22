@@ -8,13 +8,16 @@
 #define ALDA_BINDINGS_STRONG_TYPEDEF_HPP_INCLUDED
 
 #include <alda/bindings/strong_typedef_decl.hpp>
-#include <majutsu/dispatch_type.hpp>
-#include <majutsu/raw/const_pointer.hpp>
-#include <majutsu/raw/element_type.hpp>
-#include <majutsu/raw/make.hpp>
-#include <majutsu/raw/place.hpp>
-#include <majutsu/raw/pointer.hpp>
-#include <majutsu/raw/static_size.hpp>
+#include <alda/raw/dispatch_type.hpp>
+#include <alda/raw/element_type.hpp>
+#include <alda/raw/make_generic.hpp>
+#include <alda/raw/place.hpp>
+#include <alda/raw/pointer.hpp>
+#include <alda/raw/static_size.hpp>
+#include <alda/raw/stream/bind.hpp>
+#include <alda/raw/stream/reference.hpp>
+#include <alda/raw/stream/result.hpp>
+#include <alda/raw/stream/return.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -32,22 +35,22 @@ template<
 inline
 void
 place(
-	majutsu::dispatch_type<
+	alda::raw::dispatch_type<
 		alda::bindings::strong_typedef<
 			Type,
 			Adapted
 		>
 	>,
-	majutsu::raw::element_type<
+	alda::raw::element_type<
 		alda::bindings::strong_typedef<
 			Type,
 			Adapted
 		>
 	> const &_value,
-	majutsu::raw::pointer const _mem
+	alda::raw::pointer const _mem
 )
 {
-	majutsu::raw::place<
+	alda::raw::place<
 		Adapted
 	>(
 		_value.get(),
@@ -56,40 +59,67 @@ place(
 }
 
 template<
+	typename Stream,
 	typename Type,
 	typename Adapted
 >
 inline
-majutsu::raw::element_type<
+alda::raw::stream::result<
+	Stream,
 	alda::bindings::strong_typedef<
 		Type,
 		Adapted
 	>
 >
-make(
-	majutsu::dispatch_type<
+make_generic(
+	alda::raw::dispatch_type<
 		alda::bindings::strong_typedef<
 			Type,
 			Adapted
 		>
 	>,
-	majutsu::raw::const_pointer const _beg
+	alda::raw::dispatch_type<
+		Stream
+	>,
+	alda::raw::stream::reference<
+		Stream
+	> _stream
 )
 {
 	return
-		Type(
-			majutsu::raw::make<
+		alda::raw::stream::bind<
+			Stream
+		>(
+			alda::raw::make_generic<
+				Stream,
 				Adapted
 			>(
-				_beg
+				_stream
+			),
+			[](
+				alda::raw::element_type<
+					Adapted
+				> &&_inner
 			)
+			{
+				return
+					alda::raw::stream::return_<
+						Stream
+					>(
+						Type{
+							std::move(
+								_inner
+							)
+						}
+					);
+			}
 		);
 }
 
 }
 }
 
-namespace majutsu
+namespace alda
 {
 namespace raw
 {
@@ -108,7 +138,7 @@ struct static_size<
 	>
 >
 :
-majutsu::raw::static_size<
+alda::raw::static_size<
 	Adapted
 >
 {

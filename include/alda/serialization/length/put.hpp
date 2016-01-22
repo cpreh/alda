@@ -7,15 +7,16 @@
 #ifndef ALDA_SERIALIZATION_LENGTH_PUT_HPP_INCLUDED
 #define ALDA_SERIALIZATION_LENGTH_PUT_HPP_INCLUDED
 
-#include <alda/message/base_decl.hpp>
+#include <alda/exception.hpp>
+#include <alda/raw/size_type.hpp>
 #include <alda/serialization/endianness.hpp>
 #include <alda/serialization/ostream.hpp>
-#include <fcppt/cast/size.hpp>
+#include <alda/serialization/detail/message_int_type.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/cast/truncation_check.hpp>
 #include <fcppt/io/write.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <exception>
-#include <limits>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -28,10 +29,10 @@ namespace length
 {
 
 template<
-	typename LengthType,
-	typename TypeEnum
+	typename LengthType
 >
-typename boost::enable_if<
+typename
+boost::enable_if<
 	std::is_unsigned<
 		LengthType
 	>,
@@ -39,47 +40,44 @@ typename boost::enable_if<
 >::type
 put(
 	alda::serialization::ostream &_stream,
-	alda::message::base<
-		TypeEnum
-	> const &_message
+	alda::raw::size_type const _length
 )
 {
-	typedef alda::message::base<
-		TypeEnum
-	> message_base;
-
-	typedef typename message_base::size_type message_size_type;
-
 	static_assert(
 		sizeof(
-			message_size_type
+			alda::raw::size_type
 		)
 		>=
 		sizeof(
 			LengthType
 		),
-		"The LengthType cannot exceed the message_size_type"
+		"The LengthType cannot exceed alda::raw::size_type"
 	);
 
-	if(
-		fcppt::cast::size<
-			message_size_type
-		>(
-			std::numeric_limits<
-				LengthType
-			>::max()
+	alda::raw::size_type const result{
+		_length
+		+
+		sizeof(
+			alda::serialization::detail::message_int_type
 		)
-		<=
-		_message.size()
+	};
+
+	if(
+		result
+		<
+		_length
 	)
-		std::terminate();
+		throw
+			alda::exception{
+				FCPPT_TEXT("Length overflowed")
+			};
 
 	fcppt::io::write(
 		_stream,
-		fcppt::cast::size<
+		fcppt::cast::truncation_check<
 			LengthType
 		>(
-			_message.size()
+			result
 		),
 		alda::serialization::endianness()
 	);

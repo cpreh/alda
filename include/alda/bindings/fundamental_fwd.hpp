@@ -7,8 +7,6 @@
 #ifndef ALDA_BINDINGS_FUNDAMENTAL_FWD_HPP_INCLUDED
 #define ALDA_BINDINGS_FUNDAMENTAL_FWD_HPP_INCLUDED
 
-#include <fcppt/endianness/format_fwd.hpp>
-
 
 namespace alda
 {
@@ -16,8 +14,7 @@ namespace bindings
 {
 
 template<
-	typename Type,
-	fcppt::endianness::format
+	typename T
 >
 struct fundamental;
 

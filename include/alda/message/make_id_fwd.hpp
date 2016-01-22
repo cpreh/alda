@@ -7,11 +7,11 @@
 #ifndef ALDA_MESSAGE_MAKE_ID_FWD_HPP_INCLUDED
 #define ALDA_MESSAGE_MAKE_ID_FWD_HPP_INCLUDED
 
-#include <alda/message/id_binding_decl.hpp>
-#include <alda/message/roles/type.hpp>
 #include <alda/serialization/detail/message_int_type.hpp>
-#include <majutsu/role_fwd.hpp>
-#include <majutsu/raw/constant_fwd.hpp>
+#include <fcppt/cast/enum_to_int.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace alda
@@ -25,16 +25,13 @@ template<
 >
 using make_id
 =
-majutsu::role<
-	majutsu::raw::constant<
-		alda::message::id_binding,
-		static_cast<
-			alda::serialization::detail::message_int_type
-		>(
-			MessageType
-		)
-	>,
-	alda::message::roles::type
+std::integral_constant<
+	alda::serialization::detail::message_int_type,
+	fcppt::cast::enum_to_int<
+		alda::serialization::detail::message_int_type
+	>(
+		MessageType
+	)
 >;
 
 }

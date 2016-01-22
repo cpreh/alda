@@ -9,18 +9,16 @@
 
 #include <alda/bindings/bool_decl.hpp>
 #include <alda/bindings/unsigned.hpp>
-#include <majutsu/dispatch_type.hpp>
-#include <majutsu/raw/const_pointer.hpp>
-#include <majutsu/raw/element_type.hpp>
-#include <majutsu/raw/make.hpp>
-#include <majutsu/raw/make_generic.hpp>
-#include <majutsu/raw/place.hpp>
-#include <majutsu/raw/pointer.hpp>
-#include <majutsu/raw/static_size.hpp>
-#include <majutsu/raw/stream/bind.hpp>
-#include <majutsu/raw/stream/reference.hpp>
-#include <majutsu/raw/stream/result.hpp>
-#include <majutsu/raw/stream/return.hpp>
+#include <alda/raw/dispatch_type.hpp>
+#include <alda/raw/element_type.hpp>
+#include <alda/raw/make_generic.hpp>
+#include <alda/raw/place.hpp>
+#include <alda/raw/pointer.hpp>
+#include <alda/raw/static_size.hpp>
+#include <alda/raw/stream/bind.hpp>
+#include <alda/raw/stream/reference.hpp>
+#include <alda/raw/stream/result.hpp>
+#include <alda/raw/stream/return.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -35,22 +33,22 @@ namespace bindings
 inline
 void
 place(
-	majutsu::dispatch_type<
+	alda::raw::dispatch_type<
 		alda::bindings::bool_
 	>,
-	majutsu::raw::element_type<
+	alda::raw::element_type<
 		alda::bindings::bool_
 	> const _value,
-	majutsu::raw::pointer const _data
+	alda::raw::pointer const _data
 )
 {
-	majutsu::raw::place<
+	alda::raw::place<
 		alda::bindings::bool_::wrapped_type
 	>(
 		_value
 		?
 			fcppt::literal<
-				majutsu::raw::element_type<
+				alda::raw::element_type<
 					alda::bindings::bool_::wrapped_type
 				>
 			>(
@@ -58,7 +56,7 @@ place(
 			)
 		:
 			fcppt::literal<
-				majutsu::raw::element_type<
+				alda::raw::element_type<
 					alda::bindings::bool_::wrapped_type
 				>
 			>(
@@ -69,76 +67,49 @@ place(
 	);
 }
 
-inline
-majutsu::raw::element_type<
-	alda::bindings::bool_
->
-make(
-	majutsu::dispatch_type<
-		alda::bindings::bool_
-	>,
-	majutsu::raw::const_pointer const _data
-)
-{
-	return
-		majutsu::raw::make<
-			alda::bindings::bool_::wrapped_type
-		>(
-			_data
-		)
-		!=
-		fcppt::literal<
-			majutsu::raw::element_type<
-				alda::bindings::bool_::wrapped_type
-			>
-		>(
-			0
-		);
-}
-
 template<
 	typename Stream
 >
-majutsu::raw::stream::result<
+alda::raw::stream::result<
 	Stream,
 	alda::bindings::bool_
 >
 make_generic(
-	majutsu::dispatch_type<
+	alda::raw::dispatch_type<
 		alda::bindings::bool_
 	>,
-	majutsu::dispatch_type<
+	alda::raw::dispatch_type<
 		Stream
 	>,
-	majutsu::raw::stream::reference<
+	alda::raw::stream::reference<
 		Stream
 	> _stream
 )
 {
 	return
-		majutsu::raw::stream::bind<
+		alda::raw::stream::bind<
 			Stream
 		>(
-			majutsu::raw::make_generic<
+			alda::raw::make_generic<
 				Stream,
 				alda::bindings::bool_::wrapped_type
 			>(
 				_stream
 			),
 			[](
-				majutsu::raw::element_type<
+				alda::raw::element_type<
 					alda::bindings::bool_::wrapped_type
 				> const _element
 			)
 			{
 				return
-					majutsu::raw::stream::return_<
+					alda::raw::stream::return_<
 						Stream
 					>(
 						_element
 						!=
 						fcppt::literal<
-							majutsu::raw::element_type<
+							alda::raw::element_type<
 								alda::bindings::bool_::wrapped_type
 							>
 						>(
@@ -153,7 +124,7 @@ make_generic(
 }
 
 
-namespace majutsu
+namespace alda
 {
 namespace raw
 {
@@ -166,7 +137,7 @@ struct static_size<
 	alda::bindings::bool_
 >
 :
-majutsu::raw::static_size<
+alda::raw::static_size<
 	alda::bindings::bool_::wrapped_type
 >
 {

@@ -10,13 +10,15 @@
 #include <alda/exception.hpp>
 #include <alda/bindings/signed_decl.hpp>
 #include <alda/bindings/unsigned.hpp>
-#include <majutsu/dispatch_type.hpp>
-#include <majutsu/raw/const_pointer.hpp>
-#include <majutsu/raw/fundamental.hpp>
-#include <majutsu/raw/make.hpp>
-#include <majutsu/raw/place.hpp>
-#include <majutsu/raw/pointer.hpp>
-#include <majutsu/raw/static_size.hpp>
+#include <alda/raw/dispatch_type.hpp>
+#include <alda/raw/make_generic.hpp>
+#include <alda/raw/place.hpp>
+#include <alda/raw/pointer.hpp>
+#include <alda/raw/static_size.hpp>
+#include <alda/raw/stream/bind.hpp>
+#include <alda/raw/stream/reference.hpp>
+#include <alda/raw/stream/result.hpp>
+#include <alda/raw/stream/return.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/endianness/format.hpp>
@@ -40,14 +42,14 @@ template<
 >
 void
 place(
-	majutsu::dispatch_type<
+	alda::raw::dispatch_type<
 		alda::bindings::signed_<
 			Type,
 			Endianness
 		>
 	>,
 	Type const &_value,
-	majutsu::raw::pointer const _mem
+	alda::raw::pointer const _mem
 )
 {
 	typedef
@@ -117,7 +119,7 @@ place(
 			)
 	);
 
-	majutsu::raw::place<
+	alda::raw::place<
 		alda::bindings::unsigned_<
 			unsigned_type,
 			Endianness
@@ -129,82 +131,105 @@ place(
 }
 
 template<
+	typename Stream,
 	typename Type,
 	fcppt::endianness::format Endianness
 >
-Type
-make(
-	majutsu::dispatch_type<
+alda::raw::stream::result<
+	Stream,
+	alda::bindings::signed_<
+		Type,
+		Endianness
+	>
+>
+make_generic(
+	alda::raw::dispatch_type<
 		alda::bindings::signed_<
 			Type,
 			Endianness
 		>
 	>,
-	majutsu::raw::const_pointer const _beg
+	alda::raw::dispatch_type<
+		Stream
+	>,
+	alda::raw::stream::reference<
+		Stream
+	> _stream
 )
 {
 	typedef
 	typename
-	std::make_unsigned<
-		Type
-	>::type
+	alda::bindings::signed_<
+		Type,
+		Endianness
+	>::impl
 	unsigned_type;
 
-	unsigned_type const converted(
-		majutsu::raw::make<
-			alda::bindings::unsigned_<
-				unsigned_type,
-				Endianness
-			>
-		>(
-			_beg
-		)
-	);
-
-	Type const max(
-		std::numeric_limits<
-			Type
-		>::max()
-	);
-
-	unsigned_type const converted_max(
-		static_cast<
-			unsigned_type
-		>(
-			max
-		)
-	);
-
 	return
-		converted
-		>
-		converted_max
-		?
-			static_cast<
-				Type
+		alda::raw::stream::bind<
+			Stream
+		>(
+			alda::raw::make_generic<
+				Stream,
+				unsigned_type
 			>(
-				-
-				static_cast<
-					Type
-				>(
-					converted
-					-
-					converted_max
-				)
+				_stream
+			),
+			[](
+				alda::raw::element_type<
+					unsigned_type
+				> const _converted
 			)
-		:
-			static_cast<
-				Type
-			>(
-				converted
-			)
-		;
+			{
+				Type const max(
+					std::numeric_limits<
+						Type
+					>::max()
+				);
+
+				unsigned_type const converted_max(
+					static_cast<
+						unsigned_type
+					>(
+						max
+					)
+				);
+
+				return
+					alda::raw::stream::return_<
+						Stream
+					>(
+						_converted
+						>
+						converted_max
+						?
+							static_cast<
+								Type
+							>(
+								-
+								static_cast<
+									Type
+								>(
+									_converted
+									-
+									converted_max
+								)
+							)
+						:
+							static_cast<
+								Type
+							>(
+								_converted
+							)
+					);
+			}
+		);
 }
 
 }
 }
 
-namespace majutsu
+namespace alda
 {
 namespace raw
 {
@@ -223,10 +248,12 @@ struct static_size<
 	>
 >
 :
-majutsu::raw::static_size<
-	majutsu::raw::fundamental<
-		Type
-	>
+alda::raw::static_size<
+	typename
+	alda::bindings::signed_<
+		Type,
+		Endianness
+	>::impl
 >
 {
 };

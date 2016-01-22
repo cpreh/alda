@@ -8,11 +8,10 @@
 #define ALDA_SERIALIZATION_SERIALIZE_HPP_INCLUDED
 
 #include <alda/message/base_decl.hpp>
+#include <alda/raw/buffer.hpp>
+#include <alda/serialization/buffer_to_stream.hpp>
 #include <alda/serialization/ostream.hpp>
-#include <fcppt/cast/to_char_ptr.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <ostream>
-#include <fcppt/config/external_end.hpp>
+#include <alda/serialization/write_id.hpp>
 
 
 namespace alda
@@ -32,17 +31,14 @@ serialize(
 	> const &_message
 )
 {
-	_stream.write(
-		fcppt::cast::to_char_ptr<
-			alda::serialization::ostream::char_type const *
-		>(
-			_message.data()
-		),
-		static_cast<
-			std::streamsize
-		>(
-			_message.size()
-		)
+	alda::serialization::write_id(
+		_stream,
+		_message
+	);
+
+	alda::serialization::buffer_to_stream(
+		_stream,
+		_message.to_buffer()
 	);
 }
 

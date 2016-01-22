@@ -7,10 +7,9 @@
 #ifndef ALDA_MESSAGE_MAKE_ID_HPP_INCLUDED
 #define ALDA_MESSAGE_MAKE_ID_HPP_INCLUDED
 
-#include <alda/message/id_binding.hpp>
 #include <alda/message/make_id_fwd.hpp>
-#include <majutsu/role.hpp>
-#include <majutsu/raw/constant.hpp>
+
+// TODO
 
 
 #endif

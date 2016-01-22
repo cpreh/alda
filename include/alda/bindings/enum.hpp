@@ -8,18 +8,16 @@
 #define ALDA_BINDINGS_ENUM_HPP_INCLUDED
 
 #include <alda/bindings/enum_decl.hpp>
-#include <majutsu/dispatch_type.hpp>
-#include <majutsu/raw/const_pointer.hpp>
-#include <majutsu/raw/element_type.hpp>
-#include <majutsu/raw/make.hpp>
-#include <majutsu/raw/make_generic.hpp>
-#include <majutsu/raw/place.hpp>
-#include <majutsu/raw/pointer.hpp>
-#include <majutsu/raw/static_size.hpp>
-#include <majutsu/raw/stream/bind.hpp>
-#include <majutsu/raw/stream/reference.hpp>
-#include <majutsu/raw/stream/result.hpp>
-#include <majutsu/raw/stream/return.hpp>
+#include <alda/raw/dispatch_type.hpp>
+#include <alda/raw/element_type.hpp>
+#include <alda/raw/make_generic.hpp>
+#include <alda/raw/place.hpp>
+#include <alda/raw/pointer.hpp>
+#include <alda/raw/static_size.hpp>
+#include <alda/raw/stream/bind.hpp>
+#include <alda/raw/stream/reference.hpp>
+#include <alda/raw/stream/result.hpp>
+#include <alda/raw/stream/return.hpp>
 #include <fcppt/cast_to_enum.hpp>
 #include <fcppt/cast/enum_to_int.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -39,26 +37,26 @@ template<
 inline
 void
 place(
-	majutsu::dispatch_type<
+	alda::raw::dispatch_type<
 		alda::bindings::enum_<
 			Enum,
 			Adapted
 		>
 	>,
-	majutsu::raw::element_type<
+	alda::raw::element_type<
 		alda::bindings::enum_<
 			Enum,
 			Adapted
 		>
 	> const &_enum,
-	majutsu::raw::pointer const _mem
+	alda::raw::pointer const _mem
 )
 {
-	majutsu::raw::place<
+	alda::raw::place<
 		Adapted
 	>(
 		fcppt::cast::enum_to_int<
-			majutsu::raw::element_type<
+			alda::raw::element_type<
 				Adapted
 			>
 		>(
@@ -69,45 +67,12 @@ place(
 }
 
 template<
-	typename Enum,
-	typename Adapted
->
-inline
-majutsu::raw::element_type<
-	alda::bindings::enum_<
-		Enum,
-		Adapted
-	>
->
-make(
-	majutsu::dispatch_type<
-		alda::bindings::enum_<
-			Enum,
-			Adapted
-		>
-	>,
-	majutsu::raw::const_pointer const _beg
-)
-{
-	return
-		fcppt::cast_to_enum<
-			Enum
-		>(
-			majutsu::raw::make<
-				Adapted
-			>(
-				_beg
-			)
-		);
-}
-
-template<
 	typename Stream,
 	typename Enum,
 	typename Adapted
 >
 inline
-majutsu::raw::stream::result<
+alda::raw::stream::result<
 	Stream,
 	alda::bindings::enum_<
 		Enum,
@@ -115,38 +80,38 @@ majutsu::raw::stream::result<
 	>
 >
 make_generic(
-	majutsu::dispatch_type<
+	alda::raw::dispatch_type<
 		alda::bindings::enum_<
 			Enum,
 			Adapted
 		>
 	>,
-	majutsu::dispatch_type<
+	alda::raw::dispatch_type<
 		Stream
 	>,
-	majutsu::raw::stream::reference<
+	alda::raw::stream::reference<
 		Stream
 	> _stream
 )
 {
 	return
-		majutsu::raw::stream::bind<
+		alda::raw::stream::bind<
 			Stream
 		>(
-			majutsu::raw::make_generic<
+			alda::raw::make_generic<
 				Stream,
 				Adapted
 			>(
 				_stream
 			),
 			[](
-				majutsu::raw::element_type<
+				alda::raw::element_type<
 					Adapted
 				> const _element
 			)
 			{
 				return
-					majutsu::raw::stream::return_<
+					alda::raw::stream::return_<
 						Stream
 					>(
 						fcppt::cast_to_enum<
@@ -162,7 +127,7 @@ make_generic(
 }
 }
 
-namespace majutsu
+namespace alda
 {
 namespace raw
 {
@@ -181,7 +146,7 @@ struct static_size<
 	>
 >
 :
-majutsu::raw::static_size<
+alda::raw::static_size<
 	Adapted
 >
 {

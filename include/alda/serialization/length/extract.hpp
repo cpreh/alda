@@ -28,7 +28,8 @@ namespace length
 template<
 	typename LengthType
 >
-typename boost::enable_if<
+typename
+boost::enable_if<
 	std::is_unsigned<
 		LengthType
 	>,
@@ -40,9 +41,11 @@ extract(
 	alda::serialization::istream &_stream
 )
 {
-	typedef fcppt::optional::object<
+	typedef
+	fcppt::optional::object<
 		LengthType
-	> return_type;
+	>
+	return_type;
 
 	// in_avail can return showmanyc(), which can return -1
 	return
@@ -63,7 +66,8 @@ extract(
 			>(
 				_stream,
 				alda::serialization::endianness()
-			);
+			)
+		;
 }
 
 }

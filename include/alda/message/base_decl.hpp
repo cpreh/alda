@@ -11,8 +11,7 @@
 #include <alda/detail/external_symbol.hpp>
 #include <alda/message/base_fwd.hpp>
 #include <alda/message/base_unique_ptr.hpp>
-#include <majutsu/raw/const_pointer.hpp>
-#include <majutsu/raw/size_type.hpp>
+#include <alda/raw/buffer_fwd.hpp>
 
 
 namespace alda
@@ -57,14 +56,6 @@ public:
 	type_enum;
 
 	typedef
-	majutsu::raw::const_pointer
-	const_raw_pointer;
-
-	typedef
-	majutsu::raw::size_type
-	size_type;
-
-	typedef
 	typename
 	alda::message::base_unique_ptr<
 		TypeEnum
@@ -79,12 +70,8 @@ public:
 	type() const = 0;
 
 	virtual
-	const_raw_pointer
-	data() const = 0;
-
-	virtual
-	size_type
-	size() const = 0;
+	alda::raw::buffer
+	to_buffer() const = 0;
 
 	virtual
 	unique_ptr

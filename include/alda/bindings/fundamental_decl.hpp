@@ -8,14 +8,7 @@
 #define ALDA_BINDINGS_FUNDAMENTAL_DECL_HPP_INCLUDED
 
 #include <alda/bindings/fundamental_fwd.hpp>
-#include <alda/bindings/signed_decl.hpp>
-#include <alda/bindings/unsigned_decl.hpp>
-#include <fcppt/endianness/format_fwd.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/if.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -25,32 +18,22 @@ namespace alda
 namespace bindings
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
-	typename Type,
-	fcppt::endianness::format Endianness
+	typename Type
 >
 struct fundamental
-:
-boost::mpl::if_<
-	std::is_signed<
-		Type
-	>,
-	alda::bindings::signed_<
-		Type,
-		Endianness
-	>,
-	alda::bindings::unsigned_<
-		Type,
-		Endianness
-	>
->::type
 {
-};
+	typedef
+	Type
+	element_type;
 
-FCPPT_PP_POP_WARNING
+	static_assert(
+		std::is_fundamental<
+			Type
+		>::value,
+		"T must be fundamental"
+	);
+};
 
 }
 }

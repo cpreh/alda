@@ -7,7 +7,7 @@
 #ifndef ALDA_MESSAGE_ID_BINDING_FWD_HPP_INCLUDED
 #define ALDA_MESSAGE_ID_BINDING_FWD_HPP_INCLUDED
 
-#include <alda/bindings/fundamental_fwd.hpp>
+#include <alda/bindings/unsigned_fwd.hpp>
 #include <alda/serialization/endianness.hpp>
 #include <alda/serialization/detail/message_int_type.hpp>
 
@@ -18,7 +18,7 @@ namespace message
 {
 
 typedef
-alda::bindings::fundamental<
+alda::bindings::unsigned_<
 	alda::serialization::detail::message_int_type,
 	alda::serialization::endianness()
 >

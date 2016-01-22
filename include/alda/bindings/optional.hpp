@@ -9,19 +9,19 @@
 
 #include <alda/bindings/bool.hpp>
 #include <alda/bindings/optional_decl.hpp>
-#include <majutsu/dispatch_type.hpp>
-#include <majutsu/raw/const_pointer.hpp>
-#include <majutsu/raw/element_type.hpp>
-#include <majutsu/raw/make.hpp>
-#include <majutsu/raw/make_generic.hpp>
-#include <majutsu/raw/needed_size.hpp>
-#include <majutsu/raw/place.hpp>
-#include <majutsu/raw/pointer.hpp>
-#include <majutsu/raw/size_type.hpp>
-#include <majutsu/raw/stream/bind.hpp>
-#include <majutsu/raw/stream/reference.hpp>
-#include <majutsu/raw/stream/result.hpp>
-#include <majutsu/raw/stream/return.hpp>
+#include <alda/raw/dispatch_type.hpp>
+#include <alda/raw/element_type.hpp>
+#include <alda/raw/make_generic.hpp>
+#include <alda/raw/needed_size.hpp>
+#include <alda/raw/needed_size_static.hpp>
+#include <alda/raw/place.hpp>
+#include <alda/raw/place_and_update.hpp>
+#include <alda/raw/pointer.hpp>
+#include <alda/raw/size_type.hpp>
+#include <alda/raw/stream/bind.hpp>
+#include <alda/raw/stream/reference.hpp>
+#include <alda/raw/stream/result.hpp>
+#include <alda/raw/stream/return.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
@@ -42,19 +42,19 @@ template<
 >
 void
 place(
-	majutsu::dispatch_type<
+	alda::raw::dispatch_type<
 		alda::bindings::optional<
 			Type,
 			Adapted
 		>
 	>,
-	majutsu::raw::element_type<
+	alda::raw::element_type<
 		alda::bindings::optional<
 			Type,
 			Adapted
 		>
 	> const &_opt_value,
-	majutsu::raw::pointer _mem
+	alda::raw::pointer _mem
 )
 {
 	typedef
@@ -69,25 +69,12 @@ place(
 	binding::bool_type
 	bool_type;
 
-	majutsu::raw::element_type<
-		bool_type
-	> const has_value(
-		_opt_value.has_value()
-	);
-
-	majutsu::raw::place<
+	alda::raw::place_and_update<
 		bool_type
 	>(
-		has_value,
+		_opt_value.has_value(),
 		_mem
 	);
-
-	_mem +=
-		majutsu::raw::needed_size<
-			bool_type
-		>(
-			has_value
-		);
 
 	fcppt::optional::maybe_void(
 		_opt_value,
@@ -97,7 +84,7 @@ place(
 			Type const &_value
 		)
 		{
-			majutsu::raw::place<
+			alda::raw::place<
 				Adapted
 			>(
 				_value,
@@ -108,80 +95,11 @@ place(
 }
 
 template<
-	typename Type,
-	typename Adapted
->
-majutsu::raw::element_type<
-	alda::bindings::optional<
-		Type,
-		Adapted
-	>
->
-make(
-	majutsu::dispatch_type<
-		alda::bindings::optional<
-			Type,
-			Adapted
-		>
-	>,
-	majutsu::raw::const_pointer _mem
-)
-{
-	typedef
-	alda::bindings::optional<
-		Type,
-		Adapted
-	>
-	binding;
-
-	typedef
-	typename
-	binding::bool_type
-	bool_type;
-
-	majutsu::raw::element_type<
-		bool_type
-	> const has_value(
-		majutsu::raw::make<
-			bool_type
-		>(
-			_mem
-		)
-	);
-
-	if(
-		!has_value
-	)
-		return
-			fcppt::optional::object<
-				Type
-			>();
-
-	_mem +=
-		majutsu::raw::needed_size<
-			bool_type
-		>(
-			has_value
-		);
-
-	return
-		fcppt::optional::object<
-			Type
-		>(
-			majutsu::raw::make<
-				Adapted
-			>(
-				_mem
-			)
-		);
-}
-
-template<
 	typename Stream,
 	typename Type,
 	typename Adapted
 >
-majutsu::raw::stream::result<
+alda::raw::stream::result<
 	Stream,
 	alda::bindings::optional<
 		Type,
@@ -189,16 +107,16 @@ majutsu::raw::stream::result<
 	>
 >
 make_generic(
-	majutsu::dispatch_type<
+	alda::raw::dispatch_type<
 		alda::bindings::optional<
 			Type,
 			Adapted
 		>
 	>,
-	majutsu::dispatch_type<
+	alda::raw::dispatch_type<
 		Stream
 	>,
-	majutsu::raw::stream::reference<
+	alda::raw::stream::reference<
 		Stream
 	> _stream
 )
@@ -212,10 +130,10 @@ make_generic(
 	bool_type;
 
 	return
-		majutsu::raw::stream::bind<
+		alda::raw::stream::bind<
 			Stream
 		>(
-			majutsu::raw::make_generic<
+			alda::raw::make_generic<
 				Stream,
 				bool_type
 			>(
@@ -224,7 +142,7 @@ make_generic(
 			[
 				&_stream
 			](
-				majutsu::raw::element_type<
+				alda::raw::element_type<
 					bool_type
 				> const _has_value
 			)
@@ -232,23 +150,23 @@ make_generic(
 				return
 					_has_value
 					?
-						majutsu::raw::stream::bind<
+						alda::raw::stream::bind<
 							Stream
 						>(
-							majutsu::raw::make_generic<
+							alda::raw::make_generic<
 								Stream,
 								Adapted
 							>(
 								_stream
 							),
 							[](
-								majutsu::raw::element_type<
+								alda::raw::element_type<
 									Adapted
 								> &&_inner
 							)
 							{
 								return
-									majutsu::raw::stream::return_<
+									alda::raw::stream::return_<
 										Stream
 									>(
 										fcppt::optional::object<
@@ -262,7 +180,7 @@ make_generic(
 							}
 						)
 					:
-						majutsu::raw::stream::return_<
+						alda::raw::stream::return_<
 							Stream
 						>(
 							fcppt::optional::object<
@@ -278,15 +196,15 @@ template<
 	typename Type,
 	typename Adapted
 >
-majutsu::raw::size_type
+alda::raw::size_type
 needed_size(
-	majutsu::dispatch_type<
+	alda::raw::dispatch_type<
 		alda::bindings::optional<
 			Type,
 			Adapted
 		>
 	>,
-	majutsu::raw::element_type<
+	alda::raw::element_type<
 		alda::bindings::optional<
 			Type,
 			Adapted
@@ -306,18 +224,10 @@ needed_size(
 	binding::bool_type
 	bool_type;
 
-	majutsu::raw::element_type<
-		bool_type
-	> const has_value(
-		_opt_value.has_value()
-	);
-
-	majutsu::raw::size_type ret(
-		majutsu::raw::needed_size<
+	alda::raw::size_type const ret(
+		alda::raw::needed_size_static<
 			bool_type
-		>(
-			has_value
-		)
+		>()
 	);
 
 	return
@@ -335,7 +245,7 @@ needed_size(
 				return
 					ret
 					+
-					majutsu::raw::needed_size<
+					alda::raw::needed_size<
 						Adapted
 					>(
 						_value

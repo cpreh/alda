@@ -7,12 +7,11 @@
 #ifndef ALDA_SERIALIZATION_DETAIL_DISPATCH_REGISTER_IMPL_HPP_INCLUDED
 #define ALDA_SERIALIZATION_DETAIL_DISPATCH_REGISTER_IMPL_HPP_INCLUDED
 
-#include <alda/message/roles/type.hpp>
+#include <alda/message/detail/extract_id.hpp>
 #include <alda/serialization/context_decl.hpp>
 #include <alda/serialization/detail/dispatch/base_decl.hpp>
 #include <alda/serialization/detail/dispatch/concrete_decl.hpp>
 #include <alda/serialization/detail/dispatch/register_decl.hpp>
-#include <majutsu/raw/extract_constant.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -36,10 +35,8 @@ alda::serialization::detail::dispatch::register_<
 )
 {
 	typedef
-	majutsu::raw::extract_constant<
-		typename
-		Message::types,
-		alda::message::roles::type
+	alda::message::detail::extract_id<
+		Message
 	>
 	constant_value;
 

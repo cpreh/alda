@@ -1,13 +1,14 @@
 #include <alda/bindings/array.hpp>
 #include <alda/bindings/dynamic_len.hpp>
 #include <alda/bindings/fundamental.hpp>
+#include <alda/bindings/unsigned.hpp>
 #include <alda/bindings/static.hpp>
+#include <alda/raw/make_generic.hpp>
+#include <alda/raw/record_variadic.hpp>
+#include <alda/raw/stream/istream.hpp>
+#include <majutsu/get.hpp>
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
-#include <majutsu/raw/make_generic.hpp>
-#include <majutsu/raw/record_variadic.hpp>
-#include <majutsu/raw/stream/istream.hpp>
-#include <fcppt/cast/size.hpp>
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/static.hpp>
@@ -46,14 +47,13 @@ main(
 	alda::bindings::array<
 		string,
 		alda::bindings::fundamental<
-			char,
-			fcppt::endianness::format::little
+			char
 		>
 	>
 	string_binding;
 
 	typedef
-	alda::bindings::fundamental<
+	alda::bindings::unsigned_<
 		std::uint16_t,
 		fcppt::endianness::format::little
 	>
@@ -82,7 +82,7 @@ main(
 	actor_pos_binding;
 
 	typedef
-	majutsu::raw::record_variadic<
+	alda::raw::record_variadic<
 		majutsu::role<
 			ui16le_binding,
 			actor_type_role
@@ -102,22 +102,6 @@ main(
 
 	struct actor_size_policy
 	{
-		static
-		std::uint16_t
-		place(
-			actor_vector const &_actors
-		)
-		{
-			return
-				fcppt::cast::size<
-					std::uint16_t
-				>(
-					_actors.size()
-					*
-					3u
-				);
-		}
-
 		static
 		std::uint16_t
 		make(
@@ -151,8 +135,7 @@ main(
 			480
 		>,
 		alda::bindings::fundamental<
-			std::uint8_t,
-			fcppt::endianness::format::little
+			std::uint8_t
 		>
 	>
 	unknown_binding;
@@ -213,7 +196,7 @@ main(
 	);
 
 	typedef
-	majutsu::raw::record_variadic<
+	alda::raw::record_variadic<
 		majutsu::role<
 			string_binding,
 			mask_tiles_role
@@ -296,8 +279,8 @@ main(
 	}
 
 	fcppt::optional::maybe(
-		majutsu::raw::make_generic<
-			majutsu::raw::stream::istream,
+		alda::raw::make_generic<
+			alda::raw::stream::istream,
 			level
 		>(
 			input

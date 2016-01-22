@@ -6,15 +6,15 @@
 
 #include <alda/exception.hpp>
 #include <alda/type_enum_fcppt.hpp>
-#include <alda/bindings/fundamental.hpp>
+#include <alda/bindings/unsigned.hpp>
 #include <alda/call/object.hpp>
 #include <alda/message/base_decl.hpp>
 #include <alda/message/base_unique_ptr.hpp>
 #include <alda/message/instantiate_base.hpp>
 #include <alda/message/instantiate_concrete.hpp>
-#include <alda/message/make_class.hpp>
 #include <alda/message/make_concrete_ptr.hpp>
 #include <alda/message/make_id.hpp>
+#include <alda/message/record.hpp>
 #include <alda/serialization/context_fwd.hpp>
 #include <alda/serialization/define_context_function.hpp>
 #include <alda/serialization/deserialize.hpp>
@@ -23,7 +23,6 @@
 #include <alda/serialization/instantiate_message.hpp>
 #include <alda/serialization/register_message.hpp>
 #include <alda/serialization/serialize.hpp>
-#include <alda/serialization/load/static_size.hpp>
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
 #include <fcppt/text.hpp>
@@ -76,14 +75,14 @@ fcppt::endianness::format const endianness{
 };
 
 typedef
-alda::bindings::fundamental<
+alda::bindings::unsigned_<
 	std::uint16_t,
 	endianness
 >
 uint16_type;
 
 typedef
-alda::bindings::fundamental<
+alda::bindings::unsigned_<
 	std::uint32_t,
 	endianness
 >
@@ -98,12 +97,12 @@ MAJUTSU_MAKE_ROLE_TAG(
 );
 
 typedef
-alda::message::make_class<
-	boost::mpl::vector2<
-		alda::message::make_id<
-			type_enum,
-			message_type::message1
-		>,
+alda::message::record<
+	alda::message::make_id<
+		type_enum,
+		message_type::message1
+	>,
+	boost::mpl::vector1<
 		majutsu::role<
 			uint16_type,
 			uint16_role
@@ -113,12 +112,12 @@ alda::message::make_class<
 message1;
 
 typedef
-alda::message::make_class<
-	boost::mpl::vector2<
-		alda::message::make_id<
-			type_enum,
-			message_type::message2
-		>,
+alda::message::record<
+	alda::message::make_id<
+		type_enum,
+		message_type::message2
+	>,
+	boost::mpl::vector1<
 		majutsu::role<
 			uint32_type,
 			uint32_role
@@ -289,14 +288,16 @@ FCPPT_PP_POP_WARNING
 		ofs.str()
 	);
 
-	typedef alda::call::object<
+	typedef
+	alda::call::object<
 		type_enum,
 		boost::mpl::vector2<
 			message1,
 			message2
 		>,
 		dispatcher_function
-	> dispatcher;
+	>
+	dispatcher;
 
 	dispatcher const dispatcher_object;
 

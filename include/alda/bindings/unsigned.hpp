@@ -7,15 +7,18 @@
 #ifndef ALDA_BINDINGS_UNSIGNED_HPP_INCLUDED
 #define ALDA_BINDINGS_UNSIGNED_HPP_INCLUDED
 
+#include <alda/bindings/fundamental.hpp>
 #include <alda/bindings/unsigned_decl.hpp>
-#include <majutsu/dispatch_type.hpp>
-#include <majutsu/raw/const_pointer.hpp>
-#include <majutsu/raw/element_type.hpp>
-#include <majutsu/raw/fundamental.hpp>
-#include <majutsu/raw/make.hpp>
-#include <majutsu/raw/place.hpp>
-#include <majutsu/raw/pointer.hpp>
-#include <majutsu/raw/static_size.hpp>
+#include <alda/raw/dispatch_type.hpp>
+#include <alda/raw/element_type.hpp>
+#include <alda/raw/make_generic.hpp>
+#include <alda/raw/place.hpp>
+#include <alda/raw/pointer.hpp>
+#include <alda/raw/static_size.hpp>
+#include <alda/raw/stream/bind.hpp>
+#include <alda/raw/stream/reference.hpp>
+#include <alda/raw/stream/result.hpp>
+#include <alda/raw/stream/return.hpp>
 #include <fcppt/endianness/convert.hpp>
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -35,25 +38,27 @@ template<
 inline
 void
 place(
-	majutsu::dispatch_type<
+	alda::raw::dispatch_type<
 		alda::bindings::unsigned_<
 			Type,
 			Endianness
 		>
 	>,
-	majutsu::raw::element_type<
+	alda::raw::element_type<
 		alda::bindings::unsigned_<
 			Type,
 			Endianness
 		>
 	> const &_type,
-	majutsu::raw::pointer const _mem
+	alda::raw::pointer const _mem
 )
 {
-	majutsu::raw::place<
-		majutsu::raw::fundamental<
-			Type
-		>
+	alda::raw::place<
+		typename
+		alda::bindings::unsigned_<
+			Type,
+			Endianness
+		>::impl
 	>(
 		fcppt::endianness::convert(
 			_type,
@@ -64,43 +69,74 @@ place(
 }
 
 template<
+	typename Stream,
 	typename Type,
 	fcppt::endianness::format Endianness
 >
 inline
-majutsu::raw::element_type<
+alda::raw::stream::result<
+	Stream,
 	alda::bindings::unsigned_<
 		Type,
 		Endianness
 	>
 >
-make(
-	majutsu::dispatch_type<
+make_generic(
+	alda::raw::dispatch_type<
 		alda::bindings::unsigned_<
 			Type,
 			Endianness
 		>
 	>,
-	majutsu::raw::const_pointer const _beg
+	alda::raw::dispatch_type<
+		Stream
+	>,
+	alda::raw::stream::reference<
+		Stream
+	> _stream
 )
 {
+	typedef
+	typename
+	alda::bindings::unsigned_<
+		Type,
+		Endianness
+	>::impl
+	impl_type;
+
 	return
-		fcppt::endianness::convert(
-			majutsu::raw::make<
-				majutsu::raw::fundamental<
-					Type
-				>
+		alda::raw::stream::bind<
+			Stream
+		>(
+			alda::raw::make_generic<
+				Stream,
+				impl_type
 			>(
-				_beg
+				_stream
 			),
-			Endianness
+			[](
+				alda::raw::element_type<
+					impl_type
+				> const _value
+			)
+			{
+				return
+					alda::raw::stream::return_<
+						Stream
+					>(
+						fcppt::endianness::convert(
+							_value,
+							Endianness
+						)
+					);
+			}
 		);
 }
 
 }
 }
 
-namespace majutsu
+namespace alda
 {
 namespace raw
 {
@@ -119,10 +155,12 @@ struct static_size<
 	>
 >
 :
-majutsu::raw::static_size<
-	majutsu::raw::fundamental<
-		Type
-	>
+alda::raw::static_size<
+	typename
+	alda::bindings::unsigned_<
+		Type,
+		Endianness
+	>::impl
 >
 {
 };

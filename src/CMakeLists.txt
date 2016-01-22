@@ -95,14 +95,15 @@ set(
 	include/alda/message/impl/concrete_impl.hpp
 	include/alda/message/instantiate_base.hpp
 	include/alda/message/instantiate_concrete.hpp
-	include/alda/message/make_class.hpp
-	include/alda/message/make_class_fwd.hpp
 	include/alda/message/make_concrete_ptr.hpp
 	include/alda/message/make_id.hpp
 	include/alda/message/make_id_fwd.hpp
 	include/alda/message/optional_base_unique_ptr.hpp
 	include/alda/message/optional_base_unique_ptr_fwd.hpp
-	include/alda/message/roles/type.hpp
+	include/alda/message/record.hpp
+	include/alda/message/record_decl.hpp
+	include/alda/message/record_fwd.hpp
+	include/alda/message/record_impl.hpp
 	include/alda/net/buffer/circular_receive/for_asio.hpp
 	include/alda/net/buffer/circular_receive/object.hpp
 	include/alda/net/buffer/circular_receive/object_fwd.hpp
@@ -149,6 +150,48 @@ set(
 	include/alda/net/server/object_fwd.hpp
 	include/alda/net/size_type.hpp
 	include/alda/net/value_type.hpp
+	include/alda/raw/buffer.hpp
+	include/alda/raw/buffer_fwd.hpp
+	include/alda/raw/combine_static_sizes.hpp
+	include/alda/raw/const_pointer.hpp
+	include/alda/raw/data.hpp
+	include/alda/raw/detail/copy_n.hpp
+	include/alda/raw/detail/dynamic_size.hpp
+	include/alda/raw/detail/inner_types.hpp
+	include/alda/raw/detail/is_static_size.hpp
+	include/alda/raw/dispatch_type.hpp
+	include/alda/raw/dispatch_value.hpp
+	include/alda/raw/element_type.hpp
+	include/alda/raw/element_type_tpl.hpp
+	include/alda/raw/integral_size.hpp
+	include/alda/raw/is_static_size.hpp
+	include/alda/raw/make_generic.hpp
+	include/alda/raw/needed_size.hpp
+	include/alda/raw/needed_size_static.hpp
+	include/alda/raw/place.hpp
+	include/alda/raw/place_and_update.hpp
+	include/alda/raw/pointer.hpp
+	include/alda/raw/record.hpp
+	include/alda/raw/record_binding.hpp
+	include/alda/raw/record_decl.hpp
+	include/alda/raw/record_fwd.hpp
+	include/alda/raw/record_impl.hpp
+	include/alda/raw/record_variadic.hpp
+	include/alda/raw/record_variadic_fwd.hpp
+	include/alda/raw/size_type.hpp
+	include/alda/raw/static_size.hpp
+	include/alda/raw/stream/bind.hpp
+	include/alda/raw/stream/istream.hpp
+	include/alda/raw/stream/istream_fwd.hpp
+	include/alda/raw/stream/memory.hpp
+	include/alda/raw/stream/memory_fwd.hpp
+	include/alda/raw/stream/read.hpp
+	include/alda/raw/stream/reference.hpp
+	include/alda/raw/stream/result.hpp
+	include/alda/raw/stream/return.hpp
+	include/alda/raw/stream/return_if.hpp
+	include/alda/raw/to_buffer.hpp
+	include/alda/serialization/buffer_to_stream.hpp
 	include/alda/serialization/context_decl.hpp
 	include/alda/serialization/context_fwd.hpp
 	include/alda/serialization/define_context_function.hpp
@@ -162,14 +205,9 @@ set(
 	include/alda/serialization/detail/dispatch/register_decl.hpp
 	include/alda/serialization/detail/dispatch/register_fwd.hpp
 	include/alda/serialization/detail/dispatch/register_impl.hpp
-	include/alda/serialization/detail/load_variant.hpp
 	include/alda/serialization/detail/message_int_type.hpp
 	include/alda/serialization/detail/raw_container.hpp
 	include/alda/serialization/detail/raw_container_fwd.hpp
-	include/alda/serialization/detail/read/element_decl.hpp
-	include/alda/serialization/detail/read/element_fwd.hpp
-	include/alda/serialization/detail/read/element_impl.hpp
-	include/alda/serialization/detail/read/make_object.hpp
 	include/alda/serialization/detail/read/object_decl.hpp
 	include/alda/serialization/detail/read/object_functions_impl.hpp
 	include/alda/serialization/detail/read/object_fwd.hpp
@@ -185,14 +223,10 @@ set(
 	include/alda/serialization/length/extract.hpp
 	include/alda/serialization/length/put.hpp
 	include/alda/serialization/length/serialize.hpp
-	include/alda/serialization/load/dynamic_len.hpp
-	include/alda/serialization/load/fwd.hpp
-	include/alda/serialization/load/optional.hpp
-	include/alda/serialization/load/static_size.hpp
-	include/alda/serialization/load/variant.hpp
 	include/alda/serialization/ostream.hpp
 	include/alda/serialization/register_message.hpp
 	include/alda/serialization/serialize.hpp
+	include/alda/serialization/write.hpp
 	include/alda/type_enum.hpp
 	include/alda/type_enum_fcppt.hpp
 	include/alda/type_enum_fcppt_fwd.hpp

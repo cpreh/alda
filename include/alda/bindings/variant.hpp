@@ -10,14 +10,18 @@
 #include <alda/bindings/invalid_variant.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <alda/bindings/variant_decl.hpp>
-#include <majutsu/dispatch_type.hpp>
-#include <majutsu/raw/const_pointer.hpp>
-#include <majutsu/raw/element_type.hpp>
-#include <majutsu/raw/make.hpp>
-#include <majutsu/raw/needed_size.hpp>
-#include <majutsu/raw/place.hpp>
-#include <majutsu/raw/pointer.hpp>
-#include <majutsu/raw/size_type.hpp>
+#include <alda/raw/dispatch_type.hpp>
+#include <alda/raw/element_type.hpp>
+#include <alda/raw/make_generic.hpp>
+#include <alda/raw/needed_size.hpp>
+#include <alda/raw/place.hpp>
+#include <alda/raw/place_and_update.hpp>
+#include <alda/raw/pointer.hpp>
+#include <alda/raw/size_type.hpp>
+#include <alda/raw/stream/bind.hpp>
+#include <alda/raw/stream/reference.hpp>
+#include <alda/raw/stream/result.hpp>
+#include <alda/raw/stream/return.hpp>
 #include <fcppt/decltype_sink.hpp>
 #include <fcppt/tag_type.hpp>
 #include <fcppt/cast/truncation_check.hpp>
@@ -41,19 +45,19 @@ template<
 >
 void
 place(
-	majutsu::dispatch_type<
+	alda::raw::dispatch_type<
 		alda::bindings::variant<
 			Types,
 			AdaptedTypes
 		>
 	>,
-	majutsu::raw::element_type<
+	alda::raw::element_type<
 		alda::bindings::variant<
 			Types,
 			AdaptedTypes
 		>
 	> const &_value,
-	majutsu::raw::pointer _mem
+	alda::raw::pointer _mem
 )
 {
 	typedef
@@ -70,7 +74,7 @@ place(
 
 	auto const index(
 		fcppt::cast::truncation_check<
-			majutsu::raw::element_type<
+			alda::raw::element_type<
 				index_type
 			>
 		>(
@@ -78,19 +82,12 @@ place(
 		)
 	);
 
-	majutsu::raw::place<
+	alda::raw::place_and_update<
 		index_type
 	>(
 		index,
 		_mem
 	);
-
-	_mem +=
-		majutsu::raw::needed_size<
-			index_type
-		>(
-			index
-		);
 
 	fcppt::variant::apply_unary(
 		[
@@ -99,7 +96,7 @@ place(
 			auto const &_type
 		)
 		{
-			majutsu::raw::place<
+			alda::raw::place<
 				typename
 				boost::mpl::at<
 					AdaptedTypes,
@@ -121,23 +118,30 @@ place(
 }
 
 template<
+	typename Stream,
 	typename Types,
 	typename AdaptedTypes
 >
-majutsu::raw::element_type<
+alda::raw::stream::result<
+	Stream,
 	alda::bindings::variant<
 		Types,
 		AdaptedTypes
 	>
 >
-make(
-	majutsu::dispatch_type<
+make_generic(
+	alda::raw::dispatch_type<
 		alda::bindings::variant<
 			Types,
 			AdaptedTypes
 		>
 	>,
-	majutsu::raw::const_pointer _mem
+	alda::raw::dispatch_type<
+		Stream
+	>,
+	alda::raw::stream::reference<
+		Stream
+	> _stream
 )
 {
 	typedef
@@ -152,37 +156,36 @@ make(
 	binding::index_type
 	index_type;
 
-	auto const index(
-		majutsu::raw::make<
-			index_type
-		>(
-			_mem
-		)
-	);
-
-	_mem +=
-		majutsu::raw::needed_size<
-			index_type
-		>(
-			index
-		);
-
 	return
-		fcppt::mpl::invoke_on<
-			Types
+		alda::raw::stream::bind<
+			Stream
 		>(
-			index,
+			alda::raw::make_generic<
+				Stream,
+				index_type
+			>(
+				_stream
+			),
 			[
-				_mem
+				&_stream
 			](
-				auto const _tag
+				alda::raw::element_type<
+					index_type
+				> const _index
 			)
 			{
 				return
-					fcppt::variant::object<
+					fcppt::mpl::invoke_on<
 						Types
 					>(
-						majutsu::raw::make<
+						_index,
+						[
+							&_stream
+						](
+							auto const _tag
+						)
+						{
+							typedef
 							typename
 							boost::mpl::at<
 								AdaptedTypes,
@@ -196,36 +199,72 @@ make(
 									>
 								>::type
 							>::type
-						>(
-							_mem
-						)
+							adapted_type;
+
+							return
+								alda::raw::stream::bind<
+									Stream
+								>(
+									alda::raw::make_generic<
+										Stream,
+										adapted_type
+									>(
+										_stream
+									),
+									[](
+										alda::raw::element_type<
+											adapted_type
+										> &&_inner
+									)
+									{
+										return
+											alda::raw::stream::return_<
+												Stream
+											>(
+												fcppt::variant::object<
+													Types
+												>(
+													std::move(
+														_inner
+													)
+												)
+											);
+									}
+								);
+						},
+						[]()
+						->
+						alda::raw::stream::result<
+							Stream,
+							alda::bindings::variant<
+								Types,
+								AdaptedTypes
+							>
+						>
+						{
+							// TODO: Make it possible to fail an optional instead
+							throw
+								alda::bindings::invalid_variant();
+						}
 					);
-			},
-			[]()
-			->
-			fcppt::variant::object<
-				Types
-			>
-			{
-				throw
-					alda::bindings::invalid_variant();
 			}
 		);
 }
+
 
 template<
 	typename Types,
 	typename AdaptedTypes
 >
-majutsu::raw::size_type
+alda::raw::size_type
 needed_size(
-	majutsu::dispatch_type<
+	alda::raw::dispatch_type<
 		alda::bindings::variant<
 			Types,
 			AdaptedTypes
 		>
 	>,
-	majutsu::raw::element_type<
+	alda::raw::element_type<
 		alda::bindings::variant<
 			Types,
 			AdaptedTypes
@@ -247,7 +286,7 @@ needed_size(
 
 	auto const index(
 		fcppt::cast::truncation_check<
-			majutsu::raw::element_type<
+			alda::raw::element_type<
 				index_type
 			>
 		>(
@@ -256,7 +295,7 @@ needed_size(
 	);
 
 	return
-		majutsu::raw::needed_size<
+		alda::raw::needed_size<
 			index_type
 		>(
 			index
@@ -268,7 +307,7 @@ needed_size(
 			)
 			{
 				return
-					majutsu::raw::needed_size<
+					alda::raw::needed_size<
 						typename
 						boost::mpl::at<
 							AdaptedTypes,

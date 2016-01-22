@@ -74,8 +74,8 @@ public:
 
 		instances_[
 			alda::message::detail::extract_id<
-				typename Message::types
-			>::type::value
+				Message
+			>::value
 		] =
 			optional_base_unique_ptr(
 				fcppt::unique_ptr_to_base<

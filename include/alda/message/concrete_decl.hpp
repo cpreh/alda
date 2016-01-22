@@ -9,6 +9,9 @@
 
 #include <alda/detail/external_symbol.hpp>
 #include <alda/message/base_decl.hpp>
+#include <alda/message/is_record.hpp>
+#include <alda/message/record_decl.hpp>
+#include <alda/raw/buffer_fwd.hpp>
 
 
 namespace alda
@@ -36,6 +39,23 @@ public:
 	typename
 	base_type::type_enum
 	type_enum;
+
+	typedef
+	Type
+	record;
+
+	static_assert(
+		alda::message::is_record<
+			Type
+		>::value,
+		"Type is not an alda::message::record"
+	);
+
+	ALDA_DETAIL_EXTERNAL_SYMBOL
+	explicit
+	concrete(
+		Type &&
+	);
 
 	ALDA_DETAIL_EXTERNAL_SYMBOL
 	explicit
@@ -75,29 +95,15 @@ public:
 private:
 	typedef
 	typename
-	base_type::const_raw_pointer
-	const_raw_pointer;
-
-	typedef
-	typename
 	base_type::unique_ptr
 	unique_ptr;
-
-	typedef
-	typename
-	base_type::size_type
-	size_type;
 
 	type_enum
 	type() const
 	override;
 
-	const_raw_pointer
-	data() const
-	override;
-
-	size_type
-	size() const
+	alda::raw::buffer
+	to_buffer() const
 	override;
 
 	unique_ptr

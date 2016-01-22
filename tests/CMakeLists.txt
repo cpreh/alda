@@ -1,110 +1,116 @@
-include(
-	CMakeParseArguments
-)
-
 function(
 	ADD_ALDA_TEST
 	TESTNAME
 )
-	set(
-		MULTI_ARGS
-		ADDITIONAL_DEPS
-	)
-
-	cmake_parse_arguments(
-		""
-		""
-		""
-		"${MULTI_ARGS}"
-		${ARGN}
-	)
-
 	fcppt_utils_add_test(
 		${TESTNAME}
-		LINK_LIBS
-			${alda_TARGET}
-			${_ADDITIONAL_DEPS}
+		${ARGN}
 	)
 endfunction()
 
 add_alda_test(
-	array
-	ADDITIONAL_DEPS
-		${fcppt_core_TARGET}
-)
-
-add_alda_test(
-	bitfield
-	ADDITIONAL_DEPS
-		${fcppt_core_TARGET}
-)
-
-add_alda_test(
 	dispatch
-	ADDITIONAL_DEPS
+	LINK_LIBS
 		${fcppt_core_TARGET}
-)
-
-add_alda_test(
-	duration
-	ADDITIONAL_DEPS
-		${fcppt_core_TARGET}
-)
-
-add_alda_test(
-	dynamic_len
-	ADDITIONAL_DEPS
-		${fcppt_core_TARGET}
-)
-
-add_alda_test(
-	enum
-	ADDITIONAL_DEPS
-		${fcppt_core_TARGET}
-)
-
-add_alda_test(
-	enum_array
-	ADDITIONAL_DEPS
-		${fcppt_core_TARGET}
-)
-
-add_alda_test(
-	float
+		${alda_TARGET}
 )
 
 add_alda_test(
 	length_stream
-	ADDITIONAL_DEPS
+	LINK_LIBS
+		${fcppt_core_TARGET}
+		${alda_TARGET}
+)
+
+add_alda_test(
+	bindings/array
+	LINK_LIBS
 		${fcppt_core_TARGET}
 )
 
 add_alda_test(
-	optional
-	ADDITIONAL_DEPS
+	bindings/bitfield
+	LINK_LIBS
 		${fcppt_core_TARGET}
 )
 
 add_alda_test(
-	signed
-	ADDITIONAL_DEPS
+	bindings/duration
+	LINK_LIBS
 		${fcppt_core_TARGET}
 )
 
 add_alda_test(
-	static
-	ADDITIONAL_DEPS
+	bindings/dynamic_len
+	LINK_LIBS
 		${fcppt_core_TARGET}
 )
 
 add_alda_test(
-	strong_typedef
-	ADDITIONAL_DEPS
+	bindings/enum
+	LINK_LIBS
 		${fcppt_core_TARGET}
 )
 
 add_alda_test(
-	variant
-	ADDITIONAL_DEPS
+	bindings/enum_array
+	LINK_LIBS
+		${fcppt_core_TARGET}
+)
+
+add_alda_test(
+	bindings/float
+)
+
+add_alda_test(
+	bindings/optional
+	LINK_LIBS
+		${fcppt_core_TARGET}
+)
+
+add_alda_test(
+	bindings/signed
+	LINK_LIBS
+		${fcppt_core_TARGET}
+)
+
+add_alda_test(
+	bindings/static
+	LINK_LIBS
+		${fcppt_core_TARGET}
+)
+
+add_alda_test(
+	bindings/strong_typedef
+	LINK_LIBS
+		${fcppt_core_TARGET}
+)
+
+add_alda_test(
+	bindings/variant
+	LINK_LIBS
+		${fcppt_core_TARGET}
+)
+
+add_alda_test(
+	message/record
+)
+
+add_alda_test(
+	raw/combine_static_sizes
+	NO_CODE
+)
+
+add_alda_test(
+	raw/nested
+)
+
+add_alda_test(
+	raw/record
+)
+
+add_alda_test(
+	raw/stream
+	LINK_LIBS
 		${fcppt_core_TARGET}
 )

@@ -8,9 +8,12 @@
 #define ALDA_SERIALIZATION_DETAIL_READ_OBJECT_FUNCTIONS_IMPL_HPP_INCLUDED
 
 #include <alda/message/make_concrete_ptr.hpp>
-#include <alda/serialization/detail/read/make_object.hpp>
+#include <alda/message/record_impl.hpp>
 #include <alda/serialization/detail/read/object_decl.hpp>
+#include <alda/raw/make_generic.hpp>
+#include <alda/raw/stream/istream.hpp>
 #include <fcppt/tag.hpp>
+#include <fcppt/assert/optional_error.hpp>
 
 
 template<
@@ -19,7 +22,8 @@ template<
 template<
 	typename Message
 >
-typename alda::serialization::detail::read::object<
+typename
+alda::serialization::detail::read::object<
 	TypeEnum
 >::message_unique_ptr
 alda::serialization::detail::read::object<
@@ -34,11 +38,18 @@ alda::serialization::detail::read::object<
 		alda::message::make_concrete_ptr<
 			TypeEnum
 		>(
-			alda::serialization::detail::read::make_object<
-				Message
-			>(
-				stream_
-			)
+			Message{
+				// TODO: Don't use a stream here but raw memory
+				FCPPT_ASSERT_OPTIONAL_ERROR((
+					alda::raw::make_generic<
+						alda::raw::stream::istream,
+						typename
+						Message::record::base_type
+					>(
+						stream_
+					)
+				))
+			}
 		);
 }
 

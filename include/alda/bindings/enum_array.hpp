@@ -9,16 +9,22 @@
 
 #include <alda/bindings/array.hpp>
 #include <alda/bindings/enum_array_decl.hpp>
-#include <majutsu/dispatch_type.hpp>
-#include <majutsu/raw/const_pointer.hpp>
-#include <majutsu/raw/element_type.hpp>
-#include <majutsu/raw/make.hpp>
-#include <majutsu/raw/place.hpp>
-#include <majutsu/raw/pointer.hpp>
-#include <majutsu/raw/static_size.hpp>
+#include <alda/raw/dispatch_type.hpp>
+#include <alda/raw/element_type.hpp>
+#include <alda/raw/make_generic.hpp>
+#include <alda/raw/place.hpp>
+#include <alda/raw/pointer.hpp>
+#include <alda/raw/static_size.hpp>
+#include <alda/raw/stream/bind.hpp>
+#include <alda/raw/stream/reference.hpp>
+#include <alda/raw/stream/result.hpp>
+#include <alda/raw/stream/return.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace alda
@@ -33,22 +39,22 @@ template<
 inline
 void
 place(
-	majutsu::dispatch_type<
+	alda::raw::dispatch_type<
 		alda::bindings::enum_array<
 			Type,
 			Adapted
 		>
 	>,
-	majutsu::raw::element_type<
+	alda::raw::element_type<
 		alda::bindings::enum_array<
 			Type,
 			Adapted
 		>
 	> const &_value,
-	majutsu::raw::pointer const _mem
+	alda::raw::pointer const _mem
 )
 {
-	majutsu::raw::place<
+	alda::raw::place<
 		alda::bindings::array<
 			typename
 			Type::internal,
@@ -61,43 +67,74 @@ place(
 }
 
 template<
+	typename Stream,
 	typename Type,
 	typename Adapted
 >
-majutsu::raw::element_type<
+alda::raw::stream::result<
+	Stream,
 	alda::bindings::enum_array<
 		Type,
 		Adapted
 	>
 >
-make(
-	majutsu::dispatch_type<
+make_generic(
+	alda::raw::dispatch_type<
 		alda::bindings::enum_array<
 			Type,
 			Adapted
 		>
 	>,
-	majutsu::raw::const_pointer const _mem
+	alda::raw::dispatch_type<
+		Stream
+	>,
+	alda::raw::stream::reference<
+		Stream
+	> _stream
 )
 {
+	typedef
+	alda::bindings::array<
+		typename
+		Type::internal,
+		Adapted
+	>
+	array_type;
+
 	return
-		Type{
-			majutsu::raw::make<
-				alda::bindings::array<
-					typename
-					Type::internal,
-					Adapted
-				>
+		alda::raw::stream::bind<
+			Stream
+		>(
+			alda::raw::make_generic<
+				Stream,
+				array_type
 			>(
-				_mem
+				_stream
+			),
+			[](
+				alda::raw::element_type<
+					array_type
+				> &&_inner
 			)
-		};
+			{
+				return
+					alda::raw::stream::return_<
+						Stream
+					>(
+						Type{
+							std::move(
+								_inner
+							)
+						}
+					);
+			}
+		);
 }
 
 }
 }
 
-namespace majutsu
+namespace alda
 {
 namespace raw
 {
@@ -116,7 +153,7 @@ struct static_size<
 	>
 >
 :
-majutsu::raw::static_size<
+alda::raw::static_size<
 	alda::bindings::array<
 		typename
 		Type::internal,

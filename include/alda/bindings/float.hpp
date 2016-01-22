@@ -9,14 +9,18 @@
 
 #include <alda/bindings/float_decl.hpp>
 #include <alda/bindings/float_type.hpp>
+#include <alda/bindings/fundamental.hpp>
 #include <alda/detail/symbol.hpp>
-#include <majutsu/dispatch_type.hpp>
-#include <majutsu/raw/const_pointer.hpp>
-#include <majutsu/raw/element_type.hpp>
-#include <majutsu/raw/fundamental.hpp>
-#include <majutsu/raw/pointer.hpp>
-#include <majutsu/raw/size_type.hpp>
-#include <majutsu/raw/static_size.hpp>
+#include <alda/raw/const_pointer.hpp>
+#include <alda/raw/dispatch_type.hpp>
+#include <alda/raw/element_type.hpp>
+#include <alda/raw/make_generic.hpp>
+#include <alda/raw/pointer.hpp>
+#include <alda/raw/static_size.hpp>
+#include <alda/raw/stream/bind.hpp>
+#include <alda/raw/stream/reference.hpp>
+#include <alda/raw/stream/result.hpp>
+#include <alda/raw/stream/return.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -28,43 +32,80 @@ namespace bindings
 {
 
 ALDA_DETAIL_SYMBOL
-majutsu::raw::size_type
-needed_size(
-	majutsu::dispatch_type<
-		alda::bindings::float_
-	>,
-	majutsu::raw::element_type<
-		alda::bindings::float_
-	> const &
-);
-
-ALDA_DETAIL_SYMBOL
 void
 place(
-	majutsu::dispatch_type<
+	alda::raw::dispatch_type<
 		alda::bindings::float_
 	>,
-	majutsu::raw::element_type<
+	alda::raw::element_type<
 		alda::bindings::float_
 	> const &,
-	majutsu::raw::pointer
+	alda::raw::pointer
 );
 
 ALDA_DETAIL_SYMBOL
-majutsu::raw::element_type<
+alda::raw::element_type<
 	alda::bindings::float_
 >
-make(
-	majutsu::dispatch_type<
-		alda::bindings::float_
-	>,
-	majutsu::raw::const_pointer
+make_float(
+	alda::raw::const_pointer
 );
 
+template<
+	typename Stream
+>
+alda::raw::stream::result<
+	Stream,
+	alda::bindings::float_
+>
+make_generic(
+	alda::raw::dispatch_type<
+		alda::bindings::float_
+	>,
+	alda::raw::dispatch_type<
+		Stream
+	>,
+	alda::raw::stream::reference<
+		Stream
+	> _stream
+)
+{
+	return
+		alda::raw::stream::bind<
+			Stream
+		>(
+			alda::raw::make_generic<
+				Stream,
+				alda::bindings::fundamental<
+					alda::bindings::float_::fixed_int
+				>
+			>(
+				_stream
+			),
+			[](
+				alda::bindings::float_::fixed_int const _value
+			)
+			{
+				return
+					alda::raw::stream::return_<
+						Stream
+					>(
+						alda::bindings::make_float(
+							fcppt::cast::to_char_ptr<
+								alda::raw::const_pointer
+							>(
+								&_value
+							)
+						)
+					);
+			}
+		);
+}
+
 }
 }
 
-namespace majutsu
+namespace alda
 {
 namespace raw
 {
@@ -77,9 +118,9 @@ struct static_size<
 	alda::bindings::float_
 >
 :
-majutsu::raw::static_size<
-	majutsu::raw::fundamental<
-		alda::bindings::float_type
+alda::raw::static_size<
+	alda::bindings::fundamental<
+		alda::bindings::float_::fixed_int
 	>
 >
 {

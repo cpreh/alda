@@ -7,12 +7,9 @@
 #ifndef ALDA_BINDINGS_UNSIGNED_DECL_HPP_INCLUDED
 #define ALDA_BINDINGS_UNSIGNED_DECL_HPP_INCLUDED
 
+#include <alda/bindings/fundamental_decl.hpp>
 #include <alda/bindings/unsigned_fwd.hpp>
-#include <majutsu/raw/fundamental_decl.hpp>
 #include <fcppt/endianness/format.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -23,21 +20,18 @@ namespace alda
 namespace bindings
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	typename Type,
 	fcppt::endianness::format Endianness
 >
 struct unsigned_
-:
-majutsu::raw::fundamental<
-	Type
->
 {
 	typedef
-	majutsu::raw::fundamental<
+	Type
+	element_type;
+
+	typedef
+	alda::bindings::fundamental<
 		Type
 	>
 	impl;
@@ -55,8 +49,6 @@ majutsu::raw::fundamental<
 		"alda::bindings::unsigned_ only works on unsigned types"
 	);
 };
-
-FCPPT_PP_POP_WARNING
 
 }
 }

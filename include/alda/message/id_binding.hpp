@@ -7,7 +7,7 @@
 #ifndef ALDA_MESSAGE_ID_BINDING_HPP_INCLUDED
 #define ALDA_MESSAGE_ID_BINDING_HPP_INCLUDED
 
-#include <alda/bindings/fundamental.hpp>
+#include <alda/bindings/unsigned.hpp>
 #include <alda/message/id_binding_decl.hpp>
 
 

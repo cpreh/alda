@@ -10,17 +10,23 @@
 #include <alda/bindings/array.hpp>
 #include <alda/bindings/bitfield_decl.hpp>
 #include <alda/bindings/unsigned.hpp>
-#include <majutsu/dispatch_type.hpp>
-#include <majutsu/raw/const_pointer.hpp>
-#include <majutsu/raw/element_type.hpp>
-#include <majutsu/raw/make.hpp>
-#include <majutsu/raw/place.hpp>
-#include <majutsu/raw/pointer.hpp>
-#include <majutsu/raw/static_size.hpp>
+#include <alda/raw/dispatch_type.hpp>
+#include <alda/raw/element_type.hpp>
+#include <alda/raw/make_generic.hpp>
+#include <alda/raw/place.hpp>
+#include <alda/raw/pointer.hpp>
+#include <alda/raw/static_size.hpp>
+#include <alda/raw/stream/bind.hpp>
+#include <alda/raw/stream/reference.hpp>
+#include <alda/raw/stream/result.hpp>
+#include <alda/raw/stream/return.hpp>
 #include <fcppt/endianness/format_fwd.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace alda
@@ -34,22 +40,22 @@ template<
 >
 void
 place(
-	majutsu::dispatch_type<
+	alda::raw::dispatch_type<
 		alda::bindings::bitfield<
 			Type,
 			Endianness
 		>
 	>,
-	majutsu::raw::element_type<
+	alda::raw::element_type<
 		alda::bindings::bitfield<
 			Type,
 			Endianness
 		>
 	> const &_value,
-	majutsu::raw::pointer const _mem
+	alda::raw::pointer const _mem
 )
 {
-	majutsu::raw::place<
+	alda::raw::place<
 		typename
 		alda::bindings::bitfield<
 			Type,
@@ -62,43 +68,74 @@ place(
 }
 
 template<
+	typename Stream,
 	typename Type,
 	fcppt::endianness::format Endianness
 >
-majutsu::raw::element_type<
+alda::raw::stream::result<
+	Stream,
 	alda::bindings::bitfield<
 		Type,
 		Endianness
 	>
 >
-make(
-	majutsu::dispatch_type<
+make_generic(
+	alda::raw::dispatch_type<
 		alda::bindings::bitfield<
 			Type,
 			Endianness
 		>
 	>,
-	majutsu::raw::const_pointer const _mem
+	alda::raw::dispatch_type<
+		Stream
+	>,
+	alda::raw::stream::reference<
+		Stream
+	> _stream
 )
 {
+	typedef
+	typename
+	alda::bindings::bitfield<
+		Type,
+		Endianness
+	>::wrapped
+	wrapped;
+
 	return
-		Type(
-			majutsu::raw::make<
-				typename
-				alda::bindings::bitfield<
-					Type,
-					Endianness
-				>::wrapped
+		alda::raw::stream::bind<
+			Stream
+		>(
+			alda::raw::make_generic<
+				Stream,
+				wrapped
 			>(
-				_mem
+				_stream
+			),
+			[](
+				alda::raw::element_type<
+					wrapped
+				> &&_inner
 			)
+			{
+				return
+					alda::raw::stream::return_<
+						Stream
+					>(
+						Type(
+							std::move(
+								_inner
+							)
+						)
+					);
+			}
 		);
 }
 
 }
 }
 
-namespace majutsu
+namespace alda
 {
 namespace raw
 {
@@ -117,7 +154,7 @@ struct static_size<
 	>
 >
 :
-majutsu::raw::static_size<
+alda::raw::static_size<
 	typename
 	alda::bindings::bitfield<
 		Type,

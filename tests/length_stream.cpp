@@ -17,10 +17,11 @@
 #include <alda/message/base_unique_ptr.hpp>
 #include <alda/message/instantiate_base.hpp>
 #include <alda/message/instantiate_concrete.hpp>
-#include <alda/message/make_class.hpp>
 #include <alda/message/make_concrete_ptr.hpp>
 #include <alda/message/make_id.hpp>
 #include <alda/message/optional_base_unique_ptr.hpp>
+#include <alda/message/record.hpp>
+#include <alda/raw/element_type.hpp>
 #include <alda/serialization/context_fwd.hpp>
 #include <alda/serialization/define_context_function.hpp>
 #include <alda/serialization/instantiate_context.hpp>
@@ -30,13 +31,8 @@
 #include <alda/serialization/length/deserialize.hpp>
 #include <alda/serialization/length/put.hpp>
 #include <alda/serialization/length/serialize.hpp>
-#include <alda/serialization/load/dynamic_len.hpp>
-#include <alda/serialization/load/optional.hpp>
-#include <alda/serialization/load/static_size.hpp>
-#include <alda/serialization/load/variant.hpp>
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
-#include <majutsu/raw/element_type.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/insert_to_std_string.hpp>
 #include <fcppt/literal.hpp>
@@ -104,8 +100,7 @@ fcppt::endianness::format const endianness{
 
 typedef
 alda::bindings::fundamental<
-	std::uint16_t,
-	endianness
+	std::uint16_t
 >
 uint16_type;
 
@@ -129,8 +124,7 @@ variant_type;
 
 typedef
 alda::bindings::fundamental<
-	char,
-	endianness
+	char
 >
 char_type;
 
@@ -162,12 +156,12 @@ MAJUTSU_MAKE_ROLE_TAG(
 );
 
 typedef
-alda::message::make_class<
-	boost::mpl::vector5<
-		alda::message::make_id<
-			type_enum,
-			message_type::message1
-		>,
+alda::message::record<
+	alda::message::make_id<
+		type_enum,
+		message_type::message1
+	>,
+	boost::mpl::vector4<
 		majutsu::role<
 			uint16_type,
 			uint16_role
@@ -280,7 +274,7 @@ private:
 			_msg.get<
 				optional_uint16_role
 			>(),
-			majutsu::raw::element_type<
+			alda::raw::element_type<
 				optional_uint16_type
 			>(
 				value_
@@ -291,7 +285,7 @@ private:
 			_msg.get<
 				variant_role
 			>(),
-			majutsu::raw::element_type<
+			alda::raw::element_type<
 				variant_type
 			>(
 				value_
@@ -302,7 +296,7 @@ private:
 			_msg.get<
 				string_role
 			>(),
-			majutsu::raw::element_type<
+			alda::raw::element_type<
 				string_type
 			>(
 				fcppt::insert_to_std_string(
@@ -362,13 +356,13 @@ FCPPT_PP_POP_WARNING
 					uint16_role{} =
 						casted_index,
 					optional_uint16_role{} =
-						majutsu::raw::element_type<
+						alda::raw::element_type<
 							optional_uint16_type
 						>(
 							casted_index
 						),
 					variant_role{} =
-						majutsu::raw::element_type<
+						alda::raw::element_type<
 							variant_type
 						>(
 							casted_index
@@ -489,34 +483,7 @@ FCPPT_PP_POP_WARNING
 		length_type
 	>(
 		ofs,
-		*alda::message::make_concrete_ptr<
-			type_enum
-		>(
-			message1(
-				uint16_role{} =
-					fcppt::literal<
-						std::uint16_t
-					>(
-						0
-					),
-				optional_uint16_role{} =
-					majutsu::raw::element_type<
-						optional_uint16_type
-					>(),
-				variant_role{} =
-					majutsu::raw::element_type<
-						variant_type
-					>(
-						fcppt::literal<
-							std::uint16_t
-						>(
-							0
-						)
-					),
-				string_role{} =
-					std::string()
-			)
-		)
+		100u
 	);
 
 	ifs.str(

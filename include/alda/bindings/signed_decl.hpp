@@ -8,11 +8,8 @@
 #define ALDA_BINDINGS_SIGNED_DECL_HPP_INCLUDED
 
 #include <alda/bindings/signed_fwd.hpp>
-#include <majutsu/raw/fundamental_decl.hpp>
+#include <alda/bindings/unsigned_fwd.hpp>
 #include <fcppt/endianness/format_fwd.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -23,19 +20,26 @@ namespace alda
 namespace bindings
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	typename Type,
-	fcppt::endianness::format
+	fcppt::endianness::format Endianness
 >
 struct signed_
-:
-majutsu::raw::fundamental<
-	Type
->
 {
+	typedef
+	Type
+	element_type;
+
+	typedef
+	alda::bindings::unsigned_<
+		typename
+		std::make_unsigned<
+			Type
+		>::type,
+		Endianness
+	>
+	impl;
+
 	static_assert(
 		std::is_signed<
 			Type
@@ -43,8 +47,6 @@ majutsu::raw::fundamental<
 		"alda::bindings::signed_ only works on signed types"
 	);
 };
-
-FCPPT_PP_POP_WARNING
 
 }
 }

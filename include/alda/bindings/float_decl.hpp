@@ -9,10 +9,9 @@
 
 #include <alda/bindings/float_fwd.hpp>
 #include <alda/bindings/float_type.hpp>
-#include <majutsu/raw/fundamental_decl.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace alda
@@ -20,18 +19,16 @@ namespace alda
 namespace bindings
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 struct float_
-:
-majutsu::raw::fundamental<
-	alda::bindings::float_type
->
 {
-};
+	typedef
+	alda::bindings::float_type
+	element_type;
 
-FCPPT_PP_POP_WARNING
+	typedef
+	std::uint32_t
+	fixed_int;
+};
 
 }
 }

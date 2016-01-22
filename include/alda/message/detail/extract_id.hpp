@@ -7,9 +7,6 @@
 #ifndef ALDA_MESSAGE_DETAIL_EXTRACT_ID_HPP_INCLUDED
 #define ALDA_MESSAGE_DETAIL_EXTRACT_ID_HPP_INCLUDED
 
-#include <alda/message/roles/type.hpp>
-#include <majutsu/raw/extract_constant.hpp>
-
 
 namespace alda
 {
@@ -23,10 +20,8 @@ template<
 >
 using extract_id
 =
-majutsu::raw::extract_constant<
-	Message,
-	alda::message::roles::type
->;
+typename
+Message::id_type;
 
 }
 }

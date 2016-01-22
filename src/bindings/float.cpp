@@ -5,20 +5,19 @@
 
 
 #include <alda/bindings/float.hpp>
-#include <alda/bindings/fundamental.hpp>
-#include <majutsu/dispatch_type.hpp>
-#include <majutsu/raw/const_pointer.hpp>
-#include <majutsu/raw/element_type.hpp>
-#include <majutsu/raw/make.hpp>
-#include <majutsu/raw/place.hpp>
-#include <majutsu/raw/pointer.hpp>
-#include <majutsu/raw/size_type.hpp>
+#include <alda/bindings/unsigned.hpp>
+#include <alda/raw/const_pointer.hpp>
+#include <alda/raw/dispatch_type.hpp>
+#include <alda/raw/element_type.hpp>
+#include <alda/raw/make_generic.hpp>
+#include <alda/raw/place.hpp>
+#include <alda/raw/pointer.hpp>
+#include <alda/raw/stream/memory.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cmath>
-#include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -30,17 +29,17 @@ constexpr fcppt::endianness::format const endianness{
 };
 
 typedef
-std::uint32_t
-fixed_int;
-
-typedef
-majutsu::raw::element_type<
+alda::raw::element_type<
 	alda::bindings::float_
 >
 float_type;
 
 typedef
-alda::bindings::fundamental<
+alda::bindings::float_::fixed_int
+fixed_int;
+
+typedef
+alda::bindings::unsigned_<
 	fixed_int,
 	endianness
 >
@@ -152,34 +151,18 @@ deserialize(
 
 }
 
-majutsu::raw::size_type
-alda::bindings::needed_size(
-	majutsu::dispatch_type<
-		alda::bindings::float_
-	>,
-	majutsu::raw::element_type<
-		alda::bindings::float_
-	> const &
-)
-{
-	return
-		sizeof(
-			fixed_int
-		);
-}
-
 void
 alda::bindings::place(
-	majutsu::dispatch_type<
+	alda::raw::dispatch_type<
 		alda::bindings::float_
 	>,
-	majutsu::raw::element_type<
+	alda::raw::element_type<
 		alda::bindings::float_
 	> const &_val,
-	majutsu::raw::pointer const _mem
+	alda::raw::pointer const _mem
 )
 {
-	majutsu::raw::place<
+	alda::raw::place<
 		adapted
 	>(
 		serialize(
@@ -189,19 +172,17 @@ alda::bindings::place(
 	);
 }
 
-majutsu::raw::element_type<
+alda::raw::element_type<
 	alda::bindings::float_
 >
-alda::bindings::make(
-	majutsu::dispatch_type<
-		alda::bindings::float_
-	>,
-	majutsu::raw::const_pointer const _beg
+alda::bindings::make_float(
+	alda::raw::const_pointer _beg
 )
 {
 	return
 		deserialize(
-			majutsu::raw::make<
+			alda::raw::make_generic<
+				alda::raw::stream::memory,
 				adapted
 			>(
 				_beg
