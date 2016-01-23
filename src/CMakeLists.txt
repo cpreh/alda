@@ -95,6 +95,7 @@ set(
 	include/alda/message/impl/concrete_impl.hpp
 	include/alda/message/instantiate_base.hpp
 	include/alda/message/instantiate_concrete.hpp
+	include/alda/message/is_record.hpp
 	include/alda/message/make_concrete_ptr.hpp
 	include/alda/message/make_id.hpp
 	include/alda/message/make_id_fwd.hpp
@@ -206,8 +207,6 @@ set(
 	include/alda/serialization/detail/dispatch/register_fwd.hpp
 	include/alda/serialization/detail/dispatch/register_impl.hpp
 	include/alda/serialization/detail/message_int_type.hpp
-	include/alda/serialization/detail/raw_container.hpp
-	include/alda/serialization/detail/raw_container_fwd.hpp
 	include/alda/serialization/detail/read/object_decl.hpp
 	include/alda/serialization/detail/read/object_functions_impl.hpp
 	include/alda/serialization/detail/read/object_fwd.hpp
@@ -227,6 +226,7 @@ set(
 	include/alda/serialization/register_message.hpp
 	include/alda/serialization/serialize.hpp
 	include/alda/serialization/write.hpp
+	include/alda/serialization/write_id.hpp
 	include/alda/type_enum.hpp
 	include/alda/type_enum_fcppt.hpp
 	include/alda/type_enum_fcppt_fwd.hpp
