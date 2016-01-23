@@ -72,6 +72,7 @@ add_alda_test(
 	bindings/signed
 	LINK_LIBS
 		${fcppt_core_TARGET}
+		${alda_TARGET}
 )
 
 add_alda_test(

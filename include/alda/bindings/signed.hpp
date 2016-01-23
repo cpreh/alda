@@ -163,6 +163,12 @@ make_generic(
 		Type,
 		Endianness
 	>::impl
+	unsigned_impl;
+
+	typedef
+	alda::raw::element_type<
+		unsigned_impl
+	>
 	unsigned_type;
 
 	return
@@ -171,14 +177,12 @@ make_generic(
 		>(
 			alda::raw::make_generic<
 				Stream,
-				unsigned_type
+				unsigned_impl
 			>(
 				_stream
 			),
 			[](
-				alda::raw::element_type<
-					unsigned_type
-				> const _converted
+				unsigned_type const _converted
 			)
 			{
 				Type const max(

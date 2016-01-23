@@ -110,7 +110,6 @@ FCPPT_PP_POP_WARNING
 		}
 	);
 
-#if 0
 	typedef
 	fcppt::optional::object<
 		message
@@ -139,5 +138,4 @@ FCPPT_PP_POP_WARNING
 		==
 		test
 	);
-#endif
 }
