@@ -7,7 +7,6 @@
 #ifndef ALDA_BINDINGS_VARIANT_HPP_INCLUDED
 #define ALDA_BINDINGS_VARIANT_HPP_INCLUDED
 
-#include <alda/bindings/invalid_variant.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <alda/bindings/variant_decl.hpp>
 #include <alda/raw/dispatch_type.hpp>
@@ -19,6 +18,7 @@
 #include <alda/raw/pointer.hpp>
 #include <alda/raw/size_type.hpp>
 #include <alda/raw/stream/bind.hpp>
+#include <alda/raw/stream/fail.hpp>
 #include <alda/raw/stream/reference.hpp>
 #include <alda/raw/stream/result.hpp>
 #include <alda/raw/stream/return.hpp>
@@ -233,18 +233,15 @@ make_generic(
 								);
 						},
 						[]()
-						->
-						alda::raw::stream::result<
-							Stream,
-							alda::bindings::variant<
-								Types,
-								AdaptedTypes
-							>
-						>
 						{
-							// TODO: Make it possible to fail an optional instead
-							throw
-								alda::bindings::invalid_variant();
+							return
+								alda::raw::stream::fail<
+									Stream,
+									alda::bindings::variant<
+										Types,
+										AdaptedTypes
+									>
+								>();
 						}
 					);
 			}

@@ -37,7 +37,6 @@ set(
 	include/alda/bindings/fundamental.hpp
 	include/alda/bindings/fundamental_decl.hpp
 	include/alda/bindings/fundamental_fwd.hpp
-	include/alda/bindings/invalid_variant.hpp
 	include/alda/bindings/length_count_policy.hpp
 	include/alda/bindings/length_count_policy_fwd.hpp
 	include/alda/bindings/optional.hpp
@@ -182,6 +181,8 @@ set(
 	include/alda/raw/size_type.hpp
 	include/alda/raw/static_size.hpp
 	include/alda/raw/stream/bind.hpp
+	include/alda/raw/stream/fail.hpp
+	include/alda/raw/stream/failure.hpp
 	include/alda/raw/stream/istream.hpp
 	include/alda/raw/stream/istream_fwd.hpp
 	include/alda/raw/stream/memory.hpp
@@ -232,7 +233,6 @@ set(
 	include/alda/type_enum_fcppt_fwd.hpp
 	include/alda/type_enum_fwd.hpp
 	src/bindings/float.cpp
-	src/bindings/invalid_variant.cpp
 	src/exception.cpp
 	src/include/alda/src/log_parameters.hpp
 	src/include/alda/src/net/client/detail/object_impl.hpp
@@ -256,6 +256,7 @@ set(
 	src/net/server/detail/connection.cpp
 	src/net/server/detail/object_impl.cpp
 	src/net/server/object.cpp
+	src/raw/stream/failure.cpp
 )
 
 set(
