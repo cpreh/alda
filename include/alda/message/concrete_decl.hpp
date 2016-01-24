@@ -12,6 +12,7 @@
 #include <alda/message/is_record.hpp>
 #include <alda/message/record_decl.hpp>
 #include <alda/raw/buffer_fwd.hpp>
+#include <alda/raw/size_type.hpp>
 
 
 namespace alda
@@ -100,6 +101,10 @@ private:
 
 	type_enum
 	type() const
+	override;
+
+	alda::raw::size_type
+	size() const
 	override;
 
 	alda::raw::buffer

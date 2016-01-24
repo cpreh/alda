@@ -114,6 +114,7 @@ make_generic(
 					alda::raw::stream::return_<
 						Stream
 					>(
+						// TODO: Check the enum range here
 						fcppt::cast_to_enum<
 							Enum
 						>(

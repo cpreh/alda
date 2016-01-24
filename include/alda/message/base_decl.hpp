@@ -12,6 +12,7 @@
 #include <alda/message/base_fwd.hpp>
 #include <alda/message/base_unique_ptr.hpp>
 #include <alda/raw/buffer_fwd.hpp>
+#include <alda/raw/size_type.hpp>
 
 
 namespace alda
@@ -68,6 +69,10 @@ public:
 	virtual
 	type_enum
 	type() const = 0;
+
+	virtual
+	alda::raw::size_type
+	size() const = 0;
 
 	virtual
 	alda::raw::buffer

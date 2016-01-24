@@ -10,7 +10,10 @@
 #include <alda/message/concrete_decl.hpp>
 #include <alda/message/record_impl.hpp>
 #include <alda/message/detail/extract_id.hpp>
+#include <alda/raw/buffer.hpp>
+#include <alda/raw/needed_size.hpp>
 #include <alda/raw/record_to_buffer.hpp>
+#include <alda/raw/size_type.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/int_to_enum.hpp>
@@ -155,6 +158,25 @@ alda::message::concrete<
 			alda::message::detail::extract_id<
 				Type
 			>::value
+		);
+}
+
+template<
+	typename TypeEnum,
+	typename Type
+>
+alda::raw::size_type
+alda::message::concrete<
+	TypeEnum,
+	Type
+>::size() const
+{
+	return
+		alda::raw::needed_size<
+			typename
+			Type::base_type
+		>(
+			value_.get_base()
 		);
 }
 
