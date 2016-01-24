@@ -4,10 +4,10 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef ALDA_SERIALIZATION_BUFFER_TO_STREAM_HPP_INCLUDED
-#define ALDA_SERIALIZATION_BUFFER_TO_STREAM_HPP_INCLUDED
+#ifndef ALDA_SERIALIZATION_STATIC_BUFFER_TO_STREAM_HPP_INCLUDED
+#define ALDA_SERIALIZATION_STATIC_BUFFER_TO_STREAM_HPP_INCLUDED
 
-#include <alda/raw/buffer.hpp>
+#include <alda/raw/static_buffer.hpp>
 #include <alda/serialization/ostream.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
@@ -22,12 +22,16 @@ namespace alda
 namespace serialization
 {
 
-// TODO: Should this be inline?
+template<
+	typename Type
+>
 inline
 void
-buffer_to_stream(
+static_buffer_to_stream(
 	alda::serialization::ostream &_stream,
-	alda::raw::buffer const &_buffer
+	alda::raw::static_buffer<
+		Type
+	> const &_buffer
 )
 {
 	_stream.write(

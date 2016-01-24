@@ -2,12 +2,12 @@
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
 #include <alda/bindings/fundamental.hpp>
-#include <alda/serialization/write.hpp>
+#include <alda/serialization/write_record.hpp>
 #include <alda/raw/buffer.hpp>
 #include <alda/raw/const_pointer.hpp>
 #include <alda/raw/make_generic.hpp>
+#include <alda/raw/record_to_buffer.hpp>
 #include <alda/raw/record_variadic.hpp>
-#include <alda/raw/to_buffer.hpp>
 #include <alda/raw/stream/istream.hpp>
 #include <alda/raw/stream/memory.hpp>
 #include <fcppt/optional/object_impl.hpp>
@@ -80,7 +80,7 @@ FCPPT_PP_POP_WARNING
 
 	std::stringstream stream;
 
-	alda::serialization::write(
+	alda::serialization::write_record(
 		stream,
 		test
 	);
@@ -146,7 +146,7 @@ FCPPT_PP_POP_WARNING
 	};
 
 	alda::raw::buffer const buffer(
-		alda::raw::to_buffer(
+		alda::raw::record_to_buffer(
 			test
 		)
 	);

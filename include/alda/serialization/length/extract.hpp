@@ -9,6 +9,8 @@
 
 #include <alda/serialization/endianness.hpp>
 #include <alda/serialization/istream.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/io/read.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -51,11 +53,13 @@ extract(
 	return
 		_stream.rdbuf()->in_avail()
 		<
-		static_cast<
+		fcppt::cast::size<
 			std::streamsize
 		>(
-			sizeof(
-				LengthType
+			fcppt::cast::to_signed(
+				sizeof(
+					LengthType
+				)
 			)
 		)
 		?

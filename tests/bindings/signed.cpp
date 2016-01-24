@@ -9,7 +9,7 @@
 #include <alda/raw/make_generic.hpp>
 #include <alda/raw/record_variadic.hpp>
 #include <alda/raw/stream/istream.hpp>
-#include <alda/serialization/write.hpp>
+#include <alda/serialization/write_record.hpp>
 #include <majutsu/get.hpp>
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
@@ -155,7 +155,7 @@ FCPPT_PP_POP_WARNING
 
 	std::stringstream stream;
 
-	alda::serialization::write(
+	alda::serialization::write_record(
 		stream,
 		message{
 			int_role{} =
@@ -201,7 +201,7 @@ FCPPT_PP_DISABLE_VC_WARNING(4127)
 		0
 	)
 		BOOST_CHECK_EXCEPTION(
-			alda::serialization::write(
+			alda::serialization::write_record(
 				stream,
 				message{
 					int_role{} =

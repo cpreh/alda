@@ -6,7 +6,7 @@
 
 #include <alda/bindings/optional.hpp>
 #include <alda/bindings/unsigned.hpp>
-#include <alda/serialization/write.hpp>
+#include <alda/serialization/write_record.hpp>
 #include <alda/raw/make_generic.hpp>
 #include <alda/raw/record_variadic.hpp>
 #include <alda/raw/stream/istream.hpp>
@@ -115,7 +115,7 @@ FCPPT_PP_POP_WARNING
 
 	std::stringstream stream;
 
-	alda::serialization::write(
+	alda::serialization::write_record(
 		stream,
 		message(
 			optional_role{} =

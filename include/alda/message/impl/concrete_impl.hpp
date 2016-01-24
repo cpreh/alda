@@ -10,7 +10,7 @@
 #include <alda/message/concrete_decl.hpp>
 #include <alda/message/record_impl.hpp>
 #include <alda/message/detail/extract_id.hpp>
-#include <alda/raw/to_buffer.hpp>
+#include <alda/raw/record_to_buffer.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/int_to_enum.hpp>
@@ -169,7 +169,7 @@ alda::message::concrete<
 >::to_buffer() const
 {
 	return
-		alda::raw::to_buffer(
+		alda::raw::record_to_buffer(
 			value_.get_base()
 		);
 }

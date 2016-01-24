@@ -176,9 +176,11 @@ set(
 	include/alda/raw/record_decl.hpp
 	include/alda/raw/record_fwd.hpp
 	include/alda/raw/record_impl.hpp
+	include/alda/raw/record_to_buffer.hpp
 	include/alda/raw/record_variadic.hpp
 	include/alda/raw/record_variadic_fwd.hpp
 	include/alda/raw/size_type.hpp
+	include/alda/raw/static_buffer.hpp
 	include/alda/raw/static_size.hpp
 	include/alda/raw/stream/bind.hpp
 	include/alda/raw/stream/fail.hpp
@@ -193,6 +195,7 @@ set(
 	include/alda/raw/stream/return.hpp
 	include/alda/raw/stream/return_if.hpp
 	include/alda/raw/to_buffer.hpp
+	include/alda/raw/to_static_buffer.hpp
 	include/alda/serialization/buffer_to_stream.hpp
 	include/alda/serialization/context_decl.hpp
 	include/alda/serialization/context_fwd.hpp
@@ -226,8 +229,10 @@ set(
 	include/alda/serialization/ostream.hpp
 	include/alda/serialization/register_message.hpp
 	include/alda/serialization/serialize.hpp
+	include/alda/serialization/static_buffer_to_stream.hpp
 	include/alda/serialization/write.hpp
 	include/alda/serialization/write_id.hpp
+	include/alda/serialization/write_record.hpp
 	include/alda/type_enum.hpp
 	include/alda/type_enum_fcppt.hpp
 	include/alda/type_enum_fcppt_fwd.hpp
