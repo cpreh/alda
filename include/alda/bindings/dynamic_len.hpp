@@ -25,6 +25,9 @@
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/cast/truncation_check.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace alda
@@ -58,27 +61,29 @@ needed_size(
 	> const &_value
 )
 {
-	alda::raw::size_type ret(
-		alda::raw::needed_size_static<
-			Length
-		>()
-	);
-
-	// TODO: fold
-	for(
-		auto const &elem
-		:
-		_value
-	)
-		ret +=
-			alda::raw::needed_size<
-				Adapted
-			>(
-				elem
-			);
-
 	return
-		ret;
+		fcppt::algorithm::fold(
+			_value,
+			alda::raw::needed_size_static<
+				Length
+			>(),
+			[](
+				alda::raw::element_type<
+					Adapted
+				> const &_element,
+				alda::raw::size_type const _result
+			)
+			{
+				return
+					_result
+					+
+					alda::raw::needed_size<
+						Adapted
+					>(
+						_element
+					);
+			}
+		);
 }
 
 template<
@@ -170,14 +175,18 @@ make_generic(
 )
 {
 	typedef
+	alda::bindings::dynamic_len<
+		Type,
+		Adapted,
+		Length,
+		LengthPolicy
+	>
+	binding;
+
+	typedef
 	alda::raw::stream::result<
 		Stream,
-		alda::bindings::dynamic_len<
-			Type,
-			Adapted,
-			Length,
-			LengthPolicy
-		>
+		binding
 	>
 	result_type;
 
@@ -200,7 +209,6 @@ make_generic(
 			)
 			{
 				// TODO: Break out early
-				// TODO: reserve the output size
 				return
 					fcppt::algorithm::fold(
 						fcppt::make_int_range_count(
@@ -208,18 +216,27 @@ make_generic(
 								_my_size
 							)
 						),
-						alda::raw::stream::return_<
-							Stream
-						>(
+						[
+							_my_size
+						]{
 							alda::raw::element_type<
-								alda::bindings::dynamic_len<
-									Type,
-									Adapted,
-									Length,
-									LengthPolicy
-								>
-							>()
-						),
+								binding
+							>
+							result;
+
+							result.reserve(
+								_my_size
+							);
+
+							return
+								alda::raw::stream::return_<
+									Stream
+								>(
+									std::move(
+										result
+									)
+								);
+						}(),
 						[
 							&_stream
 						](
