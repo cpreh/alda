@@ -15,11 +15,13 @@
 #include <alda/raw/pointer.hpp>
 #include <alda/raw/static_size.hpp>
 #include <alda/raw/stream/bind.hpp>
+#include <alda/raw/stream/fail.hpp>
 #include <alda/raw/stream/reference.hpp>
 #include <alda/raw/stream/result.hpp>
 #include <alda/raw/stream/return.hpp>
 #include <fcppt/cast_to_enum.hpp>
 #include <fcppt/cast/enum_to_int.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -111,15 +113,33 @@ make_generic(
 			)
 			{
 				return
-					alda::raw::stream::return_<
-						Stream
-					>(
-						// TODO: Check the enum range here
+					fcppt::optional::maybe(
 						fcppt::cast_to_enum<
 							Enum
 						>(
 							_element
+						),
+						[]{
+							return
+								alda::raw::stream::fail<
+									Stream,
+									alda::bindings::enum_<
+										Enum,
+										Adapted
+									>
+								>();
+						},
+						[](
+							Enum const _value
 						)
+						{
+							return
+								alda::raw::stream::return_<
+									Stream
+								>(
+									_value
+								);
+						}
 					);
 			}
 		);

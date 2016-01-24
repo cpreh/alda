@@ -50,7 +50,10 @@ typename
 std::enable_if<
 	Stream::can_fail,
 	fcppt::optional::object<
-		Type
+		typename
+		std::decay<
+			Type
+		>::type
 	>
 >::type
 return_(
@@ -59,7 +62,10 @@ return_(
 {
 	return
 		fcppt::optional::object<
-			Type
+			typename
+			std::decay<
+				Type
+			>::type
 		>(
 			std::move(
 				_value
