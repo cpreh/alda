@@ -14,10 +14,10 @@
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/and.hpp>
+#include <boost/mpl/apply.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
 #include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/plus.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -30,6 +30,7 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
+	typename Function,
 	typename Size1,
 	typename Size2
 >
@@ -44,7 +45,8 @@ boost::mpl::eval_if<
 			Size2
 		>
 	>,
-	boost::mpl::plus<
+	boost::mpl::apply<
+		Function,
 		Size1,
 		Size2
 	>,

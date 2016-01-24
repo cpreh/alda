@@ -9,6 +9,7 @@
 #include <alda/serialization/write.hpp>
 #include <alda/raw/make_generic.hpp>
 #include <alda/raw/record_variadic.hpp>
+#include <alda/raw/static_size.hpp>
 #include <alda/raw/stream/istream.hpp>
 #include <majutsu/get.hpp>
 #include <majutsu/make_role_tag.hpp>
@@ -58,6 +59,30 @@ alda::raw::record_variadic<
 >
 message;
 
+static_assert(
+	alda::raw::static_size<
+		array_binding
+	>::value
+	==
+	sizeof(
+		unsigned
+	)
+	*
+	2u,
+	""
+);
+
+static_assert(
+	alda::raw::static_size<
+		array_binding
+	>::value
+	==
+	alda::raw::static_size<
+		message
+	>::value,
+	""
+);
+
 }
 
 FCPPT_PP_PUSH_WARNING
@@ -75,12 +100,14 @@ FCPPT_PP_POP_WARNING
 	}};
 
 	BOOST_CHECK(
-		message(
-			array_role{} =
-				test
-		).get<
+		majutsu::get<
 			array_role
-		>()
+		>(
+			message{
+				array_role{} =
+					test
+			}
+		)
 		==
 		test
 	);

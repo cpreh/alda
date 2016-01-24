@@ -8,6 +8,7 @@
 #define ALDA_BINDINGS_ARRAY_HPP_INCLUDED
 
 #include <alda/bindings/array_decl.hpp>
+#include <alda/raw/combine_static_sizes.hpp>
 #include <alda/raw/dispatch_type.hpp>
 #include <alda/raw/element_type.hpp>
 #include <alda/raw/integral_size.hpp>
@@ -22,12 +23,14 @@
 #include <alda/raw/stream/return.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/algorithm/fold.hpp>
-#include <fcppt/cast/size.hpp>
 #include <fcppt/container/array_size.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/integral_c.hpp>
+#include <boost/mpl/multiplies.hpp>
+#include <boost/mpl/placeholders.hpp>
 #include <cstddef>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -213,20 +216,20 @@ struct static_size<
 	>
 >
 :
-// FIXME: We have to check if Type has a static size
-alda::raw::integral_size<
-	// Can't use mpl::multiplies here because std::integral_constant doesn't work
-	fcppt::cast::size<
-		alda::raw::size_type
-	>(
+alda::raw::combine_static_sizes<
+	boost::mpl::multiplies<
+		boost::mpl::_1,
+		boost::mpl::_2
+	>,
+	boost::mpl::integral_c<
+		alda::raw::size_type,
 		fcppt::container::array_size<
 			Type
 		>::value
-	)
-	*
+	>,
 	alda::raw::static_size<
 		Adapted
-	>::value
+	>
 >
 {
 };

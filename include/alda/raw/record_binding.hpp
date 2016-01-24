@@ -25,6 +25,7 @@
 #include <majutsu/get.hpp>
 #include <majutsu/role_to_tag.hpp>
 #include <majutsu/role_to_type.hpp>
+#include <majutsu/role_to_type_tpl.hpp>
 #include <fcppt/decltype_sink.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/tag_type.hpp>
@@ -38,7 +39,9 @@
 #include <boost/mpl/deref.hpp>
 #include <boost/mpl/end.hpp>
 #include <boost/mpl/fold.hpp>
+#include <boost/mpl/lambda.hpp>
 #include <boost/mpl/next.hpp>
+#include <boost/mpl/plus.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -62,18 +65,24 @@ struct static_size<
 >
 :
 boost::mpl::fold<
-	typename
-	alda::raw::record<
-		Types
-	>::all_types,
+	Types,
 	alda::raw::integral_size<
 		0
 	>,
 	alda::raw::combine_static_sizes<
+		typename
+		boost::mpl::lambda<
+			boost::mpl::plus<
+				boost::mpl::_,
+				boost::mpl::_
+			>
+		>::type,
 		alda::raw::static_size<
-			boost::mpl::_1
+			majutsu::role_to_type_tpl<
+				boost::mpl::_2
+			>
 		>,
-		boost::mpl::_2
+		boost::mpl::_1
 	>
 >::type
 {
