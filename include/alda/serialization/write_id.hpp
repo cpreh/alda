@@ -8,11 +8,9 @@
 #define ALDA_SERIALIZATION_WRITE_ID_HPP_INCLUDED
 
 #include <alda/message/base_decl.hpp>
-#include <alda/serialization/endianness.hpp>
 #include <alda/serialization/ostream.hpp>
-#include <alda/serialization/detail/message_int_type.hpp>
-#include <fcppt/cast/enum_to_int.hpp>
-#include <fcppt/io/write.hpp>
+#include <alda/serialization/write.hpp>
+#include <alda/serialization/detail/message_type.hpp>
 
 
 namespace alda
@@ -32,14 +30,13 @@ write_id(
 	> const &_message
 )
 {
-	fcppt::io::write(
+	alda::serialization::write<
+		alda::serialization::detail::message_type<
+			TypeEnum
+		>
+	>(
 		_stream,
-		fcppt::cast::enum_to_int<
-			alda::serialization::detail::message_int_type
-		>(
-			_message.type()
-		),
-		alda::serialization::endianness()
+		_message.type()
 	);
 }
 

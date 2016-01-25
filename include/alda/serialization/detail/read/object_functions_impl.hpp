@@ -7,13 +7,15 @@
 #ifndef ALDA_SERIALIZATION_DETAIL_READ_OBJECT_FUNCTIONS_IMPL_HPP_INCLUDED
 #define ALDA_SERIALIZATION_DETAIL_READ_OBJECT_FUNCTIONS_IMPL_HPP_INCLUDED
 
+#include <alda/exception.hpp>
 #include <alda/message/make_concrete_ptr.hpp>
 #include <alda/message/record_impl.hpp>
 #include <alda/serialization/detail/read/object_decl.hpp>
 #include <alda/raw/make_generic.hpp>
 #include <alda/raw/stream/istream.hpp>
 #include <fcppt/tag.hpp>
-#include <fcppt/assert/optional_error.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/optional/to_exception.hpp>
 
 
 template<
@@ -39,16 +41,22 @@ alda::serialization::detail::read::object<
 			TypeEnum
 		>(
 			Message{
-				// TODO: Don't use a stream here but raw memory
-				FCPPT_ASSERT_OPTIONAL_ERROR((
+				// TODO: Should we use raw memory here?
+				fcppt::optional::to_exception(
 					alda::raw::make_generic<
 						alda::raw::stream::istream,
 						typename
 						Message::record::base_type
 					>(
 						stream_
-					)
-				))
+					),
+					[]{
+						return
+							alda::exception{
+								FCPPT_TEXT("Message stream failed!")
+							};
+					}
+				)
 			}
 		);
 }

@@ -13,12 +13,8 @@
 #include <alda/message/base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
-#include <fcppt/cast/size.hpp>
+#include <fcppt/container/enum_array_decl.hpp>
 #include <fcppt/optional/object_decl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <array>
-#include <cstddef>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace alda
@@ -76,15 +72,11 @@ private:
 	>
 	optional_base_unique_ptr;
 
-	// TODO: Use fcppt::container::enum_array?
 	typedef
-	std::array<
-		optional_base_unique_ptr,
-		fcppt::cast::size<
-			std::size_t
-		>(
-			TypeEnum::size::value
-		)
+	fcppt::container::enum_array<
+		typename
+		TypeEnum::type,
+		optional_base_unique_ptr
 	>
 	instance_array;
 

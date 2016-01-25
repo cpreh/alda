@@ -49,6 +49,7 @@ serialize(
 	);
 
 	alda::serialization::length::put<
+		TypeEnum,
 		LengthType
 	>(
 		_stream,

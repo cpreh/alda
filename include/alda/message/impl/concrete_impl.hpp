@@ -16,7 +16,6 @@
 #include <alda/raw/size_type.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/cast/int_to_enum.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -152,13 +151,9 @@ alda::message::concrete<
 >::type() const
 {
 	return
-		fcppt::cast::int_to_enum<
-			type_enum
-		>(
-			alda::message::detail::extract_id<
-				Type
-			>::value
-		);
+		alda::message::detail::extract_id<
+			Type
+		>::value;
 }
 
 template<

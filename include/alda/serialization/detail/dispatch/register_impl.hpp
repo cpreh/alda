@@ -15,8 +15,8 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/cast/int_to_enum.hpp>
-#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/enum_to_underlying.hpp>
+#include <fcppt/cast/promote.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <exception>
@@ -40,15 +40,9 @@ alda::serialization::detail::dispatch::register_<
 	>
 	constant_value;
 
-	// TODO: fix this cast here, maybe replace majutsu::constant by an enum wrapper
 	if(
 		!_context.handlers_.emplace(
-			fcppt::cast::int_to_enum<
-				typename
-				TypeEnum::type
-			>(
-				constant_value::value
-			),
+			constant_value::value,
 			fcppt::unique_ptr_to_base<
 				alda::serialization::detail::dispatch::base<
 					TypeEnum
@@ -67,10 +61,10 @@ alda::serialization::detail::dispatch::register_<
 		fcppt::io::cerr()
 			<< FCPPT_TEXT("Message type registered twice: ")
 			<<
-			fcppt::cast::size<
-				unsigned
-			>(
-				constant_value::value
+			fcppt::cast::promote(
+				fcppt::cast::enum_to_underlying(
+					constant_value::value
+				)
 			)
 			<< FCPPT_TEXT('\n');
 

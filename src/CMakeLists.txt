@@ -87,9 +87,6 @@ set(
 	include/alda/message/concrete_decl.hpp
 	include/alda/message/concrete_fwd.hpp
 	include/alda/message/detail/extract_id.hpp
-	include/alda/message/id_binding.hpp
-	include/alda/message/id_binding_decl.hpp
-	include/alda/message/id_binding_fwd.hpp
 	include/alda/message/impl/base_impl.hpp
 	include/alda/message/impl/concrete_impl.hpp
 	include/alda/message/instantiate_base.hpp
@@ -210,7 +207,7 @@ set(
 	include/alda/serialization/detail/dispatch/register_decl.hpp
 	include/alda/serialization/detail/dispatch/register_fwd.hpp
 	include/alda/serialization/detail/dispatch/register_impl.hpp
-	include/alda/serialization/detail/message_int_type.hpp
+	include/alda/serialization/detail/message_type.hpp
 	include/alda/serialization/detail/read/object_decl.hpp
 	include/alda/serialization/detail/read/object_functions_impl.hpp
 	include/alda/serialization/detail/read/object_fwd.hpp

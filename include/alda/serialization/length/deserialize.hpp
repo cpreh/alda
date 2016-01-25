@@ -80,7 +80,7 @@ deserialize(
 					)
 				)
 				{
-					// TODO: should be putback the length instead?
+					// TODO: should we putback the length instead?
 					fcppt::algorithm::repeat(
 						sizeof(
 							LengthType

@@ -7,12 +7,10 @@
 #ifndef ALDA_SERIALIZATION_LENGTH_PUT_HPP_INCLUDED
 #define ALDA_SERIALIZATION_LENGTH_PUT_HPP_INCLUDED
 
-#include <alda/exception.hpp>
 #include <alda/raw/size_type.hpp>
 #include <alda/serialization/endianness.hpp>
 #include <alda/serialization/ostream.hpp>
-#include <alda/serialization/detail/message_int_type.hpp>
-#include <fcppt/text.hpp>
+#include <alda/serialization/detail/message_type.hpp>
 #include <fcppt/cast/truncation_check.hpp>
 #include <fcppt/io/write.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -29,8 +27,10 @@ namespace length
 {
 
 template<
+	typename TypeEnum,
 	typename LengthType
 >
+inline
 typename
 boost::enable_if<
 	std::is_unsigned<
@@ -43,41 +43,18 @@ put(
 	alda::raw::size_type const _length
 )
 {
-	static_assert(
-		sizeof(
-			alda::raw::size_type
-		)
-		>=
-		sizeof(
-			LengthType
-		),
-		"The LengthType cannot exceed alda::raw::size_type"
-	);
-
-	alda::raw::size_type const result{
-		_length
-		+
-		sizeof(
-			alda::serialization::detail::message_int_type
-		)
-	};
-
-	if(
-		result
-		<
-		_length
-	)
-		throw
-			alda::exception{
-				FCPPT_TEXT("Length overflowed")
-			};
-
 	fcppt::io::write(
 		_stream,
 		fcppt::cast::truncation_check<
 			LengthType
 		>(
-			result
+			_length
+			+
+			alda::raw::static_size<
+				alda::serialization::detail::message_type<
+					TypeEnum
+				>
+			>::value
 		),
 		alda::serialization::endianness()
 	);

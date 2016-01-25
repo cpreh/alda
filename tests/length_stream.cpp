@@ -480,6 +480,7 @@ FCPPT_PP_POP_WARNING
 	ofs.str("");
 
 	alda::serialization::length::put<
+		type_enum,
 		length_type
 	>(
 		ofs,
