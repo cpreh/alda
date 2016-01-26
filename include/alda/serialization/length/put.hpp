@@ -9,11 +9,11 @@
 
 #include <alda/raw/size_type.hpp>
 #include <alda/raw/static_size.hpp>
-#include <alda/serialization/endianness.hpp>
 #include <alda/serialization/ostream.hpp>
+#include <alda/serialization/write.hpp>
 #include <alda/serialization/detail/message_type.hpp>
+#include <alda/serialization/length/detail/binding.hpp>
 #include <fcppt/cast/truncation_check.hpp>
-#include <fcppt/io/write.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <type_traits>
@@ -44,7 +44,11 @@ put(
 	alda::raw::size_type const _length
 )
 {
-	fcppt::io::write(
+	alda::serialization::write<
+		alda::serialization::length::detail::binding<
+			LengthType
+		>
+	>(
 		_stream,
 		fcppt::cast::truncation_check<
 			LengthType
@@ -56,8 +60,7 @@ put(
 					TypeEnum
 				>
 			>::value
-		),
-		alda::serialization::endianness()
+		)
 	);
 }
 

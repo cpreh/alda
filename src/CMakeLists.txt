@@ -220,6 +220,7 @@ set(
 	include/alda/serialization/istream.hpp
 	include/alda/serialization/istream_fwd.hpp
 	include/alda/serialization/length/deserialize.hpp
+	include/alda/serialization/length/detail/binding.hpp
 	include/alda/serialization/length/extract.hpp
 	include/alda/serialization/length/put.hpp
 	include/alda/serialization/length/serialize.hpp

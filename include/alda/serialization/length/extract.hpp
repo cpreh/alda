@@ -7,15 +7,16 @@
 #ifndef ALDA_SERIALIZATION_LENGTH_EXTRACT_HPP_INCLUDED
 #define ALDA_SERIALIZATION_LENGTH_EXTRACT_HPP_INCLUDED
 
-#include <alda/serialization/endianness.hpp>
+#include <alda/raw/make_generic.hpp>
+#include <alda/raw/stream/istream.hpp>
 #include <alda/serialization/istream.hpp>
+#include <alda/serialization/length/detail/binding.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
-#include <fcppt/io/read.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <iosfwd>
+#include <istream>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -65,11 +66,13 @@ extract(
 		?
 			return_type()
 		:
-			fcppt::io::read<
-				LengthType
+			alda::raw::make_generic<
+				alda::raw::stream::istream,
+				alda::serialization::length::detail::binding<
+					LengthType
+				>
 			>(
-				_stream,
-				alda::serialization::endianness()
+				_stream
 			)
 		;
 }
