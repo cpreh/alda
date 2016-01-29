@@ -7,6 +7,7 @@
 #include <alda/net/buffer/circular_receive/for_asio.hpp>
 #include <alda/net/buffer/circular_receive/object.hpp>
 #include <alda/net/buffer/circular_receive/part.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/asio/buffer.hpp>
 #include <algorithm>
@@ -27,7 +28,7 @@ alda::net::buffer::circular_receive::for_asio(
 			part.begin(),
 			std::min(
 				part.size(),
-				static_cast<
+				fcppt::literal<
 					alda::net::buffer::circular_receive::object::size_type
 				>(
 					4096u

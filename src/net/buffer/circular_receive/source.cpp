@@ -7,6 +7,9 @@
 #include <alda/net/buffer/circular_receive/object.hpp>
 #include <alda/net/buffer/circular_receive/source.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
+#include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/iostreams/concepts.hpp>
 #include <algorithm>
@@ -40,19 +43,24 @@ alda::net::buffer::circular_receive::source::read(
 
 	std::streamsize const real_count(
 		std::min(
-			static_cast<
+			fcppt::cast::size<
 				std::streamsize
 			>(
-				range.size()
+				fcppt::cast::to_signed(
+					range.size()
+				)
 			),
 			_count
 		)
 	);
 
 	if(
-		real_count == 0
+		real_count
+		==
+		0
 	)
-		return -1;
+		return
+			-1;
 
 	std::copy_n(
 		range.begin(),
@@ -60,7 +68,15 @@ alda::net::buffer::circular_receive::source::read(
 		_dest
 	);
 
-	read_count_ += real_count;
+	read_count_ +=
+		real_count;
+
+/*
+	container_.erase(
+		fcppt::cast::to_unsigned(
+			real_count
+		)
+	);*/
 
 	return
 		real_count;
@@ -72,6 +88,7 @@ alda::net::buffer::circular_receive::source::seek(
 	std::ios_base::seekdir const _dir
 )
 {
+	// FIXME: Implement this properly
 	// only here for tellg() to work!
 	FCPPT_ASSERT_PRE(
 		_offset == 0

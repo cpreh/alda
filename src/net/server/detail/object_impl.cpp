@@ -32,6 +32,7 @@
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/cast/size.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
@@ -114,7 +115,7 @@ alda::net::server::detail::object_impl::listen(
 
 	boost::asio::ip::tcp::endpoint const endpoint(
 		boost::asio::ip::tcp::v4(),
-		static_cast<
+		fcppt::cast::size<
 			unsigned short
 		>(
 			_port.get()
@@ -563,7 +564,7 @@ alda::net::server::detail::object_impl::receive_data(
 			_con.received_data()
 		),
 		std::bind(
-			&object_impl::read_handler,
+			&alda::net::server::detail::object_impl::read_handler,
 			this,
 			std::placeholders::_1,
 			std::placeholders::_2,

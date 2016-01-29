@@ -9,20 +9,6 @@ function(
 endfunction()
 
 add_alda_test(
-	dispatch
-	LINK_LIBS
-		${fcppt_core_TARGET}
-		${alda_TARGET}
-)
-
-add_alda_test(
-	length_stream
-	LINK_LIBS
-		${fcppt_core_TARGET}
-		${alda_TARGET}
-)
-
-add_alda_test(
 	bindings/array
 	LINK_LIBS
 		${fcppt_core_TARGET}
@@ -95,6 +81,26 @@ add_alda_test(
 
 add_alda_test(
 	message/record
+)
+
+add_alda_test(
+	net/buffer/circular_receive
+	LINK_LIBS
+		${alda_TARGET}
+)
+
+add_alda_test(
+	serialization/dispatch
+	LINK_LIBS
+		${fcppt_core_TARGET}
+		${alda_TARGET}
+)
+
+add_alda_test(
+	serialization/length_stream
+	LINK_LIBS
+		${fcppt_core_TARGET}
+		${alda_TARGET}
 )
 
 add_alda_test(
