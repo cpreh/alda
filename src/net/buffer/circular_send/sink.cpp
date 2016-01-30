@@ -6,6 +6,8 @@
 
 #include <alda/net/buffer/circular_send/object.hpp>
 #include <alda/net/buffer/circular_send/sink.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
@@ -29,14 +31,18 @@ alda::net::buffer::circular_send::sink::write(
 {
 	// write nothing if there is not enough space
 	if(
-		static_cast<
+		fcppt::cast::size<
 			std::streamsize
 		>(
-			container_.space_left()
+			fcppt::cast::to_signed(
+				container_.space_left()
+			)
 		)
-		< _size
+		<
+		_size
 	)
-		return -1;
+		return
+			-1;
 
 	container_.get().insert(
 		container_.get().end(),

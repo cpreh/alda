@@ -101,6 +101,7 @@ set(
 	include/alda/message/record_decl.hpp
 	include/alda/message/record_fwd.hpp
 	include/alda/message/record_impl.hpp
+	include/alda/net/buffer/circular_receive/extract_message.hpp
 	include/alda/net/buffer/circular_receive/for_asio.hpp
 	include/alda/net/buffer/circular_receive/object.hpp
 	include/alda/net/buffer/circular_receive/object_fwd.hpp
@@ -112,6 +113,7 @@ set(
 	include/alda/net/buffer/circular_send/object_fwd.hpp
 	include/alda/net/buffer/circular_send/optional_ref.hpp
 	include/alda/net/buffer/circular_send/optional_ref_fwd.hpp
+	include/alda/net/buffer/circular_send/put_message.hpp
 	include/alda/net/buffer/circular_send/sink.hpp
 	include/alda/net/buffer/max_receive_size.hpp
 	include/alda/net/buffer/max_send_size.hpp
@@ -222,6 +224,7 @@ set(
 	include/alda/serialization/length/deserialize.hpp
 	include/alda/serialization/length/detail/binding.hpp
 	include/alda/serialization/length/extract.hpp
+	include/alda/serialization/length/make.hpp
 	include/alda/serialization/length/put.hpp
 	include/alda/serialization/length/remaining_size_function.hpp
 	include/alda/serialization/length/serialize.hpp

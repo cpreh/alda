@@ -8,10 +8,9 @@
 #define ALDA_SERIALIZATION_LENGTH_PUT_HPP_INCLUDED
 
 #include <alda/raw/size_type.hpp>
-#include <alda/raw/static_size.hpp>
 #include <alda/serialization/ostream.hpp>
 #include <alda/serialization/write.hpp>
-#include <alda/serialization/detail/message_type.hpp>
+#include <alda/serialization/length/make.hpp>
 #include <alda/serialization/length/detail/binding.hpp>
 #include <fcppt/cast/truncation_check.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -53,13 +52,11 @@ put(
 		fcppt::cast::truncation_check<
 			LengthType
 		>(
-			_length
-			+
-			alda::raw::static_size<
-				alda::serialization::detail::message_type<
-					TypeEnum
-				>
-			>::value
+			alda::serialization::length::make<
+				TypeEnum
+			>(
+				_length
+			)
 		)
 	);
 }
