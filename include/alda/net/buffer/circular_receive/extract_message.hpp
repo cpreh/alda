@@ -94,15 +94,19 @@ extract_message(
 		)
 	);
 
-	_data.erase(
-		fcppt::cast::to_unsigned(
-			static_cast<
-				std::streamoff
-			>(
-				stream.tellg()
+	// TODO: Distinguish the case where a message was malformed
+	if(
+		result.has_value()
+	)
+		_data.erase(
+			fcppt::cast::to_unsigned(
+				static_cast<
+					std::streamoff
+				>(
+					stream.tellg()
+				)
 			)
-		)
-	);
+		);
 
 	return
 		result;
