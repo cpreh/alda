@@ -30,6 +30,7 @@
 #include <alda/serialization/register_message.hpp>
 #include <alda/serialization/length/deserialize.hpp>
 #include <alda/serialization/length/put.hpp>
+#include <alda/serialization/length/remaining_size_function.hpp>
 #include <alda/serialization/length/serialize.hpp>
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
@@ -382,6 +383,15 @@ FCPPT_PP_POP_WARNING
 		ofs.str()
 	);
 
+	alda::serialization::length::remaining_size_function const remaining_size{
+		[
+			&ifs
+		]{
+			return
+				ifs.rdbuf()->in_avail();
+		}
+	};
+
 	typedef alda::call::object<
 		type_enum,
 		boost::mpl::vector1<
@@ -405,7 +415,8 @@ FCPPT_PP_POP_WARNING
 				length_type
 			>(
 				global_context(),
-				ifs
+				ifs,
+				remaining_size
 			)
 		);
 
@@ -464,7 +475,8 @@ FCPPT_PP_POP_WARNING
 				length_type
 			>(
 				global_context(),
-				ifs
+				ifs,
+				remaining_size
 			)
 		);
 
@@ -497,7 +509,8 @@ FCPPT_PP_POP_WARNING
 				length_type
 			>(
 				global_context(),
-				ifs
+				ifs,
+				remaining_size
 			)
 		);
 

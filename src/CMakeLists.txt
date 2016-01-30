@@ -223,6 +223,7 @@ set(
 	include/alda/serialization/length/detail/binding.hpp
 	include/alda/serialization/length/extract.hpp
 	include/alda/serialization/length/put.hpp
+	include/alda/serialization/length/remaining_size_function.hpp
 	include/alda/serialization/length/serialize.hpp
 	include/alda/serialization/ostream.hpp
 	include/alda/serialization/register_message.hpp

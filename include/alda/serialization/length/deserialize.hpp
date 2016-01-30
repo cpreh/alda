@@ -12,6 +12,7 @@
 #include <alda/serialization/deserialize.hpp>
 #include <alda/serialization/istream.hpp>
 #include <alda/serialization/length/extract.hpp>
+#include <alda/serialization/length/remaining_size_function.hpp>
 #include <fcppt/algorithm/repeat.hpp>
 #include <fcppt/optional/bind.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -46,7 +47,8 @@ deserialize(
 	alda::serialization::context<
 		TypeEnum
 	> const &_context,
-	alda::serialization::istream &_stream
+	alda::serialization::istream &_stream,
+	alda::serialization::length::remaining_size_function const &_remaining_size
 )
 {
 	typedef
@@ -60,27 +62,29 @@ deserialize(
 			alda::serialization::length::extract<
 				LengthType
 			>(
-				_stream
+				_stream,
+				_remaining_size
 			),
 			[
 				&_context,
-				&_stream
+				&_stream,
+				&_remaining_size
 			](
 				LengthType const _length
 			)
 			{
 				if(
-					// in_avail can return -1
-					_stream.rdbuf()->in_avail()
+					_remaining_size()
 					<
-					static_cast<
+					fcppt::cast::size<
 						std::streamsize
 					>(
-						_length
+						fcppt::cast::to_signed(
+							_length
+						)
 					)
 				)
 				{
-					// TODO: should we putback the length instead?
 					fcppt::algorithm::repeat(
 						sizeof(
 							LengthType

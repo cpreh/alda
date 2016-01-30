@@ -10,6 +10,7 @@
 #include <alda/raw/make_generic.hpp>
 #include <alda/raw/stream/istream.hpp>
 #include <alda/serialization/istream.hpp>
+#include <alda/serialization/length/remaining_size_function.hpp>
 #include <alda/serialization/length/detail/binding.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
@@ -41,7 +42,8 @@ boost::enable_if<
 	>
 >::type
 extract(
-	alda::serialization::istream &_stream
+	alda::serialization::istream &_stream,
+	alda::serialization::length::remaining_size_function const &_remaining_size
 )
 {
 	typedef
@@ -52,7 +54,7 @@ extract(
 
 	// in_avail can return showmanyc(), which can return -1
 	return
-		_stream.rdbuf()->in_avail()
+		_remaining_size()
 		<
 		fcppt::cast::size<
 			std::streamsize
