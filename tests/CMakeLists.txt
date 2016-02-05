@@ -9,6 +9,11 @@ function(
 endfunction()
 
 add_alda_test(
+	smallest_uint
+	NO_CODE
+)
+
+add_alda_test(
 	bindings/array
 	LINK_LIBS
 		${fcppt_core_TARGET}

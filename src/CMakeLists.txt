@@ -234,6 +234,7 @@ set(
 	include/alda/serialization/write.hpp
 	include/alda/serialization/write_id.hpp
 	include/alda/serialization/write_record.hpp
+	include/alda/smallest_uint.hpp
 	include/alda/type_enum.hpp
 	include/alda/type_enum_fwd.hpp
 	src/bindings/float.cpp

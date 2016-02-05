@@ -7,12 +7,11 @@
 #ifndef ALDA_SERIALIZATION_DETAIL_MESSAGE_TYPE_HPP_INCLUDED
 #define ALDA_SERIALIZATION_DETAIL_MESSAGE_TYPE_HPP_INCLUDED
 
+#include <alda/smallest_uint.hpp>
 #include <alda/bindings/enum.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <alda/serialization/endianness.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <cstdint>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/enum_size.hpp>
 
 
 namespace alda
@@ -32,8 +31,12 @@ alda::bindings::enum_<
 	typename
 	TypeEnum::type,
 	alda::bindings::unsigned_<
-		// TODO: Make this work with bigger enums
-		std::uint8_t,
+		alda::smallest_uint<
+			fcppt::enum_size<
+				typename
+				TypeEnum::type
+			>::value
+		>,
 		alda::serialization::endianness()
 	>
 >;
