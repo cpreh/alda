@@ -94,7 +94,6 @@ set(
 	include/alda/message/is_record.hpp
 	include/alda/message/make_concrete_ptr.hpp
 	include/alda/message/make_id.hpp
-	include/alda/message/make_id_fwd.hpp
 	include/alda/message/optional_base_unique_ptr.hpp
 	include/alda/message/optional_base_unique_ptr_fwd.hpp
 	include/alda/message/record.hpp
@@ -236,8 +235,6 @@ set(
 	include/alda/serialization/write_id.hpp
 	include/alda/serialization/write_record.hpp
 	include/alda/type_enum.hpp
-	include/alda/type_enum_fcppt.hpp
-	include/alda/type_enum_fcppt_fwd.hpp
 	include/alda/type_enum_fwd.hpp
 	src/bindings/float.cpp
 	src/exception.cpp

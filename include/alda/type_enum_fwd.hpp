@@ -12,8 +12,7 @@ namespace alda
 {
 
 template<
-	typename Enum,
-	typename Size
+	typename Enum
 >
 struct type_enum;
 

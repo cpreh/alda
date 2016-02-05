@@ -7,9 +7,29 @@
 #ifndef ALDA_MESSAGE_MAKE_ID_HPP_INCLUDED
 #define ALDA_MESSAGE_MAKE_ID_HPP_INCLUDED
 
-#include <alda/message/make_id_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
-// TODO
 
+namespace alda
+{
+namespace message
+{
+
+template<
+	typename EnumType,
+	typename EnumType::type MessageType
+>
+using make_id
+=
+std::integral_constant<
+	typename
+	EnumType::type,
+	MessageType
+>;
+
+}
+}
 
 #endif

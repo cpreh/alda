@@ -5,7 +5,7 @@
 
 
 #include <alda/exception.hpp>
-#include <alda/type_enum_fcppt.hpp>
+#include <alda/type_enum.hpp>
 #include <alda/bindings/dynamic_len.hpp>
 #include <alda/bindings/fundamental.hpp>
 #include <alda/bindings/optional.hpp>
@@ -71,7 +71,7 @@ enum class message_type
 };
 
 typedef
-alda::type_enum_fcppt<
+alda::type_enum<
 	message_type
 >
 type_enum;

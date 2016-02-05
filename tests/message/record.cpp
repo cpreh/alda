@@ -1,4 +1,4 @@
-#include <alda/type_enum_fcppt.hpp>
+#include <alda/type_enum.hpp>
 #include <alda/bindings/fundamental.hpp>
 #include <alda/message/make_id.hpp>
 #include <alda/message/record.hpp>
@@ -50,7 +50,7 @@ FCPPT_PP_POP_WARNING
 	};
 
 	typedef
-	alda::type_enum_fcppt<
+	alda::type_enum<
 		message_type
 	>
 	type_enum;

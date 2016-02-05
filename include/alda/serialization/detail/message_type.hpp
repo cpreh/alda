@@ -29,7 +29,6 @@ using
 message_type
 =
 alda::bindings::enum_<
-	// TODO: Make this work with non fcppt enums or remove them
 	typename
 	TypeEnum::type,
 	alda::bindings::unsigned_<
