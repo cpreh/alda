@@ -51,6 +51,6 @@ boost::mpl::deref<
 	>::type
 >::type;
 
-};
+}
 
 #endif
