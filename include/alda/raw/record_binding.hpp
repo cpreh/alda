@@ -31,6 +31,7 @@
 #include <fcppt/tag_type.hpp>
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/algorithm/loop.hpp>
+#include <fcppt/algorithm/loop_break_mpl.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

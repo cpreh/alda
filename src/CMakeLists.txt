@@ -268,6 +268,7 @@ set(
 	ALDA_STATIC_LINK_FLAG
 	ALDA_STATIC_LINK
 )
+
 fcppt_generate_symbol_header(
 	STATIC_LINK_FLAG
 		"${ALDA_STATIC_LINK_FLAG}"
