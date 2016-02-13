@@ -95,6 +95,9 @@ public:
 
 	using
 	base::get;
+
+	base const &
+	get_base() const;
 };
 
 }

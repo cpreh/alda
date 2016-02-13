@@ -85,4 +85,19 @@ alda::raw::record<
 {
 }
 
+template<
+	typename Types
+>
+typename
+alda::raw::record<
+	Types
+>::base const &
+alda::raw::record<
+	Types
+>::get_base() const
+{
+	return
+		*this;
+}
+
 #endif

@@ -174,6 +174,7 @@ set(
 	include/alda/raw/record_decl.hpp
 	include/alda/raw/record_fwd.hpp
 	include/alda/raw/record_impl.hpp
+	include/alda/raw/record_output.hpp
 	include/alda/raw/record_to_buffer.hpp
 	include/alda/raw/record_variadic.hpp
 	include/alda/raw/record_variadic_fwd.hpp
