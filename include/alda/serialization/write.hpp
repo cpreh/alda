@@ -8,9 +8,9 @@
 #define ALDA_SERIALIZATION_WRITE_HPP_INCLUDED
 
 #include <alda/raw/element_type.hpp>
+#include <alda/raw/is_static_size.hpp>
 #include <alda/raw/to_buffer.hpp>
 #include <alda/raw/to_static_buffer.hpp>
-#include <alda/raw/is_static_size.hpp>
 #include <alda/serialization/buffer_to_stream.hpp>
 #include <alda/serialization/ostream.hpp>
 #include <alda/serialization/static_buffer_to_stream.hpp>

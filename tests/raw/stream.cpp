@@ -1,8 +1,4 @@
-#include <majutsu/get.hpp>
-#include <majutsu/make_role_tag.hpp>
-#include <majutsu/role.hpp>
 #include <alda/bindings/fundamental.hpp>
-#include <alda/serialization/write_record.hpp>
 #include <alda/raw/buffer.hpp>
 #include <alda/raw/const_pointer.hpp>
 #include <alda/raw/make_generic.hpp>
@@ -10,6 +6,10 @@
 #include <alda/raw/record_variadic.hpp>
 #include <alda/raw/stream/istream.hpp>
 #include <alda/raw/stream/memory.hpp>
+#include <alda/serialization/write_record.hpp>
+#include <majutsu/get.hpp>
+#include <majutsu/make_role_tag.hpp>
+#include <majutsu/role.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>

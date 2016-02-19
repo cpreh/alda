@@ -8,8 +8,8 @@
 #define ALDA_RAW_RECORD_TO_BUFFER_HPP_INCLUDED
 
 #include <alda/raw/buffer.hpp>
-#include <alda/raw/to_buffer.hpp>
 #include <alda/raw/record.hpp>
+#include <alda/raw/to_buffer.hpp>
 
 
 namespace alda

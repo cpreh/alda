@@ -42,8 +42,8 @@
 #include <boost/mpl/fold.hpp>
 #include <boost/mpl/lambda.hpp>
 #include <boost/mpl/next.hpp>
-#include <boost/mpl/plus.hpp>
 #include <boost/mpl/placeholders.hpp>
+#include <boost/mpl/plus.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 

@@ -6,11 +6,11 @@
 
 #include <alda/bindings/array.hpp>
 #include <alda/bindings/unsigned.hpp>
-#include <alda/serialization/write_record.hpp>
 #include <alda/raw/make_generic.hpp>
 #include <alda/raw/record_variadic.hpp>
 #include <alda/raw/static_size.hpp>
 #include <alda/raw/stream/istream.hpp>
+#include <alda/serialization/write_record.hpp>
 #include <majutsu/get.hpp>
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>

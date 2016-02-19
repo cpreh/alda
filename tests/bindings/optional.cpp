@@ -6,12 +6,12 @@
 
 #include <alda/bindings/optional.hpp>
 #include <alda/bindings/unsigned.hpp>
-#include <alda/serialization/write_record.hpp>
 #include <alda/raw/make_generic.hpp>
 #include <alda/raw/record_variadic.hpp>
 #include <alda/raw/stream/istream.hpp>
-#include <majutsu/make_role_tag.hpp>
+#include <alda/serialization/write_record.hpp>
 #include <majutsu/get.hpp>
+#include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/optional/object.hpp>

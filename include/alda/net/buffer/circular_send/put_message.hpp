@@ -11,10 +11,10 @@
 #include <alda/net/value_type.hpp>
 #include <alda/net/buffer/circular_send/object.hpp>
 #include <alda/net/buffer/circular_send/sink.hpp>
+#include <alda/raw/size_type.hpp>
 #include <alda/serialization/ostream.hpp>
 #include <alda/serialization/length/make.hpp>
 #include <alda/serialization/length/serialize.hpp>
-#include <alda/raw/size_type.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>

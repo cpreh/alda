@@ -7,10 +7,10 @@
 #ifndef ALDA_RAW_DETAIL_INNER_TYPES_HPP_INCLUDED
 #define ALDA_RAW_DETAIL_INNER_TYPES_HPP_INCLUDED
 
+#include <alda/raw/element_type_tpl.hpp>
 #include <majutsu/role.hpp>
 #include <majutsu/role_to_tag_tpl.hpp>
 #include <majutsu/role_to_type_tpl.hpp>
-#include <alda/raw/element_type_tpl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/transform.hpp>

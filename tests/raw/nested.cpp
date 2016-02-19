@@ -1,8 +1,8 @@
+#include <alda/bindings/fundamental.hpp>
+#include <alda/raw/record_variadic.hpp>
 #include <majutsu/get.hpp>
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
-#include <alda/bindings/fundamental.hpp>
-#include <alda/raw/record_variadic.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
