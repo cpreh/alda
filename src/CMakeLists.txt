@@ -87,6 +87,7 @@ set(
 	include/alda/message/concrete_decl.hpp
 	include/alda/message/concrete_fwd.hpp
 	include/alda/message/detail/extract_id.hpp
+	include/alda/message/detail/extract_id_tpl.hpp
 	include/alda/message/impl/base_impl.hpp
 	include/alda/message/impl/concrete_impl.hpp
 	include/alda/message/instantiate_base.hpp

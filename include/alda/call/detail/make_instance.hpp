@@ -9,13 +9,22 @@
 
 #include <alda/call/detail/base_impl.hpp>
 #include <alda/call/detail/concrete_decl.hpp>
-#include <alda/message/detail/extract_id.hpp>
+#include <alda/message/detail/extract_id_tpl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/nonassignable.hpp>
-#include <fcppt/tag.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/mpl/contains_if.hpp>
 #include <fcppt/optional/object_impl.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/deref.hpp>
+#include <boost/mpl/find_if.hpp>
+#include <boost/mpl/placeholders.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace alda
@@ -27,57 +36,64 @@ namespace detail
 
 template<
 	typename TypeEnum,
-	typename Callee,
-	typename InstanceArray
+	typename Messages,
+	typename Callee
 >
-class make_instance
+struct make_instance
 {
-	FCPPT_NONASSIGNABLE(
-		make_instance
-	);
-public:
-	explicit
-	make_instance(
-		InstanceArray &_instances
-	)
-	:
-		instances_(
-			_instances
-		)
-	{
-	}
+	typedef
+	alda::call::detail::base<
+		TypeEnum,
+		Callee
+	>
+	base;
+
+	typedef
+	fcppt::optional::object<
+		fcppt::unique_ptr<
+			base
+		>
+	>
+	optional_base_unique_ptr;
+
+	FCPPT_PP_PUSH_WARNING
+	FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 	template<
-		typename Message
+		typename Type
 	>
-	void
-	operator()(
-		fcppt::tag<
-			Message
-		>
-	) const
-	{
-		typedef
-		alda::call::detail::base<
-			TypeEnum,
-			Callee
-		>
-		base;
-
-		typedef
-		fcppt::optional::object<
-			fcppt::unique_ptr<
-				base
+	struct has_message
+	:
+	fcppt::mpl::contains_if<
+		Messages,
+		std::is_same<
+			Type,
+			alda::message::detail::extract_id_tpl<
+				boost::mpl::_1
 			>
 		>
-		optional_base_unique_ptr;
+	>
+	{
+	};
 
-		instances_[
-			alda::message::detail::extract_id<
-				Message
-			>::value
-		] =
-			optional_base_unique_ptr(
+	FCPPT_PP_POP_WARNING
+
+	template<
+		typename Type
+	>
+	typename
+	boost::enable_if<
+		has_message<
+			Type
+		>,
+		optional_base_unique_ptr
+	>::type
+	operator()(
+		Type
+	) const
+	{
+		return
+			optional_base_unique_ptr{
 				fcppt::unique_ptr_to_base<
 					base
 				>(
@@ -85,14 +101,42 @@ public:
 						alda::call::detail::concrete<
 							TypeEnum,
 							Callee,
-							Message
+							typename
+							boost::mpl::deref<
+								typename
+								boost::mpl::find_if<
+									Messages,
+									std::is_same<
+										Type,
+										alda::message::detail::extract_id_tpl<
+											boost::mpl::_1
+										>
+									>
+								>::type
+							>::type
 						>
 					>()
 				)
-			);
+			};
 	}
-private:
-	InstanceArray &instances_;
+
+	template<
+		typename Type
+	>
+	typename
+	boost::disable_if<
+		has_message<
+			Type
+		>,
+		optional_base_unique_ptr
+	>::type
+	operator()(
+		Type
+	) const
+	{
+		return
+			optional_base_unique_ptr();
+	}
 };
 
 }

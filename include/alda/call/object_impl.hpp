@@ -14,7 +14,6 @@
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/algorithm/enum_array_init.hpp>
 #include <fcppt/container/enum_array_impl.hpp>
-#include <fcppt/mpl/for_each.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/object_impl.hpp>
 
@@ -30,32 +29,18 @@ alda::call::object<
 	Callee
 >::object()
 :
-	// TODO: Initialize this directly!
 	instances_(
 		fcppt::algorithm::enum_array_init<
 			instance_array
 		>(
-			[](
-				typename
-				TypeEnum::type
-			){
-				return
-					optional_base_unique_ptr();
-			}
+			alda::call::detail::make_instance<
+				TypeEnum,
+				Messages,
+				Callee
+			>{}
 		)
 	)
 {
-	fcppt::mpl::for_each<
-		Messages
-	>(
-		alda::call::detail::make_instance<
-			TypeEnum,
-			Callee,
-			instance_array
-		>(
-			instances_
-		)
-	);
 }
 
 template<

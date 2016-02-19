@@ -80,7 +80,7 @@ private:
 	>
 	instance_array;
 
-	instance_array instances_;
+	instance_array const instances_;
 };
 
 }

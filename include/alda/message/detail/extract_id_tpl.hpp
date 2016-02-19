@@ -4,10 +4,8 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef ALDA_MESSAGE_DETAIL_EXTRACT_ID_HPP_INCLUDED
-#define ALDA_MESSAGE_DETAIL_EXTRACT_ID_HPP_INCLUDED
-
-#include <alda/message/detail/extract_id_tpl.hpp>
+#ifndef ALDA_MESSAGE_DETAIL_EXTRACT_ID_TPL_HPP_INCLUDED
+#define ALDA_MESSAGE_DETAIL_EXTRACT_ID_TPL_HPP_INCLUDED
 
 
 namespace alda
@@ -20,12 +18,13 @@ namespace detail
 template<
 	typename Message
 >
-using extract_id
-=
-typename
-alda::message::detail::extract_id_tpl<
-	Message
->::type;
+struct extract_id_tpl
+{
+	typedef
+	typename
+	Message::id_type
+	type;
+};
 
 }
 }
