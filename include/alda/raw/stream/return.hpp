@@ -7,7 +7,8 @@
 #ifndef ALDA_RAW_STREAM_RETURN_HPP_INCLUDED
 #define ALDA_RAW_STREAM_RETURN_HPP_INCLUDED
 
-#include <fcppt/optional/object_fwd.hpp>
+#include <alda/raw/stream/error.hpp>
+#include <fcppt/either/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <utility>
@@ -49,7 +50,8 @@ inline
 typename
 std::enable_if<
 	Stream::can_fail,
-	fcppt::optional::object<
+	fcppt::either::object<
+		alda::raw::stream::error,
 		typename
 		std::decay<
 			Type
@@ -61,7 +63,8 @@ return_(
 )
 {
 	return
-		fcppt::optional::object<
+		fcppt::either::object<
+			alda::raw::stream::error,
 			typename
 			std::decay<
 				Type

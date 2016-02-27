@@ -10,6 +10,7 @@
 #include <alda/exception.hpp>
 #include <alda/detail/class_symbol.hpp>
 #include <alda/detail/symbol.hpp>
+#include <alda/raw/stream/failure_fwd.hpp>
 #include <fcppt/string.hpp>
 
 

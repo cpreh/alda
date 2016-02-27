@@ -8,7 +8,8 @@
 #define ALDA_RAW_STREAM_RESULT_HPP_INCLUDED
 
 #include <alda/raw/element_type.hpp>
-#include <fcppt/optional/object_fwd.hpp>
+#include <alda/raw/stream/error.hpp>
+#include <fcppt/either/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -31,7 +32,8 @@ result
 typename
 std::conditional<
 	Stream::can_fail,
-	fcppt::optional::object<
+	fcppt::either::object<
+		alda::raw::stream::error,
 		alda::raw::element_type<
 			Type
 		>

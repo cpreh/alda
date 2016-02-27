@@ -5,14 +5,18 @@
 #include <alda/bindings/static.hpp>
 #include <alda/raw/make_generic.hpp>
 #include <alda/raw/record_variadic.hpp>
+#include <alda/raw/stream/error.hpp>
 #include <alda/raw/stream/istream.hpp>
 #include <majutsu/get.hpp>
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
+#include <fcppt/strong_typedef_output.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/endianness/format.hpp>
+#include <fcppt/either/match.hpp>
+#include <fcppt/io/cerr.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/static.hpp>
-#include <fcppt/optional/maybe.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <array>
 #include <cstdint>
@@ -278,17 +282,23 @@ main(
 			EXIT_FAILURE;
 	}
 
-	fcppt::optional::maybe(
+	fcppt::either::match(
 		alda::raw::make_generic<
 			alda::raw::stream::istream,
 			level
 		>(
 			input
 		),
-		[]{
-			std::cerr
+		[](
+			alda::raw::stream::error const &_error
+		){
+			fcppt::io::cerr()
 				<<
-				"Parsing failed.\n";
+				FCPPT_TEXT("Parsing failed: ")
+				<<
+				_error
+				<<
+				FCPPT_TEXT(".\n");
 		},
 		[](
 			level &&_level

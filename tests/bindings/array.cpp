@@ -7,15 +7,12 @@
 #include <alda/bindings/array.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <alda/raw/make_generic.hpp>
-#include <alda/raw/record_variadic.hpp>
 #include <alda/raw/static_size.hpp>
+#include <alda/raw/stream/error.hpp>
 #include <alda/raw/stream/istream.hpp>
-#include <alda/serialization/write_record.hpp>
-#include <majutsu/get.hpp>
-#include <majutsu/make_role_tag.hpp>
-#include <majutsu/role.hpp>
+#include <alda/serialization/write.hpp>
+#include <fcppt/either/object.hpp>
 #include <fcppt/endianness/format.hpp>
-#include <fcppt/optional/object.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -46,19 +43,6 @@ alda::bindings::array<
 >
 array_binding;
 
-MAJUTSU_MAKE_ROLE_TAG(
-	array_role
-);
-
-typedef
-alda::raw::record_variadic<
-	majutsu::role<
-		array_binding,
-		array_role
-	>
->
-message;
-
 static_assert(
 	alda::raw::static_size<
 		array_binding
@@ -72,46 +56,18 @@ static_assert(
 	""
 );
 
-static_assert(
-	alda::raw::static_size<
-		array_binding
-	>::value
-	==
-	alda::raw::static_size<
-		message
-	>::value,
-	""
-);
+typedef
+fcppt::either::object<
+	alda::raw::stream::error,
+	int_array2
+>
+result_type;
 
 }
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-BOOST_AUTO_TEST_CASE(
-	alda_array
+BOOST_TEST_DONT_PRINT_LOG_VALUE(
+	result_type
 )
-{
-FCPPT_PP_POP_WARNING
-
-	int_array2 const test{{
-		2u,
-		5u
-	}};
-
-	BOOST_CHECK(
-		majutsu::get<
-			array_role
-		>(
-			message{
-				array_role{} =
-					test
-			}
-		)
-		==
-		test
-	);
-}
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
@@ -129,40 +85,26 @@ FCPPT_PP_POP_WARNING
 
 	std::stringstream stream;
 
-	alda::serialization::write_record(
+	alda::serialization::write<
+		array_binding
+	>(
 		stream,
-		message{
-			array_role{} =
-				test
-		}
+		test
 	);
 
-	typedef
-	fcppt::optional::object<
-		message
-	>
-	optional_result;
-
-	optional_result const result(
+	result_type const result{
 		alda::raw::make_generic<
 			alda::raw::stream::istream,
-			message
+			array_binding
 		>(
 			stream
 		)
-	);
+	};
 
-	BOOST_REQUIRE(
-		result.has_value()
-	);
-
-	BOOST_CHECK(
-		majutsu::get<
-			array_role
-		>(
-			result.get_unsafe()
-		)
-		==
-		test
+	BOOST_CHECK_EQUAL(
+		result,
+		result_type{
+			test
+		}
 	);
 }

@@ -7,15 +7,14 @@
 #include <alda/exception.hpp>
 #include <alda/bindings/signed.hpp>
 #include <alda/raw/make_generic.hpp>
-#include <alda/raw/record_variadic.hpp>
+#include <alda/raw/stream/error.hpp>
 #include <alda/raw/stream/istream.hpp>
-#include <alda/serialization/write_record.hpp>
-#include <majutsu/get.hpp>
-#include <majutsu/make_role_tag.hpp>
-#include <majutsu/role.hpp>
+#include <alda/serialization/write.hpp>
 #include <fcppt/literal.hpp>
+#include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/endianness/format.hpp>
-#include <fcppt/optional/object.hpp>
+#include <fcppt/either/object.hpp>
+#include <fcppt/either/output.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -24,6 +23,7 @@
 #include <boost/test/unit_test.hpp>
 #include <cstdint>
 #include <limits>
+#include <sstream>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -39,20 +39,7 @@ alda::bindings::signed_<
 	int_type,
 	fcppt::endianness::format::little
 >
-int_alda_type;
-
-MAJUTSU_MAKE_ROLE_TAG(
-	int_role
-);
-
-typedef
-alda::raw::record_variadic<
-	majutsu::role<
-		int_alda_type,
-		int_role
-	>
->
-message;
+int_binding;
 
 bool
 check_exception(
@@ -75,23 +62,41 @@ int_type const min(
 	>::min()
 );
 
+typedef
+fcppt::either::object<
+	alda::raw::stream::error,
+	int_type
+>
+result_type;
+
 void
 test_conversion(
 	int_type const _value
 )
 {
-	message const msg(
-		int_role{} =
-			_value
+	std::stringstream stream;
+
+	alda::serialization::write<
+		int_binding
+	>(
+		stream,
+		_value
+	);
+
+	result_type const result(
+		alda::raw::make_generic<
+			alda::raw::stream::istream,
+			int_binding
+		>(
+			stream
+		)
 	);
 
 	BOOST_CHECK_EQUAL(
-		majutsu::get<
-			int_role
-		>(
-			msg
-		),
-		_value
+		result_type{
+			_value
+		},
+		result
 	);
 }
 
@@ -101,7 +106,7 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 BOOST_AUTO_TEST_CASE(
-	alda_signed
+	alda_signed_stream
 )
 {
 FCPPT_PP_POP_WARNING
@@ -142,55 +147,6 @@ FCPPT_PP_POP_WARNING
 		)
 	);
 
-}
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-BOOST_AUTO_TEST_CASE(
-	alda_signed_stream
-)
-{
-FCPPT_PP_POP_WARNING
-
-	std::stringstream stream;
-
-	alda::serialization::write_record(
-		stream,
-		message{
-			int_role{} =
-				42
-		}
-	);
-
-	typedef
-	fcppt::optional::object<
-		message
-	>
-	optional_result;
-
-	optional_result const result(
-		alda::raw::make_generic<
-			alda::raw::stream::istream,
-			message
-		>(
-			stream
-		)
-	);
-
-	BOOST_REQUIRE(
-		result.has_value()
-	);
-
-	BOOST_CHECK_EQUAL(
-		majutsu::get<
-			int_role
-		>(
-			result.get_unsafe()
-		),
-		42
-	);
-
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4127)
 	if(
@@ -200,16 +156,20 @@ FCPPT_PP_DISABLE_VC_WARNING(4127)
 		<
 		0
 	)
+	{
+		std::ostringstream stream;
+
 		BOOST_CHECK_EXCEPTION(
-			alda::serialization::write_record(
+			alda::serialization::write<
+				int_binding
+			>(
 				stream,
-				message{
-					int_role{} =
-						min
-				}
+				min
 			),
 			alda::exception,
 			::check_exception
 		);
+	}
 FCPPT_PP_POP_WARNING
+
 }

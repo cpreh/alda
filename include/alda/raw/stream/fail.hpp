@@ -7,6 +7,7 @@
 #ifndef ALDA_RAW_STREAM_FAIL_HPP_INCLUDED
 #define ALDA_RAW_STREAM_FAIL_HPP_INCLUDED
 
+#include <alda/raw/stream/error.hpp>
 #include <alda/raw/stream/failure.hpp>
 #include <alda/raw/stream/result.hpp>
 #include <fcppt/string.hpp>
@@ -77,12 +78,15 @@ fail(
 	fcppt::string const &_error
 )
 {
-	// TODO!
 	return
 		alda::raw::stream::result<
 			Stream,
 			Type
-		>();
+		>(
+			alda::raw::stream::error{
+				_error
+			}
+		);
 }
 
 }

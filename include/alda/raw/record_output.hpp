@@ -8,6 +8,7 @@
 #define ALDA_RAW_RECORD_OUTPUT_HPP_INCLUDED
 
 #include <alda/raw/record_impl.hpp>
+#include <majutsu/record_output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>

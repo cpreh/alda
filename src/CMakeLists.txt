@@ -172,6 +172,7 @@ set(
 	include/alda/raw/pointer.hpp
 	include/alda/raw/record.hpp
 	include/alda/raw/record_binding.hpp
+	include/alda/raw/record_comparison.hpp
 	include/alda/raw/record_decl.hpp
 	include/alda/raw/record_fwd.hpp
 	include/alda/raw/record_impl.hpp
@@ -183,8 +184,11 @@ set(
 	include/alda/raw/static_buffer.hpp
 	include/alda/raw/static_size.hpp
 	include/alda/raw/stream/bind.hpp
+	include/alda/raw/stream/error.hpp
+	include/alda/raw/stream/error_fwd.hpp
 	include/alda/raw/stream/fail.hpp
 	include/alda/raw/stream/failure.hpp
+	include/alda/raw/stream/failure_fwd.hpp
 	include/alda/raw/stream/istream.hpp
 	include/alda/raw/stream/istream_fwd.hpp
 	include/alda/raw/stream/memory.hpp

@@ -7,13 +7,13 @@
 #include <alda/bindings/optional.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <alda/raw/make_generic.hpp>
-#include <alda/raw/record_variadic.hpp>
+#include <alda/raw/stream/error.hpp>
 #include <alda/raw/stream/istream.hpp>
-#include <alda/serialization/write_record.hpp>
-#include <majutsu/get.hpp>
-#include <majutsu/make_role_tag.hpp>
-#include <majutsu/role.hpp>
+#include <alda/serialization/write.hpp>
+#include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/endianness/format.hpp>
+#include <fcppt/either/object.hpp>
+#include <fcppt/either/output.hpp>
 #include <fcppt/optional/object.hpp>
 #include <fcppt/optional/output.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -49,59 +49,13 @@ alda::bindings::optional<
 >
 optional_binding;
 
-MAJUTSU_MAKE_ROLE_TAG(
-	optional_role
-);
-
 typedef
-alda::raw::record_variadic<
-	majutsu::role<
-		optional_binding,
-		optional_role
-	>
+fcppt::either::object<
+	alda::raw::stream::error,
+	optional_type
 >
-message;
+result_type;
 
-}
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-BOOST_AUTO_TEST_CASE(
-	alda_optional
-)
-{
-FCPPT_PP_POP_WARNING
-
-	BOOST_CHECK_EQUAL(
-		majutsu::get<
-			optional_role
-		>(
-			message{
-				optional_role{} =
-					optional_type()
-			}
-		),
-		optional_type()
-	);
-
-	message const msg(
-		optional_role{} =
-			optional_type(
-				42u
-			)
-	);
-
-	BOOST_CHECK_EQUAL(
-		majutsu::get<
-			optional_role
-		>(
-			msg
-		),
-		optional_type(
-			42u
-		)
-	);
 }
 
 FCPPT_PP_PUSH_WARNING
@@ -113,45 +67,61 @@ BOOST_AUTO_TEST_CASE(
 {
 FCPPT_PP_POP_WARNING
 
-	std::stringstream stream;
+	{
+		std::stringstream stream;
 
-	alda::serialization::write_record(
-		stream,
-		message(
-			optional_role{} =
-				optional_type(
+		alda::serialization::write<
+			optional_binding
+		>(
+			stream,
+			optional_type{
+				42u
+			}
+		);
+
+		result_type const result(
+			alda::raw::make_generic<
+				alda::raw::stream::istream,
+				optional_binding
+			>(
+				stream
+			)
+		);
+
+		BOOST_CHECK_EQUAL(
+			result,
+			result_type{
+				optional_type{
 					42u
-				)
-		)
-	);
+				}
+			}
+		);
+	}
 
-	typedef
-	fcppt::optional::object<
-		message
-	>
-	optional_message;
+	{
+		std::stringstream stream;
 
-	optional_message const result(
-		alda::raw::make_generic<
-			alda::raw::stream::istream,
-			message
+		alda::serialization::write<
+			optional_binding
 		>(
-			stream
-		)
-	);
+			stream,
+			optional_type{}
+		);
 
-	BOOST_REQUIRE(
-		result.has_value()
-	);
+		result_type const result(
+			alda::raw::make_generic<
+				alda::raw::stream::istream,
+				optional_binding
+			>(
+				stream
+			)
+		);
 
-	BOOST_CHECK_EQUAL(
-		majutsu::get<
-			optional_role
-		>(
-			result.get_unsafe()
-		),
-		optional_type(
-			42u
-		)
-	);
+		BOOST_CHECK_EQUAL(
+			result,
+			result_type{
+				optional_type{}
+			}
+		);
+	}
 }

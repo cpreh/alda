@@ -4,12 +4,21 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef ALDA_RAW_RECORD_HPP_INCLUDED
-#define ALDA_RAW_RECORD_HPP_INCLUDED
+#ifndef ALDA_RAW_STREAM_FAILURE_FWD_HPP_INCLUDED
+#define ALDA_RAW_STREAM_FAILURE_FWD_HPP_INCLUDED
 
-#include <alda/raw/record_binding.hpp>
-#include <alda/raw/record_comparison.hpp>
-#include <alda/raw/record_impl.hpp>
 
+namespace alda
+{
+namespace raw
+{
+namespace stream
+{
+
+class failure;
+
+}
+}
+}
 
 #endif

@@ -14,6 +14,7 @@
 #include <alda/serialization/length/detail/binding.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
+#include <fcppt/either/success_opt.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -68,13 +69,15 @@ extract(
 		?
 			return_type()
 		:
-			alda::raw::make_generic<
-				alda::raw::stream::istream,
-				alda::serialization::length::detail::binding<
-					LengthType
-				>
-			>(
-				_stream
+			fcppt::either::success_opt(
+				alda::raw::make_generic<
+					alda::raw::stream::istream,
+					alda::serialization::length::detail::binding<
+						LengthType
+					>
+				>(
+					_stream
+				)
 			)
 		;
 }

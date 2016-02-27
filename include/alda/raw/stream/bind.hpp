@@ -7,8 +7,9 @@
 #ifndef ALDA_RAW_STREAM_BIND_HPP_INCLUDED
 #define ALDA_RAW_STREAM_BIND_HPP_INCLUDED
 
-#include <fcppt/optional/bind.hpp>
-#include <fcppt/optional/object.hpp>
+#include <alda/raw/stream/error.hpp>
+#include <fcppt/either/bind.hpp>
+#include <fcppt/either/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <utility>
@@ -62,7 +63,8 @@ template<
 inline
 auto
 bind(
-	fcppt::optional::object<
+	fcppt::either::object<
+		alda::raw::stream::error,
 		Type
 	> &&_value,
 	Function const &_function
@@ -72,7 +74,7 @@ typename
 std::enable_if<
 	Stream::can_fail,
 	decltype(
-		fcppt::optional::bind(
+		fcppt::either::bind(
 			std::move(
 				_value
 			),
@@ -82,7 +84,7 @@ std::enable_if<
 >::type
 {
 	return
-		fcppt::optional::bind(
+		fcppt::either::bind(
 			std::move(
 				_value
 			),

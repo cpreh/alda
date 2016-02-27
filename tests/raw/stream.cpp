@@ -3,14 +3,17 @@
 #include <alda/raw/const_pointer.hpp>
 #include <alda/raw/make_generic.hpp>
 #include <alda/raw/record_to_buffer.hpp>
+#include <alda/raw/record_output.hpp>
 #include <alda/raw/record_variadic.hpp>
+#include <alda/raw/stream/error.hpp>
 #include <alda/raw/stream/istream.hpp>
 #include <alda/raw/stream/memory.hpp>
 #include <alda/serialization/write_record.hpp>
-#include <majutsu/get.hpp>
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/strong_typedef_output.hpp>
+#include <fcppt/either/object.hpp>
+#include <fcppt/either/output.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -86,7 +89,8 @@ FCPPT_PP_POP_WARNING
 	);
 
 	typedef
-	fcppt::optional::object<
+	fcppt::either::object<
+		alda::raw::stream::error,
 		record
 	>
 	optional_record;
@@ -100,18 +104,11 @@ FCPPT_PP_POP_WARNING
 		)
 	};
 
-	// TODO: Add record comparison and output
-	BOOST_REQUIRE(
-		result.has_value()
-	);
-
 	BOOST_CHECK_EQUAL(
-		majutsu::get<
-			int_role
-		>(
-			result.get_unsafe()
-		),
-		42
+		optional_record{
+			test
+		},
+		result
 	);
 
 	optional_record const result2{
@@ -124,7 +121,7 @@ FCPPT_PP_POP_WARNING
 	};
 
 	BOOST_CHECK(
-		!result2.has_value()
+		result2.has_failure()
 	);
 }
 
@@ -165,11 +162,7 @@ FCPPT_PP_POP_WARNING
 	};
 
 	BOOST_CHECK_EQUAL(
-		majutsu::get<
-			int_role
-		>(
-			result
-		),
-		42
+		test,
+		result
 	);
 }

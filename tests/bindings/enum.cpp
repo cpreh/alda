@@ -7,14 +7,11 @@
 #include <alda/bindings/enum.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <alda/raw/make_generic.hpp>
-#include <alda/raw/record_variadic.hpp>
+#include <alda/raw/stream/error.hpp>
 #include <alda/raw/stream/istream.hpp>
-#include <alda/serialization/write_record.hpp>
-#include <majutsu/get.hpp>
-#include <majutsu/make_role_tag.hpp>
-#include <majutsu/role.hpp>
+#include <alda/serialization/write.hpp>
+#include <fcppt/either/object.hpp>
 #include <fcppt/endianness/format.hpp>
-#include <fcppt/optional/object.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -44,56 +41,18 @@ alda::bindings::enum_<
 >
 enum_binding;
 
-MAJUTSU_MAKE_ROLE_TAG(
-	enum_role
-);
-
 typedef
-alda::raw::record_variadic<
-	majutsu::role<
-		enum_binding,
-		enum_role
-	>
+fcppt::either::object<
+	alda::raw::stream::error,
+	test_enum
 >
-message;
+result_type;
 
 }
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-BOOST_AUTO_TEST_CASE(
-	alda_enum
+BOOST_TEST_DONT_PRINT_LOG_VALUE(
+	result_type
 )
-{
-FCPPT_PP_POP_WARNING
-
-	BOOST_CHECK(
-		majutsu::get<
-			enum_role
-		>(
-			message{
-				enum_role{} =
-					test_enum::value0
-			}
-		)
-		==
-		test_enum::value0
-	);
-
-	BOOST_CHECK(
-		majutsu::get<
-			enum_role
-		>(
-			message{
-				enum_role{} =
-					test_enum::value1
-			}
-		)
-		==
-		test_enum::value1
-	);
-}
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
@@ -106,41 +65,27 @@ FCPPT_PP_POP_WARNING
 
 	std::stringstream stream;
 
-	alda::serialization::write_record(
+	alda::serialization::write<
+		enum_binding
+	>(
 		stream,
-		message{
-			enum_role{} =
-				test_enum::value1
-		}
+		test_enum::value1
 	);
 
-	typedef
-	fcppt::optional::object<
-		message
-	>
-	optional_result;
-
-	optional_result const result(
+	result_type const result(
 		alda::raw::make_generic<
 			alda::raw::stream::istream,
-			message
+			enum_binding
 		>(
 			stream
 		)
 	);
 
-	BOOST_REQUIRE(
-		result.has_value()
-	);
-
-	BOOST_CHECK(
-		majutsu::get<
-			enum_role
-		>(
-			result.get_unsafe()
-		)
-		==
-		test_enum::value1
+	BOOST_CHECK_EQUAL(
+		result,
+		result_type{
+			test_enum::value1
+		}
 	);
 
 	stream.str(
@@ -148,11 +93,11 @@ FCPPT_PP_POP_WARNING
 	);
 
 	BOOST_CHECK((
-		!alda::raw::make_generic<
+		alda::raw::make_generic<
 			alda::raw::stream::istream,
-			message
+			enum_binding
 		>(
 			stream
-		).has_value()
+		).has_failure()
 	));
 }

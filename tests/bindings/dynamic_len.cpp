@@ -8,19 +8,16 @@
 #include <alda/bindings/fundamental.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <alda/raw/make_generic.hpp>
-#include <alda/raw/record_variadic.hpp>
+#include <alda/raw/stream/error.hpp>
 #include <alda/raw/stream/istream.hpp>
-#include <alda/serialization/write_record.hpp>
-#include <majutsu/get.hpp>
-#include <majutsu/make_role_tag.hpp>
-#include <majutsu/role.hpp>
+#include <alda/serialization/write.hpp>
 #include <fcppt/endianness/format.hpp>
+#include <fcppt/either/object.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/test/unit_test.hpp>
-#include <iostream>
 #include <sstream>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -61,79 +58,18 @@ alda::bindings::dynamic_len<
 >
 dynamic_len_binding;
 
-MAJUTSU_MAKE_ROLE_TAG(
-	dynamic_len_role
-);
-
 typedef
-alda::raw::record_variadic<
-	majutsu::role<
-		dynamic_len_binding,
-		dynamic_len_role
-	>
+fcppt::either::object<
+	alda::raw::stream::error,
+	uint_vector
 >
-message;
+result_type;
 
 }
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-BOOST_AUTO_TEST_CASE(
-	alda_dynamic_len
+BOOST_TEST_DONT_PRINT_LOG_VALUE(
+	result_type
 )
-{
-FCPPT_PP_POP_WARNING
-
-	uint_vector const vec{
-		1,
-		2
-	};
-
-	uint_vector const result(
-		message(
-			dynamic_len_role{} =
-				vec
-		).get<
-			dynamic_len_role
-		>()
-	);
-
-	auto const output(
-		[](
-			uint_vector const &_vec
-		){
-			std::clog << '(';
-
-			for(
-				auto const &elem
-				:
-				_vec
-			)
-				std::clog << elem << ',';
-
-			std::clog << ')';
-		}
-	);
-
-	output(
-		vec
-	);
-
-	std::clog << "==";
-
-	output(
-		result
-	);
-
-	std::clog << "\n";
-
-	BOOST_CHECK(
-		vec
-		==
-		result
-	);
-}
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
@@ -151,40 +87,26 @@ FCPPT_PP_POP_WARNING
 
 	std::stringstream stream;
 
-	alda::serialization::write_record(
+	alda::serialization::write<
+		dynamic_len_binding
+	>(
 		stream,
-		message{
-			dynamic_len_role{} =
-				vec
-		}
+		vec
 	);
 
-	typedef
-	fcppt::optional::object<
-		message
-	>
-	optional_result;
-
-	optional_result const result(
+	result_type const result(
 		alda::raw::make_generic<
 			alda::raw::stream::istream,
-			message
+			dynamic_len_binding
 		>(
 			stream
 		)
 	);
 
-	BOOST_REQUIRE(
-		result.has_value()
-	);
-
-	BOOST_CHECK(
-		majutsu::get<
-			dynamic_len_role
-		>(
-			result.get_unsafe()
-		)
-		==
-		vec
+	BOOST_CHECK_EQUAL(
+		result,
+		result_type{
+			vec
+		}
 	);
 }

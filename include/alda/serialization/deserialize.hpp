@@ -10,6 +10,7 @@
 #include <alda/exception.hpp>
 #include <alda/message/base_unique_ptr.hpp>
 #include <alda/raw/make_generic.hpp>
+#include <alda/raw/stream/error.hpp>
 #include <alda/raw/stream/istream.hpp>
 #include <alda/serialization/context_decl.hpp>
 #include <alda/serialization/istream.hpp>
@@ -18,6 +19,7 @@
 #include <alda/serialization/detail/dispatch/base_decl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
+#include <fcppt/either/to_exception.hpp>
 #include <fcppt/optional/to_exception.hpp>
 
 
@@ -49,7 +51,7 @@ deserialize(
 		fcppt::optional::to_exception(
 			fcppt::container::find_opt_mapped(
 				_context.handlers(),
-				fcppt::optional::to_exception(
+				fcppt::either::to_exception(
 					alda::raw::make_generic<
 						alda::raw::stream::istream,
 						alda::serialization::detail::message_type<
@@ -58,10 +60,14 @@ deserialize(
 					>(
 						_stream
 					),
-					[]{
+					[](
+						alda::raw::stream::error const &_message
+					){
 						return
 							alda::exception{
-								FCPPT_TEXT("Invalid message type.")
+								FCPPT_TEXT("Invalid message type: ")
+								+
+								_message.get()
 							};
 					}
 				)
