@@ -4,13 +4,13 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef ALDA_SERIALIZATION_DETAIL_READ_OBJECT_DECL_HPP_INCLUDED
-#define ALDA_SERIALIZATION_DETAIL_READ_OBJECT_DECL_HPP_INCLUDED
+#ifndef ALDA_SERIALIZATION_DETAIL_READ_DECL_HPP_INCLUDED
+#define ALDA_SERIALIZATION_DETAIL_READ_DECL_HPP_INCLUDED
 
 #include <alda/detail/external_symbol.hpp>
 #include <alda/message/base_unique_ptr.hpp>
 #include <alda/serialization/istream_fwd.hpp>
-#include <alda/serialization/detail/read/object_fwd.hpp>
+#include <alda/serialization/detail/read_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/tag_fwd.hpp>
 
@@ -21,16 +21,14 @@ namespace serialization
 {
 namespace detail
 {
-namespace read
-{
 
 template<
 	typename TypeEnum
 >
-class object
+class read
 {
 	FCPPT_NONASSIGNABLE(
-		object
+		read
 	);
 public:
 	typedef alda::message::base_unique_ptr<
@@ -38,7 +36,7 @@ public:
 	> message_unique_ptr;
 
 	explicit
-	object(
+	read(
 		alda::serialization::istream &
 	);
 
@@ -56,7 +54,6 @@ private:
 	alda::serialization::istream &stream_;
 };
 
-}
 }
 }
 }

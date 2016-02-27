@@ -211,10 +211,10 @@ set(
 	include/alda/serialization/detail/dispatch/register_fwd.hpp
 	include/alda/serialization/detail/dispatch/register_impl.hpp
 	include/alda/serialization/detail/message_type.hpp
-	include/alda/serialization/detail/read/object_decl.hpp
-	include/alda/serialization/detail/read/object_functions_impl.hpp
-	include/alda/serialization/detail/read/object_fwd.hpp
-	include/alda/serialization/detail/read/object_impl.hpp
+	include/alda/serialization/detail/read_decl.hpp
+	include/alda/serialization/detail/read_functions_impl.hpp
+	include/alda/serialization/detail/read_fwd.hpp
+	include/alda/serialization/detail/read_impl.hpp
 	include/alda/serialization/endianness.hpp
 	include/alda/serialization/impl/context_impl.hpp
 	include/alda/serialization/instantiate_context.hpp

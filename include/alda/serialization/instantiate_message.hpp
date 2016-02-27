@@ -11,7 +11,7 @@
 #include <alda/detail/export_external_function_instantiation.hpp>
 #include <alda/serialization/detail/dispatch/concrete_impl.hpp>
 #include <alda/serialization/detail/dispatch/register_impl.hpp>
-#include <alda/serialization/detail/read/object_functions_impl.hpp>
+#include <alda/serialization/detail/read_functions_impl.hpp>
 #include <fcppt/tag.hpp>
 
 
@@ -37,10 +37,10 @@ alda::serialization::detail::dispatch::register_<\
 \
 template \
 ALDA_DETAIL_EXPORT_EXTERNAL_FUNCTION_INSTANTIATION \
-alda::serialization::detail::read::object<\
+alda::serialization::detail::read<\
 	type_enum\
 >::message_unique_ptr \
-alda::serialization::detail::read::object<\
+alda::serialization::detail::read<\
 	type_enum\
 >::operator()(\
 	fcppt::tag<\

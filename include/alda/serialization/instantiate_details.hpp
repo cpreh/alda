@@ -9,7 +9,7 @@
 
 #include <alda/detail/export_external_class_instantiation.hpp>
 #include <alda/serialization/detail/dispatch/base_impl.hpp>
-#include <alda/serialization/detail/read/object_impl.hpp>
+#include <alda/serialization/detail/read_impl.hpp>
 
 
 #define ALDA_SERIALIZATION_INSTANTIATE_DETAILS(\
@@ -24,7 +24,7 @@ alda::serialization::detail::dispatch::base<\
 template \
 class \
 ALDA_DETAIL_EXPORT_EXTERNAL_CLASS_INSTANTIATION \
-alda::serialization::detail::read::object<\
+alda::serialization::detail::read<\
 	type_enum\
 >
 

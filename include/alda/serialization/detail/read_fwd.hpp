@@ -4,8 +4,8 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef ALDA_SERIALIZATION_DETAIL_READ_OBJECT_FWD_HPP_INCLUDED
-#define ALDA_SERIALIZATION_DETAIL_READ_OBJECT_FWD_HPP_INCLUDED
+#ifndef ALDA_SERIALIZATION_DETAIL_READ_FWD_HPP_INCLUDED
+#define ALDA_SERIALIZATION_DETAIL_READ_FWD_HPP_INCLUDED
 
 
 namespace alda
@@ -14,15 +14,12 @@ namespace serialization
 {
 namespace detail
 {
-namespace read
-{
 
 template<
 	typename TypeEnum
 >
-class object;
+class read;
 
-}
 }
 }
 }

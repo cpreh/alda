@@ -4,19 +4,19 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef ALDA_SERIALIZATION_DETAIL_READ_OBJECT_IMPL_HPP_INCLUDED
-#define ALDA_SERIALIZATION_DETAIL_READ_OBJECT_IMPL_HPP_INCLUDED
+#ifndef ALDA_SERIALIZATION_DETAIL_READ_IMPL_HPP_INCLUDED
+#define ALDA_SERIALIZATION_DETAIL_READ_IMPL_HPP_INCLUDED
 
 #include <alda/serialization/istream_fwd.hpp>
-#include <alda/serialization/detail/read/object_decl.hpp>
+#include <alda/serialization/detail/read_decl.hpp>
 
 
 template<
 	typename TypeEnum
 >
-alda::serialization::detail::read::object<
+alda::serialization::detail::read<
 	TypeEnum
->::object(
+>::read(
 	alda::serialization::istream &_stream
 )
 :

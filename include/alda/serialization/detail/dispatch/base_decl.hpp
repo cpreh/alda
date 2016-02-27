@@ -10,8 +10,8 @@
 #include <alda/detail/external_class_symbol.hpp>
 #include <alda/detail/external_symbol.hpp>
 #include <alda/message/base_unique_ptr.hpp>
+#include <alda/serialization/detail/read_fwd.hpp>
 #include <alda/serialization/detail/dispatch/base_fwd.hpp>
-#include <alda/serialization/detail/read/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -40,7 +40,7 @@ public:
 		TypeEnum
 	> message_unique_ptr;
 
-	typedef alda::serialization::detail::read::object<
+	typedef alda::serialization::detail::read<
 		TypeEnum
 	> reader;
 

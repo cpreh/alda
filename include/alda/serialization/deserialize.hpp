@@ -14,8 +14,8 @@
 #include <alda/serialization/context_decl.hpp>
 #include <alda/serialization/istream.hpp>
 #include <alda/serialization/detail/message_type.hpp>
+#include <alda/serialization/detail/read_decl.hpp>
 #include <alda/serialization/detail/dispatch/base_decl.hpp>
-#include <alda/serialization/detail/read/object_decl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/optional/to_exception.hpp>
@@ -39,7 +39,7 @@ deserialize(
 	alda::serialization::istream &_stream
 )
 {
-	alda::serialization::detail::read::object<
+	alda::serialization::detail::read<
 		TypeEnum
 	> cur_reader(
 		_stream
