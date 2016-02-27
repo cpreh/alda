@@ -8,8 +8,11 @@
 #define ALDA_RAW_STREAM_RETURN_IF_HPP_INCLUDED
 
 #include <alda/raw/element_type.hpp>
+#include <alda/raw/stream/fail.hpp>
 #include <alda/raw/stream/reference.hpp>
+#include <alda/raw/stream/return.hpp>
 #include <alda/raw/stream/result.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -44,21 +47,21 @@ return_if(
 	> const &_value
 )
 {
-	typedef
-	alda::raw::stream::result<
-		Stream,
-		Type
-	>
-	result_type;
-
 	return
 		Stream::failed(
 			_stream
 		)
 		?
-			result_type()
+			alda::raw::stream::fail<
+				Stream,
+				Type
+			>(
+				FCPPT_TEXT("Stream failed")
+			)
 		:
-			result_type(
+			alda::raw::stream::return_<
+				Stream
+			>(
 				_value
 			)
 		;
