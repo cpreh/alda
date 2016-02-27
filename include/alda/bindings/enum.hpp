@@ -20,7 +20,10 @@
 #include <alda/raw/stream/result.hpp>
 #include <alda/raw/stream/return.hpp>
 #include <fcppt/cast_to_enum.hpp>
+#include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/cast/enum_to_int.hpp>
+#include <fcppt/cast/promote.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -119,7 +122,9 @@ make_generic(
 						>(
 							_element
 						),
-						[]{
+						[
+							_element
+						]{
 							return
 								alda::raw::stream::fail<
 									Stream,
@@ -127,7 +132,15 @@ make_generic(
 										Enum,
 										Adapted
 									>
-								>();
+								>(
+									FCPPT_TEXT("Invalid value ")
+									+
+									fcppt::insert_to_fcppt_string(
+										fcppt::cast::promote(
+											_element
+										)
+									)
+								);
 						},
 						[](
 							Enum const _value

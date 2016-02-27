@@ -20,7 +20,10 @@
 #include <alda/raw/stream/reference.hpp>
 #include <alda/raw/stream/result.hpp>
 #include <alda/raw/stream/return.hpp>
+#include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/literal.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/cast/promote.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -142,7 +145,15 @@ make_generic(
 						alda::raw::stream::fail<
 							Stream,
 							alda::bindings::bool_
-						>();
+						>(
+							FCPPT_TEXT("Invalid value: ")
+							+
+							fcppt::insert_to_fcppt_string(
+								fcppt::cast::promote(
+									_element
+								)
+							)
+						);
 				}
 			}
 		);

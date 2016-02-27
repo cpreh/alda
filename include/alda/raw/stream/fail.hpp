@@ -9,7 +9,11 @@
 
 #include <alda/raw/stream/failure.hpp>
 #include <alda/raw/stream/result.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/type_name_from_info.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <typeinfo>
 #include <type_traits>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -36,10 +40,24 @@ std::enable_if<
 		Type
 	>
 >::type
-fail()
+fail(
+	fcppt::string const &_error
+)
 {
 	throw
-		alda::raw::stream::failure();
+		alda::raw::stream::failure{
+			FCPPT_TEXT("Type ")
+			+
+			fcppt::type_name_from_info(
+				typeid(
+					Type
+				)
+			)
+			+
+			FCPPT_TEXT(": ")
+			+
+			_error
+		};
 }
 
 template<
@@ -55,8 +73,11 @@ std::enable_if<
 		Type
 	>
 >::type
-fail()
+fail(
+	fcppt::string const &_error
+)
 {
+	// TODO!
 	return
 		alda::raw::stream::result<
 			Stream,

@@ -10,6 +10,7 @@
 #include <alda/exception.hpp>
 #include <alda/detail/class_symbol.hpp>
 #include <alda/detail/symbol.hpp>
+#include <fcppt/string.hpp>
 
 
 namespace alda
@@ -25,7 +26,10 @@ class ALDA_DETAIL_CLASS_SYMBOL failure
 {
 public:
 	ALDA_DETAIL_SYMBOL
-	failure();
+	explicit
+	failure(
+		fcppt::string const &
+	);
 };
 
 }

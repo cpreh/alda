@@ -23,7 +23,10 @@
 #include <alda/raw/stream/result.hpp>
 #include <alda/raw/stream/return.hpp>
 #include <fcppt/decltype_sink.hpp>
+#include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/tag_type.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/cast/promote.hpp>
 #include <fcppt/cast/truncation_check.hpp>
 #include <fcppt/mpl/index_of.hpp>
 #include <fcppt/mpl/invoke_on.hpp>
@@ -232,7 +235,9 @@ make_generic(
 									}
 								);
 						},
-						[]()
+						[
+							_index
+						]
 						{
 							return
 								alda::raw::stream::fail<
@@ -241,7 +246,15 @@ make_generic(
 										Types,
 										AdaptedTypes
 									>
-								>();
+								>(
+									FCPPT_TEXT("Invalid index: ")
+									+
+									fcppt::insert_to_fcppt_string(
+										fcppt::cast::promote(
+											_index
+										)
+									)
+								);
 						}
 					);
 			}

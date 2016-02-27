@@ -6,13 +6,18 @@
 
 #include <alda/exception.hpp>
 #include <alda/raw/stream/failure.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
 
-alda::raw::stream::failure::failure()
+alda::raw::stream::failure::failure(
+	fcppt::string const &_text
+)
 :
 	alda::exception{
-		FCPPT_TEXT("stream failure")
+		FCPPT_TEXT("Stream failure: ")
+		+
+		_text
 	}
 {
 }
