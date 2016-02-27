@@ -11,10 +11,8 @@
 #include <alda/raw/stream/istream.hpp>
 #include <alda/serialization/write.hpp>
 #include <fcppt/literal.hpp>
-#include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/either/object.hpp>
-#include <fcppt/either/output.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -101,6 +99,10 @@ test_conversion(
 }
 
 }
+
+BOOST_TEST_DONT_PRINT_LOG_VALUE(
+	result_type
+)
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)

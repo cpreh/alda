@@ -10,12 +10,9 @@
 #include <alda/raw/stream/error.hpp>
 #include <alda/raw/stream/istream.hpp>
 #include <alda/serialization/write.hpp>
-#include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/either/object.hpp>
-#include <fcppt/either/output.hpp>
 #include <fcppt/optional/object.hpp>
-#include <fcppt/optional/output.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -57,6 +54,10 @@ fcppt::either::object<
 result_type;
 
 }
+
+BOOST_TEST_DONT_PRINT_LOG_VALUE(
+	result_type
+)
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)

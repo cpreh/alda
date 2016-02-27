@@ -3,7 +3,6 @@
 #include <alda/raw/const_pointer.hpp>
 #include <alda/raw/make_generic.hpp>
 #include <alda/raw/record_to_buffer.hpp>
-#include <alda/raw/record_output.hpp>
 #include <alda/raw/record_variadic.hpp>
 #include <alda/raw/stream/error.hpp>
 #include <alda/raw/stream/istream.hpp>
@@ -11,9 +10,7 @@
 #include <alda/serialization/write_record.hpp>
 #include <majutsu/make_role_tag.hpp>
 #include <majutsu/role.hpp>
-#include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/either/object.hpp>
-#include <fcppt/either/output.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -62,7 +59,22 @@ alda::raw::record_variadic<
 >
 record;
 
+typedef
+fcppt::either::object<
+	alda::raw::stream::error,
+	record
+>
+optional_record;
+
 }
+
+BOOST_TEST_DONT_PRINT_LOG_VALUE(
+	optional_record
+)
+
+BOOST_TEST_DONT_PRINT_LOG_VALUE(
+	record
+)
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
@@ -87,13 +99,6 @@ FCPPT_PP_POP_WARNING
 		stream,
 		test
 	);
-
-	typedef
-	fcppt::either::object<
-		alda::raw::stream::error,
-		record
-	>
-	optional_record;
 
 	optional_record const result{
 		alda::raw::make_generic<

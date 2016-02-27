@@ -8,13 +8,15 @@
 #define ALDA_SERIALIZATION_LENGTH_EXTRACT_HPP_INCLUDED
 
 #include <alda/raw/make_generic.hpp>
+#include <alda/raw/stream/error.hpp>
 #include <alda/raw/stream/istream.hpp>
 #include <alda/serialization/istream.hpp>
 #include <alda/serialization/length/remaining_size_function.hpp>
 #include <alda/serialization/length/detail/binding.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
-#include <fcppt/either/success_opt.hpp>
+#include <fcppt/either/to_exception.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -53,7 +55,6 @@ extract(
 	>
 	return_type;
 
-	// in_avail can return showmanyc(), which can return -1
 	return
 		_remaining_size()
 		<
@@ -67,18 +68,31 @@ extract(
 			)
 		)
 		?
-			return_type()
+			return_type{}
 		:
-			fcppt::either::success_opt(
-				alda::raw::make_generic<
-					alda::raw::stream::istream,
-					alda::serialization::length::detail::binding<
-						LengthType
-					>
-				>(
-					_stream
+			return_type{
+				fcppt::either::to_exception(
+					alda::raw::make_generic<
+						alda::raw::stream::istream,
+						alda::serialization::length::detail::binding<
+							LengthType
+						>
+					>(
+						_stream
+					),
+					[](
+						alda::raw::stream::error const &_error
+					)
+					{
+						return
+							alda::exception{
+								FCPPT_TEXT("Invalid remaining size in stream: ")
+								+
+								_error.get()
+							};
+					}
 				)
-			)
+			}
 		;
 }
 

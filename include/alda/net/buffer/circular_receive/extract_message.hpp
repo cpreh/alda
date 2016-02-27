@@ -94,7 +94,6 @@ extract_message(
 		)
 	);
 
-	// TODO: Distinguish the case where a message was malformed
 	if(
 		result.has_value()
 	)
