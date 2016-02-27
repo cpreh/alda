@@ -15,7 +15,11 @@
 #include <alda/serialization/detail/read_decl.hpp>
 #include <fcppt/tag.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/type_name_from_info.hpp>
 #include <fcppt/optional/to_exception.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <typeinfo>
+#include <fcppt/config/external_end.hpp>
 
 
 template<
@@ -41,7 +45,6 @@ alda::serialization::detail::read<
 			TypeEnum
 		>(
 			Message{
-				// TODO: Should we use raw memory here?
 				fcppt::optional::to_exception(
 					alda::raw::make_generic<
 						alda::raw::stream::istream,
@@ -53,7 +56,13 @@ alda::serialization::detail::read<
 					[]{
 						return
 							alda::exception{
-								FCPPT_TEXT("Message stream failed!")
+								FCPPT_TEXT("Message stream failed while reading message !")
+								+
+								fcppt::type_name_from_info(
+									typeid(
+										Message
+									)
+								)
 							};
 					}
 				)
