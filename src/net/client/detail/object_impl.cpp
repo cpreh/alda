@@ -430,7 +430,7 @@ alda::net::client::detail::object_impl::receive_data()
 
 	socket_.async_receive(
 		alda::net::buffer::circular_receive::for_asio(
-			receive_buffer_
+			receive_buffer_.next_receive_part()
 		),
 		std::bind(
 			&object_impl::read_handler,

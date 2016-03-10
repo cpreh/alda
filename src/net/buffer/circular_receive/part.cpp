@@ -5,6 +5,8 @@
 
 
 #include <alda/net/buffer/circular_receive/part.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
@@ -27,25 +29,29 @@ alda::net::buffer::circular_receive::part::part(
 alda::net::buffer::circular_receive::part::pointer
 alda::net::buffer::circular_receive::part::begin() const
 {
-	return begin_;
+	return
+		begin_;
 }
 
 alda::net::buffer::circular_receive::part::pointer
 alda::net::buffer::circular_receive::part::end() const
 {
-	return end_;
+	return
+		end_;
 }
 
 alda::net::buffer::circular_receive::part::size_type
 alda::net::buffer::circular_receive::part::size() const
 {
 	return
-		static_cast<
+		fcppt::cast::size<
 			alda::net::buffer::circular_receive::part::size_type
 		>(
-			std::distance(
-				this->begin(),
-				this->end()
+			fcppt::cast::to_unsigned(
+				std::distance(
+					this->begin(),
+					this->end()
+				)
 			)
 		);
 }
@@ -54,5 +60,7 @@ bool
 alda::net::buffer::circular_receive::part::empty() const
 {
 	return
-		this->size() == 0u;
+		this->size()
+		==
+		0u;
 }

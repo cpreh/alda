@@ -103,11 +103,10 @@ set(
 	include/alda/message/record_impl.hpp
 	include/alda/net/buffer/circular_receive/extract_message.hpp
 	include/alda/net/buffer/circular_receive/for_asio.hpp
-	include/alda/net/buffer/circular_receive/object.hpp
-	include/alda/net/buffer/circular_receive/object_fwd.hpp
 	include/alda/net/buffer/circular_receive/part.hpp
 	include/alda/net/buffer/circular_receive/part_fwd.hpp
-	include/alda/net/buffer/circular_receive/source.hpp
+	include/alda/net/buffer/circular_receive/streambuf.hpp
+	include/alda/net/buffer/circular_receive/streambuf_fwd.hpp
 	include/alda/net/buffer/circular_send/boost_type.hpp
 	include/alda/net/buffer/circular_send/object.hpp
 	include/alda/net/buffer/circular_send/object_fwd.hpp
@@ -254,9 +253,8 @@ set(
 	src/log_parameters.cpp
 	src/logger.cpp
 	src/net/buffer/circular_receive/for_asio.cpp
-	src/net/buffer/circular_receive/object.cpp
 	src/net/buffer/circular_receive/part.cpp
-	src/net/buffer/circular_receive/source.cpp
+	src/net/buffer/circular_receive/streambuf.cpp
 	src/net/buffer/circular_send/object.cpp
 	src/net/buffer/circular_send/sink.cpp
 	src/net/client/detail/object_impl.cpp

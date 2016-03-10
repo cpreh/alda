@@ -11,7 +11,7 @@
 #include <alda/net/value_type.hpp>
 #include <alda/net/buffer/max_receive_size.hpp>
 #include <alda/net/buffer/max_send_size.hpp>
-#include <alda/net/buffer/circular_receive/object.hpp>
+#include <alda/net/buffer/circular_receive/streambuf.hpp>
 #include <alda/net/buffer/circular_send/object.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -53,7 +53,7 @@ public:
 	alda::net::buffer::circular_send::object &
 	send_data();
 
-	alda::net::buffer::circular_receive::object &
+	alda::net::buffer::circular_receive::streambuf &
 	received_data();
 
 	bool &
@@ -65,7 +65,7 @@ private:
 
 	alda::net::buffer::circular_send::object send_data_;
 
-	alda::net::buffer::circular_receive::object received_data_;
+	alda::net::buffer::circular_receive::streambuf received_data_;
 
 	bool sending_;
 };

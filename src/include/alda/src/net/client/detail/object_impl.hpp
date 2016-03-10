@@ -10,7 +10,7 @@
 #include <alda/net/host.hpp>
 #include <alda/net/parameters_fwd.hpp>
 #include <alda/net/port.hpp>
-#include <alda/net/buffer/circular_receive/object.hpp>
+#include <alda/net/buffer/circular_receive/streambuf.hpp>
 #include <alda/net/buffer/circular_send/object.hpp>
 #include <alda/net/client/connect_callback.hpp>
 #include <alda/net/client/connect_function.hpp>
@@ -106,7 +106,7 @@ private:
 
 	optional_query_unique_ptr query_;
 
-	alda::net::buffer::circular_receive::object receive_buffer_;
+	alda::net::buffer::circular_receive::streambuf receive_buffer_;
 
 	alda::net::buffer::circular_send::object send_buffer_;
 

@@ -82,16 +82,10 @@ deserialize(
 					>(
 						fcppt::cast::to_signed(
 							_length
-							+
-							// TODO: _remaining_size might not be updated here
-							sizeof(
-								LengthType
-							)
 						)
 					)
 				)
 				{
-					// TODO: putback!
 					fcppt::algorithm::repeat(
 						sizeof(
 							LengthType

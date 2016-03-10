@@ -11,7 +11,6 @@
 #include <alda/net/size_type.hpp>
 #include <alda/net/value_type.hpp>
 #include <alda/net/buffer/circular_receive/part_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
 
 
 namespace alda
@@ -25,13 +24,14 @@ namespace circular_receive
 
 class part
 {
-	FCPPT_NONASSIGNABLE(
-		part
-	);
 public:
-	typedef alda::net::value_type *pointer;
+	typedef
+	alda::net::value_type *
+	pointer;
 
-	typedef alda::net::size_type size_type;
+	typedef
+	alda::net::size_type
+	size_type;
 
 	ALDA_DETAIL_SYMBOL
 	part(
@@ -55,9 +55,9 @@ public:
 	bool
 	empty() const;
 private:
-	pointer const
-		begin_,
-		end_;
+	pointer begin_;
+
+	pointer end_;
 };
 
 }

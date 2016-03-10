@@ -5,7 +5,6 @@
 
 
 #include <alda/net/buffer/circular_receive/for_asio.hpp>
-#include <alda/net/buffer/circular_receive/object.hpp>
 #include <alda/net/buffer/circular_receive/part.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -16,20 +15,16 @@
 
 boost::asio::mutable_buffers_1
 alda::net::buffer::circular_receive::for_asio(
-	alda::net::buffer::circular_receive::object &_buffer
+	alda::net::buffer::circular_receive::part const &_part
 )
 {
-	alda::net::buffer::circular_receive::part const part(
-		_buffer.next_receive_part()
-	);
-
 	return
 		boost::asio::mutable_buffers_1(
-			part.begin(),
+			_part.begin(),
 			std::min(
-				part.size(),
+				_part.size(),
 				fcppt::literal<
-					alda::net::buffer::circular_receive::object::size_type
+					alda::net::buffer::circular_receive::part::size_type
 				>(
 					4096u
 				)

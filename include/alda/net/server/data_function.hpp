@@ -8,7 +8,7 @@
 #define ALDA_NET_SERVER_DATA_FUNCTION_HPP_INCLUDED
 
 #include <alda/net/id.hpp>
-#include <alda/net/buffer/circular_receive/object_fwd.hpp>
+#include <alda/net/buffer/circular_receive/streambuf_fwd.hpp>
 
 
 namespace alda
@@ -22,7 +22,7 @@ typedef
 void
 data_function(
 	alda::net::id,
-	alda::net::buffer::circular_receive::object &
+	alda::net::buffer::circular_receive::streambuf &
 );
 
 }

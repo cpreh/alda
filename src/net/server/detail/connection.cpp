@@ -7,7 +7,7 @@
 #include <alda/net/id.hpp>
 #include <alda/net/buffer/max_receive_size.hpp>
 #include <alda/net/buffer/max_send_size.hpp>
-#include <alda/net/buffer/circular_receive/object.hpp>
+#include <alda/net/buffer/circular_receive/streambuf.hpp>
 #include <alda/net/buffer/circular_send/object.hpp>
 #include <alda/src/net/server/detail/connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -66,7 +66,7 @@ alda::net::server::detail::connection::send_data()
 		send_data_;
 }
 
-alda::net::buffer::circular_receive::object &
+alda::net::buffer::circular_receive::streambuf &
 alda::net::server::detail::connection::received_data()
 {
 	return

@@ -89,8 +89,9 @@ add_alda_test(
 )
 
 add_alda_test(
-	net/buffer/circular_receive
+	net/buffer/circular_receive/streambuf
 	LINK_LIBS
+		${fcppt_core_TARGET}
 		${alda_TARGET}
 )
 

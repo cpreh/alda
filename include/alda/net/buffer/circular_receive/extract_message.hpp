@@ -8,20 +8,11 @@
 #define ALDA_NET_BUFFER_CIRCULAR_RECEIVE_EXTRACT_MESSAGE_HPP_INCLUDED
 
 #include <alda/message/base_decl.hpp>
-#include <alda/message/base_unique_ptr.hpp>
-#include <alda/net/buffer/circular_receive/object.hpp>
-#include <alda/net/buffer/circular_receive/source.hpp>
+#include <alda/message/optional_base_unique_ptr.hpp>
+#include <alda/net/buffer/circular_receive/streambuf.hpp>
 #include <alda/serialization/context_fwd.hpp>
 #include <alda/serialization/length/deserialize.hpp>
 #include <alda/serialization/length/remaining_size_function.hpp>
-#include <fcppt/cast/size.hpp>
-#include <fcppt/cast/to_signed.hpp>
-#include <fcppt/cast/to_unsigned.hpp>
-#include <fcppt/optional/object_impl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/iostreams/stream_buffer.hpp>
-#include <istream>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace alda
@@ -37,78 +28,35 @@ template<
 	typename LengthType,
 	typename TypeEnum
 >
-fcppt::optional::object<
-	alda::message::base_unique_ptr<
-		TypeEnum
-	>
+alda::message::optional_base_unique_ptr<
+	TypeEnum
 >
 extract_message(
 	alda::serialization::context<
 		TypeEnum
 	> const &_context,
-	alda::net::buffer::circular_receive::object &_data
+	alda::net::buffer::circular_receive::streambuf &_data
 )
 {
-	alda::serialization::length::remaining_size_function const remaining_size{
-		[
-			&_data
-		]{
-			return
-				fcppt::cast::size<
-					std::streamsize
-				>(
-					fcppt::cast::to_signed(
-						_data.read_size()
-					)
-				);
-		}
-	};
-
-	typedef
-	boost::iostreams::stream_buffer<
-		alda::net::buffer::circular_receive::source
-	>
-	stream_buf;
-
-	stream_buf buf{
-		alda::net::buffer::circular_receive::source{
-			_data
-		}
-	};
-
 	alda::serialization::istream stream{
-		&buf
+		&_data
 	};
 
-	fcppt::optional::object<
-		alda::message::base_unique_ptr<
-			TypeEnum
-		>
-	> result(
+	return
 		alda::serialization::length::deserialize<
 			LengthType
 		>(
 			_context,
 			stream,
-			remaining_size
-		)
-	);
-
-	if(
-		result.has_value()
-	)
-		_data.erase(
-			fcppt::cast::to_unsigned(
-				static_cast<
-					std::streamoff
-				>(
-					stream.tellg()
-				)
-			)
+			alda::serialization::length::remaining_size_function{
+				[
+					&_data
+				]{
+					return
+						_data.showmanyc();
+				}
+			}
 		);
-
-	return
-		result;
 }
 
 }
