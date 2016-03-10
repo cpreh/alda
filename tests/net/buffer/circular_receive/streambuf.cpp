@@ -29,6 +29,12 @@ namespace std
 
 std::ostream &
 operator<<(
+	std::ostream &,
+	fcppt::io::buffer const &
+);
+
+std::ostream &
+operator<<(
 	std::ostream &_stream,
 	fcppt::io::buffer const &_buffer
 )
