@@ -12,7 +12,7 @@
 #include <alda/net/buffer/max_receive_size.hpp>
 #include <alda/net/buffer/max_send_size.hpp>
 #include <alda/net/buffer/circular_receive/streambuf.hpp>
-#include <alda/net/buffer/circular_send/object.hpp>
+#include <alda/net/buffer/circular_send/streambuf.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/asio/io_service.hpp>
@@ -50,7 +50,7 @@ public:
 	boost::asio::ip::tcp::socket &
 	socket();
 
-	alda::net::buffer::circular_send::object &
+	alda::net::buffer::circular_send::streambuf &
 	send_data();
 
 	alda::net::buffer::circular_receive::streambuf &
@@ -63,7 +63,7 @@ private:
 
 	boost::asio::ip::tcp::socket socket_;
 
-	alda::net::buffer::circular_send::object send_data_;
+	alda::net::buffer::circular_send::streambuf send_data_;
 
 	alda::net::buffer::circular_receive::streambuf received_data_;
 

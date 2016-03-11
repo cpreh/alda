@@ -107,13 +107,11 @@ set(
 	include/alda/net/buffer/circular_receive/part_fwd.hpp
 	include/alda/net/buffer/circular_receive/streambuf.hpp
 	include/alda/net/buffer/circular_receive/streambuf_fwd.hpp
-	include/alda/net/buffer/circular_send/boost_type.hpp
-	include/alda/net/buffer/circular_send/object.hpp
-	include/alda/net/buffer/circular_send/object_fwd.hpp
-	include/alda/net/buffer/circular_send/optional_ref.hpp
-	include/alda/net/buffer/circular_send/optional_ref_fwd.hpp
+	include/alda/net/buffer/circular_send/optional_streambuf_ref.hpp
+	include/alda/net/buffer/circular_send/optional_streambuf_ref_fwd.hpp
 	include/alda/net/buffer/circular_send/put_message.hpp
-	include/alda/net/buffer/circular_send/sink.hpp
+	include/alda/net/buffer/circular_send/streambuf.hpp
+	include/alda/net/buffer/circular_send/streambuf_fwd.hpp
 	include/alda/net/buffer/max_receive_size.hpp
 	include/alda/net/buffer/max_send_size.hpp
 	include/alda/net/client/connect_callback.hpp
@@ -255,8 +253,7 @@ set(
 	src/net/buffer/circular_receive/for_asio.cpp
 	src/net/buffer/circular_receive/part.cpp
 	src/net/buffer/circular_receive/streambuf.cpp
-	src/net/buffer/circular_send/object.cpp
-	src/net/buffer/circular_send/sink.cpp
+	src/net/buffer/circular_send/streambuf.cpp
 	src/net/client/detail/object_impl.cpp
 	src/net/client/object.cpp
 	src/net/io_service_wrapper.cpp

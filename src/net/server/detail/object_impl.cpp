@@ -11,9 +11,8 @@
 #include <alda/net/port.hpp>
 #include <alda/net/buffer/circular_receive/for_asio.hpp>
 #include <alda/net/buffer/circular_receive/part.hpp>
-#include <alda/net/buffer/circular_send/boost_type.hpp>
-#include <alda/net/buffer/circular_send/object.hpp>
-#include <alda/net/buffer/circular_send/optional_ref.hpp>
+#include <alda/net/buffer/circular_send/optional_streambuf_ref.hpp>
+#include <alda/net/buffer/circular_send/streambuf.hpp>
 #include <alda/net/server/connect_callback.hpp>
 #include <alda/net/server/connection_id_container.hpp>
 #include <alda/net/server/data_callback.hpp>
@@ -141,7 +140,7 @@ alda::net::server::detail::object_impl::listen(
 	this->accept();
 }
 
-alda::net::buffer::circular_send::optional_ref
+alda::net::buffer::circular_send::optional_streambuf_ref
 alda::net::server::detail::object_impl::send_buffer(
 	alda::net::id const _id
 )
@@ -159,7 +158,7 @@ alda::net::server::detail::object_impl::send_buffer(
 			)
 			{
 				return
-					alda::net::buffer::circular_send::optional_ref{
+					alda::net::buffer::circular_send::optional_streambuf_ref{
 						fcppt::make_ref(
 							_connection.get()->send_data()
 						)
@@ -396,11 +395,11 @@ alda::net::server::detail::object_impl::write_handler(
 			<< FCPPT_TEXT(" bytes.")
 	);
 
-	alda::net::buffer::circular_send::object &sent_data(
+	alda::net::buffer::circular_send::streambuf &sent_data(
 		_con.send_data()
 	);
 
-	sent_data.erase_front(
+	sent_data.bytes_sent(
 		_bytes
 	);
 
@@ -521,7 +520,7 @@ alda::net::server::detail::object_impl::send_data(
 	alda::net::server::detail::connection &_con
 )
 {
-	alda::net::buffer::circular_send::boost_type::const_array_range const out_data(
+	alda::net::buffer::circular_send::streambuf::const_array_range const out_data(
 		_con.send_data().send_part()
 	);
 

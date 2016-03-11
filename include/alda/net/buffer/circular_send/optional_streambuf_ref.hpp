@@ -4,10 +4,10 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef ALDA_NET_BUFFER_CIRCULAR_SEND_OPTIONAL_REF_HPP_INCLUDED
-#define ALDA_NET_BUFFER_CIRCULAR_SEND_OPTIONAL_REF_HPP_INCLUDED
+#ifndef ALDA_NET_BUFFER_CIRCULAR_SEND_OPTIONAL_STREAMBUF_REF_HPP_INCLUDED
+#define ALDA_NET_BUFFER_CIRCULAR_SEND_OPTIONAL_STREAMBUF_REF_HPP_INCLUDED
 
-#include <alda/net/buffer/circular_send/optional_ref_fwd.hpp>
+#include <alda/net/buffer/circular_send/optional_streambuf_ref_fwd.hpp>
 #include <fcppt/optional/reference.hpp>
 
 

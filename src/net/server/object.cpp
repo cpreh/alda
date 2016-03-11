@@ -7,7 +7,7 @@
 #include <alda/net/id.hpp>
 #include <alda/net/parameters_fwd.hpp>
 #include <alda/net/port.hpp>
-#include <alda/net/buffer/circular_send/optional_ref.hpp>
+#include <alda/net/buffer/circular_send/optional_streambuf_ref.hpp>
 #include <alda/net/server/connect_callback.hpp>
 #include <alda/net/server/connection_id_container.hpp>
 #include <alda/net/server/data_callback.hpp>
@@ -47,7 +47,7 @@ alda::net::server::object::listen(
 		);
 }
 
-alda::net::buffer::circular_send::optional_ref
+alda::net::buffer::circular_send::optional_streambuf_ref
 alda::net::server::object::send_buffer(
 	alda::net::id const _id
 )

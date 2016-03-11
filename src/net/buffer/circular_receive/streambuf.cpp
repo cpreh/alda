@@ -137,9 +137,10 @@ alda::net::buffer::circular_receive::streambuf::uflow()
 	);
 
 	if(
-		result
-		!=
-		traits_type::eof()
+		!traits_type::eq_int_type(
+			result,
+			traits_type::eof()
+		)
 	)
 		cur_ =
 			std::next(
@@ -235,9 +236,10 @@ alda::net::buffer::circular_receive::streambuf::pbackfail(
 		).get();
 
 	if(
-		_c
-		!=
-		traits_type::eof()
+		!traits_type::eq_int_type(
+			_c,
+			traits_type::eof()
+		)
 	)
 		*cur_ =
 			traits_type::to_char_type(

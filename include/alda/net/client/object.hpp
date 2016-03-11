@@ -11,7 +11,7 @@
 #include <alda/net/host.hpp>
 #include <alda/net/parameters_fwd.hpp>
 #include <alda/net/port.hpp>
-#include <alda/net/buffer/circular_send/object_fwd.hpp>
+#include <alda/net/buffer/circular_send/streambuf_fwd.hpp>
 #include <alda/net/client/connect_callback.hpp>
 #include <alda/net/client/data_callback.hpp>
 #include <alda/net/client/error_callback.hpp>
@@ -56,7 +56,7 @@ public:
 	disconnect();
 
 	ALDA_DETAIL_SYMBOL
-	alda::net::buffer::circular_send::object &
+	alda::net::buffer::circular_send::streambuf &
 	send_buffer();
 
 	ALDA_DETAIL_SYMBOL

@@ -11,7 +11,7 @@
 #include <alda/net/parameters_fwd.hpp>
 #include <alda/net/port.hpp>
 #include <alda/net/buffer/circular_receive/streambuf.hpp>
-#include <alda/net/buffer/circular_send/object.hpp>
+#include <alda/net/buffer/circular_send/streambuf.hpp>
 #include <alda/net/client/connect_callback.hpp>
 #include <alda/net/client/connect_function.hpp>
 #include <alda/net/client/data_callback.hpp>
@@ -65,7 +65,7 @@ public:
 	void
 	disconnect();
 
-	alda::net::buffer::circular_send::object &
+	alda::net::buffer::circular_send::streambuf &
 	send_buffer();
 
 	void
@@ -108,7 +108,7 @@ private:
 
 	alda::net::buffer::circular_receive::streambuf receive_buffer_;
 
-	alda::net::buffer::circular_send::object send_buffer_;
+	alda::net::buffer::circular_send::streambuf send_buffer_;
 
 	fcppt::signal::object<
 		alda::net::client::connect_function

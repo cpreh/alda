@@ -7,7 +7,7 @@
 #include <alda/net/host.hpp>
 #include <alda/net/parameters_fwd.hpp>
 #include <alda/net/port.hpp>
-#include <alda/net/buffer/circular_send/object_fwd.hpp>
+#include <alda/net/buffer/circular_send/streambuf_fwd.hpp>
 #include <alda/net/client/connect_callback.hpp>
 #include <alda/net/client/data_callback.hpp>
 #include <alda/net/client/error_callback.hpp>
@@ -51,10 +51,11 @@ alda::net::client::object::connect(
 void
 alda::net::client::object::disconnect()
 {
-	return impl_->disconnect();
+	return
+		impl_->disconnect();
 }
 
-alda::net::buffer::circular_send::object &
+alda::net::buffer::circular_send::streambuf &
 alda::net::client::object::send_buffer()
 {
 	return

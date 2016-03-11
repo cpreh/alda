@@ -12,7 +12,7 @@
 #include <alda/net/port.hpp>
 #include <alda/net/buffer/max_receive_size.hpp>
 #include <alda/net/buffer/max_send_size.hpp>
-#include <alda/net/buffer/circular_send/optional_ref_fwd.hpp>
+#include <alda/net/buffer/circular_send/optional_streambuf_ref_fwd.hpp>
 #include <alda/net/server/connect_callback.hpp>
 #include <alda/net/server/connect_function.hpp>
 #include <alda/net/server/connection_id_container.hpp>
@@ -61,7 +61,7 @@ public:
 		alda::net::port
 	);
 
-	alda::net::buffer::circular_send::optional_ref
+	alda::net::buffer::circular_send::optional_streambuf_ref
 	send_buffer(
 		alda::net::id
 	);
