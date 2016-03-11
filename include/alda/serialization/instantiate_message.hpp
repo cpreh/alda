@@ -9,9 +9,9 @@
 
 #include <alda/detail/export_external_class_instantiation.hpp>
 #include <alda/detail/export_external_function_instantiation.hpp>
+#include <alda/serialization/detail/read_functions_impl.hpp>
 #include <alda/serialization/detail/dispatch/concrete_impl.hpp>
 #include <alda/serialization/detail/dispatch/register_impl.hpp>
-#include <alda/serialization/detail/read_functions_impl.hpp>
 #include <fcppt/tag.hpp>
 
 

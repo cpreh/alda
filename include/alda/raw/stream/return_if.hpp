@@ -10,8 +10,8 @@
 #include <alda/raw/element_type.hpp>
 #include <alda/raw/stream/fail.hpp>
 #include <alda/raw/stream/reference.hpp>
-#include <alda/raw/stream/return.hpp>
 #include <alda/raw/stream/result.hpp>
+#include <alda/raw/stream/return.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>

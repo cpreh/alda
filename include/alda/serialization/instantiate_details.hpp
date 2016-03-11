@@ -8,8 +8,8 @@
 #define ALDA_SERIALIZATION_INSTANTIATE_DETAILS_HPP_INCLUDED
 
 #include <alda/detail/export_external_class_instantiation.hpp>
-#include <alda/serialization/detail/dispatch/base_impl.hpp>
 #include <alda/serialization/detail/read_impl.hpp>
+#include <alda/serialization/detail/dispatch/base_impl.hpp>
 
 
 #define ALDA_SERIALIZATION_INSTANTIATE_DETAILS(\

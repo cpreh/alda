@@ -10,8 +10,8 @@
 #include <alda/raw/stream/error.hpp>
 #include <alda/raw/stream/istream.hpp>
 #include <alda/serialization/write.hpp>
-#include <fcppt/endianness/format.hpp>
 #include <fcppt/either/object.hpp>
+#include <fcppt/endianness/format.hpp>
 #include <fcppt/optional/object.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
