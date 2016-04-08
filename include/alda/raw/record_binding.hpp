@@ -26,9 +26,9 @@
 #include <majutsu/role_to_tag.hpp>
 #include <majutsu/role_to_type.hpp>
 #include <majutsu/role_to_type_tpl.hpp>
-#include <fcppt/decltype_sink.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/tag_type.hpp>
+#include <fcppt/use.hpp>
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/algorithm/loop.hpp>
 #include <fcppt/algorithm/loop_break_mpl.hpp>
@@ -123,9 +123,13 @@ needed_size(
 				alda::raw::size_type const _size
 			)
 			{
+				FCPPT_USE(
+					_tag
+				);
+
 				typedef
 				fcppt::tag_type<
-					FCPPT_DECLTYPE_SINK(
+					decltype(
 						_tag
 					)
 				>
@@ -179,9 +183,13 @@ place(
 			auto const _tag
 		)
 		{
+			FCPPT_USE(
+				_tag
+			);
+
 			typedef
 			fcppt::tag_type<
-				FCPPT_DECLTYPE_SINK(
+				decltype(
 					_tag
 				)
 			>

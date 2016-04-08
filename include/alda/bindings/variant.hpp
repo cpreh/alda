@@ -22,10 +22,10 @@
 #include <alda/raw/stream/reference.hpp>
 #include <alda/raw/stream/result.hpp>
 #include <alda/raw/stream/return.hpp>
-#include <fcppt/decltype_sink.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/tag_type.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/use.hpp>
 #include <fcppt/cast/promote.hpp>
 #include <fcppt/cast/truncation_check.hpp>
 #include <fcppt/mpl/index_of.hpp>
@@ -34,6 +34,7 @@
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/at.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -106,9 +107,12 @@ place(
 					typename
 					fcppt::mpl::index_of<
 						Types,
-						FCPPT_DECLTYPE_SINK(
-							_type
-						)
+						typename
+						std::decay<
+							decltype(
+								_type
+							)
+						>::type
 					>::type
 				>::type
 			>(
@@ -188,6 +192,10 @@ make_generic(
 							auto const _tag
 						)
 						{
+							FCPPT_USE(
+								_tag
+							);
+
 							typedef
 							typename
 							boost::mpl::at<
@@ -196,7 +204,7 @@ make_generic(
 								fcppt::mpl::index_of<
 									Types,
 									fcppt::tag_type<
-										FCPPT_DECLTYPE_SINK(
+										decltype(
 											_tag
 										)
 									>
@@ -324,9 +332,12 @@ needed_size(
 							typename
 							fcppt::mpl::index_of<
 								Types,
-								FCPPT_DECLTYPE_SINK(
-									_type
-								)
+								typename
+								std::decay<
+									decltype(
+										_type
+									)
+								>::type
 							>::type
 						>::type
 					>(
