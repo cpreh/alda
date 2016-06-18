@@ -3,10 +3,6 @@ find_package(
 	REQUIRED
 )
 
-add_definitions(
-	"${FcpptThreads_DEFINITIONS}"
-)
-
 set(
 	ALDA_FILES
 	include/alda/bindings/array.hpp
@@ -279,18 +275,25 @@ fcppt_generate_symbol_header(
 		"ALDA_DETAIL"
 )
 
-include_directories(
-	${CMAKE_CURRENT_SOURCE_DIR}/include
-)
-
 function(
 	add_alda_library
 	VARIANT
 )
 	if(
-		${VARIANT} STREQUAL "STATIC"
+		${VARIANT}
+		STREQUAL
+		"STATIC"
 	)
 		fcppt_utils_static_link_name(
+			alda
+			ALDA_LIB_NAME
+		)
+	elseif(
+		${VARIANT}
+		STREQUAL
+		"INTERFACE"
+	)
+		fcppt_utils_interface_link_name(
 			alda
 			ALDA_LIB_NAME
 		)
@@ -306,26 +309,62 @@ function(
 		ALDA_FILES_ABS
 	)
 
-	add_library(
-		${ALDA_LIB_NAME}
+	if(
 		${VARIANT}
-		${ALDA_FILES_ABS}
+		STREQUAL
+		"INTERFACE"
+	)
+		add_library(
+			${ALDA_LIB_NAME}
+			${VARIANT}
+		)
+	else()
+		add_library(
+			${ALDA_LIB_NAME}
+			${VARIANT}
+			${ALDA_FILES_ABS}
+		)
+	endif()
+
+	if(
+		NOT
+		${VARIANT}
+		STREQUAL
+		"INTERFACE"
+	)
+		fcppt_utils_set_target_compiler_flags(
+			${ALDA_LIB_NAME}
+			ADDITIONAL_FLAGS
+				"${FcpptThreads_DEFINITIONS}"
+		)
+	endif()
+
+	set(
+		PUBLIC_INCLUDES
+		"$<BUILD_INTERFACE:${FCPPT_UTILS_PROJECT_BINARY_DIR}/include>"
+		"$<BUILD_INTERFACE:${FCPPT_UTILS_PROJECT_SOURCE_DIR}/include>"
+		${Boost_INCLUDE_DIRS}
 	)
 
-	fcppt_utils_set_target_compiler_flags(
-		${ALDA_LIB_NAME}
+	if(
+		NOT
+		${VARIANT}
+		STREQUAL
+		"INTERFACE"
 	)
+		target_include_directories(
+			${ALDA_LIB_NAME}
+			PRIVATE
+			${PUBLIC_INCLUDES}
+			"$<BUILD_INTERFACE:${FCPPT_UTILS_PROJECT_SOURCE_DIR}/src/include>"
+		)
+	endif()
 
 	target_include_directories(
 		${ALDA_LIB_NAME}
 		INTERFACE
-		${Boost_INCLUDE_DIRS}
-		${majutsu_INCLUDE_DIRS}
-	)
-
-	fcppt_utils_add_target_include_dir(
-		${ALDA_LIB_NAME}
-		TRUE
+		${PUBLIC_INCLUDES}
+		"$<INSTALL_INTERFACE:${INSTALL_INCLUDE_DIR}>"
 	)
 
 	fcppt_utils_interface_static_link(
@@ -344,20 +383,40 @@ function(
 		)
 	endif()
 
+	if(
+		NOT
+		${VARIANT}
+		STREQUAL
+		"INTERFACE"
+	)
+		target_link_libraries(
+			${ALDA_LIB_NAME}
+			PRIVATE
+			majutsu_interface
+			${fcppt_core_TARGET}
+			${fcppt_log_TARGET}
+			${FcpptThreads_LIBRARIES}
+			${Boost_SYSTEM_LIBRARY}
+			${ASIO_LIBS}
+		)
+	endif()
+
 	target_link_libraries(
 		${ALDA_LIB_NAME}
-		PRIVATE
-		${fcppt_core_TARGET}
-		${fcppt_log_TARGET}
-		${FcpptThreads_LIBRARIES}
-		${Boost_SYSTEM_LIBRARY}
-		${ASIO_LIBS}
+		INTERFACE
+		majutsu_interface
+		fcppt_core_interface
+		fcppt_log_interface
 	)
 
 	fcppt_utils_export_install_target(
 		${ALDA_LIB_NAME}
 	)
 endfunction()
+
+add_alda_library(
+	"INTERFACE"
+)
 
 if(
 	ENABLE_SHARED

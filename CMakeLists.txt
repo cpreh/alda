@@ -20,14 +20,6 @@ fcppt_utils_link_target(
 	alda
 )
 
-include_directories(
-	${FCPPT_UTILS_PROJECT_SOURCE_DIR}/include
-)
-
-include_directories(
-	${FCPPT_UTILS_PROJECT_BINARY_DIR}/include
-)
-
 find_package(
 	fcppt
 	REQUIRED
@@ -37,11 +29,6 @@ find_package(
 	majutsu
 	REQUIRED
 )
-
-include_directories(
-	${majutsu_INCLUDE_DIRS}
-)
-
 
 set(
 	NEEDED_BOOST_LIBS
@@ -67,15 +54,6 @@ endif()
 find_package(
 	Boost 1.47.0 REQUIRED COMPONENTS
 	${NEEDED_BOOST_LIBS}
-)
-
-include_directories(
-	${FCPPT_UTILS_INCLUDE_SYSTEM}
-	${Boost_INCLUDE_DIRS}
-)
-
-link_directories(
-	${Boost_LIBRARY_DIRS}
 )
 
 add_subdirectory(
@@ -106,6 +84,4 @@ if(
 	)
 endif()
 
-fcppt_utils_generate_config(
-	HAS_BUILDDIR
-)
+fcppt_utils_generate_config()

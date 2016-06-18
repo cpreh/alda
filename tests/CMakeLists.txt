@@ -4,6 +4,8 @@ function(
 )
 	fcppt_utils_add_test(
 		${TESTNAME}
+		LINK_LIBS
+			alda_interface
 		${ARGN}
 	)
 endfunction()

@@ -7,11 +7,6 @@ fcppt_export_init(
 )
 
 fcppt_export_generate_targets(
-	"alda"
 	"${alda_USE_STATIC_LIBS}"
-)
-
-set(
-	alda_INCLUDE_DIRS
-	"@Boost_INCLUDE_DIRS@;@fcppt_INCLUDE_DIRS@;@majutsu_INCLUDE_DIRS@;@alda_INCLUDE_DIR@"
+	"alda"
 )
