@@ -1,12 +1,44 @@
+include(
+	CMakeParseArguments
+)
+
 function(
 	ADD_ALDA_TEST
 	TESTNAME
 )
+	set(
+		OPTION_ARGS
+		NO_CODE
+	)
+
+	set(
+		MULTI_ARGS
+		LINK_LIBS
+	)
+
+	cmake_parse_arguments(
+		""
+		"${OPTION_ARGS}"
+		""
+		"${MULTI_ARGS}"
+		${ARGN}
+	)
+
+	if(
+		_NO_CODE
+	)
+		set(
+			NO_CODE
+			NO_CODE
+		)
+	endif()
+
 	fcppt_utils_add_test(
 		${TESTNAME}
+		${NO_CODE}
 		LINK_LIBS
 			alda_interface
-		${ARGN}
+			${_LINK_LIBS}
 	)
 endfunction()
 
