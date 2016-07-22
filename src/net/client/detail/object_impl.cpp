@@ -29,7 +29,7 @@
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/error.hpp>
-#include <fcppt/log/location.hpp>
+#include <fcppt/log/name.hpp>
 #include <fcppt/log/verbose.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -45,23 +45,19 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace
-{
-
-fcppt::log::object logger(
-	alda::log_parameters(
-		alda::net::log_location()
-		/
-		FCPPT_TEXT("client")
-	)
-);
-
-}
-
 alda::net::client::detail::object_impl::object_impl(
 	alda::net::parameters const &_parameters
 )
 :
+	log_{
+		_parameters.log_context(),
+		alda::net::log_location(),
+		alda::log_parameters(
+			fcppt::log::name{
+				FCPPT_TEXT("client")
+			}
+		)
+	},
 	io_service_(
 		_parameters.io_service_wrapper().get()
 	),
@@ -98,7 +94,7 @@ alda::net::client::detail::object_impl::connect(
 )
 {
 	FCPPT_LOG_DEBUG(
-		::logger,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("resolving hostname ")
 			<< fcppt::from_std_string(
@@ -214,7 +210,7 @@ alda::net::client::detail::object_impl::resolve_handler(
 	}
 
 	FCPPT_LOG_DEBUG(
-		::logger,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("resolved domain, trying to connect")
 	);
@@ -243,7 +239,7 @@ alda::net::client::detail::object_impl::handle_error(
 	this->clear();
 
 	FCPPT_LOG_ERROR(
-		::logger,
+		log_,
 		fcppt::log::_
 			<< _message
 			<< FCPPT_TEXT(" (")
@@ -282,7 +278,7 @@ alda::net::client::detail::object_impl::read_handler(
 	);
 
 	FCPPT_LOG_VERBOSE(
-		::logger,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("read ")
 			<< _bytes
@@ -315,7 +311,7 @@ alda::net::client::detail::object_impl::write_handler(
 	}
 
 	FCPPT_LOG_VERBOSE(
-		::logger,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("wrote ")
 			<< _bytes
@@ -361,7 +357,7 @@ alda::net::client::detail::object_impl::connect_handler(
 		}
 
 		FCPPT_LOG_DEBUG(
-			::logger,
+			log_,
 			fcppt::log::_
 				<< FCPPT_TEXT("resolving next endpoint")
 		);
@@ -384,7 +380,7 @@ alda::net::client::detail::object_impl::connect_handler(
 	}
 
 	FCPPT_LOG_DEBUG(
-		::logger,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("connected")
 	);

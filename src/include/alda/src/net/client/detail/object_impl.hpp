@@ -22,6 +22,7 @@
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/optional/object_decl.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
@@ -86,6 +87,8 @@ public:
 		alda::net::client::data_callback const &
 	);
 private:
+	fcppt::log::object log_;
+
 	boost::asio::io_service &io_service_;
 
 	boost::asio::ip::tcp::socket socket_;

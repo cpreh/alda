@@ -74,9 +74,7 @@ set(
 	include/alda/detail/external_symbol.hpp
 	include/alda/exception.hpp
 	include/alda/exception_fwd.hpp
-	include/alda/log_context.hpp
 	include/alda/log_location.hpp
-	include/alda/logger.hpp
 	include/alda/message/base_decl.hpp
 	include/alda/message/base_fwd.hpp
 	include/alda/message/base_unique_ptr.hpp
@@ -242,10 +240,8 @@ set(
 	src/include/alda/src/net/client/detail/object_impl.hpp
 	src/include/alda/src/net/server/detail/connection.hpp
 	src/include/alda/src/net/server/detail/object_impl.hpp
-	src/log_context.cpp
 	src/log_location.cpp
 	src/log_parameters.cpp
-	src/logger.cpp
 	src/net/buffer/circular_receive/for_asio.cpp
 	src/net/buffer/circular_receive/part.cpp
 	src/net/buffer/circular_receive/streambuf.cpp

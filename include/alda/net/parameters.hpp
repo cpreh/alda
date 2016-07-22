@@ -13,6 +13,7 @@
 #include <alda/net/buffer/max_receive_size.hpp>
 #include <alda/net/buffer/max_send_size.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
 namespace alda
@@ -28,10 +29,14 @@ class parameters
 public:
 	ALDA_DETAIL_SYMBOL
 	parameters(
+		fcppt::log::context &,
 		alda::net::io_service_wrapper const &,
 		alda::net::buffer::max_send_size,
 		alda::net::buffer::max_receive_size
 	);
+
+	fcppt::log::context &
+	log_context() const;
 
 	alda::net::io_service_wrapper const &
 	io_service_wrapper() const;
@@ -42,6 +47,8 @@ public:
 	alda::net::buffer::max_receive_size
 	max_receive_size() const;
 private:
+	fcppt::log::context &log_context_;
+
 	alda::net::io_service_wrapper const &io_service_wrapper_;
 
 	alda::net::buffer::max_send_size const max_send_size_;

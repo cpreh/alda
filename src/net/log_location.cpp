@@ -8,6 +8,7 @@
 #include <alda/net/log_location.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/location.hpp>
+#include <fcppt/log/name.hpp>
 
 
 fcppt::log::location
@@ -16,5 +17,7 @@ alda::net::log_location()
 	return
 		alda::log_location()
 		/
-		FCPPT_TEXT("net");
+		fcppt::log::name{
+			FCPPT_TEXT("net")
+		};
 }

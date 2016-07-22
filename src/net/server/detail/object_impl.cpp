@@ -36,7 +36,7 @@
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/error.hpp>
-#include <fcppt/log/location.hpp>
+#include <fcppt/log/name.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/log/verbose.hpp>
 #include <fcppt/optional/bind.hpp>
@@ -56,24 +56,19 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace
-{
-
-fcppt::log::object logger(
-	alda::log_parameters(
-		alda::net::log_location()
-		/
-		FCPPT_TEXT("server")
-	)
-);
-
-}
-
-
 alda::net::server::detail::object_impl::object_impl(
 	alda::net::parameters const &_parameters
 )
 :
+	log_{
+		_parameters.log_context(),
+		alda::net::log_location(),
+		alda::log_parameters(
+			fcppt::log::name{
+				FCPPT_TEXT("server")
+			}
+		)
+	},
 	io_service_(
 		_parameters.io_service_wrapper().get()
 	),
@@ -106,7 +101,7 @@ alda::net::server::detail::object_impl::listen(
 )
 {
 	FCPPT_LOG_DEBUG(
-		::logger,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("listening on port ")
 			<< _port
@@ -346,7 +341,7 @@ alda::net::server::detail::object_impl::read_handler(
 	}
 
 	FCPPT_LOG_VERBOSE(
-		::logger,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("reading ")
 			<< _bytes
@@ -388,7 +383,7 @@ alda::net::server::detail::object_impl::write_handler(
 	}
 
 	FCPPT_LOG_VERBOSE(
-		::logger,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("wrote ")
 			<< _bytes
@@ -424,7 +419,7 @@ alda::net::server::detail::object_impl::accept_handler(
 	)
 	{
 		FCPPT_LOG_DEBUG(
-			::logger,
+			log_,
 			fcppt::log::_
 				<< FCPPT_TEXT("error while accepting")
 		);
@@ -435,7 +430,7 @@ alda::net::server::detail::object_impl::accept_handler(
 	}
 
 	FCPPT_LOG_DEBUG(
-		::logger,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("accepting a connection, id is ")
 			<< _new_connection->id()
@@ -490,7 +485,7 @@ alda::net::server::detail::object_impl::handle_error(
 	);
 
 	FCPPT_LOG_DEBUG(
-		::logger,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("disconnected ")
 			<< _con.id()

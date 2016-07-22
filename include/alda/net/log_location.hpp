@@ -8,7 +8,7 @@
 #define ALDA_NET_LOG_LOCATION_HPP_INCLUDED
 
 #include <alda/detail/symbol.hpp>
-#include <fcppt/log/location_fwd.hpp>
+#include <fcppt/log/location.hpp>
 
 
 namespace alda

@@ -25,6 +25,7 @@
 #include <alda/net/server/detail/connection_unique_ptr.hpp>
 #include <alda/net/server/detail/object_impl_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/asio/io_service.hpp>
@@ -94,6 +95,8 @@ public:
 		alda::net::server::data_callback const &
 	);
 private:
+	fcppt::log::object log_;
+
 	boost::asio::io_service &io_service_;
 
 	alda::net::buffer::max_receive_size const buffer_receive_size_;
