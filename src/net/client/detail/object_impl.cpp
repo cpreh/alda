@@ -15,7 +15,6 @@
 #include <alda/net/client/connect_callback.hpp>
 #include <alda/net/client/data_callback.hpp>
 #include <alda/net/client/error_callback.hpp>
-#include <alda/src/log_parameters.hpp>
 #include <alda/src/net/client/detail/object_impl.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/insert_to_std_string.hpp>
@@ -30,7 +29,9 @@
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/name.hpp>
+#include <fcppt/log/parameters.hpp>
 #include <fcppt/log/verbose.hpp>
+#include <fcppt/log/format/optional_function.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
@@ -52,11 +53,12 @@ alda::net::client::detail::object_impl::object_impl(
 	log_{
 		_parameters.log_context(),
 		alda::net::log_location(),
-		alda::log_parameters(
+		fcppt::log::parameters{
 			fcppt::log::name{
 				FCPPT_TEXT("client")
-			}
-		)
+			},
+			fcppt::log::format::optional_function()
+		}
 	},
 	io_service_(
 		_parameters.io_service_wrapper().get()

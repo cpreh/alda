@@ -236,12 +236,10 @@ set(
 	include/alda/type_enum_fwd.hpp
 	src/bindings/float.cpp
 	src/exception.cpp
-	src/include/alda/src/log_parameters.hpp
 	src/include/alda/src/net/client/detail/object_impl.hpp
 	src/include/alda/src/net/server/detail/connection.hpp
 	src/include/alda/src/net/server/detail/object_impl.hpp
 	src/log_location.cpp
-	src/log_parameters.cpp
 	src/net/buffer/circular_receive/for_asio.cpp
 	src/net/buffer/circular_receive/part.cpp
 	src/net/buffer/circular_receive/streambuf.cpp

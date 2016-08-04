@@ -19,7 +19,6 @@
 #include <alda/net/server/disconnect_callback.hpp>
 #include <alda/net/server/detail/connection_container.hpp>
 #include <alda/net/server/detail/connection_unique_ptr.hpp>
-#include <alda/src/log_parameters.hpp>
 #include <alda/src/net/server/detail/connection.hpp>
 #include <alda/src/net/server/detail/object_impl.hpp>
 #include <fcppt/from_std_string.hpp>
@@ -38,7 +37,9 @@
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/name.hpp>
 #include <fcppt/log/object.hpp>
+#include <fcppt/log/parameters.hpp>
 #include <fcppt/log/verbose.hpp>
+#include <fcppt/log/format/optional_function.hpp>
 #include <fcppt/optional/bind.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -63,11 +64,12 @@ alda::net::server::detail::object_impl::object_impl(
 	log_{
 		_parameters.log_context(),
 		alda::net::log_location(),
-		alda::log_parameters(
+		fcppt::log::parameters{
 			fcppt::log::name{
 				FCPPT_TEXT("server")
-			}
-		)
+			},
+			fcppt::log::format::optional_function()
+		}
 	},
 	io_service_(
 		_parameters.io_service_wrapper().get()
