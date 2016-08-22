@@ -14,6 +14,7 @@
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <ios>
 #include <istream>
 #include <fcppt/config/external_end.hpp>
 

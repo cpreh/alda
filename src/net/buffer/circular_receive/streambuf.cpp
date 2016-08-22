@@ -13,7 +13,7 @@
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
-#include <iosfwd>
+#include <ios>
 #include <iterator>
 #include <streambuf>
 #include <fcppt/config/external_end.hpp>

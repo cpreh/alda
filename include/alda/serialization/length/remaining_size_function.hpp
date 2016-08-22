@@ -9,7 +9,7 @@
 
 #include <fcppt/function_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <iosfwd>
+#include <ios>
 #include <fcppt/config/external_end.hpp>
 
 

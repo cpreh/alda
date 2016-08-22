@@ -18,7 +18,7 @@
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <cstddef>
-#include <iosfwd>
+#include <ios>
 #include <ostream>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>

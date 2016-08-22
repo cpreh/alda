@@ -9,7 +9,7 @@
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
-#include <iosfwd>
+#include <ios>
 #include <streambuf>
 #include <fcppt/config/external_end.hpp>
 

@@ -14,7 +14,7 @@
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/circular_buffer.hpp>
-#include <iosfwd>
+#include <ios>
 #include <streambuf>
 #include <fcppt/config/external_end.hpp>
 

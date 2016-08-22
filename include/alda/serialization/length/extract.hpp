@@ -20,6 +20,7 @@
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <ios>
 #include <istream>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
