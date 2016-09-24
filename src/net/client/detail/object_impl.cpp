@@ -25,6 +25,7 @@
 #include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/config/compiler.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/error.hpp>
@@ -33,6 +34,9 @@
 #include <fcppt/log/verbose.hpp>
 #include <fcppt/log/format/optional_function.hpp>
 #include <fcppt/optional/object_impl.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -343,6 +347,12 @@ alda::net::client::detail::object_impl::connect_handler(
 		_error
 	)
 	{
+
+FCPPT_PP_PUSH_WARNING
+#if defined(FCPPT_CONFIG_GNU_GCC_COMPILER)
+FCPPT_PP_DISABLE_GCC_WARNING(-Wzero-as-null-pointer-constant)
+#endif
+
 		// are we at the end of the endpoint list?
 		if(
 			_iterator == boost::asio::ip::tcp::resolver::iterator()
@@ -357,6 +367,8 @@ alda::net::client::detail::object_impl::connect_handler(
 
 			return;
 		}
+
+FCPPT_PP_POP_WARNING
 
 		FCPPT_LOG_DEBUG(
 			log_,

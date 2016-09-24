@@ -31,6 +31,7 @@
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/cast/size.hpp>
+#include <fcppt/config/compiler.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
@@ -41,6 +42,7 @@
 #include <fcppt/log/verbose.hpp>
 #include <fcppt/log/format/optional_function.hpp>
 #include <fcppt/optional/bind.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -311,6 +313,11 @@ FCPPT_PP_POP_WARNING
 		alda::net::server::detail::connection_unique_ptr connection_;
 	};
 
+FCPPT_PP_PUSH_WARNING
+#if defined(FCPPT_CONFIG_GNU_GCC_COMPILER)
+FCPPT_PP_DISABLE_GCC_WARNING(-Wzero-as-null-pointer-constant)
+#endif
+
 	acceptor_.async_accept(
 		socket,
 		handler(
@@ -320,6 +327,8 @@ FCPPT_PP_POP_WARNING
 			)
 		)
 	);
+
+FCPPT_PP_POP_WARNING
 }
 
 void
