@@ -10,6 +10,7 @@
 #include <alda/call/object.hpp>
 #include <alda/message/base_decl.hpp>
 #include <alda/message/base_unique_ptr.hpp>
+#include <alda/message/get.hpp>
 #include <alda/message/instantiate_base.hpp>
 #include <alda/message/instantiate_concrete.hpp>
 #include <alda/message/make_concrete_ptr.hpp>
@@ -23,8 +24,8 @@
 #include <alda/serialization/instantiate_message.hpp>
 #include <alda/serialization/register_message.hpp>
 #include <alda/serialization/serialize.hpp>
-#include <majutsu/make_role_tag.hpp>
-#include <majutsu/role.hpp>
+#include <fcppt/record/element.hpp>
+#include <fcppt/record/make_label.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -88,11 +89,11 @@ alda::bindings::unsigned_<
 >
 uint32_type;
 
-MAJUTSU_MAKE_ROLE_TAG(
+FCPPT_RECORD_MAKE_LABEL(
 	uint16_role
 );
 
-MAJUTSU_MAKE_ROLE_TAG(
+FCPPT_RECORD_MAKE_LABEL(
 	uint32_role
 );
 
@@ -103,9 +104,9 @@ alda::message::record<
 		message_type::message1
 	>,
 	boost::mpl::vector1<
-		majutsu::role<
-			uint16_type,
-			uint16_role
+		fcppt::record::element<
+			uint16_role,
+			uint16_type
 		>
 	>
 >
@@ -118,9 +119,9 @@ alda::message::record<
 		message_type::message2
 	>,
 	boost::mpl::vector1<
-		majutsu::role<
-			uint32_type,
-			uint32_role
+		fcppt::record::element<
+			uint32_role,
+			uint32_type
 		>
 	>
 >
@@ -216,9 +217,11 @@ public:
 			<< FCPPT_TEXT("message1 received\n");
 
 		BOOST_CHECK_EQUAL(
-			_msg.get<
+			alda::message::get<
 				uint16_role
-			>(),
+			>(
+				_msg
+			),
 			static_cast<
 				std::uint16_t
 			>(
@@ -236,9 +239,11 @@ public:
 			<< FCPPT_TEXT("message2 received\n");
 
 		BOOST_CHECK_EQUAL(
-			_msg.get<
+			alda::message::get<
 				uint32_role
-			>(),
+			>(
+				_msg
+			),
 			static_cast<
 				std::uint32_t
 			>(

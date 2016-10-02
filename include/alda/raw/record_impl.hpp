@@ -8,7 +8,7 @@
 #define ALDA_RAW_RECORD_IMPL_HPP_INCLUDED
 
 #include <alda/raw/record_decl.hpp>
-#include <majutsu/record_impl.hpp>
+#include <fcppt/record/object_impl.hpp>
 
 
 template<

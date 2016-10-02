@@ -8,9 +8,9 @@
 #define ALDA_RAW_DETAIL_INNER_TYPES_HPP_INCLUDED
 
 #include <alda/raw/element_type_tpl.hpp>
-#include <majutsu/role.hpp>
-#include <majutsu/role_to_tag_tpl.hpp>
-#include <majutsu/role_to_type_tpl.hpp>
+#include <fcppt/record/element.hpp>
+#include <fcppt/record/element_to_label_tpl.hpp>
+#include <fcppt/record/element_to_type_tpl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/transform.hpp>
@@ -33,14 +33,14 @@ inner_types
 typename
 boost::mpl::transform<
 	Types,
-	majutsu::role<
+	fcppt::record::element<
+		fcppt::record::element_to_label_tpl<
+			boost::mpl::_1
+		>,
 		alda::raw::element_type_tpl<
-			majutsu::role_to_type_tpl<
+			fcppt::record::element_to_type_tpl<
 				boost::mpl::_1
 			>
-		>,
-		majutsu::role_to_tag_tpl<
-			boost::mpl::_1
 		>
 	>
 >::type;

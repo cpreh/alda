@@ -7,10 +7,10 @@
 #include <alda/bindings/signed.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <alda/bindings/variant.hpp>
+#include <alda/raw/get.hpp>
 #include <alda/raw/record_variadic.hpp>
-#include <majutsu/get.hpp>
-#include <majutsu/make_role_tag.hpp>
-#include <majutsu/role.hpp>
+#include <fcppt/record/element.hpp>
+#include <fcppt/record/make_label.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -73,15 +73,15 @@ fcppt::variant::object<
 >
 variant_type;
 
-MAJUTSU_MAKE_ROLE_TAG(
+FCPPT_RECORD_MAKE_LABEL(
 	variant_role
 );
 
 typedef
 alda::raw::record_variadic<
-	majutsu::role<
-		variant_binding,
-		variant_role
+	fcppt::record::element<
+		variant_role,
+		variant_binding
 	>
 >
 message;
@@ -101,7 +101,7 @@ FCPPT_PP_POP_WARNING
 		fcppt::variant::get_exn<
 			uint_type
 		>(
-			majutsu::get<
+			alda::raw::get<
 				variant_role
 			>(
 				message{
@@ -127,7 +127,7 @@ FCPPT_PP_POP_WARNING
 		fcppt::variant::get_exn<
 			int_type
 		>(
-			majutsu::get<
+			alda::raw::get<
 				variant_role
 			>(
 				message{

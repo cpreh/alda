@@ -4,14 +4,11 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef ALDA_RAW_RECORD_OUTPUT_HPP_INCLUDED
-#define ALDA_RAW_RECORD_OUTPUT_HPP_INCLUDED
+#ifndef ALDA_RAW_GET_HPP_INCLUDED
+#define ALDA_RAW_GET_HPP_INCLUDED
 
 #include <alda/raw/record_impl.hpp>
-#include <fcppt/record/output.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <iosfwd>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/record/label_value_type.hpp>
 
 
 namespace alda
@@ -20,20 +17,26 @@ namespace raw
 {
 
 template<
+	typename Label,
 	typename Types
 >
-std::ostream &
-operator<<(
-	std::ostream &_stream,
+fcppt::record::label_value_type<
+	typename
 	alda::raw::record<
 		Types
-	> const &_record
+	>::base,
+	Label
+>
+get(
+	alda::raw::record<
+		Types
+	> const &_arg
 )
 {
 	return
-		_stream
-		<<
-		_record.get_base();
+		_arg. template get<
+			Label
+		>();
 }
 
 }

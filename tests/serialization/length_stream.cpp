@@ -32,8 +32,8 @@
 #include <alda/serialization/length/put.hpp>
 #include <alda/serialization/length/remaining_size_function.hpp>
 #include <alda/serialization/length/serialize.hpp>
-#include <majutsu/make_role_tag.hpp>
-#include <majutsu/role.hpp>
+#include <fcppt/record/element.hpp>
+#include <fcppt/record/make_label.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/insert_to_std_string.hpp>
 #include <fcppt/literal.hpp>
@@ -140,19 +140,19 @@ alda::bindings::dynamic_len<
 >
 string_type;
 
-MAJUTSU_MAKE_ROLE_TAG(
+FCPPT_RECORD_MAKE_LABEL(
 	uint16_role
 );
 
-MAJUTSU_MAKE_ROLE_TAG(
+FCPPT_RECORD_MAKE_LABEL(
 	optional_uint16_role
 );
 
-MAJUTSU_MAKE_ROLE_TAG(
+FCPPT_RECORD_MAKE_LABEL(
 	variant_role
 );
 
-MAJUTSU_MAKE_ROLE_TAG(
+FCPPT_RECORD_MAKE_LABEL(
 	string_role
 );
 
@@ -163,21 +163,21 @@ alda::message::record<
 		message_type::message1
 	>,
 	boost::mpl::vector4<
-		majutsu::role<
-			uint16_type,
-			uint16_role
+		fcppt::record::element<
+			uint16_role,
+			uint16_type
 		>,
-		majutsu::role<
-			optional_uint16_type,
-			optional_uint16_role
+		fcppt::record::element<
+			optional_uint16_role,
+			optional_uint16_type
 		>,
-		majutsu::role<
-			variant_type,
-			variant_role
+		fcppt::record::element<
+			variant_role,
+			variant_type
 		>,
-		majutsu::role<
-			string_type,
-			string_role
+		fcppt::record::element<
+			string_role,
+			string_type
 		>
 	>
 >

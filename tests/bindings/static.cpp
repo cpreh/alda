@@ -6,10 +6,10 @@
 
 #include <alda/bindings/static.hpp>
 #include <alda/bindings/unsigned.hpp>
+#include <alda/raw/get.hpp>
 #include <alda/raw/record_variadic.hpp>
-#include <majutsu/get.hpp>
-#include <majutsu/make_role_tag.hpp>
-#include <majutsu/role.hpp>
+#include <fcppt/record/make_label.hpp>
+#include <fcppt/record/element.hpp>
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/math/vector/comparison.hpp>
 #include <fcppt/math/vector/output.hpp>
@@ -42,15 +42,15 @@ alda::bindings::static_<
 >
 vector_binding;
 
-MAJUTSU_MAKE_ROLE_TAG(
+FCPPT_RECORD_MAKE_LABEL(
 	vector_role
 );
 
 typedef
 alda::raw::record_variadic<
-	majutsu::role<
-		vector_binding,
-		vector_role
+	fcppt::record::element<
+		vector_role,
+		vector_binding
 	>
 >
 message;
@@ -72,7 +72,7 @@ FCPPT_PP_POP_WARNING
 	);
 
 	BOOST_CHECK_EQUAL(
-		majutsu::get<
+		alda::raw::get<
 			vector_role
 		>(
 			message{

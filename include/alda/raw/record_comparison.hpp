@@ -8,7 +8,7 @@
 #define ALDA_RAW_RECORD_COMPARISON_HPP_INCLUDED
 
 #include <alda/raw/record_impl.hpp>
-#include <majutsu/record_comparison.hpp>
+#include <fcppt/record/comparison.hpp>
 
 
 namespace alda

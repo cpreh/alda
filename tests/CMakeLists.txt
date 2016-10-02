@@ -47,6 +47,7 @@ add_alda_test(
 	NO_CODE
 )
 
+# FIXME: Most bindings tests don't test anything relevant to serialiaztion.
 add_alda_test(
 	bindings/array
 	LINK_LIBS

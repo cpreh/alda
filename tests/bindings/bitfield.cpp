@@ -5,11 +5,11 @@
 
 
 #include <alda/bindings/bitfield.hpp>
+#include <alda/raw/get.hpp>
 #include <alda/raw/integral_size.hpp>
 #include <alda/raw/record_variadic.hpp>
-#include <majutsu/get.hpp>
-#include <majutsu/make_role_tag.hpp>
-#include <majutsu/role.hpp>
+#include <fcppt/record/element.hpp>
+#include <fcppt/record/make_label.hpp>
 #include <fcppt/container/bitfield/comparison.hpp>
 #include <fcppt/container/bitfield/object.hpp>
 #include <fcppt/endianness/format.hpp>
@@ -46,15 +46,15 @@ FCPPT_PP_POP_WARNING
 	>
 	bitfield_binding;
 
-	MAJUTSU_MAKE_ROLE_TAG(
-		bitfield_role
+	FCPPT_RECORD_MAKE_LABEL(
+		bitfield_label
 	);
 
 	typedef
 	alda::raw::record_variadic<
-		majutsu::role<
-			bitfield_binding,
-			bitfield_role
+		fcppt::record::element<
+			bitfield_label,
+			bitfield_binding
 		>
 	>
 	message;
@@ -68,11 +68,11 @@ FCPPT_PP_POP_WARNING
 	] = true;
 
 	BOOST_CHECK(
-		majutsu::get<
-			bitfield_role
+		alda::raw::get<
+			bitfield_label
 		>(
 			message{
-				bitfield_role{} =
+				bitfield_label{} =
 					test
 			}
 		)

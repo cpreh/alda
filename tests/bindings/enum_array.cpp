@@ -6,10 +6,10 @@
 
 #include <alda/bindings/enum_array.hpp>
 #include <alda/bindings/unsigned.hpp>
+#include <alda/raw/get.hpp>
 #include <alda/raw/record_variadic.hpp>
-#include <majutsu/get.hpp>
-#include <majutsu/make_role_tag.hpp>
-#include <majutsu/role.hpp>
+#include <fcppt/record/element.hpp>
+#include <fcppt/record/make_label.hpp>
 #include <fcppt/algorithm/enum_array_init.hpp>
 #include <fcppt/cast/enum_to_int.hpp>
 #include <fcppt/container/enum_array.hpp>
@@ -66,15 +66,15 @@ FCPPT_PP_POP_WARNING
 	>
 	array_binding;
 
-	MAJUTSU_MAKE_ROLE_TAG(
-		array_role
+	FCPPT_RECORD_MAKE_LABEL(
+		array_label
 	);
 
 	typedef
 	alda::raw::record_variadic<
-		majutsu::role<
-			array_binding,
-			array_role
+		fcppt::record::element<
+			array_label,
+			array_binding
 		>
 	>
 	message;
@@ -98,13 +98,13 @@ FCPPT_PP_POP_WARNING
 	);
 
 	message const msg(
-		array_role{} =
+		array_label{} =
 			test
 	);
 
 	BOOST_CHECK_EQUAL(
-		majutsu::get<
-			array_role
+		alda::raw::get<
+			array_label
 		>(
 			msg
 		)[
@@ -114,8 +114,8 @@ FCPPT_PP_POP_WARNING
 	);
 
 	BOOST_CHECK_EQUAL(
-		majutsu::get<
-			array_role
+		alda::raw::get<
+			array_label
 		>(
 			msg
 		)[
@@ -125,8 +125,8 @@ FCPPT_PP_POP_WARNING
 	);
 
 	BOOST_CHECK_EQUAL(
-		majutsu::get<
-			array_role
+		alda::raw::get<
+			array_label
 		>(
 			msg
 		)[

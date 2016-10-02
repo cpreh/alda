@@ -8,8 +8,8 @@
 #include <alda/raw/stream/istream.hpp>
 #include <alda/raw/stream/memory.hpp>
 #include <alda/serialization/write_record.hpp>
-#include <majutsu/make_role_tag.hpp>
-#include <majutsu/role.hpp>
+#include <fcppt/record/element.hpp>
+#include <fcppt/record/make_label.hpp>
 #include <fcppt/either/object.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -29,32 +29,32 @@ alda::bindings::fundamental<
 >
 int_;
 
-MAJUTSU_MAKE_ROLE_TAG(
+FCPPT_RECORD_MAKE_LABEL(
 	int_role
 );
 
-MAJUTSU_MAKE_ROLE_TAG(
+FCPPT_RECORD_MAKE_LABEL(
 	record_role
 );
 
 typedef
 alda::raw::record_variadic<
-	majutsu::role<
-		int_,
-		int_role
+	fcppt::record::element<
+		int_role,
+		int_
 	>
 >
 inner_record;
 
 typedef
 alda::raw::record_variadic<
-	majutsu::role<
-		int_,
-		int_role
+	fcppt::record::element<
+		int_role,
+		int_
 	>,
-	majutsu::role<
-		inner_record,
-		record_role
+	fcppt::record::element<
+		record_role,
+		inner_record
 	>
 >
 record;

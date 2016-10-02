@@ -16,6 +16,7 @@ namespace alda
 namespace message
 {
 
+// TODO: Why do we need this?
 template<
 	typename Id,
 	typename Types

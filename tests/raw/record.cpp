@@ -1,8 +1,8 @@
 #include <alda/bindings/fundamental.hpp>
+#include <alda/raw/get.hpp>
 #include <alda/raw/record_variadic.hpp>
-#include <majutsu/get.hpp>
-#include <majutsu/make_role_tag.hpp>
-#include <majutsu/role.hpp>
+#include <fcppt/record/element.hpp>
+#include <fcppt/record/make_label.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -32,23 +32,23 @@ FCPPT_PP_POP_WARNING
 	>
 	bool_;
 
-	MAJUTSU_MAKE_ROLE_TAG(
+	FCPPT_RECORD_MAKE_LABEL(
 		int_role
 	);
 
-	MAJUTSU_MAKE_ROLE_TAG(
+	FCPPT_RECORD_MAKE_LABEL(
 		bool_role
 	);
 
 	typedef
 	alda::raw::record_variadic<
-		majutsu::role<
-			int_,
-			int_role
+		fcppt::record::element<
+			int_role,
+			int_
 		>,
-		majutsu::role<
-			bool_,
-			bool_role
+		fcppt::record::element<
+			bool_role,
+			bool_
 		>
 	>
 	my_memory;
@@ -59,7 +59,7 @@ FCPPT_PP_POP_WARNING
 	);
 
 	BOOST_CHECK_EQUAL(
-		majutsu::get<
+		alda::raw::get<
 			int_role
 		>(
 			test
@@ -68,7 +68,7 @@ FCPPT_PP_POP_WARNING
 	);
 
 	BOOST_CHECK(
-		majutsu::get<
+		alda::raw::get<
 			bool_role
 		>(
 			test
@@ -80,7 +80,7 @@ FCPPT_PP_POP_WARNING
 	);
 
 	BOOST_CHECK_EQUAL(
-		majutsu::get<
+		alda::raw::get<
 			int_role
 		>(
 			test2

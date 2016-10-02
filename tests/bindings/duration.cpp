@@ -7,10 +7,10 @@
 #include <alda/bindings/duration.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <alda/raw/element_type.hpp>
+#include <alda/raw/get.hpp>
 #include <alda/raw/record_variadic.hpp>
-#include <majutsu/get.hpp>
-#include <majutsu/make_role_tag.hpp>
-#include <majutsu/role.hpp>
+#include <fcppt/record/element.hpp>
+#include <fcppt/record/make_label.hpp>
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -36,15 +36,15 @@ alda::bindings::duration<
 >
 duration;
 
-MAJUTSU_MAKE_ROLE_TAG(
-	duration_role
+FCPPT_RECORD_MAKE_LABEL(
+	duration_label
 );
 
 typedef
 alda::raw::record_variadic<
-	majutsu::role<
-		duration,
-		duration_role
+	fcppt::record::element<
+		duration_label,
+		duration
 	>
 >
 message;
@@ -67,11 +67,11 @@ FCPPT_PP_POP_WARNING
 	duration_type;
 
 	BOOST_CHECK(
-		majutsu::get<
-			duration_role
+		alda::raw::get<
+			duration_label
 		>(
 			message{
-				duration_role{} =
+				duration_label{} =
 					duration_type(
 						10u
 					)

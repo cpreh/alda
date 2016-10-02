@@ -3,13 +3,13 @@
 #include <alda/bindings/fundamental.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <alda/bindings/static.hpp>
+#include <alda/raw/get.hpp>
 #include <alda/raw/make_generic.hpp>
 #include <alda/raw/record_variadic.hpp>
 #include <alda/raw/stream/error.hpp>
 #include <alda/raw/stream/istream.hpp>
-#include <majutsu/get.hpp>
-#include <majutsu/make_role_tag.hpp>
-#include <majutsu/role.hpp>
+#include <fcppt/record/element.hpp>
+#include <fcppt/record/make_label.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/endianness/format.hpp>
@@ -63,12 +63,12 @@ main(
 	>
 	ui16le_binding;
 
-	MAJUTSU_MAKE_ROLE_TAG(
-		actor_type_role
+	FCPPT_RECORD_MAKE_LABEL(
+		actor_type_label
 	);
 
-	MAJUTSU_MAKE_ROLE_TAG(
-		actor_pos_role
+	FCPPT_RECORD_MAKE_LABEL(
+		actor_pos_label
 	);
 
 	typedef
@@ -87,13 +87,13 @@ main(
 
 	typedef
 	alda::raw::record_variadic<
-		majutsu::role<
-			ui16le_binding,
-			actor_type_role
+		fcppt::record::element<
+			actor_type_label,
+			ui16le_binding
 		>,
-		majutsu::role<
-			actor_pos_binding,
-			actor_pos_role
+		fcppt::record::element<
+			actor_pos_label,
+			actor_pos_binding
 		>
 	>
 	actor_record;
@@ -151,103 +151,103 @@ main(
 	>
 	tile_array_binding;
 
-	MAJUTSU_MAKE_ROLE_TAG(
-		mask_tiles_role
+	FCPPT_RECORD_MAKE_LABEL(
+		mask_tiles_label
 	);
 
-	MAJUTSU_MAKE_ROLE_TAG(
-		solid_tiles_role
+	FCPPT_RECORD_MAKE_LABEL(
+		solid_tiles_label
 	);
 
-	MAJUTSU_MAKE_ROLE_TAG(
-		backdrop_role
+	FCPPT_RECORD_MAKE_LABEL(
+		backdrop_label
 	);
 
-	MAJUTSU_MAKE_ROLE_TAG(
-		unused1_role
+	FCPPT_RECORD_MAKE_LABEL(
+		unused1_label
 	);
 
-	MAJUTSU_MAKE_ROLE_TAG(
-		unused2_role
+	FCPPT_RECORD_MAKE_LABEL(
+		unused2_label
 	);
 
-	MAJUTSU_MAKE_ROLE_TAG(
-		music_role
+	FCPPT_RECORD_MAKE_LABEL(
+		music_label
 	);
 
-	MAJUTSU_MAKE_ROLE_TAG(
-		unused3_role
+	FCPPT_RECORD_MAKE_LABEL(
+		unused3_label
 	);
 
-	MAJUTSU_MAKE_ROLE_TAG(
-		flags_role
+	FCPPT_RECORD_MAKE_LABEL(
+		flags_label
 	);
 
-	MAJUTSU_MAKE_ROLE_TAG(
-		width_role
+	FCPPT_RECORD_MAKE_LABEL(
+		width_label
 	);
 
-	MAJUTSU_MAKE_ROLE_TAG(
-		actor_role
+	FCPPT_RECORD_MAKE_LABEL(
+		actor_label
 	);
 
-	MAJUTSU_MAKE_ROLE_TAG(
-		unknown_role
+	FCPPT_RECORD_MAKE_LABEL(
+		unknown_label
 	);
 
-	MAJUTSU_MAKE_ROLE_TAG(
-		tile_role
+	FCPPT_RECORD_MAKE_LABEL(
+		tile_label
 	);
 
 	typedef
 	alda::raw::record_variadic<
-		majutsu::role<
-			string_binding,
-			mask_tiles_role
+		fcppt::record::element<
+			mask_tiles_label,
+			string_binding
 		>,
-		majutsu::role<
-			string_binding,
-			solid_tiles_role
+		fcppt::record::element<
+			solid_tiles_label,
+			string_binding
 		>,
-		majutsu::role<
-			string_binding,
-			backdrop_role
+		fcppt::record::element<
+			backdrop_label,
+			string_binding
 		>,
-		majutsu::role<
-			string_binding,
-			unused1_role
+		fcppt::record::element<
+			unused1_label,
+			string_binding
 		>,
-		majutsu::role<
-			string_binding,
-			unused2_role
+		fcppt::record::element<
+			unused2_label,
+			string_binding
 		>,
-		majutsu::role<
-			string_binding,
-			music_role
+		fcppt::record::element<
+			music_label,
+			string_binding
 		>,
-		majutsu::role<
-			string_binding,
-			unused3_role
+		fcppt::record::element<
+			unused3_label,
+			string_binding
 		>,
-		majutsu::role<
-			ui16le_binding,
-			flags_role
+		fcppt::record::element<
+			flags_label,
+			ui16le_binding
 		>,
-		majutsu::role<
-			ui16le_binding,
-			width_role
+		fcppt::record::element<
+			width_label,
+			ui16le_binding
 		>,
-		majutsu::role<
-			actor_binding,
-			actor_role
+		fcppt::record::element<
+			actor_label,
+			actor_binding
 		>,
-		majutsu::role<
-			unknown_binding,
-			unknown_role
+		fcppt::record::element<
+			unknown_label,
+			unknown_binding
 		>,
-		majutsu::role<
-			tile_array_binding,
-			tile_role
+		fcppt::record::element<
+			tile_label,
+			tile_array_binding
 		>
 	>
 	level;
@@ -310,8 +310,8 @@ main(
 			for(
 				actor_record const &actor
 				:
-				majutsu::get<
-					actor_role
+				alda::raw::get<
+					actor_label
 				>(
 					_level
 				)
@@ -320,16 +320,16 @@ main(
 					<<
 					"Actor type "
 					<<
-					majutsu::get<
-						actor_type_role
+					alda::raw::get<
+						actor_type_label
 					>(
 						actor
 					)
 					<<
 					" at "
 					<<
-					majutsu::get<
-						actor_pos_role
+					alda::raw::get<
+						actor_pos_label
 					>(
 						actor
 					)

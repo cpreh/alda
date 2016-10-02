@@ -6,10 +6,10 @@
 
 #include <alda/bindings/strong_typedef.hpp>
 #include <alda/bindings/unsigned.hpp>
+#include <alda/raw/get.hpp>
 #include <alda/raw/record_variadic.hpp>
-#include <majutsu/get.hpp>
-#include <majutsu/make_role_tag.hpp>
-#include <majutsu/role.hpp>
+#include <fcppt/record/element.hpp>
+#include <fcppt/record/make_label.hpp>
 #include <fcppt/strong_typedef.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -45,15 +45,15 @@ alda::bindings::strong_typedef<
 >
 strong_binding;
 
-MAJUTSU_MAKE_ROLE_TAG(
+FCPPT_RECORD_MAKE_LABEL(
 	strong_role
 );
 
 typedef
 alda::raw::record_variadic<
-	majutsu::role<
-		strong_binding,
-		strong_role
+	fcppt::record::element<
+		strong_role,
+		strong_binding
 	>
 >
 message;
@@ -70,7 +70,7 @@ BOOST_AUTO_TEST_CASE(
 FCPPT_PP_POP_WARNING
 
 	BOOST_CHECK_EQUAL(
-		majutsu::get<
+		alda::raw::get<
 			strong_role
 		>(
 			message{

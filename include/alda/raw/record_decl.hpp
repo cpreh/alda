@@ -9,7 +9,7 @@
 
 #include <alda/raw/record_fwd.hpp>
 #include <alda/raw/detail/inner_types.hpp>
-#include <majutsu/record_decl.hpp>
+#include <fcppt/record/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/is_sequence.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -26,7 +26,7 @@ template<
 class record
 :
 	private
-		majutsu::record<
+		fcppt::record::object<
 			alda::raw::detail::inner_types<
 				Types
 			>
@@ -51,7 +51,7 @@ public:
 	types;
 
 	typedef
-	majutsu::record<
+	fcppt::record::object<
 		alda::raw::detail::inner_types<
 			Types
 		>

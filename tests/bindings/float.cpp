@@ -6,10 +6,10 @@
 
 #include <alda/bindings/float.hpp>
 #include <alda/raw/element_type.hpp>
+#include <alda/raw/get.hpp>
 #include <alda/raw/record_variadic.hpp>
-#include <majutsu/get.hpp>
-#include <majutsu/make_role_tag.hpp>
-#include <majutsu/role.hpp>
+#include <fcppt/record/make_label.hpp>
+#include <fcppt/record/element.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -26,15 +26,15 @@
 namespace
 {
 
-MAJUTSU_MAKE_ROLE_TAG(
+FCPPT_RECORD_MAKE_LABEL(
 	float_role
 );
 
 typedef
 alda::raw::record_variadic<
-	majutsu::role<
-		alda::bindings::float_,
-		float_role
+	fcppt::record::element<
+		float_role,
+		alda::bindings::float_
 	>
 >
 message;
@@ -146,7 +146,7 @@ test_conversion(
 	);
 
 	fuzzy_equal(
-		majutsu::get<
+		alda::raw::get<
 			float_role
 		>(
 			msg

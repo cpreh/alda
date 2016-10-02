@@ -25,11 +25,6 @@ find_package(
 	REQUIRED
 )
 
-find_package(
-	majutsu
-	REQUIRED
-)
-
 set(
 	NEEDED_BOOST_LIBS
 	"system"

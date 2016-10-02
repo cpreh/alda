@@ -82,6 +82,7 @@ set(
 	include/alda/message/concrete_fwd.hpp
 	include/alda/message/detail/extract_id.hpp
 	include/alda/message/detail/extract_id_tpl.hpp
+	include/alda/message/get.hpp
 	include/alda/message/impl/base_impl.hpp
 	include/alda/message/impl/concrete_impl.hpp
 	include/alda/message/instantiate_base.hpp
@@ -153,6 +154,7 @@ set(
 	include/alda/raw/dispatch_value.hpp
 	include/alda/raw/element_type.hpp
 	include/alda/raw/element_type_tpl.hpp
+	include/alda/raw/get.hpp
 	include/alda/raw/integral_size.hpp
 	include/alda/raw/is_static_size.hpp
 	include/alda/raw/make_generic.hpp
@@ -386,7 +388,6 @@ function(
 		target_link_libraries(
 			${ALDA_LIB_NAME}
 			PRIVATE
-			majutsu_interface
 			${fcppt_core_TARGET}
 			${fcppt_log_TARGET}
 			${FcpptThreads_LIBRARIES}
@@ -398,7 +399,6 @@ function(
 	target_link_libraries(
 		${ALDA_LIB_NAME}
 		INTERFACE
-		majutsu_interface
 		fcppt_core_interface
 		fcppt_log_interface
 	)

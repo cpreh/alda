@@ -2,9 +2,8 @@
 #include <alda/bindings/fundamental.hpp>
 #include <alda/message/make_id.hpp>
 #include <alda/message/record.hpp>
-#include <majutsu/get.hpp>
-#include <majutsu/make_role_tag.hpp>
-#include <majutsu/role.hpp>
+#include <fcppt/record/element.hpp>
+#include <fcppt/record/make_label.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -35,11 +34,11 @@ FCPPT_PP_POP_WARNING
 	>
 	bool_;
 
-	MAJUTSU_MAKE_ROLE_TAG(
+	FCPPT_RECORD_MAKE_LABEL(
 		int_role
 	);
 
-	MAJUTSU_MAKE_ROLE_TAG(
+	FCPPT_RECORD_MAKE_LABEL(
 		bool_role
 	);
 
@@ -62,13 +61,13 @@ FCPPT_PP_POP_WARNING
 			message_type::message1
 		>,
 		boost::mpl::vector2<
-			majutsu::role<
-				int_,
-				int_role
+			fcppt::record::element<
+				int_role,
+				int_
 			>,
-			majutsu::role<
-				bool_,
-				bool_role
+			fcppt::record::element<
+				bool_role,
+				bool_
 			>
 		>
 	>
@@ -81,20 +80,16 @@ FCPPT_PP_POP_WARNING
 
 
 	BOOST_CHECK_EQUAL(
-		majutsu::get<
+		test.get<
 			int_role
-		>(
-			test
-		),
+		>(),
 		4
 	);
 
 	BOOST_CHECK(
-		majutsu::get<
+		test.get<
 			bool_role
-		>(
-			test
-		)
+		>()
 	);
 
 	my_memory const test2(
@@ -102,11 +97,9 @@ FCPPT_PP_POP_WARNING
 	);
 
 	BOOST_CHECK_EQUAL(
-		majutsu::get<
+		test2.get<
 			int_role
-		>(
-			test2
-		),
+		>(),
 		4
 	);
 }

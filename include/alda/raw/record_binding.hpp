@@ -10,6 +10,7 @@
 #include <alda/raw/combine_static_sizes.hpp>
 #include <alda/raw/dispatch_type.hpp>
 #include <alda/raw/element_type.hpp>
+#include <alda/raw/get.hpp>
 #include <alda/raw/integral_size.hpp>
 #include <alda/raw/make_generic.hpp>
 #include <alda/raw/needed_size.hpp>
@@ -22,10 +23,9 @@
 #include <alda/raw/stream/reference.hpp>
 #include <alda/raw/stream/result.hpp>
 #include <alda/raw/stream/return.hpp>
-#include <majutsu/get.hpp>
-#include <majutsu/role_to_tag.hpp>
-#include <majutsu/role_to_type.hpp>
-#include <majutsu/role_to_type_tpl.hpp>
+#include <fcppt/record/element_to_label.hpp>
+#include <fcppt/record/element_to_type.hpp>
+#include <fcppt/record/element_to_type_tpl.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/tag_type.hpp>
 #include <fcppt/use.hpp>
@@ -79,7 +79,7 @@ boost::mpl::fold<
 			>
 		>::type,
 		alda::raw::static_size<
-			majutsu::role_to_type_tpl<
+			fcppt::record::element_to_type_tpl<
 				boost::mpl::_2
 			>
 		>,
@@ -137,12 +137,12 @@ needed_size(
 
 				return
 					alda::raw::needed_size<
-						majutsu::role_to_type<
+						fcppt::record::element_to_type<
 							role
 						>
 					>(
-						majutsu::get<
-							majutsu::role_to_tag<
+						alda::raw::get<
+							fcppt::record::element_to_label<
 								role
 							>
 						>(
@@ -196,12 +196,12 @@ place(
 			role;
 
 			alda::raw::place_and_update<
-				majutsu::role_to_type<
+				fcppt::record::element_to_type<
 					role
 				>
 			>(
-				majutsu::get<
-					majutsu::role_to_tag<
+				alda::raw::get<
+					fcppt::record::element_to_label<
 						role
 					>
 				>(
@@ -302,7 +302,7 @@ read(
 		>(
 			alda::raw::make_generic<
 				Stream,
-				majutsu::role_to_type<
+				fcppt::record::element_to_type<
 					role
 				>
 			>(
@@ -313,7 +313,7 @@ read(
 				&_args...
 			](
 				alda::raw::element_type<
-					majutsu::role_to_type<
+					fcppt::record::element_to_type<
 						role
 					>
 				> &&_arg
@@ -335,7 +335,7 @@ read(
 						>(
 							_args
 						)...,
-						majutsu::role_to_tag<
+						fcppt::record::element_to_label<
 							role
 						>{} =
 							std::move(
