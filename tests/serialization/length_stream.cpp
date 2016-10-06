@@ -33,8 +33,6 @@
 #include <alda/serialization/length/put.hpp>
 #include <alda/serialization/length/remaining_size_function.hpp>
 #include <alda/serialization/length/serialize.hpp>
-#include <fcppt/record/element.hpp>
-#include <fcppt/record/make_label.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/insert_to_std_string.hpp>
 #include <fcppt/literal.hpp>
@@ -51,7 +49,9 @@
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/record/element.hpp>
 #include <fcppt/record/get.hpp>
+#include <fcppt/record/make_label.hpp>
 #include <fcppt/variant/equal.hpp>
 #include <fcppt/variant/output.hpp>
 #include <fcppt/config/external_begin.hpp>

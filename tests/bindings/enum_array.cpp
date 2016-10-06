@@ -12,9 +12,9 @@
 #include <fcppt/algorithm/enum_array_init.hpp>
 #include <fcppt/cast/enum_to_int.hpp>
 #include <fcppt/container/enum_array.hpp>
-#include <fcppt/endianness/format.hpp>
 #include <fcppt/either/make_success.hpp>
 #include <fcppt/either/object.hpp>
+#include <fcppt/endianness/format.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

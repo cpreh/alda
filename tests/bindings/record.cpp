@@ -11,8 +11,6 @@
 #include <alda/serialization/write.hpp>
 #include <fcppt/public_config.hpp>
 #include <fcppt/strong_typedef_output.hpp>
-#include <fcppt/record/element.hpp>
-#include <fcppt/record/make_label.hpp>
 #include <fcppt/either/make_success.hpp>
 #include <fcppt/either/object.hpp>
 #include <fcppt/either/output.hpp>
@@ -20,6 +18,8 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/record/comparison.hpp>
+#include <fcppt/record/element.hpp>
+#include <fcppt/record/make_label.hpp>
 #include <fcppt/record/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/test/unit_test.hpp>
