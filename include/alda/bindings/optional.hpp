@@ -69,12 +69,13 @@ place(
 	binding::bool_type
 	bool_type;
 
-	alda::raw::place_and_update<
-		bool_type
-	>(
-		_opt_value.has_value(),
-		_mem
-	);
+	_mem =
+		alda::raw::place_and_update<
+			bool_type
+		>(
+			_opt_value.has_value(),
+			_mem
+		);
 
 	fcppt::optional::maybe_void(
 		_opt_value,

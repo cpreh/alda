@@ -6,16 +6,17 @@
 
 #include <alda/exception.hpp>
 #include <alda/type_enum.hpp>
+#include <alda/bindings/record_variadic.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <alda/call/object.hpp>
 #include <alda/message/base_decl.hpp>
 #include <alda/message/base_unique_ptr.hpp>
-#include <alda/message/get.hpp>
+#include <alda/message/init_record.hpp>
 #include <alda/message/instantiate_base.hpp>
 #include <alda/message/instantiate_concrete.hpp>
 #include <alda/message/make_concrete_ptr.hpp>
 #include <alda/message/make_id.hpp>
-#include <alda/message/record.hpp>
+#include <alda/message/object.hpp>
 #include <alda/serialization/context_fwd.hpp>
 #include <alda/serialization/define_context_function.hpp>
 #include <alda/serialization/deserialize.hpp>
@@ -25,6 +26,7 @@
 #include <alda/serialization/register_message.hpp>
 #include <alda/serialization/serialize.hpp>
 #include <fcppt/record/element.hpp>
+#include <fcppt/record/get.hpp>
 #include <fcppt/record/make_label.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/endianness/format.hpp>
@@ -98,12 +100,12 @@ FCPPT_RECORD_MAKE_LABEL(
 );
 
 typedef
-alda::message::record<
+alda::message::object<
 	alda::message::make_id<
 		type_enum,
 		message_type::message1
 	>,
-	boost::mpl::vector1<
+	alda::bindings::record_variadic<
 		fcppt::record::element<
 			uint16_role,
 			uint16_type
@@ -113,12 +115,12 @@ alda::message::record<
 message1;
 
 typedef
-alda::message::record<
+alda::message::object<
 	alda::message::make_id<
 		type_enum,
 		message_type::message2
 	>,
-	boost::mpl::vector1<
+	alda::bindings::record_variadic<
 		fcppt::record::element<
 			uint32_role,
 			uint32_type
@@ -217,10 +219,10 @@ public:
 			<< FCPPT_TEXT("message1 received\n");
 
 		BOOST_CHECK_EQUAL(
-			alda::message::get<
+			fcppt::record::get<
 				uint16_role
 			>(
-				_msg
+				_msg.get()
 			),
 			static_cast<
 				std::uint16_t
@@ -239,10 +241,10 @@ public:
 			<< FCPPT_TEXT("message2 received\n");
 
 		BOOST_CHECK_EQUAL(
-			alda::message::get<
+			fcppt::record::get<
 				uint32_role
 			>(
-				_msg
+				_msg.get()
 			),
 			static_cast<
 				std::uint32_t
@@ -281,7 +283,9 @@ FCPPT_PP_POP_WARNING
 		*alda::message::make_concrete_ptr<
 			type_enum
 		>(
-			message1(
+			alda::message::init_record<
+				message1
+			>(
 				uint16_role{} =
 					static_cast<
 						std::uint16_t
@@ -356,7 +360,9 @@ FCPPT_PP_POP_WARNING
 		*alda::message::make_concrete_ptr<
 			type_enum
 		>(
-			message2(
+			alda::message::init_record<
+				message2
+			>(
 				uint32_role{} =
 					static_cast<
 						std::uint32_t

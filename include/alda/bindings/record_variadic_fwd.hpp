@@ -4,10 +4,10 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef ALDA_RAW_RECORD_VARIADIC_FWD_HPP_INCLUDED
-#define ALDA_RAW_RECORD_VARIADIC_FWD_HPP_INCLUDED
+#ifndef ALDA_BINDINGS_RECORD_VARIADIC_FWD_HPP_INCLUDED
+#define ALDA_BINDINGS_RECORD_VARIADIC_FWD_HPP_INCLUDED
 
-#include <alda/raw/record_fwd.hpp>
+#include <alda/bindings/record_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -15,7 +15,7 @@
 
 namespace alda
 {
-namespace raw
+namespace bindings
 {
 
 template<
@@ -24,7 +24,7 @@ template<
 using
 record_variadic
 =
-alda::raw::record<
+alda::bindings::record<
 	boost::mpl::vector<
 		Types...
 	>

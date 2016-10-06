@@ -67,12 +67,13 @@ place(
 		:
 		_value
 	)
-		alda::raw::place_and_update<
-			Adapted
-		>(
-			elem,
-			_mem
-		);
+		_mem =
+			alda::raw::place_and_update<
+				Adapted
+			>(
+				elem,
+				_mem
+			);
 }
 
 template<

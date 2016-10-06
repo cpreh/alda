@@ -4,21 +4,10 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef ALDA_RAW_RECORD_FWD_HPP_INCLUDED
-#define ALDA_RAW_RECORD_FWD_HPP_INCLUDED
+#ifndef ALDA_MESSAGE_OBJECT_HPP_INCLUDED
+#define ALDA_MESSAGE_OBJECT_HPP_INCLUDED
 
+#include <alda/message/object_impl.hpp>
 
-namespace alda
-{
-namespace raw
-{
-
-template<
-	typename Types
->
-class record;
-
-}
-}
 
 #endif

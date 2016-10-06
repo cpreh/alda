@@ -113,32 +113,34 @@ place(
 	alda::raw::pointer _mem
 )
 {
-	alda::raw::place_and_update<
-		Length
-	>(
-		fcppt::cast::truncation_check<
-			alda::raw::element_type<
-				Length
-			>
+	_mem =
+		alda::raw::place_and_update<
+			Length
 		>(
-			LengthPolicy::place(
-				_value
-			)
-		),
-		_mem
-	);
+			fcppt::cast::truncation_check<
+				alda::raw::element_type<
+					Length
+				>
+			>(
+				LengthPolicy::place(
+					_value
+				)
+			),
+			_mem
+		);
 
 	for(
 		auto const &elem
 		:
 		_value
 	)
-		alda::raw::place_and_update<
-			Adapted
-		>(
-			elem,
-			_mem
-		);
+		_mem =
+			alda::raw::place_and_update<
+				Adapted
+			>(
+				elem,
+				_mem
+			);
 }
 
 template<

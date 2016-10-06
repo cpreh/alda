@@ -1,11 +1,11 @@
 #include <alda/bindings/array.hpp>
 #include <alda/bindings/dynamic_len.hpp>
 #include <alda/bindings/fundamental.hpp>
+#include <alda/bindings/record_variadic.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <alda/bindings/static.hpp>
-#include <alda/raw/get.hpp>
+#include <alda/raw/element_type.hpp>
 #include <alda/raw/make_generic.hpp>
-#include <alda/raw/record_variadic.hpp>
 #include <alda/raw/stream/error.hpp>
 #include <alda/raw/stream/istream.hpp>
 #include <fcppt/record/element.hpp>
@@ -17,6 +17,7 @@
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/static.hpp>
+#include <fcppt/record/get.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <array>
 #include <cstdint>
@@ -34,22 +35,11 @@ main(
 )
 {
 	typedef
-	std::array<
-		char,
-		12
-	>
-	string;
-
-	typedef
-	std::array<
-		std::uint16_t,
-		16767
-	>
-	tile_array;
-
-	typedef
 	alda::bindings::array<
-		string,
+		std::array<
+			char,
+			12
+		>,
 		alda::bindings::fundamental<
 			char
 		>
@@ -86,7 +76,7 @@ main(
 	actor_pos_binding;
 
 	typedef
-	alda::raw::record_variadic<
+	alda::bindings::record_variadic<
 		fcppt::record::element<
 			actor_type_label,
 			ui16le_binding
@@ -100,7 +90,9 @@ main(
 
 	typedef
 	std::vector<
-		actor_record
+		alda::raw::element_type<
+			actor_record
+		>
 	>
 	actor_vector;
 
@@ -146,7 +138,10 @@ main(
 
 	typedef
 	alda::bindings::array<
-		tile_array,
+		std::array<
+			std::uint16_t,
+			16767
+		>,
 		ui16le_binding
 	>
 	tile_array_binding;
@@ -200,7 +195,7 @@ main(
 	);
 
 	typedef
-	alda::raw::record_variadic<
+	alda::bindings::record_variadic<
 		fcppt::record::element<
 			mask_tiles_label,
 			string_binding
@@ -301,16 +296,21 @@ main(
 				FCPPT_TEXT(".\n");
 		},
 		[](
-			level &&_level
+			alda::raw::element_type<
+				level
+			> &&_level
 		)
 		{
 			std::cout
 				<<
 				"Success.\n";
+
 			for(
-				actor_record const &actor
+				alda::raw::element_type<
+					actor_record
+				> const &actor
 				:
-				alda::raw::get<
+				fcppt::record::get<
 					actor_label
 				>(
 					_level
@@ -320,7 +320,7 @@ main(
 					<<
 					"Actor type "
 					<<
-					alda::raw::get<
+					fcppt::record::get<
 						actor_type_label
 					>(
 						actor
@@ -328,7 +328,7 @@ main(
 					<<
 					" at "
 					<<
-					alda::raw::get<
+					fcppt::record::get<
 						actor_pos_label
 					>(
 						actor

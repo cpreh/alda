@@ -6,10 +6,15 @@
 
 #include <alda/bindings/static.hpp>
 #include <alda/bindings/unsigned.hpp>
-#include <alda/raw/get.hpp>
-#include <alda/raw/record_variadic.hpp>
-#include <fcppt/record/make_label.hpp>
-#include <fcppt/record/element.hpp>
+#include <alda/raw/static_size.hpp>
+#include <alda/raw/stream/error.hpp>
+#include <alda/serialization/read.hpp>
+#include <alda/serialization/write.hpp>
+#include <fcppt/public_config.hpp>
+#include <fcppt/strong_typedef_output.hpp>
+#include <fcppt/either/make_success.hpp>
+#include <fcppt/either/object.hpp>
+#include <fcppt/either/output.hpp>
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/math/vector/comparison.hpp>
 #include <fcppt/math/vector/output.hpp>
@@ -19,6 +24,7 @@
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/test/unit_test.hpp>
+#include <sstream>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -42,26 +48,40 @@ alda::bindings::static_<
 >
 vector_binding;
 
-FCPPT_RECORD_MAKE_LABEL(
-	vector_role
+static_assert(
+	alda::raw::static_size<
+		vector_binding
+	>::value
+	==
+	sizeof(
+		unsigned
+	)
+	*
+	2u,
+	""
 );
 
 typedef
-alda::raw::record_variadic<
-	fcppt::record::element<
-		vector_role,
-		vector_binding
-	>
+fcppt::either::object<
+	alda::raw::stream::error,
+	int_vec2
 >
-message;
+result_type;
 
 }
+
+#if !defined(FCPPT_NARROW_STRING)
+BOOST_TEST_DONT_PRINT_LOG_VALUE(
+	result_type
+)
+#endif
+
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 BOOST_AUTO_TEST_CASE(
-	alda_static
+	alda_static_stream
 )
 {
 FCPPT_PP_POP_WARNING
@@ -71,15 +91,25 @@ FCPPT_PP_POP_WARNING
 		5u
 	);
 
-	BOOST_CHECK_EQUAL(
-		alda::raw::get<
-			vector_role
-		>(
-			message{
-				vector_role{} =
-					test
-			}
-		),
+	std::stringstream stream;
+
+	alda::serialization::write<
+		vector_binding
+	>(
+		stream,
 		test
+	);
+
+	BOOST_CHECK_EQUAL(
+		alda::serialization::read<
+			vector_binding
+		>(
+			stream
+		),
+		fcppt::either::make_success<
+			alda::raw::stream::error
+		>(
+			test
+		)
 	);
 }

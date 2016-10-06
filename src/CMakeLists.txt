@@ -38,6 +38,12 @@ set(
 	include/alda/bindings/optional.hpp
 	include/alda/bindings/optional_decl.hpp
 	include/alda/bindings/optional_fwd.hpp
+	include/alda/bindings/record.hpp
+	include/alda/bindings/record_decl.hpp
+	include/alda/bindings/record_fwd.hpp
+	include/alda/bindings/record_variadic.hpp
+	include/alda/bindings/record_variadic_decl.hpp
+	include/alda/bindings/record_variadic_fwd.hpp
 	include/alda/bindings/signed.hpp
 	include/alda/bindings/signed_decl.hpp
 	include/alda/bindings/signed_fwd.hpp
@@ -82,20 +88,22 @@ set(
 	include/alda/message/concrete_fwd.hpp
 	include/alda/message/detail/extract_id.hpp
 	include/alda/message/detail/extract_id_tpl.hpp
-	include/alda/message/get.hpp
+	include/alda/message/element_type.hpp
 	include/alda/message/impl/base_impl.hpp
 	include/alda/message/impl/concrete_impl.hpp
+	include/alda/message/init_record.hpp
 	include/alda/message/instantiate_base.hpp
 	include/alda/message/instantiate_concrete.hpp
-	include/alda/message/is_record.hpp
+	include/alda/message/is_object.hpp
 	include/alda/message/make_concrete_ptr.hpp
 	include/alda/message/make_id.hpp
+	include/alda/message/object.hpp
+	include/alda/message/object_decl.hpp
+	include/alda/message/object_fwd.hpp
+	include/alda/message/object_impl.hpp
+	include/alda/message/object_to_buffer.hpp
 	include/alda/message/optional_base_unique_ptr.hpp
 	include/alda/message/optional_base_unique_ptr_fwd.hpp
-	include/alda/message/record.hpp
-	include/alda/message/record_decl.hpp
-	include/alda/message/record_fwd.hpp
-	include/alda/message/record_impl.hpp
 	include/alda/net/buffer/circular_receive/extract_message.hpp
 	include/alda/net/buffer/circular_receive/for_asio.hpp
 	include/alda/net/buffer/circular_receive/part.hpp
@@ -148,13 +156,11 @@ set(
 	include/alda/raw/data.hpp
 	include/alda/raw/detail/copy_n.hpp
 	include/alda/raw/detail/dynamic_size.hpp
-	include/alda/raw/detail/inner_types.hpp
 	include/alda/raw/detail/is_static_size.hpp
 	include/alda/raw/dispatch_type.hpp
 	include/alda/raw/dispatch_value.hpp
 	include/alda/raw/element_type.hpp
 	include/alda/raw/element_type_tpl.hpp
-	include/alda/raw/get.hpp
 	include/alda/raw/integral_size.hpp
 	include/alda/raw/is_static_size.hpp
 	include/alda/raw/make_generic.hpp
@@ -163,16 +169,6 @@ set(
 	include/alda/raw/place.hpp
 	include/alda/raw/place_and_update.hpp
 	include/alda/raw/pointer.hpp
-	include/alda/raw/record.hpp
-	include/alda/raw/record_binding.hpp
-	include/alda/raw/record_comparison.hpp
-	include/alda/raw/record_decl.hpp
-	include/alda/raw/record_fwd.hpp
-	include/alda/raw/record_impl.hpp
-	include/alda/raw/record_output.hpp
-	include/alda/raw/record_to_buffer.hpp
-	include/alda/raw/record_variadic.hpp
-	include/alda/raw/record_variadic_fwd.hpp
 	include/alda/raw/size_type.hpp
 	include/alda/raw/static_buffer.hpp
 	include/alda/raw/static_size.hpp
@@ -227,12 +223,12 @@ set(
 	include/alda/serialization/length/remaining_size_function.hpp
 	include/alda/serialization/length/serialize.hpp
 	include/alda/serialization/ostream.hpp
+	include/alda/serialization/read.hpp
 	include/alda/serialization/register_message.hpp
 	include/alda/serialization/serialize.hpp
 	include/alda/serialization/static_buffer_to_stream.hpp
 	include/alda/serialization/write.hpp
 	include/alda/serialization/write_id.hpp
-	include/alda/serialization/write_record.hpp
 	include/alda/smallest_uint.hpp
 	include/alda/type_enum.hpp
 	include/alda/type_enum_fwd.hpp

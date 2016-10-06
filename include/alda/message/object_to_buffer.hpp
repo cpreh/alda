@@ -4,37 +4,37 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef ALDA_RAW_RECORD_TO_BUFFER_HPP_INCLUDED
-#define ALDA_RAW_RECORD_TO_BUFFER_HPP_INCLUDED
+#ifndef ALDA_MESSAGE_OBJECT_TO_BUFFER_HPP_INCLUDED
+#define ALDA_MESSAGE_OBJECT_TO_BUFFER_HPP_INCLUDED
 
+#include <alda/message/object_impl.hpp>
 #include <alda/raw/buffer.hpp>
-#include <alda/raw/record.hpp>
 #include <alda/raw/to_buffer.hpp>
 
 
 namespace alda
 {
-namespace raw
+namespace message
 {
 
 template<
-	typename Types
+	typename Id,
+	typename Type
 >
 inline
 alda::raw::buffer
-record_to_buffer(
-	alda::raw::record<
-		Types
-	> const &_record
+object_to_buffer(
+	alda::message::object<
+		Id,
+		Type
+	> const &_value
 )
 {
 	return
 		alda::raw::to_buffer<
-			alda::raw::record<
-				Types
-			>
+			Type
 		>(
-			_record
+			_value.get()
 		);
 }
 

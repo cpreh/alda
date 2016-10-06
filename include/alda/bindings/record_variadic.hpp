@@ -4,11 +4,11 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef ALDA_RAW_RECORD_VARIADIC_HPP_INCLUDED
-#define ALDA_RAW_RECORD_VARIADIC_HPP_INCLUDED
+#ifndef ALDA_BINDINGS_RECORD_VARIADIC_HPP_INCLUDED
+#define ALDA_BINDINGS_RECORD_VARIADIC_HPP_INCLUDED
 
-#include <alda/raw/record.hpp>
-#include <alda/raw/record_variadic_fwd.hpp>
+#include <alda/bindings/record.hpp>
+#include <alda/bindings/record_variadic_fwd.hpp>
 
 
 #endif

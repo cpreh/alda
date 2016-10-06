@@ -8,11 +8,11 @@
 #define ALDA_MESSAGE_IMPL_CONCRETE_IMPL_HPP_INCLUDED
 
 #include <alda/message/concrete_decl.hpp>
-#include <alda/message/record_impl.hpp>
+#include <alda/message/object_impl.hpp>
+#include <alda/message/object_to_buffer.hpp>
 #include <alda/message/detail/extract_id.hpp>
 #include <alda/raw/buffer.hpp>
 #include <alda/raw/needed_size.hpp>
-#include <alda/raw/record_to_buffer.hpp>
 #include <alda/raw/size_type.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -169,9 +169,9 @@ alda::message::concrete<
 	return
 		alda::raw::needed_size<
 			typename
-			Type::base_type
+			Type::binding
 		>(
-			value_.get_base()
+			value_.get()
 		);
 }
 
@@ -186,8 +186,8 @@ alda::message::concrete<
 >::to_buffer() const
 {
 	return
-		alda::raw::record_to_buffer(
-			value_.get_base()
+		alda::message::object_to_buffer(
+			value_
 		);
 }
 

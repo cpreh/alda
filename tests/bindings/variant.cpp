@@ -7,20 +7,26 @@
 #include <alda/bindings/signed.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <alda/bindings/variant.hpp>
-#include <alda/raw/get.hpp>
-#include <alda/raw/record_variadic.hpp>
-#include <fcppt/record/element.hpp>
-#include <fcppt/record/make_label.hpp>
+#include <alda/raw/stream/error.hpp>
+#include <alda/serialization/read.hpp>
+#include <alda/serialization/write.hpp>
 #include <fcppt/literal.hpp>
+#include <fcppt/public_config.hpp>
+#include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/endianness/format.hpp>
+#include <fcppt/either/make_success.hpp>
+#include <fcppt/either/object.hpp>
+#include <fcppt/either/output.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/variant/get_exn.hpp>
+#include <fcppt/variant/comparison.hpp>
 #include <fcppt/variant/object.hpp>
+#include <fcppt/variant/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/test/unit_test.hpp>
 #include <cstdint>
+#include <sstream>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -73,18 +79,51 @@ fcppt::variant::object<
 >
 variant_type;
 
-FCPPT_RECORD_MAKE_LABEL(
-	variant_role
-);
-
 typedef
-alda::raw::record_variadic<
-	fcppt::record::element<
-		variant_role,
-		variant_binding
-	>
+fcppt::either::object<
+	alda::raw::stream::error,
+	variant_type
 >
-message;
+result_type;
+
+}
+
+#if !defined(FCPPT_NARROW_STRING)
+BOOST_TEST_DONT_PRINT_LOG_VALUE(
+	result_type
+)
+#endif
+
+namespace
+{
+
+void
+do_test(
+	variant_type const &_value
+)
+{
+	std::stringstream stream;
+
+	alda::serialization::write<
+		variant_binding
+	>(
+		stream,
+		_value
+	);
+
+	BOOST_CHECK_EQUAL(
+		alda::serialization::read<
+			variant_binding
+		>(
+			stream
+		),
+		fcppt::either::make_success<
+			alda::raw::stream::error
+		>(
+			_value
+		)
+	);
+}
 
 }
 
@@ -92,60 +131,28 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 BOOST_AUTO_TEST_CASE(
-	alda_variant
+	alda_variant_stream
 )
 {
 FCPPT_PP_POP_WARNING
 
-	BOOST_CHECK_EQUAL(
-		fcppt::variant::get_exn<
-			uint_type
-		>(
-			alda::raw::get<
-				variant_role
+	do_test(
+		variant_type{
+			fcppt::literal<
+				uint_type
 			>(
-				message{
-					variant_role{} =
-						variant_type(
-							fcppt::literal<
-								uint_type
-							>(
-								42u
-							)
-						)
-				}
+				42u
 			)
-		),
-		fcppt::literal<
-			uint_type
-		>(
-			42u
-		)
+		}
 	);
 
-	BOOST_CHECK_EQUAL(
-		fcppt::variant::get_exn<
-			int_type
-		>(
-			alda::raw::get<
-				variant_role
+	do_test(
+		variant_type{
+			fcppt::literal<
+				int_type
 			>(
-				message{
-					variant_role{} =
-						variant_type(
-							fcppt::literal<
-								int_type
-							>(
-								13
-							)
-						)
-				}
+				13
 			)
-		),
-		fcppt::literal<
-			int_type
-		>(
-			13
-		)
+		}
 	);
 }

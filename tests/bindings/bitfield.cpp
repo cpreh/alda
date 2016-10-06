@@ -5,19 +5,21 @@
 
 
 #include <alda/bindings/bitfield.hpp>
-#include <alda/raw/get.hpp>
 #include <alda/raw/integral_size.hpp>
-#include <alda/raw/record_variadic.hpp>
-#include <fcppt/record/element.hpp>
-#include <fcppt/record/make_label.hpp>
+#include <alda/raw/stream/error.hpp>
+#include <alda/serialization/read.hpp>
+#include <alda/serialization/write.hpp>
 #include <fcppt/container/bitfield/comparison.hpp>
 #include <fcppt/container/bitfield/object.hpp>
+#include <fcppt/either/comparison.hpp>
+#include <fcppt/either/make_success.hpp>
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/test/unit_test.hpp>
+#include <sstream>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -25,7 +27,7 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 BOOST_AUTO_TEST_CASE(
-	alda_bitfield
+	alda_bitfield_stream
 )
 {
 FCPPT_PP_POP_WARNING
@@ -46,19 +48,6 @@ FCPPT_PP_POP_WARNING
 	>
 	bitfield_binding;
 
-	FCPPT_RECORD_MAKE_LABEL(
-		bitfield_label
-	);
-
-	typedef
-	alda::raw::record_variadic<
-		fcppt::record::element<
-			bitfield_label,
-			bitfield_binding
-		>
-	>
-	message;
-
 	bitfield test(
 		bitfield::null()
 	);
@@ -67,16 +56,26 @@ FCPPT_PP_POP_WARNING
 		42u
 	] = true;
 
+	std::stringstream stream;
+
+	alda::serialization::write<
+		bitfield_binding
+	>(
+		stream,
+		test
+	);
+
 	BOOST_CHECK(
-		alda::raw::get<
-			bitfield_label
+		alda::serialization::read<
+			bitfield_binding
 		>(
-			message{
-				bitfield_label{} =
-					test
-			}
+			stream
 		)
 		==
-		test
+		fcppt::either::make_success<
+			alda::raw::stream::error
+		>(
+			test
+		)
 	);
 }

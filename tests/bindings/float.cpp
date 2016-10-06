@@ -6,38 +6,28 @@
 
 #include <alda/bindings/float.hpp>
 #include <alda/raw/element_type.hpp>
-#include <alda/raw/get.hpp>
-#include <alda/raw/record_variadic.hpp>
-#include <fcppt/record/make_label.hpp>
-#include <fcppt/record/element.hpp>
+#include <alda/raw/make_generic.hpp>
+#include <alda/raw/stream/error.hpp>
+#include <alda/raw/stream/istream.hpp>
+#include <alda/serialization/write.hpp>
+#include <fcppt/unit.hpp>
+#include <fcppt/either/apply.hpp>
+#include <fcppt/either/object.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
 #include <boost/test/unit_test.hpp>
 #include <algorithm>
 #include <cmath>
 #include <iostream>
 #include <ostream>
+#include <sstream>
 #include <fcppt/config/external_end.hpp>
 
 
 namespace
 {
-
-FCPPT_RECORD_MAKE_LABEL(
-	float_role
-);
-
-typedef
-alda::raw::record_variadic<
-	fcppt::record::element<
-		float_role,
-		alda::bindings::float_
-	>
->
-message;
 
 void
 fuzzy_equal(
@@ -133,6 +123,46 @@ fuzzy_equal(
 	}
 }
 
+typedef
+fcppt::either::object<
+	alda::raw::stream::error,
+	alda::raw::element_type<
+		alda::bindings::float_
+	>
+>
+result_type;
+
+void
+fuzzy_equal_either(
+	result_type const &_left,
+	result_type const &_right
+)
+{
+	BOOST_CHECK(
+		fcppt::either::apply(
+			[](
+				alda::raw::element_type<
+					alda::bindings::float_
+				> const _inner_left,
+				alda::raw::element_type<
+					alda::bindings::float_
+				> const _inner_right
+			)
+			{
+				fuzzy_equal(
+					_inner_left,
+					_inner_right
+				);
+
+				return
+					fcppt::unit{};
+			},
+			_left,
+			_right
+		).has_success()
+	);
+}
+
 void
 test_conversion(
 	alda::raw::element_type<
@@ -140,18 +170,25 @@ test_conversion(
 	> const _value
 )
 {
-	message const msg(
-		float_role{} =
-			_value
+	std::stringstream stream;
+
+	alda::serialization::write<
+		alda::bindings::float_
+	>(
+		stream,
+		_value
 	);
 
-	fuzzy_equal(
-		alda::raw::get<
-			float_role
+	fuzzy_equal_either(
+		alda::raw::make_generic<
+			alda::raw::stream::istream,
+			alda::bindings::float_
 		>(
-			msg
+			stream
 		),
-		_value
+		result_type{
+			_value
+		}
 	);
 }
 
@@ -161,7 +198,7 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 BOOST_AUTO_TEST_CASE(
-	alda_float
+	alda_float_stream
 )
 {
 FCPPT_PP_POP_WARNING

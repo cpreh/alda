@@ -1,19 +1,26 @@
 #include <alda/bindings/fundamental.hpp>
+#include <alda/bindings/record_variadic.hpp>
 #include <alda/raw/buffer.hpp>
 #include <alda/raw/const_pointer.hpp>
+#include <alda/raw/element_type.hpp>
 #include <alda/raw/make_generic.hpp>
-#include <alda/raw/record_to_buffer.hpp>
-#include <alda/raw/record_variadic.hpp>
+#include <alda/raw/to_buffer.hpp>
 #include <alda/raw/stream/error.hpp>
-#include <alda/raw/stream/istream.hpp>
 #include <alda/raw/stream/memory.hpp>
-#include <alda/serialization/write_record.hpp>
+#include <alda/serialization/read.hpp>
+#include <alda/serialization/write.hpp>
+#include <fcppt/public_config.hpp>
+#include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/make_label.hpp>
+#include <fcppt/either/make_success.hpp>
 #include <fcppt/either/object.hpp>
+#include <fcppt/either/output.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/record/comparison.hpp>
+#include <fcppt/record/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/test/unit_test.hpp>
 #include <sstream>
@@ -38,24 +45,36 @@ FCPPT_RECORD_MAKE_LABEL(
 );
 
 typedef
-alda::raw::record_variadic<
+alda::bindings::record_variadic<
 	fcppt::record::element<
 		int_role,
 		int_
 	>
 >
+inner_record_binding;
+
+typedef
+alda::raw::element_type<
+	inner_record_binding
+>
 inner_record;
 
 typedef
-alda::raw::record_variadic<
+alda::bindings::record_variadic<
 	fcppt::record::element<
 		int_role,
 		int_
 	>,
 	fcppt::record::element<
 		record_role,
-		inner_record
+		inner_record_binding
 	>
+>
+record_binding;
+
+typedef
+alda::raw::element_type<
+	record_binding
 >
 record;
 
@@ -64,17 +83,16 @@ fcppt::either::object<
 	alda::raw::stream::error,
 	record
 >
-optional_record;
+result_type;
 
 }
 
+#if !defined(FCPPT_NARROW_STRING)
 BOOST_TEST_DONT_PRINT_LOG_VALUE(
-	optional_record
+	result_type
 )
+#endif
 
-BOOST_TEST_DONT_PRINT_LOG_VALUE(
-	record
-)
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
@@ -95,38 +113,32 @@ FCPPT_PP_POP_WARNING
 
 	std::stringstream stream;
 
-	alda::serialization::write_record(
+	alda::serialization::write<
+		record_binding
+	>(
 		stream,
 		test
 	);
 
-	optional_record const result{
-		alda::raw::make_generic<
-			alda::raw::stream::istream,
-			record
+	BOOST_CHECK_EQUAL(
+		alda::serialization::read<
+			record_binding
 		>(
 			stream
-		)
-	};
-
-	BOOST_CHECK_EQUAL(
-		optional_record{
+		),
+		fcppt::either::make_success<
+			alda::raw::stream::error
+		>(
 			test
-		},
-		result
+		)
 	);
 
-	optional_record const result2{
-		alda::raw::make_generic<
-			alda::raw::stream::istream,
-			record
+	BOOST_CHECK(
+		alda::serialization::read<
+			record_binding
 		>(
 			stream
-		)
-	};
-
-	BOOST_CHECK(
-		result2.has_failure()
+		).has_failure()
 	);
 }
 
@@ -148,7 +160,9 @@ FCPPT_PP_POP_WARNING
 	};
 
 	alda::raw::buffer const buffer(
-		alda::raw::record_to_buffer(
+		alda::raw::to_buffer<
+			record_binding
+		>(
 			test
 		)
 	);
@@ -160,7 +174,7 @@ FCPPT_PP_POP_WARNING
 	record const result{
 		alda::raw::make_generic<
 			alda::raw::stream::memory,
-			record
+			record_binding
 		>(
 			stream
 		)

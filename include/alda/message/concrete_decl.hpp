@@ -9,8 +9,8 @@
 
 #include <alda/detail/external_symbol.hpp>
 #include <alda/message/base_decl.hpp>
-#include <alda/message/is_record.hpp>
-#include <alda/message/record_decl.hpp>
+#include <alda/message/is_object.hpp>
+#include <alda/message/object_decl.hpp>
 #include <alda/raw/buffer_fwd.hpp>
 #include <alda/raw/size_type.hpp>
 
@@ -41,16 +41,16 @@ public:
 	base_type::type_enum
 	type_enum;
 
-	typedef
-	Type
-	record;
-
 	static_assert(
-		alda::message::is_record<
+		alda::message::is_object<
 			Type
 		>::value,
-		"Type is not an alda::message::record"
+		"Type is not an alda::message::object"
 	);
+
+	typedef
+	Type
+	object_type;
 
 	ALDA_DETAIL_EXTERNAL_SYMBOL
 	explicit

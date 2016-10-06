@@ -4,28 +4,24 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef ALDA_RAW_RECORD_BINDING_HPP_INCLUDED
-#define ALDA_RAW_RECORD_BINDING_HPP_INCLUDED
+#ifndef ALDA_BINDINGS_RECORD_HPP_INCLUDED
+#define ALDA_BINDINGS_RECORD_HPP_INCLUDED
 
+#include <alda/bindings/record_decl.hpp>
 #include <alda/raw/combine_static_sizes.hpp>
 #include <alda/raw/dispatch_type.hpp>
 #include <alda/raw/element_type.hpp>
-#include <alda/raw/get.hpp>
 #include <alda/raw/integral_size.hpp>
 #include <alda/raw/make_generic.hpp>
 #include <alda/raw/needed_size.hpp>
 #include <alda/raw/place_and_update.hpp>
 #include <alda/raw/pointer.hpp>
-#include <alda/raw/record_impl.hpp>
 #include <alda/raw/size_type.hpp>
 #include <alda/raw/static_size.hpp>
 #include <alda/raw/stream/bind.hpp>
 #include <alda/raw/stream/reference.hpp>
 #include <alda/raw/stream/result.hpp>
 #include <alda/raw/stream/return.hpp>
-#include <fcppt/record/element_to_label.hpp>
-#include <fcppt/record/element_to_type.hpp>
-#include <fcppt/record/element_to_type_tpl.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/tag_type.hpp>
 #include <fcppt/use.hpp>
@@ -35,6 +31,11 @@
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/record/element_to_label.hpp>
+#include <fcppt/record/element_to_type.hpp>
+#include <fcppt/record/element_to_type_tpl.hpp>
+#include <fcppt/record/get.hpp>
+#include <fcppt/record/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/begin.hpp>
 #include <boost/mpl/deref.hpp>
@@ -60,7 +61,7 @@ template<
 	typename Types
 >
 struct static_size<
-	alda::raw::record<
+	alda::bindings::record<
 		Types
 	>
 >
@@ -91,20 +92,25 @@ boost::mpl::fold<
 
 FCPPT_PP_POP_WARNING
 
+}
+
+namespace bindings
+{
+
 template<
 	typename Types
 >
 alda::raw::size_type
 needed_size(
 	alda::raw::dispatch_type<
-		alda::raw::record<
+		alda::bindings::record<
 			Types
 		>
 	>,
-	// TODO: why does gcc get confused here?
-	//alda::raw::element_type<
-	alda::raw::record<
-		Types
+	alda::raw::element_type<
+		alda::bindings::record<
+			Types
+		>
 	> const &_value
 )
 {
@@ -141,7 +147,7 @@ needed_size(
 							role
 						>
 					>(
-						alda::raw::get<
+						fcppt::record::get<
 							fcppt::record::element_to_label<
 								role
 							>
@@ -162,14 +168,14 @@ inline
 void
 place(
 	alda::raw::dispatch_type<
-		alda::raw::record<
+		alda::bindings::record<
 			Types
 		>
 	>,
-	// TODO: why does gcc get confused here?
-	//alda::raw::element_type<
-	alda::raw::record<
-		Types
+	alda::raw::element_type<
+		alda::bindings::record<
+			Types
+		>
 	> const &_value,
 	alda::raw::pointer _memory
 )
@@ -195,20 +201,21 @@ place(
 			>
 			role;
 
-			alda::raw::place_and_update<
-				fcppt::record::element_to_type<
-					role
-				>
-			>(
-				alda::raw::get<
-					fcppt::record::element_to_label<
+			_memory =
+				alda::raw::place_and_update<
+					fcppt::record::element_to_type<
 						role
 					>
 				>(
-					_value
-				),
-				_memory
-			);
+					fcppt::record::get<
+						fcppt::record::element_to_label<
+							role
+						>
+					>(
+						_value
+					),
+					_memory
+				);
 		}
 	);
 }
@@ -233,7 +240,7 @@ boost::enable_if<
 	>,
 	alda::raw::stream::result<
 		Stream,
-		alda::raw::record<
+		alda::bindings::record<
 			Types
 		>
 	>
@@ -249,15 +256,17 @@ read(
 		alda::raw::stream::return_<
 			Stream
 		>(
-			alda::raw::record<
-				Types
-			>(
+			alda::raw::element_type<
+				alda::bindings::record<
+					Types
+				>
+			>{
 				std::forward<
 					Args
 				>(
 					_args
 				)...
-			)
+			}
 		);
 }
 
@@ -277,7 +286,7 @@ boost::disable_if<
 	>,
 	alda::raw::stream::result<
 		Stream,
-		alda::raw::record<
+		alda::bindings::record<
 			Types
 		>
 	>
@@ -320,7 +329,7 @@ read(
 			)
 			{
 				return
-					alda::raw::detail::read<
+					alda::bindings::detail::read<
 						Types,
 						Stream,
 						typename
@@ -355,13 +364,13 @@ template<
 inline
 alda::raw::stream::result<
 	Stream,
-	alda::raw::record<
+	alda::bindings::record<
 		Types
 	>
 >
 make_generic(
 	alda::raw::dispatch_type<
-		alda::raw::record<
+		alda::bindings::record<
 			Types
 		>
 	>,
@@ -374,7 +383,7 @@ make_generic(
 )
 {
 	return
-		alda::raw::detail::read<
+		alda::bindings::detail::read<
 			Types,
 			Stream,
 			typename

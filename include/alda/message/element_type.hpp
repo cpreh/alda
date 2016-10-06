@@ -4,8 +4,8 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef ALDA_MESSAGE_RECORD_FWD_HPP_INCLUDED
-#define ALDA_MESSAGE_RECORD_FWD_HPP_INCLUDED
+#ifndef ALDA_MESSAGE_ELEMENT_TYPE_HPP_INCLUDED
+#define ALDA_MESSAGE_ELEMENT_TYPE_HPP_INCLUDED
 
 
 namespace alda
@@ -14,10 +14,13 @@ namespace message
 {
 
 template<
-	typename Id,
-	typename Types
+	typename Object
 >
-class record;
+using
+element_type
+=
+typename
+Object::element_type;
 
 }
 }

@@ -47,7 +47,6 @@ add_alda_test(
 	NO_CODE
 )
 
-# FIXME: Most bindings tests don't test anything relevant to serialiaztion.
 add_alda_test(
 	bindings/array
 	LINK_LIBS
@@ -86,10 +85,18 @@ add_alda_test(
 
 add_alda_test(
 	bindings/float
+	LINK_LIBS
+		${alda_TARGET}
 )
 
 add_alda_test(
 	bindings/optional
+	LINK_LIBS
+		${fcppt_core_TARGET}
+)
+
+add_alda_test(
+	bindings/record
 	LINK_LIBS
 		${fcppt_core_TARGET}
 )
@@ -117,10 +124,7 @@ add_alda_test(
 	bindings/variant
 	LINK_LIBS
 		${fcppt_core_TARGET}
-)
-
-add_alda_test(
-	message/record
+		${alda_TARGET}
 )
 
 add_alda_test(
@@ -147,18 +151,4 @@ add_alda_test(
 add_alda_test(
 	raw/combine_static_sizes
 	NO_CODE
-)
-
-add_alda_test(
-	raw/nested
-)
-
-add_alda_test(
-	raw/record
-)
-
-add_alda_test(
-	raw/stream
-	LINK_LIBS
-		${fcppt_core_TARGET}
 )

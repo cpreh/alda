@@ -9,7 +9,7 @@
 
 #include <alda/exception.hpp>
 #include <alda/message/make_concrete_ptr.hpp>
-#include <alda/message/record_impl.hpp>
+#include <alda/message/object_impl.hpp>
 #include <alda/raw/make_generic.hpp>
 #include <alda/raw/stream/error.hpp>
 #include <alda/raw/stream/istream.hpp>
@@ -50,7 +50,7 @@ alda::serialization::detail::read<
 					alda::raw::make_generic<
 						alda::raw::stream::istream,
 						typename
-						Message::record::base_type
+						Message::binding
 					>(
 						stream_
 					),

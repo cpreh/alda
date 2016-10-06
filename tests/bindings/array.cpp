@@ -6,11 +6,11 @@
 
 #include <alda/bindings/array.hpp>
 #include <alda/bindings/unsigned.hpp>
-#include <alda/raw/make_generic.hpp>
 #include <alda/raw/static_size.hpp>
 #include <alda/raw/stream/error.hpp>
-#include <alda/raw/stream/istream.hpp>
+#include <alda/serialization/read.hpp>
 #include <alda/serialization/write.hpp>
+#include <fcppt/either/make_success.hpp>
 #include <fcppt/either/object.hpp>
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -92,19 +92,16 @@ FCPPT_PP_POP_WARNING
 		test
 	);
 
-	result_type const result{
-		alda::raw::make_generic<
-			alda::raw::stream::istream,
+	BOOST_CHECK_EQUAL(
+		alda::serialization::read<
 			array_binding
 		>(
 			stream
-		)
-	};
-
-	BOOST_CHECK_EQUAL(
-		result,
-		result_type{
+		),
+		fcppt::either::make_success<
+			alda::raw::stream::error
+		>(
 			test
-		}
+		)
 	);
 }

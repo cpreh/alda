@@ -4,10 +4,10 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef ALDA_MESSAGE_IS_RECORD_HPP_INCLUDED
-#define ALDA_MESSAGE_IS_RECORD_HPP_INCLUDED
+#ifndef ALDA_MESSAGE_IS_OBJECT_HPP_INCLUDED
+#define ALDA_MESSAGE_IS_OBJECT_HPP_INCLUDED
 
-#include <alda/message/record_fwd.hpp>
+#include <alda/message/object_fwd.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -27,7 +27,7 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 template<
 	typename Type
 >
-struct is_record
+struct is_object
 :
 std::false_type
 {
@@ -35,12 +35,12 @@ std::false_type
 
 template<
 	typename Id,
-	typename Types
+	typename Type
 >
-struct is_record<
-	alda::message::record<
+struct is_object<
+	alda::message::object<
 		Id,
-		Types
+		Type
 	>
 >
 :

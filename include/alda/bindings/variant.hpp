@@ -86,12 +86,13 @@ place(
 		)
 	);
 
-	alda::raw::place_and_update<
-		index_type
-	>(
-		index,
-		_mem
-	);
+	_mem =
+		alda::raw::place_and_update<
+			index_type
+		>(
+			index,
+			_mem
+		);
 
 	fcppt::variant::apply_unary(
 		[

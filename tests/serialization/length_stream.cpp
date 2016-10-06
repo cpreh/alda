@@ -9,18 +9,19 @@
 #include <alda/bindings/dynamic_len.hpp>
 #include <alda/bindings/fundamental.hpp>
 #include <alda/bindings/optional.hpp>
+#include <alda/bindings/record_variadic.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <alda/bindings/variant.hpp>
 #include <alda/call/friend_dispatcher.hpp>
 #include <alda/call/object.hpp>
 #include <alda/message/base_decl.hpp>
 #include <alda/message/base_unique_ptr.hpp>
+#include <alda/message/init_record.hpp>
 #include <alda/message/instantiate_base.hpp>
 #include <alda/message/instantiate_concrete.hpp>
 #include <alda/message/make_concrete_ptr.hpp>
 #include <alda/message/make_id.hpp>
 #include <alda/message/optional_base_unique_ptr.hpp>
-#include <alda/message/record.hpp>
 #include <alda/raw/element_type.hpp>
 #include <alda/serialization/context_fwd.hpp>
 #include <alda/serialization/define_context_function.hpp>
@@ -50,6 +51,7 @@
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/record/get.hpp>
 #include <fcppt/variant/equal.hpp>
 #include <fcppt/variant/output.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -157,12 +159,12 @@ FCPPT_RECORD_MAKE_LABEL(
 );
 
 typedef
-alda::message::record<
+alda::message::object<
 	alda::message::make_id<
 		type_enum,
 		message_type::message1
 	>,
-	boost::mpl::vector4<
+	alda::bindings::record_variadic<
 		fcppt::record::element<
 			uint16_role,
 			uint16_type
@@ -267,16 +269,20 @@ private:
 			<< FCPPT_TEXT("message1 received\n");
 
 		BOOST_CHECK_EQUAL(
-			_msg.get<
+			fcppt::record::get<
 				uint16_role
-			>(),
+			>(
+				_msg.get()
+			),
 			value_
 		);
 
 		BOOST_CHECK_EQUAL(
-			_msg.get<
+			fcppt::record::get<
 				optional_uint16_role
-			>(),
+			>(
+				_msg.get()
+			),
 			alda::raw::element_type<
 				optional_uint16_type
 			>(
@@ -285,9 +291,11 @@ private:
 		);
 
 		BOOST_CHECK_EQUAL(
-			_msg.get<
+			fcppt::record::get<
 				variant_role
-			>(),
+			>(
+				_msg.get()
+			),
 			alda::raw::element_type<
 				variant_type
 			>(
@@ -296,9 +304,11 @@ private:
 		);
 
 		BOOST_CHECK_EQUAL(
-			_msg.get<
+			fcppt::record::get<
 				string_role
-			>(),
+			>(
+				_msg.get()
+			),
 			alda::raw::element_type<
 				string_type
 			>(
@@ -355,7 +365,9 @@ FCPPT_PP_POP_WARNING
 			*alda::message::make_concrete_ptr<
 				type_enum
 			>(
-				message1(
+				alda::message::init_record<
+					message1
+				>(
 					uint16_role{} =
 						casted_index,
 					optional_uint16_role{} =

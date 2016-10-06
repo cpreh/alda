@@ -4,10 +4,22 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef ALDA_MESSAGE_RECORD_HPP_INCLUDED
-#define ALDA_MESSAGE_RECORD_HPP_INCLUDED
+#ifndef ALDA_MESSAGE_OBJECT_FWD_HPP_INCLUDED
+#define ALDA_MESSAGE_OBJECT_FWD_HPP_INCLUDED
 
-#include <alda/message/record_impl.hpp>
 
+namespace alda
+{
+namespace message
+{
+
+template<
+	typename Id,
+	typename Type
+>
+class object;
+
+}
+}
 
 #endif
