@@ -121,6 +121,10 @@ add_alda_test(
 )
 
 add_alda_test(
+	bindings/unit
+)
+
+add_alda_test(
 	bindings/variant
 	LINK_LIBS
 		${fcppt_core_TARGET}

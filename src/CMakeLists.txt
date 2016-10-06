@@ -53,6 +53,9 @@ set(
 	include/alda/bindings/strong_typedef.hpp
 	include/alda/bindings/strong_typedef_decl.hpp
 	include/alda/bindings/strong_typedef_fwd.hpp
+	include/alda/bindings/unit.hpp
+	include/alda/bindings/unit_decl.hpp
+	include/alda/bindings/unit_fwd.hpp
 	include/alda/bindings/unsigned.hpp
 	include/alda/bindings/unsigned_decl.hpp
 	include/alda/bindings/unsigned_fwd.hpp
