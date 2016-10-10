@@ -4,7 +4,7 @@ include(
 
 function(
 	ADD_ALDA_TEST
-	TESTNAME
+	PATH_NAME
 )
 	set(
 		OPTION_ARGS
@@ -34,7 +34,8 @@ function(
 	endif()
 
 	fcppt_utils_add_test(
-		${TESTNAME}
+		${FCPPT_UTILS_PROJECT_SOURCE_DIR}/tests
+		${PATH_NAME}
 		${NO_CODE}
 		LINK_LIBS
 			alda_interface
