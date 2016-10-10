@@ -327,6 +327,13 @@ function(
 		STREQUAL
 		"INTERFACE"
 	)
+		set_target_properties(
+			${ALDA_LIB_NAME}
+			PROPERTIES
+			FOLDER
+			alda
+		)
+
 		fcppt_utils_set_target_compiler_flags(
 			${ALDA_LIB_NAME}
 			ADDITIONAL_FLAGS

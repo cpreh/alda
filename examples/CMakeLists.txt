@@ -7,16 +7,6 @@ function(
 	FILE_NAME
 )
 	set(
-		EXAMPLE_NAME
-		alda_example_${FILE_NAME}
-	)
-
-	add_executable(
-		${EXAMPLE_NAME}
-		${FILE_NAME}.cpp
-	)
-
-	set(
 		MULTI_ARGS
 		LINK_LIBS
 	)
@@ -29,14 +19,11 @@ function(
 		${ARGN}
 	)
 
-	fcppt_utils_set_target_compiler_flags(
-		${EXAMPLE_NAME}
-	)
-
-	target_link_libraries(
-		${EXAMPLE_NAME}
-		PRIVATE
-		${_LINK_LIBS}
+	fcppt_utils_add_example(
+		${FCPPT_UTILS_PROJECT_SOURCE_DIR}/examples
+		${FILE_NAME}
+		LINK_LIBS
+			${_LINK_LIBS}
 	)
 endfunction()
 
