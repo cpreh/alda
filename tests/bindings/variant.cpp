@@ -46,7 +46,7 @@ boost::mpl::vector2<
 	uint_type,
 	int_type
 >
-types;
+variant_types;
 
 constexpr
 fcppt::endianness::format const endianness{
@@ -68,14 +68,14 @@ adapted_types;
 
 typedef
 alda::bindings::variant<
-	types,
+	variant_types,
 	adapted_types
 >
 variant_binding;
 
 typedef
 fcppt::variant::object<
-	types
+	variant_types
 >
 variant_type;
 

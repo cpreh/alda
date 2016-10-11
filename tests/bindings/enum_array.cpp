@@ -62,12 +62,12 @@ fcppt::either::object<
 	alda::raw::stream::error,
 	array
 >
-result_type;
+either_result_type;
 
 }
 
 BOOST_TEST_DONT_PRINT_LOG_VALUE(
-	result_type
+	either_result_type
 )
 
 FCPPT_PP_PUSH_WARNING

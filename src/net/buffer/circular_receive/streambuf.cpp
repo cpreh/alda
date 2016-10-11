@@ -10,6 +10,7 @@
 #include <alda/net/buffer/circular_receive/streambuf.hpp>
 #include <fcppt/cyclic_iterator_impl.hpp>
 #include <fcppt/cast/to_signed.hpp>
+#include <fcppt/cast/truncation_check.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
@@ -191,7 +192,13 @@ alda::net::buffer::circular_receive::streambuf::xsgetn(
 	cyclic_iterator const end{
 		beg
 		+
-		to_copy
+		fcppt::cast::truncation_check<
+			std::iterator_traits<
+				cyclic_iterator
+			>::difference_type
+		>(
+			to_copy
+		)
 	};
 
 	std::transform(

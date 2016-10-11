@@ -51,12 +51,12 @@ fcppt::either::object<
 	alda::raw::stream::error,
 	optional_type
 >
-result_type;
+either_result_type;
 
 }
 
 BOOST_TEST_DONT_PRINT_LOG_VALUE(
-	result_type
+	either_result_type
 )
 
 FCPPT_PP_PUSH_WARNING
@@ -80,7 +80,7 @@ FCPPT_PP_POP_WARNING
 			}
 		);
 
-		result_type const result(
+		either_result_type const result(
 			alda::raw::make_generic<
 				alda::raw::stream::istream,
 				optional_binding
@@ -91,7 +91,7 @@ FCPPT_PP_POP_WARNING
 
 		BOOST_CHECK_EQUAL(
 			result,
-			result_type{
+			either_result_type{
 				optional_type{
 					42u
 				}
@@ -109,7 +109,7 @@ FCPPT_PP_POP_WARNING
 			optional_type{}
 		);
 
-		result_type const result(
+		either_result_type const result(
 			alda::raw::make_generic<
 				alda::raw::stream::istream,
 				optional_binding
@@ -120,7 +120,7 @@ FCPPT_PP_POP_WARNING
 
 		BOOST_CHECK_EQUAL(
 			result,
-			result_type{
+			either_result_type{
 				optional_type{}
 			}
 		);

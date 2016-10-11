@@ -46,12 +46,12 @@ fcppt::either::object<
 	alda::raw::stream::error,
 	test_enum
 >
-result_type;
+either_result_type;
 
 }
 
 BOOST_TEST_DONT_PRINT_LOG_VALUE(
-	result_type
+	either_result_type
 )
 
 FCPPT_PP_PUSH_WARNING
@@ -72,7 +72,7 @@ FCPPT_PP_POP_WARNING
 		test_enum::value1
 	);
 
-	result_type const result(
+	either_result_type const result(
 		alda::raw::make_generic<
 			alda::raw::stream::istream,
 			enum_binding
@@ -83,7 +83,7 @@ FCPPT_PP_POP_WARNING
 
 	BOOST_CHECK_EQUAL(
 		result,
-		result_type{
+		either_result_type{
 			test_enum::value1
 		}
 	);

@@ -48,24 +48,12 @@ check_exception(
 		true;
 }
 
-int_type const max(
-	std::numeric_limits<
-		int_type
-	>::max()
-);
-
-int_type const min(
-	std::numeric_limits<
-		int_type
-	>::min()
-);
-
 typedef
 fcppt::either::object<
 	alda::raw::stream::error,
 	int_type
 >
-result_type;
+either_result_type;
 
 void
 test_conversion(
@@ -81,7 +69,7 @@ test_conversion(
 		_value
 	);
 
-	result_type const result(
+	either_result_type const result(
 		alda::raw::make_generic<
 			alda::raw::stream::istream,
 			int_binding
@@ -91,7 +79,7 @@ test_conversion(
 	);
 
 	BOOST_CHECK_EQUAL(
-		result_type{
+		either_result_type{
 			_value
 		},
 		result
@@ -101,7 +89,7 @@ test_conversion(
 }
 
 BOOST_TEST_DONT_PRINT_LOG_VALUE(
-	result_type
+	either_result_type
 )
 
 FCPPT_PP_PUSH_WARNING
@@ -112,6 +100,18 @@ BOOST_AUTO_TEST_CASE(
 )
 {
 FCPPT_PP_POP_WARNING
+
+	int_type const max_value(
+		std::numeric_limits<
+			int_type
+		>::max()
+	);
+
+	int_type const min_value(
+		std::numeric_limits<
+			int_type
+		>::min()
+	);
 
 	test_conversion(
 		fcppt::literal<
@@ -138,23 +138,23 @@ FCPPT_PP_POP_WARNING
 	);
 
 	test_conversion(
-		max
+		max_value
 	);
 
 	test_conversion(
 		fcppt::literal<
 			int_type
 		>(
-			-max
+			-max_value
 		)
 	);
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4127)
 	if(
-		min
+		min_value
 		+
-		max
+		max_value
 		<
 		0
 	)
@@ -166,7 +166,7 @@ FCPPT_PP_DISABLE_VC_WARNING(4127)
 				int_binding
 			>(
 				stream,
-				min
+				min_value
 			),
 			alda::exception,
 			::check_exception

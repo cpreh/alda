@@ -54,13 +54,13 @@ fcppt::either::object<
 	alda::raw::stream::error,
 	strong_type
 >
-result_type;
+either_result_type;
 
 }
 
 #if !defined(FCPPT_NARROW_STRING)
 BOOST_TEST_DONT_PRINT_LOG_VALUE(
-	result_type
+	either_result_type
 )
 #endif
 

@@ -130,12 +130,12 @@ fcppt::either::object<
 		alda::bindings::float_
 	>
 >
-result_type;
+either_result_type;
 
 void
 fuzzy_equal_either(
-	result_type const &_left,
-	result_type const &_right
+	either_result_type const &_left,
+	either_result_type const &_right
 )
 {
 	BOOST_CHECK(
@@ -186,7 +186,7 @@ test_conversion(
 		>(
 			stream
 		),
-		result_type{
+		either_result_type{
 			_value
 		}
 	);
