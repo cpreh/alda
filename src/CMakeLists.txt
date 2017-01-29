@@ -137,6 +137,7 @@ set(
 	include/alda/net/parameters.hpp
 	include/alda/net/parameters_fwd.hpp
 	include/alda/net/port.hpp
+	include/alda/net/port_fwd.hpp
 	include/alda/net/server/connect_callback.hpp
 	include/alda/net/server/connect_function.hpp
 	include/alda/net/server/connection_id_container.hpp

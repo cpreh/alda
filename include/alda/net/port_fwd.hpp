@@ -4,11 +4,23 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef ALDA_NET_PORT_HPP_INCLUDED
-#define ALDA_NET_PORT_HPP_INCLUDED
+#ifndef ALDA_NET_PORT_FWD_HPP_INCLUDED
+#define ALDA_NET_PORT_FWD_HPP_INCLUDED
 
-#include <alda/net/port_fwd.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <fcppt/make_strong_typedef.hpp>
 
+
+namespace alda
+{
+namespace net
+{
+
+FCPPT_MAKE_STRONG_TYPEDEF(
+	unsigned int,
+	port
+);
+
+}
+}
 
 #endif

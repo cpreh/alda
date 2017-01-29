@@ -9,7 +9,7 @@
 
 #include <alda/net/id.hpp>
 #include <alda/net/parameters_fwd.hpp>
-#include <alda/net/port.hpp>
+#include <alda/net/port_fwd.hpp>
 #include <alda/net/buffer/max_receive_size.hpp>
 #include <alda/net/buffer/max_send_size.hpp>
 #include <alda/net/buffer/circular_send/optional_streambuf_ref_fwd.hpp>

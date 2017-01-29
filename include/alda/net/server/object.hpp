@@ -10,7 +10,7 @@
 #include <alda/detail/symbol.hpp>
 #include <alda/net/id.hpp>
 #include <alda/net/parameters_fwd.hpp>
-#include <alda/net/port.hpp>
+#include <alda/net/port_fwd.hpp>
 #include <alda/net/buffer/circular_send/optional_streambuf_ref_fwd.hpp>
 #include <alda/net/server/connect_callback.hpp>
 #include <alda/net/server/connection_id_container.hpp>
