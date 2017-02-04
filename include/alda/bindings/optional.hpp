@@ -237,9 +237,7 @@ needed_size(
 			fcppt::const_(
 				ret
 			),
-			[
-				ret
-			](
+			[](
 				Type const &_value
 			)
 			{
