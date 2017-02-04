@@ -20,6 +20,9 @@
 #include <alda/raw/stream/reference.hpp>
 #include <alda/raw/stream/result.hpp>
 #include <alda/raw/stream/return.hpp>
+#include <fcppt/math/from_array.hpp>
+#include <fcppt/math/to_array.hpp>
+#include <fcppt/math/to_array_type.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -57,12 +60,15 @@ place(
 {
 	alda::raw::place<
 		alda::bindings::array<
-			typename
-			Type::storage_type,
+			fcppt::math::to_array_type<
+				Type
+			>,
 			Adapted
 		>
 	>(
-		_value.storage(),
+		fcppt::math::to_array(
+			_value
+		),
 		_mem
 	);
 }
@@ -95,8 +101,9 @@ make_generic(
 )
 {
 	typedef
-	typename
-	Type::storage_type
+	fcppt::math::to_array_type<
+		Type
+	>
 	array_type;
 
 	return
@@ -120,7 +127,9 @@ make_generic(
 					alda::raw::stream::return_<
 						Stream
 					>(
-						Type(
+						fcppt::math::from_array<
+							Type
+						>(
 							std::move(
 								_result
 							)
@@ -154,8 +163,9 @@ struct static_size<
 :
 alda::raw::static_size<
 	alda::bindings::array<
-		typename
-		Type::storage_type,
+		fcppt::math::to_array_type<
+			Type
+		>,
 		Adapted
 	>
 >
