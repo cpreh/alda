@@ -1,5 +1,6 @@
 cmake_minimum_required(
-	VERSION 2.8.12
+	VERSION
+	2.8.12
 )
 
 project(
@@ -14,6 +15,15 @@ set_property(
 )
 
 include(
+	GNUInstallDirs
+)
+
+find_package(
+	fcppt
+	REQUIRED
+)
+
+include(
 	FcpptCMakeUtils
 )
 
@@ -25,11 +35,6 @@ fcppt_utils_static_shared()
 
 fcppt_utils_link_target(
 	alda
-)
-
-find_package(
-	fcppt
-	REQUIRED
 )
 
 set(
@@ -86,4 +91,7 @@ if(
 	)
 endif()
 
-fcppt_utils_generate_config()
+fcppt_utils_generate_config(
+	CONFIG_PATH
+		${FCPPT_UTILS_PROJECT_SOURCE_DIR}
+)
