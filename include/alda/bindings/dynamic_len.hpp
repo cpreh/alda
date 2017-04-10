@@ -25,6 +25,9 @@
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/cast/truncation_check.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -261,6 +264,8 @@ make_generic(
 										Type &&_array
 									)
 									{
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Wattributes)
 										return
 											alda::raw::stream::bind<
 												Stream
@@ -295,6 +300,7 @@ make_generic(
 														);
 												}
 											);
+FCPPT_PP_POP_WARNING
 									}
 								);
 						}
