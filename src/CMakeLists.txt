@@ -227,6 +227,7 @@ set(
 	include/alda/serialization/length/remaining_size_function.hpp
 	include/alda/serialization/length/serialize.hpp
 	include/alda/serialization/ostream.hpp
+	include/alda/serialization/ostream_fwd.hpp
 	include/alda/serialization/read.hpp
 	include/alda/serialization/register_message.hpp
 	include/alda/serialization/serialize.hpp

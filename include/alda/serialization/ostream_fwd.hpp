@@ -4,13 +4,24 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef ALDA_SERIALIZATION_OSTREAM_HPP_INCLUDED
-#define ALDA_SERIALIZATION_OSTREAM_HPP_INCLUDED
+#ifndef ALDA_SERIALIZATION_OSTREAM_FWD_HPP_INCLUDED
+#define ALDA_SERIALIZATION_OSTREAM_FWD_HPP_INCLUDED
 
-#include <alda/serialization/ostream_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <ostream>
+#include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
+
+namespace alda
+{
+namespace serialization
+{
+
+typedef
+std::ostream
+ostream;
+
+}
+}
 
 #endif
