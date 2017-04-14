@@ -8,7 +8,7 @@
 #define ALDA_RAW_BUFFER_FWD_HPP_INCLUDED
 
 #include <alda/raw/data.hpp>
-#include <fcppt/container/raw_vector_fwd.hpp>
+#include <fcppt/container/raw_vector/object_fwd.hpp>
 
 
 namespace alda
@@ -17,7 +17,7 @@ namespace raw
 {
 
 typedef
-fcppt::container::raw_vector<
+fcppt::container::raw_vector::object<
 	alda::raw::data
 >
 buffer;

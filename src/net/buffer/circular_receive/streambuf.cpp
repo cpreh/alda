@@ -11,7 +11,7 @@
 #include <fcppt/cyclic_iterator_impl.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/cast/truncation_check.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/container/dynamic_array_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <ios>

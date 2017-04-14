@@ -8,9 +8,12 @@
 #define ALDA_RAW_TO_BUFFER_HPP_INCLUDED
 
 #include <alda/raw/buffer.hpp>
+#include <alda/raw/data.hpp>
 #include <alda/raw/element_type.hpp>
 #include <alda/raw/needed_size.hpp>
 #include <alda/raw/place.hpp>
+#include <fcppt/container/buffer/read_from.hpp>
+#include <fcppt/container/buffer/to_raw_vector.hpp>
 
 
 namespace alda
@@ -28,25 +31,35 @@ to_buffer(
 	> const &_value
 )
 {
-	alda::raw::buffer temp_buffer;
-
-	temp_buffer.resize_uninitialized(
-		alda::raw::needed_size<
-			Type
-		>(
-			_value
-		)
-	);
-
-	alda::raw::place<
-		Type
-	>(
-		_value,
-		temp_buffer.data()
-	);
-
 	return
-		temp_buffer;
+		fcppt::container::buffer::to_raw_vector(
+			fcppt::container::buffer::read_from<
+				alda::raw::data
+			>(
+				alda::raw::needed_size<
+					Type
+				>(
+					_value
+				),
+				[
+					&_value
+				](
+					alda::raw::buffer::pointer const _data,
+					alda::raw::buffer::size_type const _size
+				)
+				{
+					alda::raw::place<
+						Type
+					>(
+						_value,
+						_data
+					);
+
+					return
+						_size;
+				}
+			)
+		);
 }
 
 }

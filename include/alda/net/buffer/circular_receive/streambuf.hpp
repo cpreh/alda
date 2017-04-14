@@ -15,7 +15,7 @@
 #include <alda/net/buffer/circular_receive/streambuf_fwd.hpp>
 #include <fcppt/cyclic_iterator_decl.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/container/raw_vector_decl.hpp>
+#include <fcppt/container/dynamic_array_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <ios>
 #include <streambuf>
@@ -96,7 +96,7 @@ private:
 	override;
 
 	typedef
-	fcppt::container::raw_vector<
+	fcppt::container::dynamic_array<
 		alda::net::value_type
 	>
 	raw_container;

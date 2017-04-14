@@ -8,7 +8,7 @@
 #define ALDA_RAW_BUFFER_HPP_INCLUDED
 
 #include <alda/raw/buffer_fwd.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/container/raw_vector/object_impl.hpp>
 
 
 #endif
