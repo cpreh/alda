@@ -8,6 +8,7 @@
 #include <alda/net/buffer/max_receive_size.hpp>
 #include <alda/net/buffer/circular_receive/part.hpp>
 #include <alda/net/buffer/circular_receive/streambuf.hpp>
+#include <fcppt/container/output.hpp>
 #include <fcppt/container/raw_vector/comparison.hpp>
 #include <fcppt/io/buffer.hpp>
 #include <fcppt/io/get.hpp>
@@ -40,17 +41,12 @@ operator<<(
 	fcppt::io::buffer const &_buffer
 )
 {
-	_stream << '(';
-
-	for(
-		char const val
-		:
-		_buffer
-	)
-		_stream << val << ',';
-
 	return
-		_stream << ')';
+		_stream
+		<<
+		fcppt::container::output(
+			_buffer
+		);
 }
 
 }
