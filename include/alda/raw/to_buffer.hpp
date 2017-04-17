@@ -12,6 +12,7 @@
 #include <alda/raw/element_type.hpp>
 #include <alda/raw/needed_size.hpp>
 #include <alda/raw/place.hpp>
+#include <fcppt/container/buffer/object_impl.hpp>
 #include <fcppt/container/buffer/read_from.hpp>
 #include <fcppt/container/buffer/to_raw_vector.hpp>
 
@@ -34,7 +35,9 @@ to_buffer(
 	return
 		fcppt::container::buffer::to_raw_vector(
 			fcppt::container::buffer::read_from<
-				alda::raw::data
+				fcppt::container::buffer::object<
+					alda::raw::data
+				>
 			>(
 				alda::raw::needed_size<
 					Type
