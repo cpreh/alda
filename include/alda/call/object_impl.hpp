@@ -12,8 +12,8 @@
 #include <alda/call/detail/make_instance.hpp>
 #include <alda/message/base_decl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
-#include <fcppt/algorithm/enum_array_init.hpp>
-#include <fcppt/container/enum_array_impl.hpp>
+#include <fcppt/enum/array_impl.hpp>
+#include <fcppt/enum/array_init.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/object_impl.hpp>
 
@@ -30,7 +30,7 @@ alda::call::object<
 >::object()
 :
 	instances_(
-		fcppt::algorithm::enum_array_init<
+		fcppt::enum_::array_init<
 			instance_array
 		>(
 			alda::call::detail::make_instance<

@@ -11,7 +11,7 @@
 #include <alda/bindings/enum.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <alda/serialization/endianness.hpp>
-#include <fcppt/enum_size.hpp>
+#include <fcppt/enum/size.hpp>
 
 
 namespace alda
@@ -32,7 +32,7 @@ alda::bindings::enum_<
 	TypeEnum::type,
 	alda::bindings::unsigned_<
 		alda::smallest_uint<
-			fcppt::enum_size<
+			fcppt::enum_::size<
 				typename
 				TypeEnum::type
 			>::value

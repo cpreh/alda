@@ -19,11 +19,11 @@
 #include <alda/raw/stream/reference.hpp>
 #include <alda/raw/stream/result.hpp>
 #include <alda/raw/stream/return.hpp>
-#include <fcppt/cast_to_enum.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/enum_to_int.hpp>
 #include <fcppt/cast/promote.hpp>
+#include <fcppt/enum/from_int.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -117,7 +117,7 @@ make_generic(
 			{
 				return
 					fcppt::optional::maybe(
-						fcppt::cast_to_enum<
+						fcppt::enum_::from_int<
 							Enum
 						>(
 							_element

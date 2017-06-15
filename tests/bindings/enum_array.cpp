@@ -9,12 +9,12 @@
 #include <alda/raw/stream/error.hpp>
 #include <alda/serialization/read.hpp>
 #include <alda/serialization/write.hpp>
-#include <fcppt/algorithm/enum_array_init.hpp>
 #include <fcppt/cast/enum_to_int.hpp>
-#include <fcppt/container/enum_array.hpp>
 #include <fcppt/either/make_success.hpp>
 #include <fcppt/either/object.hpp>
 #include <fcppt/endianness/format.hpp>
+#include <fcppt/enum/array.hpp>
+#include <fcppt/enum/array_init.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -40,7 +40,7 @@ unsigned
 int_type;
 
 typedef
-fcppt::container::enum_array<
+fcppt::enum_::array<
 	my_enum,
 	int_type
 >
@@ -80,7 +80,7 @@ BOOST_AUTO_TEST_CASE(
 FCPPT_PP_POP_WARNING
 
 	array const test(
-		fcppt::algorithm::enum_array_init<
+		fcppt::enum_::array_init<
 			array
 		>(
 			[](

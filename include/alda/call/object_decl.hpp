@@ -13,7 +13,7 @@
 #include <alda/message/base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
-#include <fcppt/container/enum_array_decl.hpp>
+#include <fcppt/enum/array_decl.hpp>
 #include <fcppt/optional/object_decl.hpp>
 
 
@@ -73,7 +73,7 @@ private:
 	optional_base_unique_ptr;
 
 	typedef
-	fcppt::container::enum_array<
+	fcppt::enum_::array<
 		typename
 		TypeEnum::type,
 		optional_base_unique_ptr
