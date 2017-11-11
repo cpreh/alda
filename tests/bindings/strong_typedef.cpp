@@ -10,6 +10,7 @@
 #include <alda/serialization/read.hpp>
 #include <alda/serialization/write.hpp>
 #include <fcppt/literal.hpp>
+#include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/public_config.hpp>
 #include <fcppt/strong_typedef.hpp>
 #include <fcppt/strong_typedef_output.hpp>

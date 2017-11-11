@@ -8,6 +8,7 @@
 #define ALDA_NET_BUFFER_MAX_RECEIVE_SIZE_HPP_INCLUDED
 
 #include <alda/net/size_type.hpp>
+#include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
