@@ -10,30 +10,49 @@
 #include <alda/raw/make_generic.hpp>
 #include <alda/raw/stream/error.hpp>
 #include <alda/raw/stream/istream.hpp>
-#include <fcppt/record/element.hpp>
-#include <fcppt/record/make_label.hpp>
+#include <fcppt/args_char.hpp>
+#include <fcppt/args_from_second.hpp>
+#include <fcppt/main.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/either/match.hpp>
+#include <fcppt/filesystem/open.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/static.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/options/argument.hpp>
+#include <fcppt/options/error.hpp>
+#include <fcppt/options/error_output.hpp>
+#include <fcppt/options/long_name.hpp>
+#include <fcppt/options/optional_help_text.hpp>
+#include <fcppt/options/parse.hpp>
+#include <fcppt/options/result_of.hpp>
+#include <fcppt/record/element.hpp>
+#include <fcppt/record/make_label.hpp>
 #include <fcppt/record/get.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
 #include <array>
 #include <cstdint>
 #include <cstdlib>
 #include <fstream>
+#include <istream>
+#include <ios>
 #include <iostream>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
+namespace
+{
+
 int
-main(
-	int argc,
-	char **argv
+parse_file(
+	std::istream &_stream
 )
 {
 	typedef
@@ -249,97 +268,173 @@ main(
 	>
 	level;
 
-	if(
-		argc
-		!=
-		2
-	)
-	{
-		std::cerr
-			<<
-			"Usage: dr1 <filename>\n";
-
-		return
-			EXIT_FAILURE;
-	}
-
-	std::ifstream input(
-		argv[1]
-	);
-
-	if(
-		!input.is_open()
-	)
-	{
-		std::cerr
-			<<
-			"Cannot open the specified file!\n";
-
-		return
-			EXIT_FAILURE;
-	}
-
-	fcppt::either::match(
-		alda::raw::make_generic<
-			alda::raw::stream::istream,
-			level
-		>(
-			input
-		),
-		[](
-			alda::raw::stream::error const &_error
-		){
-			fcppt::io::cerr()
-				<<
-				FCPPT_TEXT("Parsing failed: ")
-				<<
-				_error
-				<<
-				FCPPT_TEXT(".\n");
-		},
-		[](
-			alda::raw::element_type<
+	return
+		fcppt::either::match(
+			alda::raw::make_generic<
+				alda::raw::stream::istream,
 				level
-			> &&_level
-		)
-		{
-			std::cout
-				<<
-				"Success.\n";
+			>(
+				_stream
+			),
+			[](
+				alda::raw::stream::error const &_error
+			){
+				fcppt::io::cerr()
+					<<
+					FCPPT_TEXT("Parsing failed: ")
+					<<
+					_error
+					<<
+					FCPPT_TEXT(".\n");
 
-			for(
+				return
+					EXIT_FAILURE;
+			},
+			[](
 				alda::raw::element_type<
-					actor_record
-				> const &actor
-				:
-				fcppt::record::get<
-					actor_label
-				>(
-					_level
-				)
+					level
+				> &&_level
 			)
+			{
 				std::cout
 					<<
-					"Actor type "
-					<<
+					"Success.\n";
+
+				for(
+					alda::raw::element_type<
+						actor_record
+					> const &actor
+					:
 					fcppt::record::get<
-						actor_type_label
+						actor_label
 					>(
-						actor
+						_level
 					)
-					<<
-					" at "
-					<<
-					fcppt::record::get<
-						actor_pos_label
-					>(
-						actor
-					)
-					<<
-					'\n';
+				)
+					std::cout
+						<<
+						"Actor type "
+						<<
+						fcppt::record::get<
+							actor_type_label
+						>(
+							actor
+						)
+						<<
+						" at "
+						<<
+						fcppt::record::get<
+							actor_pos_label
+						>(
+							actor
+						)
+						<<
+						'\n';
+
+				return
+					EXIT_SUCCESS;
+			}
+		);
+}
+
+FCPPT_RECORD_MAKE_LABEL(
+	path_label
+);
+
+}
+
+int
+FCPPT_MAIN(
+	int argc,
+	fcppt::args_char **argv
+)
+{
+	auto const parser(
+		fcppt::options::argument<
+			path_label,
+			fcppt::string
+		>{
+			fcppt::options::long_name{
+				FCPPT_TEXT("filename")
+			},
+			fcppt::options::optional_help_text{}
 		}
 	);
 
 	return
-		EXIT_SUCCESS;
+		fcppt::either::match(
+			fcppt::options::parse(
+				parser,
+				fcppt::args_from_second(
+					argc,
+					argv
+				)
+			),
+			[](
+				fcppt::options::error const &_error
+			)
+			{
+				fcppt::io::cerr()
+					<<
+					_error
+					<<
+					FCPPT_TEXT('\n');
+
+				return
+					EXIT_FAILURE;
+			},
+			[](
+				fcppt::options::result_of<
+					decltype(
+						parser
+					)
+				> const &_args
+			)
+			{
+				boost::filesystem::path const path{
+					fcppt::record::get<
+						path_label
+					>(
+						_args
+					)
+				};
+
+				return
+					fcppt::optional::maybe(
+						fcppt::filesystem::open<
+							std::ifstream
+						>(
+							path,
+							std::ios_base::in
+							|
+							std::ios_base::binary
+						),
+						[
+							&path
+						]{
+							fcppt::io::cerr()
+								<<
+								FCPPT_TEXT("Unable to open ")
+								<<
+								fcppt::filesystem::path_to_string(
+									path
+								)
+								<<
+								FCPPT_TEXT('\n');
+
+							return
+								EXIT_FAILURE;
+						},
+						[](
+							std::ifstream &&_stream
+						)
+						{
+							return
+								parse_file(
+									_stream
+								);
+						}
+					);
+			}
+		);
 }
