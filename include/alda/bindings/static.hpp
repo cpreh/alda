@@ -15,7 +15,7 @@
 #include <alda/raw/needed_size.hpp>
 #include <alda/raw/place.hpp>
 #include <alda/raw/pointer.hpp>
-#include <alda/raw/static_size.hpp>
+#include <alda/raw/static_size_impl.hpp>
 #include <alda/raw/stream/bind.hpp>
 #include <alda/raw/stream/reference.hpp>
 #include <alda/raw/stream/result.hpp>
@@ -154,14 +154,14 @@ template<
 	typename Type,
 	typename Adapted
 >
-struct static_size<
+struct static_size_impl<
 	alda::bindings::static_<
 		Type,
 		Adapted
 	>
 >
 :
-alda::raw::static_size<
+alda::raw::static_size_impl<
 	alda::bindings::array<
 		fcppt::math::to_array_type<
 			Type

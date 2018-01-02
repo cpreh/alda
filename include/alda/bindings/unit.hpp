@@ -12,7 +12,7 @@
 #include <alda/raw/element_type.hpp>
 #include <alda/raw/integral_size.hpp>
 #include <alda/raw/pointer.hpp>
-#include <alda/raw/static_size.hpp>
+#include <alda/raw/static_size_impl.hpp>
 #include <alda/raw/stream/reference.hpp>
 #include <alda/raw/stream/result.hpp>
 #include <alda/raw/stream/return.hpp>
@@ -81,7 +81,7 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<>
-struct static_size<
+struct static_size_impl<
 	alda::bindings::unit
 >
 :

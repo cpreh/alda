@@ -12,7 +12,7 @@
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/variant/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/size.hpp>
+#include <brigand/sequences/size.hpp>
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
@@ -29,11 +29,11 @@ template<
 struct variant
 {
 	static_assert(
-		boost::mpl::size<
+		brigand::size<
 			Types
 		>::value
 		==
-		boost::mpl::size<
+		brigand::size<
 			AdaptedTypes
 		>::value,
 		"Types and AdaptedTypes must be of same size"

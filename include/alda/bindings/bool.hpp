@@ -14,7 +14,7 @@
 #include <alda/raw/make_generic.hpp>
 #include <alda/raw/place.hpp>
 #include <alda/raw/pointer.hpp>
-#include <alda/raw/static_size.hpp>
+#include <alda/raw/static_size_impl.hpp>
 #include <alda/raw/stream/bind.hpp>
 #include <alda/raw/stream/fail.hpp>
 #include <alda/raw/stream/reference.hpp>
@@ -172,11 +172,11 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<>
-struct static_size<
+struct static_size_impl<
 	alda::bindings::bool_
 >
 :
-alda::raw::static_size<
+alda::raw::static_size_impl<
 	alda::bindings::bool_::wrapped_type
 >
 {

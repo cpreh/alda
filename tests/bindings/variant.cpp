@@ -24,6 +24,7 @@
 #include <fcppt/variant/object.hpp>
 #include <fcppt/variant/output.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <brigand/sequences/list.hpp>
 #include <boost/test/unit_test.hpp>
 #include <cstdint>
 #include <sstream>
@@ -42,7 +43,7 @@ std::int16_t
 int_type;
 
 typedef
-boost::mpl::vector2<
+brigand::list<
 	uint_type,
 	int_type
 >
@@ -54,7 +55,7 @@ fcppt::endianness::format const endianness{
 };
 
 typedef
-boost::mpl::vector2<
+brigand::list<
 	alda::bindings::unsigned_<
 		uint_type,
 		endianness

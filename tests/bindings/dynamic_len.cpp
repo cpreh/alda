@@ -7,7 +7,9 @@
 #include <alda/bindings/dynamic_len.hpp>
 #include <alda/bindings/fundamental.hpp>
 #include <alda/bindings/unsigned.hpp>
+#include <alda/raw/is_static_size.hpp>
 #include <alda/raw/make_generic.hpp>
+#include <alda/raw/static_size.hpp>
 #include <alda/raw/stream/error.hpp>
 #include <alda/raw/stream/istream.hpp>
 #include <alda/serialization/write.hpp>
@@ -57,6 +59,15 @@ alda::bindings::dynamic_len<
 	length_binding
 >
 dynamic_len_binding;
+
+static_assert(
+	!alda::raw::is_static_size<
+		alda::raw::static_size<
+			dynamic_len_binding
+		>
+	>::value,
+	""
+);
 
 typedef
 fcppt::either::object<

@@ -18,6 +18,7 @@
 #include <alda/raw/pointer.hpp>
 #include <alda/raw/size_type.hpp>
 #include <alda/raw/static_size.hpp>
+#include <alda/raw/static_size_impl.hpp>
 #include <alda/raw/stream/bind.hpp>
 #include <alda/raw/stream/reference.hpp>
 #include <alda/raw/stream/result.hpp>
@@ -27,24 +28,21 @@
 #include <fcppt/use.hpp>
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/algorithm/loop.hpp>
-#include <fcppt/algorithm/loop_break_mpl.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/algorithm/loop_break_brigand.hpp>
 #include <fcppt/record/element_to_label.hpp>
 #include <fcppt/record/element_to_type.hpp>
-#include <fcppt/record/element_to_type_tpl.hpp>
+#include <fcppt/record/element_to_type.hpp>
 #include <fcppt/record/get.hpp>
 #include <fcppt/record/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/begin.hpp>
-#include <boost/mpl/deref.hpp>
-#include <boost/mpl/end.hpp>
-#include <boost/mpl/fold.hpp>
-#include <boost/mpl/lambda.hpp>
-#include <boost/mpl/next.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/plus.hpp>
+#include <brigand/algorithms/fold.hpp>
+#include <brigand/functions/arithmetic/plus.hpp>
+#include <brigand/functions/lambda/apply.hpp>
+#include <brigand/functions/lambda/bind.hpp>
+#include <brigand/sequences/at.hpp>
+#include <brigand/sequences/size.hpp>
+#include <brigand/types/args.hpp>
+#include <type_traits>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -54,43 +52,41 @@ namespace alda
 namespace raw
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	typename Types
 >
-struct static_size<
+struct static_size_impl<
 	alda::bindings::record<
 		Types
 	>
 >
-:
-boost::mpl::fold<
-	Types,
-	alda::raw::integral_size<
-		0
-	>,
-	alda::raw::combine_static_sizes<
-		typename
-		boost::mpl::lambda<
-			boost::mpl::plus<
-				boost::mpl::_,
-				boost::mpl::_
-			>
-		>::type,
-		alda::raw::static_size<
-			fcppt::record::element_to_type_tpl<
-				boost::mpl::_2
-			>
-		>,
-		boost::mpl::_1
-	>
->::type
 {
+	typedef
+	brigand::fold<
+		Types,
+		alda::raw::integral_size<
+			0
+		>,
+		brigand::bind<
+			alda::raw::combine_static_sizes,
+			brigand::defer<
+				brigand::plus<
+					brigand::_1,
+					brigand::_2
+				>
+			>,
+			brigand::bind<
+				alda::raw::static_size,
+				brigand::bind<
+					fcppt::record::element_to_type,
+					brigand::_element
+				>
+			>,
+			brigand::_state
+		>
+	>
+	type;
 };
-
-FCPPT_PP_POP_WARNING
 
 }
 
@@ -227,17 +223,16 @@ namespace detail
 template<
 	typename Types,
 	typename Stream,
-	typename Iterator,
-	typename EndIterator,
+	unsigned Index,
+	unsigned MaxIndex,
 	typename... Args
 >
 inline
 typename
-boost::enable_if<
-	std::is_same<
-		Iterator,
-		EndIterator
-	>,
+std::enable_if<
+	Index
+	==
+	MaxIndex,
 	alda::raw::stream::result<
 		Stream,
 		alda::bindings::record<
@@ -273,17 +268,16 @@ read(
 template<
 	typename Types,
 	typename Stream,
-	typename Iterator,
-	typename EndIterator,
+	unsigned Index,
+	unsigned MaxIndex,
 	typename... Args
 >
 inline
 typename
-boost::disable_if<
-	std::is_same<
-		Iterator,
-		EndIterator
-	>,
+std::enable_if<
+	Index
+	!=
+	MaxIndex,
 	alda::raw::stream::result<
 		Stream,
 		alda::bindings::record<
@@ -299,11 +293,11 @@ read(
 )
 {
 	typedef
-	typename
-	boost::mpl::deref<
-		Iterator
-	>::type
-	role;
+	brigand::at_c<
+		Types,
+		Index
+	>
+	element;
 
 	return
 		alda::raw::stream::bind<
@@ -312,7 +306,7 @@ read(
 			alda::raw::make_generic<
 				Stream,
 				fcppt::record::element_to_type<
-					role
+					element
 				>
 			>(
 				_stream
@@ -323,7 +317,7 @@ read(
 			](
 				alda::raw::element_type<
 					fcppt::record::element_to_type<
-						role
+						element
 					>
 				> &&_arg
 			)
@@ -332,11 +326,8 @@ read(
 					alda::bindings::detail::read<
 						Types,
 						Stream,
-						typename
-						boost::mpl::next<
-							Iterator
-						>::type,
-						EndIterator
+						Index + 1u,
+						MaxIndex
 					>(
 						_stream,
 						std::forward<
@@ -345,7 +336,7 @@ read(
 							_args
 						)...,
 						fcppt::record::element_to_label<
-							role
+							element
 						>{} =
 							std::move(
 								_arg
@@ -386,14 +377,10 @@ make_generic(
 		alda::bindings::detail::read<
 			Types,
 			Stream,
-			typename
-			boost::mpl::begin<
+			0u,
+			brigand::size<
 				Types
-			>::type,
-			typename
-			boost::mpl::end<
-				Types
-			>::type
+			>::value
 		>(
 			_stream
 		);

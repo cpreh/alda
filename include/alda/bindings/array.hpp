@@ -17,6 +17,7 @@
 #include <alda/raw/pointer.hpp>
 #include <alda/raw/size_type.hpp>
 #include <alda/raw/static_size.hpp>
+#include <alda/raw/static_size_impl.hpp>
 #include <alda/raw/stream/bind.hpp>
 #include <alda/raw/stream/reference.hpp>
 #include <alda/raw/stream/result.hpp>
@@ -24,13 +25,10 @@
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/container/array_size.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/integral_c.hpp>
-#include <boost/mpl/multiplies.hpp>
-#include <boost/mpl/placeholders.hpp>
+#include <brigand/functions/arithmetic/times.hpp>
+#include <brigand/functions/lambda/bind.hpp>
+#include <brigand/types/args.hpp>
 #include <cstddef>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -203,14 +201,11 @@ namespace alda
 namespace raw
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	typename Type,
 	typename Adapted
 >
-struct static_size<
+struct static_size_impl<
 	alda::bindings::array<
 		Type,
 		Adapted
@@ -218,15 +213,13 @@ struct static_size<
 >
 :
 alda::raw::combine_static_sizes<
-	boost::mpl::multiplies<
-		boost::mpl::_1,
-		boost::mpl::_2
+	brigand::bind<
+		brigand::times,
+		brigand::_1,
+		brigand::_2
 	>,
-	boost::mpl::integral_c<
-		alda::raw::size_type,
-		fcppt::container::array_size<
-			Type
-		>::value
+	fcppt::container::array_size<
+		Type
 	>,
 	alda::raw::static_size<
 		Adapted
@@ -234,8 +227,6 @@ alda::raw::combine_static_sizes<
 >
 {
 };
-
-FCPPT_PP_POP_WARNING
 
 }
 }

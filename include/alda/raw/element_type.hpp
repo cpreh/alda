@@ -7,8 +7,6 @@
 #ifndef ALDA_RAW_ELEMENT_TYPE_HPP_INCLUDED
 #define ALDA_RAW_ELEMENT_TYPE_HPP_INCLUDED
 
-#include <alda/raw/element_type_tpl.hpp>
-
 
 namespace alda
 {
@@ -22,9 +20,7 @@ using
 element_type
 =
 typename
-alda::raw::element_type_tpl<
-	Element
->::type;
+Element::element_type;
 
 }
 }

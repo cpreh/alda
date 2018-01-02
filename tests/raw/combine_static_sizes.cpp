@@ -3,8 +3,8 @@
 #include <alda/raw/is_static_size.hpp>
 #include <alda/raw/static_size.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/plus.hpp>
+#include <brigand/functions/arithmetic/plus.hpp>
+#include <brigand/types/args.hpp>
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
@@ -14,9 +14,9 @@ main()
 {
 	static_assert(
 		alda::raw::combine_static_sizes<
-			boost::mpl::plus<
-				boost::mpl::_1,
-				boost::mpl::_2
+			brigand::plus<
+				brigand::_1,
+				brigand::_2
 			>,
 			alda::raw::static_size<
 				alda::bindings::fundamental<
@@ -47,9 +47,9 @@ main()
 	static_assert(
 		!alda::raw::is_static_size<
 			alda::raw::combine_static_sizes<
-				boost::mpl::plus<
-					boost::mpl::_1,
-					boost::mpl::_2
+				brigand::plus<
+					brigand::_1,
+					brigand::_2
 				>,
 				alda::raw::static_size<
 					alda::bindings::fundamental<

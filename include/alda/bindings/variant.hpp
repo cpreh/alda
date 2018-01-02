@@ -26,14 +26,14 @@
 #include <fcppt/tag_type.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/use.hpp>
+#include <fcppt/brigand/invoke_on.hpp>
 #include <fcppt/cast/promote.hpp>
 #include <fcppt/cast/truncation_check.hpp>
-#include <fcppt/mpl/index_of.hpp>
-#include <fcppt/mpl/invoke_on.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/at.hpp>
+#include <brigand/algorithms/index_of.hpp>
+#include <brigand/sequences/at.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -102,11 +102,9 @@ place(
 		)
 		{
 			alda::raw::place<
-				typename
-				boost::mpl::at<
+				brigand::at<
 					AdaptedTypes,
-					typename
-					fcppt::mpl::index_of<
+					brigand::index_of<
 						Types,
 						typename
 						std::decay<
@@ -114,8 +112,8 @@ place(
 								_type
 							)
 						>::type
-					>::type
-				>::type
+					>
+				>
 			>(
 				_type,
 				_mem
@@ -183,7 +181,7 @@ make_generic(
 			)
 			{
 				return
-					fcppt::mpl::invoke_on<
+					fcppt::brigand::invoke_on<
 						Types
 					>(
 						_index,
@@ -198,19 +196,17 @@ make_generic(
 							);
 
 							typedef
-							typename
-							boost::mpl::at<
+							brigand::at<
 								AdaptedTypes,
-								typename
-								fcppt::mpl::index_of<
+								brigand::index_of<
 									Types,
 									fcppt::tag_type<
 										decltype(
 											_tag
 										)
 									>
-								>::type
-							>::type
+								>
+							>
 							adapted_type;
 
 							return
@@ -327,11 +323,9 @@ needed_size(
 			{
 				return
 					alda::raw::needed_size<
-						typename
-						boost::mpl::at<
+						brigand::at<
 							AdaptedTypes,
-							typename
-							fcppt::mpl::index_of<
+							brigand::index_of<
 								Types,
 								typename
 								std::decay<
@@ -339,8 +333,8 @@ needed_size(
 										_type
 									)
 								>::type
-							>::type
-						>::type
+							>
+						>
 					>(
 						_type
 					);

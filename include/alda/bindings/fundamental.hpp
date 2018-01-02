@@ -14,6 +14,7 @@
 #include <alda/raw/pointer.hpp>
 #include <alda/raw/size_type.hpp>
 #include <alda/raw/static_size.hpp>
+#include <alda/raw/static_size_impl.hpp>
 #include <alda/raw/detail/copy_n.hpp>
 #include <alda/raw/stream/read.hpp>
 #include <alda/raw/stream/reference.hpp>
@@ -36,7 +37,7 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 template<
 	typename T
 >
-struct static_size<
+struct static_size_impl<
 	alda::bindings::fundamental<
 		T
 	>

@@ -23,6 +23,11 @@ find_package(
 	REQUIRED
 )
 
+find_package(
+	Brigand
+	REQUIRED
+)
+
 include(
 	FcpptCMakeUtils
 )

@@ -55,7 +55,7 @@
 #include <fcppt/variant/equal.hpp>
 #include <fcppt/variant/output.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/sequences/list.hpp>
 #include <boost/test/unit_test.hpp>
 #include <cstdint>
 #include <sstream>
@@ -116,10 +116,10 @@ optional_uint16_type;
 
 typedef
 alda::bindings::variant<
-	boost::mpl::vector1<
+	brigand::list<
 		std::uint16_t
 	>,
-	boost::mpl::vector1<
+	brigand::list<
 		uint16_type
 	>
 >
@@ -406,13 +406,15 @@ FCPPT_PP_POP_WARNING
 		}
 	};
 
-	typedef alda::call::object<
+	typedef
+	alda::call::object<
 		type_enum,
-		boost::mpl::vector1<
+		brigand::list<
 			message1
 		>,
 		dispatcher_function
-	> dispatcher;
+	>
+	dispatcher;
 
 	dispatcher const dispatcher_object;
 

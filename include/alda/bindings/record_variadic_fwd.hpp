@@ -9,7 +9,7 @@
 
 #include <alda/bindings/record_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector.hpp>
+#include <brigand/sequences/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -25,7 +25,7 @@ using
 record_variadic
 =
 alda::bindings::record<
-	boost::mpl::vector<
+	brigand::list<
 		Types...
 	>
 >;

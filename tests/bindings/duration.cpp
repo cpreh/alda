@@ -7,6 +7,7 @@
 #include <alda/bindings/duration.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <alda/raw/element_type.hpp>
+#include <alda/raw/static_size.hpp>
 #include <alda/raw/stream/error.hpp>
 #include <alda/serialization/read.hpp>
 #include <alda/serialization/write.hpp>
@@ -33,14 +34,29 @@ BOOST_AUTO_TEST_CASE(
 FCPPT_PP_POP_WARNING
 
 	typedef
+	alda::bindings::unsigned_<
+		std::uint32_t,
+		fcppt::endianness::format::little
+	>
+	int_binding;
+
+	typedef
 	alda::bindings::duration<
-		alda::bindings::unsigned_<
-			std::uint32_t,
-			fcppt::endianness::format::little
-		>,
+		int_binding,
 		std::milli
 	>
 	duration_binding;
+
+	static_assert(
+		alda::raw::static_size<
+			duration_binding
+		>::value
+		==
+		alda::raw::static_size<
+			int_binding
+		>::value,
+		""
+	);
 
 	typedef
 	alda::raw::element_type<

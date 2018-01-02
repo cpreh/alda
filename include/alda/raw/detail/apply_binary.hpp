@@ -4,13 +4,11 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef ALDA_RAW_DETAIL_IS_STATIC_SIZE_HPP_INCLUDED
-#define ALDA_RAW_DETAIL_IS_STATIC_SIZE_HPP_INCLUDED
+#ifndef ALDA_RAW_DETAIL_APPLY_BINARY_HPP_INCLUDED
+#define ALDA_RAW_DETAIL_APPLY_BINARY_HPP_INCLUDED
 
-#include <alda/raw/detail/dynamic_size.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/functions/logical/not.hpp>
-#include <type_traits>
+#include <brigand/functions/lambda/apply.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -21,18 +19,22 @@ namespace raw
 namespace detail
 {
 
+
+// TODO: How do we express this using brigand alone?
 template<
-	typename Size
+	typename Function,
+	typename Size1,
+	typename Size2
 >
-using
-is_static_size
-=
-brigand::not_<
-	std::is_same<
-		alda::raw::detail::dynamic_size,
-		Size
-	>
->;
+struct apply_binary
+:
+brigand::apply<
+	Function,
+	Size1,
+	Size2
+>
+{
+};
 
 }
 }

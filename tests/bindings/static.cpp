@@ -51,7 +51,7 @@ vector_binding;
 static_assert(
 	alda::raw::static_size<
 		vector_binding
-	>::value
+	>::type::value
 	==
 	sizeof(
 		unsigned

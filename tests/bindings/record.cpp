@@ -1,9 +1,14 @@
+#include <alda/bindings/bool.hpp>
 #include <alda/bindings/fundamental.hpp>
+#include <alda/bindings/optional.hpp>
 #include <alda/bindings/record_variadic.hpp>
 #include <alda/raw/buffer.hpp>
 #include <alda/raw/const_pointer.hpp>
 #include <alda/raw/element_type.hpp>
+#include <alda/raw/is_static_size.hpp>
 #include <alda/raw/make_generic.hpp>
+#include <alda/raw/needed_size.hpp>
+#include <alda/raw/static_size.hpp>
 #include <alda/raw/to_buffer.hpp>
 #include <alda/raw/stream/error.hpp>
 #include <alda/raw/stream/memory.hpp>
@@ -53,6 +58,17 @@ alda::bindings::record_variadic<
 >
 inner_record_binding;
 
+static_assert(
+	alda::raw::static_size<
+		inner_record_binding
+	>::value
+	==
+	alda::raw::static_size<
+		int_
+	>::value,
+	""
+);
+
 typedef
 alda::raw::element_type<
 	inner_record_binding
@@ -71,6 +87,44 @@ alda::bindings::record_variadic<
 	>
 >
 record_binding;
+
+static_assert(
+	alda::raw::static_size<
+		record_binding
+	>::value
+	==
+	alda::raw::static_size<
+		inner_record_binding
+	>::value
+	+
+	alda::raw::static_size<
+		int_
+	>::value,
+	""
+);
+
+FCPPT_RECORD_MAKE_LABEL(
+	optional_label
+);
+
+static_assert(
+	!alda::raw::is_static_size<
+		alda::bindings::record_variadic<
+			fcppt::record::element<
+				optional_label,
+				alda::bindings::optional<
+					bool,
+					alda::bindings::bool_
+				>
+			>,
+			fcppt::record::element<
+				int_role,
+				int_
+			>
+		>
+	>::value,
+	""
+);
 
 typedef
 alda::raw::element_type<
@@ -110,6 +164,17 @@ FCPPT_PP_POP_WARNING
 				int_role{} = 10
 			}
 	};
+
+	BOOST_CHECK_EQUAL(
+		alda::raw::needed_size<
+			record_binding
+		>(
+			test
+		),
+		alda::raw::static_size<
+			record_binding
+		>::value
+	);
 
 	std::stringstream stream;
 

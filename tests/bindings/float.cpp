@@ -5,8 +5,10 @@
 
 
 #include <alda/bindings/float.hpp>
+#include <alda/bindings/fundamental.hpp>
 #include <alda/raw/element_type.hpp>
 #include <alda/raw/make_generic.hpp>
+#include <alda/raw/static_size.hpp>
 #include <alda/raw/stream/error.hpp>
 #include <alda/raw/stream/istream.hpp>
 #include <alda/serialization/write.hpp>
@@ -28,6 +30,19 @@
 
 namespace
 {
+
+static_assert(
+	alda::raw::static_size<
+		alda::bindings::float_
+	>::value
+	==
+	alda::raw::static_size<
+		alda::bindings::fundamental<
+			alda::bindings::float_::fixed_int
+		>
+	>::value,
+	""
+);
 
 void
 fuzzy_equal(

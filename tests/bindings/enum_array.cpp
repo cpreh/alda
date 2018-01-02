@@ -6,6 +6,7 @@
 
 #include <alda/bindings/enum_array.hpp>
 #include <alda/bindings/unsigned.hpp>
+#include <alda/raw/static_size.hpp>
 #include <alda/raw/stream/error.hpp>
 #include <alda/serialization/read.hpp>
 #include <alda/serialization/write.hpp>
@@ -15,6 +16,7 @@
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/enum/array.hpp>
 #include <fcppt/enum/array_init.hpp>
+#include <fcppt/enum/size.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -47,15 +49,33 @@ fcppt::enum_::array<
 array;
 
 typedef
+alda::bindings::unsigned_<
+	int_type,
+	fcppt::endianness::format::little
+>
+unsigned_binding;
+
+typedef
 alda::bindings::enum_array<
 	array,
-	alda::bindings::unsigned_<
-		int_type,
-		fcppt::endianness::format::little
-	>
+	unsigned_binding
 >
 array_binding;
 
+static_assert(
+	alda::raw::static_size<
+		array_binding
+	>::value
+	==
+	alda::raw::static_size<
+		unsigned_binding
+	>::value
+	*
+	fcppt::enum_::size<
+		my_enum
+	>::value,
+	""
+);
 
 typedef
 fcppt::either::object<

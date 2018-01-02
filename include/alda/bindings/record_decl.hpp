@@ -8,14 +8,15 @@
 #define ALDA_BINDINGS_RECORD_DECL_HPP_INCLUDED
 
 #include <alda/bindings/record_fwd.hpp>
-#include <alda/raw/element_type_tpl.hpp>
+#include <alda/raw/element_type.hpp>
 #include <fcppt/record/element_fwd.hpp>
-#include <fcppt/record/element_to_label_tpl.hpp>
-#include <fcppt/record/element_to_type_tpl.hpp>
+#include <fcppt/record/element_to_label.hpp>
+#include <fcppt/record/element_to_type.hpp>
 #include <fcppt/record/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/transform.hpp>
+#include <brigand/algorithms/transform.hpp>
+#include <brigand/functions/lambda/bind.hpp>
+#include <brigand/types/args.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -35,20 +36,23 @@ struct record
 
 	typedef
 	fcppt::record::object<
-		typename
-		boost::mpl::transform<
+		brigand::transform<
 			Types,
-			fcppt::record::element<
-				fcppt::record::element_to_label_tpl<
-					boost::mpl::_1
+			brigand::bind<
+				fcppt::record::element,
+				brigand::bind<
+					fcppt::record::element_to_label,
+					brigand::_1
 				>,
-				alda::raw::element_type_tpl<
-					fcppt::record::element_to_type_tpl<
-						boost::mpl::_1
+				brigand::bind<
+					alda::raw::element_type,
+					brigand::bind<
+						fcppt::record::element_to_type,
+						brigand::_1
 					>
 				>
 			>
-		>::type
+		>
 	>
 	element_type;
 };

@@ -29,7 +29,7 @@ std::array<
 	alda::raw::data,
 	alda::raw::static_size<
 		Type
-	>::value
+	>::type::value
 >;
 
 }

@@ -36,7 +36,7 @@
 #include <fcppt/record/get.hpp>
 #include <fcppt/record/make_label.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/sequences/list.hpp>
 #include <boost/test/unit_test.hpp>
 #include <cstdint>
 #include <iostream>
@@ -303,7 +303,7 @@ FCPPT_PP_POP_WARNING
 	typedef
 	alda::call::object<
 		type_enum,
-		boost::mpl::vector2<
+		brigand::list<
 			message1,
 			message2
 		>,

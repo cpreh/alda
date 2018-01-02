@@ -9,7 +9,7 @@
 
 #include <alda/raw/size_type.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/integral_c.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -23,7 +23,7 @@ template<
 >
 using integral_size
 =
-boost::mpl::integral_c<
+std::integral_constant<
 	alda::raw::size_type,
 	Size
 >;

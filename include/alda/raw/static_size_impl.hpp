@@ -4,8 +4,10 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef ALDA_RAW_ELEMENT_TYPE_TPL_HPP_INCLUDED
-#define ALDA_RAW_ELEMENT_TYPE_TPL_HPP_INCLUDED
+#ifndef ALDA_RAW_STATIC_SIZE_IMPL_HPP_INCLUDED
+#define ALDA_RAW_STATIC_SIZE_IMPL_HPP_INCLUDED
+
+#include <alda/raw/detail/dynamic_size.hpp>
 
 
 namespace alda
@@ -14,13 +16,12 @@ namespace raw
 {
 
 template<
-	typename Element
+	typename T
 >
-struct element_type_tpl
+struct static_size_impl
 {
 	typedef
-	typename
-	Element::element_type
+	alda::raw::detail::dynamic_size
 	type;
 };
 

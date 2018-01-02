@@ -13,16 +13,16 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/mpl/contains_if.hpp>
 #include <fcppt/optional/object_impl.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/deref.hpp>
-#include <boost/mpl/find_if.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <brigand/algorithms/find.hpp>
+#include <brigand/functions/lambda/apply.hpp>
+#include <brigand/functions/lambda/bind.hpp>
+#include <brigand/functions/logical/not.hpp>
+#include <brigand/sequences/contains.hpp>
+#include <brigand/sequences/front.hpp>
+#include <brigand/sequences/list.hpp>
+#include <brigand/types/args.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -56,36 +56,38 @@ struct make_instance
 	>
 	optional_base_unique_ptr;
 
-	FCPPT_PP_PUSH_WARNING
-	FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 	template<
 		typename Type
 	>
-	struct has_message
-	:
-	fcppt::mpl::contains_if<
-		Messages,
+	using
+	has_message
+	=
+	brigand::not_<
 		std::is_same<
-			Type,
-			alda::message::detail::extract_id_tpl<
-				boost::mpl::_1
-			>
+			brigand::find<
+				Messages,
+				brigand::bind<
+					std::is_same,
+					brigand::pin<
+						Type
+					>,
+					alda::message::detail::extract_id_tpl<
+						brigand::_1
+					>
+				>
+			>,
+			brigand::list<>
 		>
-	>
-	{
-	};
-
-	FCPPT_PP_POP_WARNING
+	>;
 
 	template<
 		typename Type
 	>
 	typename
-	boost::enable_if<
+	std::enable_if<
 		has_message<
 			Type
-		>,
+		>::value,
 		optional_base_unique_ptr
 	>::type
 	operator()(
@@ -101,19 +103,20 @@ struct make_instance
 						alda::call::detail::concrete<
 							TypeEnum,
 							Callee,
-							typename
-							boost::mpl::deref<
-								typename
-								boost::mpl::find_if<
+							brigand::front<
+								brigand::find<
 									Messages,
-									std::is_same<
-										Type,
+									brigand::bind<
+										std::is_same,
+										brigand::pin<
+											Type
+										>,
 										alda::message::detail::extract_id_tpl<
-											boost::mpl::_1
+											brigand::_1
 										>
 									>
-								>::type
-							>::type
+								>
+							>
 						>
 					>()
 				)
@@ -124,10 +127,10 @@ struct make_instance
 		typename Type
 	>
 	typename
-	boost::disable_if<
-		has_message<
+	std::enable_if<
+		!has_message<
 			Type
-		>,
+		>::value,
 		optional_base_unique_ptr
 	>::type
 	operator()(

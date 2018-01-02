@@ -5,10 +5,14 @@
 
 
 #include <alda/bindings/bitfield.hpp>
+#include <alda/raw/data.hpp>
 #include <alda/raw/integral_size.hpp>
+#include <alda/raw/size_type.hpp>
+#include <alda/raw/static_size.hpp>
 #include <alda/raw/stream/error.hpp>
 #include <alda/serialization/read.hpp>
 #include <alda/serialization/write.hpp>
+#include <fcppt/brigand/ceil_div.hpp>
 #include <fcppt/container/bitfield/comparison.hpp>
 #include <fcppt/container/bitfield/object.hpp>
 #include <fcppt/either/comparison.hpp>
@@ -19,6 +23,7 @@
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/test/unit_test.hpp>
+#include <limits>
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
 
@@ -47,6 +52,21 @@ FCPPT_PP_POP_WARNING
 		fcppt::endianness::format::little
 	>
 	bitfield_binding;
+
+	static_assert(
+		alda::raw::static_size<
+			bitfield_binding
+		>::value
+		==
+		fcppt::brigand::ceil_div<
+			alda::raw::size_type,
+			64u,
+			std::numeric_limits<
+				alda::raw::data
+			>::digits
+		>::value,
+		""
+	);
 
 	bitfield test(
 		bitfield::null()

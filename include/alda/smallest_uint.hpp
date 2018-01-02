@@ -7,16 +7,17 @@
 #ifndef ALDA_SMALLEST_UINT_HPP_INCLUDED
 #define ALDA_SMALLEST_UINT_HPP_INCLUDED
 
-#include <fcppt/mpl/numeric_max.hpp>
+#include <fcppt/brigand/numeric_max.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/deref.hpp>
-#include <boost/mpl/find_if.hpp>
-#include <boost/mpl/greater_equal.hpp>
-#include <boost/mpl/integral_c.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/algorithms/find.hpp>
+#include <brigand/functions/comparison/greater_equal.hpp>
+#include <brigand/functions/lambda/bind.hpp>
+#include <brigand/sequences/front.hpp>
+#include <brigand/sequences/list.hpp>
+#include <brigand/types/args.hpp>
 #include <cstddef>
 #include <cstdint>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -29,27 +30,27 @@ template<
 using
 smallest_uint
 =
-typename
-boost::mpl::deref<
-	typename
-	boost::mpl::find_if<
-		boost::mpl::vector4<
+brigand::front<
+	brigand::find<
+		brigand::list<
 			std::uint8_t,
 			std::uint16_t,
 			std::uint32_t,
 			std::uint64_t
 		>,
-		boost::mpl::greater_equal<
-			fcppt::mpl::numeric_max<
-				boost::mpl::_1
+		brigand::bind<
+			brigand::greater_equal,
+			brigand::bind<
+				fcppt::brigand::numeric_max,
+				brigand::_1
 			>,
-			boost::mpl::integral_c<
+			std::integral_constant<
 				std::size_t,
 				Max
 			>
 		>
-	>::type
->::type;
+	>
+>;
 
 }
 
