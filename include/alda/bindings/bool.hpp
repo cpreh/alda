@@ -23,7 +23,7 @@
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/cast/promote.hpp>
+#include <fcppt/cast/promote_int.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -149,7 +149,7 @@ make_generic(
 							FCPPT_TEXT("Invalid value: ")
 							+
 							fcppt::insert_to_fcppt_string(
-								fcppt::cast::promote(
+								fcppt::cast::promote_int(
 									_element
 								)
 							)

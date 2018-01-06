@@ -16,7 +16,7 @@
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/enum_to_underlying.hpp>
-#include <fcppt/cast/promote.hpp>
+#include <fcppt/cast/promote_int.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <exception>
@@ -61,7 +61,7 @@ alda::serialization::detail::dispatch::register_<
 		fcppt::io::cerr()
 			<< FCPPT_TEXT("Message type registered twice: ")
 			<<
-			fcppt::cast::promote(
+			fcppt::cast::promote_int(
 				fcppt::cast::enum_to_underlying(
 					constant_value::value
 				)

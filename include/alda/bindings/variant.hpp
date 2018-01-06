@@ -27,7 +27,7 @@
 #include <fcppt/text.hpp>
 #include <fcppt/use.hpp>
 #include <fcppt/brigand/invoke_on.hpp>
-#include <fcppt/cast/promote.hpp>
+#include <fcppt/cast/promote_int.hpp>
 #include <fcppt/cast/truncation_check.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
@@ -255,7 +255,7 @@ make_generic(
 									FCPPT_TEXT("Invalid index: ")
 									+
 									fcppt::insert_to_fcppt_string(
-										fcppt::cast::promote(
+										fcppt::cast::promote_int(
 											_index
 										)
 									)

@@ -22,7 +22,7 @@
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/enum_to_int.hpp>
-#include <fcppt/cast/promote.hpp>
+#include <fcppt/cast/promote_int.hpp>
 #include <fcppt/enum/from_int.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -136,7 +136,7 @@ make_generic(
 									FCPPT_TEXT("Invalid value ")
 									+
 									fcppt::insert_to_fcppt_string(
-										fcppt::cast::promote(
+										fcppt::cast::promote_int(
 											_element
 										)
 									)
