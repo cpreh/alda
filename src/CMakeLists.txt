@@ -398,6 +398,7 @@ function(
 		target_link_libraries(
 			${ALDA_LIB_NAME}
 			PRIVATE
+			fcppt_boost_interface
 			${fcppt_core_TARGET}
 			${fcppt_log_TARGET}
 			${FcpptThreads_LIBRARIES}
@@ -409,6 +410,7 @@ function(
 	target_link_libraries(
 		${ALDA_LIB_NAME}
 		INTERFACE
+		fcppt_boost_interface
 		fcppt_core_interface
 		fcppt_log_interface
 	)
