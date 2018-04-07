@@ -24,7 +24,7 @@
 #include <alda/raw/stream/return.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/algorithm/fold.hpp>
-#include <fcppt/container/array_size.hpp>
+#include <fcppt/container/array/size.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <brigand/functions/arithmetic/times.hpp>
 #include <brigand/functions/lambda/bind.hpp>
@@ -116,7 +116,7 @@ make_generic(
 	return
 		fcppt::algorithm::fold(
 			fcppt::make_int_range_count(
-				fcppt::container::array_size<
+				fcppt::container::array::size<
 					Type
 				>::value
 			),
@@ -218,7 +218,7 @@ alda::raw::combine_static_sizes<
 		brigand::_1,
 		brigand::_2
 	>,
-	fcppt::container::array_size<
+	fcppt::container::array::size<
 		Type
 	>,
 	alda::raw::static_size<
