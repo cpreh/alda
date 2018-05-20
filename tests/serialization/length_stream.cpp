@@ -4,7 +4,6 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <alda/exception.hpp>
 #include <alda/type_enum.hpp>
 #include <alda/bindings/dynamic_len.hpp>
 #include <alda/bindings/fundamental.hpp>
@@ -41,14 +40,9 @@
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/endianness/format.hpp>
-#include <fcppt/io/cerr.hpp>
-#include <fcppt/io/cout.hpp>
 #include <fcppt/optional/comparison.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/output.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/get.hpp>
 #include <fcppt/record/make_label.hpp>
@@ -56,7 +50,7 @@
 #include <fcppt/variant/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <brigand/sequences/list.hpp>
-#include <boost/test/unit_test.hpp>
+#include <catch.hpp>
 #include <cstdint>
 #include <sstream>
 #include <string>
@@ -265,24 +259,23 @@ private:
 		message1 const &_msg
 	) const
 	{
-		fcppt::io::cout()
-			<< FCPPT_TEXT("message1 received\n");
-
-		BOOST_CHECK_EQUAL(
+		CHECK(
 			fcppt::record::get<
 				uint16_role
 			>(
 				_msg.get()
-			),
+			)
+			==
 			value_
 		);
 
-		BOOST_CHECK_EQUAL(
+		CHECK(
 			fcppt::record::get<
 				optional_uint16_role
 			>(
 				_msg.get()
-			),
+			)
+			==
 			alda::raw::element_type<
 				optional_uint16_type
 			>(
@@ -290,12 +283,13 @@ private:
 			)
 		);
 
-		BOOST_CHECK_EQUAL(
+		CHECK(
 			fcppt::record::get<
 				variant_role
 			>(
 				_msg.get()
-			),
+			)
+			==
 			alda::raw::element_type<
 				variant_type
 			>(
@@ -303,12 +297,13 @@ private:
 			)
 		);
 
-		BOOST_CHECK_EQUAL(
+		CHECK(
 			fcppt::record::get<
 				string_role
 			>(
 				_msg.get()
-			),
+			)
+			==
 			alda::raw::element_type<
 				string_type
 			>(
@@ -324,16 +319,11 @@ private:
 
 }
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-BOOST_AUTO_TEST_CASE(
-	alda_length_stream
+TEST_CASE(
+	"serialization::length_stream",
+	"[alda]"
 )
-try
 {
-FCPPT_PP_POP_WARNING
-
 	std::ostringstream ofs;
 
 	unsigned const count(
@@ -436,7 +426,7 @@ FCPPT_PP_POP_WARNING
 			)
 		);
 
-		BOOST_CHECK(
+		CHECK(
 			fcppt::optional::maybe(
 				result,
 				fcppt::const_(
@@ -465,7 +455,7 @@ FCPPT_PP_POP_WARNING
 								message_base const &
 							)
 							{
-								BOOST_CHECK(
+								CHECK(
 									false
 								);
 							}
@@ -479,7 +469,7 @@ FCPPT_PP_POP_WARNING
 		);
 	}
 
-	BOOST_CHECK(
+	CHECK(
 		ifs.good()
 	);
 
@@ -496,12 +486,12 @@ FCPPT_PP_POP_WARNING
 			)
 		);
 
-		BOOST_CHECK(
+		CHECK(
 			!ptr.has_value()
 		);
 	}
 
-	BOOST_CHECK(
+	CHECK(
 		ifs.good()
 	);
 
@@ -530,24 +520,12 @@ FCPPT_PP_POP_WARNING
 			)
 		);
 
-		BOOST_CHECK(
+		CHECK(
 			!ptr.has_value()
 		);
 	}
 
-	BOOST_CHECK(
+	CHECK(
 		ifs.good()
-	);
-}
-catch(
-	alda::exception const &_error
-)
-{
-	fcppt::io::cerr()
-		<< _error.string()
-		<< FCPPT_TEXT('\n');
-
-	BOOST_CHECK(
-		false
 	);
 }

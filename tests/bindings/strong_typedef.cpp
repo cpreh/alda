@@ -14,15 +14,13 @@
 #include <fcppt/public_config.hpp>
 #include <fcppt/strong_typedef.hpp>
 #include <fcppt/strong_typedef_output.hpp>
+#include <fcppt/catch/either.hpp>
 #include <fcppt/either/make_success.hpp>
 #include <fcppt/either/object.hpp>
 #include <fcppt/either/output.hpp>
 #include <fcppt/endianness/format.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/test/unit_test.hpp>
+#include <catch.hpp>
 #include <cstdint>
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
@@ -59,22 +57,11 @@ either_result_type;
 
 }
 
-#if !defined(FCPPT_NARROW_STRING)
-BOOST_TEST_DONT_PRINT_LOG_VALUE(
-	either_result_type
-)
-#endif
-
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-BOOST_AUTO_TEST_CASE(
-	alda_strong_typedef_stream
+TEST_CASE(
+	"bindings::strong_typedef",
+	"[alda]"
 )
 {
-FCPPT_PP_POP_WARNING
-
 	strong_type const value{
 		fcppt::literal<
 			std::uint32_t
@@ -92,12 +79,13 @@ FCPPT_PP_POP_WARNING
 		value
 	);
 
-	BOOST_CHECK_EQUAL(
+	CHECK(
 		alda::serialization::read<
 			strong_binding
 		>(
 			stream
-		),
+		)
+		==
 		fcppt::either::make_success<
 			alda::raw::stream::error
 		>(

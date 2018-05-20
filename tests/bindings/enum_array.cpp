@@ -11,17 +11,15 @@
 #include <alda/serialization/read.hpp>
 #include <alda/serialization/write.hpp>
 #include <fcppt/cast/enum_to_int.hpp>
+#include <fcppt/catch/defer.hpp>
 #include <fcppt/either/make_success.hpp>
 #include <fcppt/either/object.hpp>
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/enum/array.hpp>
 #include <fcppt/enum/array_init.hpp>
 #include <fcppt/enum/size.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/test/unit_test.hpp>
+#include <catch.hpp>
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
 
@@ -86,19 +84,11 @@ either_result_type;
 
 }
 
-BOOST_TEST_DONT_PRINT_LOG_VALUE(
-	either_result_type
-)
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-BOOST_AUTO_TEST_CASE(
-	alda_enum_array_stream
+TEST_CASE(
+	"bdings::enum_array",
+	"[alda]"
 )
 {
-FCPPT_PP_POP_WARNING
-
 	array const test(
 		fcppt::enum_::array_init<
 			array
@@ -117,7 +107,7 @@ FCPPT_PP_POP_WARNING
 		)
 	);
 
-	std::stringstream stream;
+	std::stringstream stream{};
 
 	alda::serialization::write<
 		array_binding
@@ -126,16 +116,19 @@ FCPPT_PP_POP_WARNING
 		test
 	);
 
-	BOOST_CHECK_EQUAL(
-		alda::serialization::read<
-			array_binding
-		>(
-			stream
-		),
-		fcppt::either::make_success<
-			alda::raw::stream::error
-		>(
-			test
+	CHECK(
+		fcppt::catch_::defer(
+			alda::serialization::read<
+				array_binding
+			>(
+				stream
+			)
+			==
+			fcppt::either::make_success<
+				alda::raw::stream::error
+			>(
+				test
+			)
 		)
 	);
 }

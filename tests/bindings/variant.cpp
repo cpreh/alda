@@ -11,21 +11,18 @@
 #include <alda/serialization/read.hpp>
 #include <alda/serialization/write.hpp>
 #include <fcppt/literal.hpp>
-#include <fcppt/public_config.hpp>
 #include <fcppt/strong_typedef_output.hpp>
+#include <fcppt/catch/either.hpp>
 #include <fcppt/either/make_success.hpp>
 #include <fcppt/either/object.hpp>
 #include <fcppt/either/output.hpp>
 #include <fcppt/endianness/format.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/variant/comparison.hpp>
 #include <fcppt/variant/object.hpp>
 #include <fcppt/variant/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <brigand/sequences/list.hpp>
-#include <boost/test/unit_test.hpp>
+#include <catch.hpp>
 #include <cstdint>
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
@@ -89,12 +86,6 @@ result_type;
 
 }
 
-#if !defined(FCPPT_NARROW_STRING)
-BOOST_TEST_DONT_PRINT_LOG_VALUE(
-	result_type
-)
-#endif
-
 namespace
 {
 
@@ -112,12 +103,13 @@ do_test(
 		_value
 	);
 
-	BOOST_CHECK_EQUAL(
+	CHECK(
 		alda::serialization::read<
 			variant_binding
 		>(
 			stream
-		),
+		)
+		==
 		fcppt::either::make_success<
 			alda::raw::stream::error
 		>(
@@ -128,15 +120,11 @@ do_test(
 
 }
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-BOOST_AUTO_TEST_CASE(
-	alda_variant_stream
+TEST_CASE(
+	"bindings::variant",
+	"[alda]"
 )
 {
-FCPPT_PP_POP_WARNING
-
 	do_test(
 		variant_type{
 			fcppt::literal<

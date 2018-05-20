@@ -4,7 +4,6 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <alda/exception.hpp>
 #include <alda/type_enum.hpp>
 #include <alda/bindings/record_variadic.hpp>
 #include <alda/bindings/unsigned.hpp>
@@ -27,19 +26,13 @@
 #include <alda/serialization/serialize.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/endianness/format.hpp>
-#include <fcppt/io/cerr.hpp>
-#include <fcppt/io/cout.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/get.hpp>
 #include <fcppt/record/make_label.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <brigand/sequences/list.hpp>
-#include <boost/test/unit_test.hpp>
+#include <catch.hpp>
 #include <cstdint>
-#include <iostream>
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
 
@@ -215,15 +208,13 @@ public:
 		message1 const &_msg
 	) const
 	{
-		fcppt::io::cout()
-			<< FCPPT_TEXT("message1 received\n");
-
-		BOOST_CHECK_EQUAL(
+		CHECK(
 			fcppt::record::get<
 				uint16_role
 			>(
 				_msg.get()
-			),
+			)
+			==
 			static_cast<
 				std::uint16_t
 			>(
@@ -237,15 +228,13 @@ public:
 		message2 const &_msg
 	) const
 	{
-		fcppt::io::cout()
-			<< FCPPT_TEXT("message2 received\n");
-
-		BOOST_CHECK_EQUAL(
+		CHECK(
 			fcppt::record::get<
 				uint32_role
 			>(
 				_msg.get()
-			),
+			)
+			==
 			static_cast<
 				std::uint32_t
 			>(
@@ -259,7 +248,7 @@ public:
 		message_base const &
 	)
 	{
-		BOOST_CHECK(
+		CHECK(
 			false
 		);
 	}
@@ -267,15 +256,11 @@ public:
 
 }
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-BOOST_AUTO_TEST_CASE(
-	alda_dispatch
+TEST_CASE(
+	"serialization dispatch",
+	"[alda]"
 )
 {
-FCPPT_PP_POP_WARNING
-
 	std::ostringstream ofs;
 
 	alda::serialization::serialize(
@@ -323,7 +308,9 @@ FCPPT_PP_POP_WARNING
 		)
 	);
 
-	try
+	SECTION(
+		"message1"
+	)
 	{
 		message_base_unique_ptr result(
 			alda::serialization::deserialize(
@@ -332,7 +319,7 @@ FCPPT_PP_POP_WARNING
 			)
 		);
 
-		BOOST_CHECK(
+		CHECK(
 			result->type()
 			==
 			message_type::message1
@@ -343,14 +330,6 @@ FCPPT_PP_POP_WARNING
 			receiver,
 			default_callback
 		);
-	}
-	catch(
-		alda::exception const &_exception
-	)
-	{
-		fcppt::io::cerr()
-			<< _exception.string()
-			<< FCPPT_TEXT('\n');
 	}
 
 	ofs.str("");
@@ -377,7 +356,9 @@ FCPPT_PP_POP_WARNING
 		ofs.str()
 	);
 
-	try
+	SECTION(
+		"message2"
+	)
 	{
 		message_base_unique_ptr result(
 			alda::serialization::deserialize(
@@ -386,7 +367,7 @@ FCPPT_PP_POP_WARNING
 			)
 		);
 
-		BOOST_CHECK(
+		CHECK(
 			result->type()
 			==
 			message_type::message2
@@ -397,13 +378,5 @@ FCPPT_PP_POP_WARNING
 			receiver,
 			default_callback
 		);
-	}
-	catch(
-		alda::exception const &_exception
-	)
-	{
-		fcppt::io::cerr()
-			<< _exception.string()
-			<< FCPPT_TEXT('\n');
 	}
 }

@@ -13,13 +13,11 @@
 #include <alda/raw/stream/error.hpp>
 #include <alda/raw/stream/istream.hpp>
 #include <alda/serialization/write.hpp>
+#include <fcppt/catch/defer.hpp>
 #include <fcppt/either/object.hpp>
 #include <fcppt/endianness/format.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/test/unit_test.hpp>
+#include <catch.hpp>
 #include <sstream>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -78,19 +76,11 @@ either_result_type;
 
 }
 
-BOOST_TEST_DONT_PRINT_LOG_VALUE(
-	either_result_type
-)
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-BOOST_AUTO_TEST_CASE(
-	alda_dynamic_len_stream
+TEST_CASE(
+	"bindings::dynamic_len",
+	"[alda]"
 )
 {
-FCPPT_PP_POP_WARNING
-
 	uint_vector const vec{
 		1,
 		2
@@ -114,10 +104,13 @@ FCPPT_PP_POP_WARNING
 		)
 	);
 
-	BOOST_CHECK_EQUAL(
-		result,
-		either_result_type{
-			vec
-		}
+	CHECK(
+		fcppt::catch_::defer(
+			result
+			==
+			either_result_type{
+				vec
+			}
+		)
 	);
 }

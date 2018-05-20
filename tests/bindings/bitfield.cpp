@@ -13,30 +13,24 @@
 #include <alda/serialization/read.hpp>
 #include <alda/serialization/write.hpp>
 #include <fcppt/brigand/ceil_div.hpp>
+#include <fcppt/catch/defer.hpp>
 #include <fcppt/container/bitfield/comparison.hpp>
 #include <fcppt/container/bitfield/object.hpp>
 #include <fcppt/either/comparison.hpp>
 #include <fcppt/either/make_success.hpp>
 #include <fcppt/endianness/format.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/test/unit_test.hpp>
+#include <catch.hpp>
 #include <limits>
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
 
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-BOOST_AUTO_TEST_CASE(
-	alda_bitfield_stream
+TEST_CASE(
+	"bindings::bitfield",
+	"[alda]"
 )
 {
-FCPPT_PP_POP_WARNING
-
 	typedef
 	fcppt::container::bitfield::object<
 		unsigned,
@@ -76,7 +70,7 @@ FCPPT_PP_POP_WARNING
 		42u
 	] = true;
 
-	std::stringstream stream;
+	std::stringstream stream{};
 
 	alda::serialization::write<
 		bitfield_binding
@@ -85,17 +79,19 @@ FCPPT_PP_POP_WARNING
 		test
 	);
 
-	BOOST_CHECK(
-		alda::serialization::read<
-			bitfield_binding
-		>(
-			stream
-		)
-		==
-		fcppt::either::make_success<
-			alda::raw::stream::error
-		>(
-			test
+	CHECK(
+		fcppt::catch_::defer(
+			alda::serialization::read<
+				bitfield_binding
+			>(
+				stream
+			)
+			==
+			fcppt::either::make_success<
+				alda::raw::stream::error
+			>(
+				test
+			)
 		)
 	);
 }

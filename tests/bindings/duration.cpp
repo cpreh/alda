@@ -11,28 +11,22 @@
 #include <alda/raw/stream/error.hpp>
 #include <alda/serialization/read.hpp>
 #include <alda/serialization/write.hpp>
+#include <fcppt/catch/defer.hpp>
 #include <fcppt/either/make_success.hpp>
 #include <fcppt/endianness/format.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/test/unit_test.hpp>
+#include <catch.hpp>
 #include <cstdint>
 #include <ratio>
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
 
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-BOOST_AUTO_TEST_CASE(
-	alda_duration_stream
+TEST_CASE(
+	"bindings::duration",
+	"[alda]"
 )
 {
-FCPPT_PP_POP_WARNING
-
 	typedef
 	alda::bindings::unsigned_<
 		std::uint32_t,
@@ -64,7 +58,7 @@ FCPPT_PP_POP_WARNING
 	>
 	duration;
 
-	std::stringstream stream;
+	std::stringstream stream{};
 
 	alda::serialization::write<
 		duration_binding
@@ -75,19 +69,21 @@ FCPPT_PP_POP_WARNING
 		}
 	);
 
-	BOOST_CHECK(
-		alda::serialization::read<
-			duration_binding
-		>(
-			stream
-		)
-		==
-		fcppt::either::make_success<
-			alda::raw::stream::error
-		>(
-			duration{
-				10u
-			}
+	CHECK(
+		fcppt::catch_::defer(
+			alda::serialization::read<
+				duration_binding
+			>(
+				stream
+			)
+			==
+			fcppt::either::make_success<
+				alda::raw::stream::error
+			>(
+				duration{
+					10u
+				}
+			)
 		)
 	);
 }

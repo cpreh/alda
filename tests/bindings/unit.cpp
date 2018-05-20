@@ -9,24 +9,17 @@
 #include <alda/serialization/write.hpp>
 #include <fcppt/unit.hpp>
 #include <fcppt/either/object_impl.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/test/unit_test.hpp>
+#include <catch.hpp>
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
 
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-BOOST_AUTO_TEST_CASE(
-	alda_unit_stream
+TEST_CASE(
+	"bidings::unit",
+	"[alda]"
 )
 {
-FCPPT_PP_POP_WARNING
-
 	std::stringstream stream;
 
 	alda::serialization::write<
@@ -36,11 +29,11 @@ FCPPT_PP_POP_WARNING
 		fcppt::unit{}
 	);
 
-	BOOST_REQUIRE(
+	CHECK(
 		stream.str().empty()
 	);
 
-	BOOST_CHECK(
+	CHECK(
 		alda::serialization::read<
 			alda::bindings::unit
 		>(

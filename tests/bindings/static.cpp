@@ -10,8 +10,8 @@
 #include <alda/raw/stream/error.hpp>
 #include <alda/serialization/read.hpp>
 #include <alda/serialization/write.hpp>
-#include <fcppt/public_config.hpp>
 #include <fcppt/strong_typedef_output.hpp>
+#include <fcppt/catch/either.hpp>
 #include <fcppt/either/make_success.hpp>
 #include <fcppt/either/object.hpp>
 #include <fcppt/either/output.hpp>
@@ -19,11 +19,8 @@
 #include <fcppt/math/vector/comparison.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/static.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/test/unit_test.hpp>
+#include <catch.hpp>
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
 
@@ -70,22 +67,11 @@ either_result_type;
 
 }
 
-#if !defined(FCPPT_NARROW_STRING)
-BOOST_TEST_DONT_PRINT_LOG_VALUE(
-	either_result_type
-)
-#endif
-
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-BOOST_AUTO_TEST_CASE(
-	alda_static_stream
+TEST_CASE(
+	"bindings::static",
+	"[alda]"
 )
 {
-FCPPT_PP_POP_WARNING
-
 	int_vec2 const test(
 		2u,
 		5u
@@ -100,12 +86,13 @@ FCPPT_PP_POP_WARNING
 		test
 	);
 
-	BOOST_CHECK_EQUAL(
+	CHECK(
 		alda::serialization::read<
 			vector_binding
 		>(
 			stream
-		),
+		)
+		==
 		fcppt::either::make_success<
 			alda::raw::stream::error
 		>(

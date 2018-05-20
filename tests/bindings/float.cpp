@@ -13,17 +13,15 @@
 #include <alda/raw/stream/istream.hpp>
 #include <alda/serialization/write.hpp>
 #include <fcppt/unit.hpp>
+#include <fcppt/catch/defer.hpp>
+#include <fcppt/catch/either.hpp>
 #include <fcppt/either/apply.hpp>
 #include <fcppt/either/object.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/either/output.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/test/unit_test.hpp>
+#include <catch.hpp>
 #include <algorithm>
 #include <cmath>
-#include <iostream>
-#include <ostream>
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
 
@@ -54,15 +52,7 @@ fuzzy_equal(
 	> const _val2
 )
 {
-	std::cout
-		<< "Comparing "
-		<< _val1
-		<< " and "
-		<< _val2
-		<< '\n';
-
-
-	BOOST_CHECK(
+	CHECK(
 		(_val1 < 0)
 		==
 		(_val2 < 0)
@@ -100,14 +90,16 @@ fuzzy_equal(
 	if(
 		max < epsilon
 	)
-		BOOST_CHECK(
-			abs1
-			<
-			epsilon
-			&&
-			abs2
-			<
-			epsilon
+		CHECK(
+			fcppt::catch_::defer(
+				abs1
+				<
+				epsilon
+				&&
+				abs2
+				<
+				epsilon
+			)
 		);
 	else
 	{
@@ -122,7 +114,7 @@ fuzzy_equal(
 		if(
 			max > 1.f
 		)
-			BOOST_CHECK(
+			CHECK(
 				abs_diff
 				/
 				max
@@ -130,7 +122,7 @@ fuzzy_equal(
 				epsilon
 			);
 		else
-			BOOST_CHECK(
+			CHECK(
 				abs_diff
 				<
 				epsilon
@@ -153,7 +145,7 @@ fuzzy_equal_either(
 	either_result_type const &_right
 )
 {
-	BOOST_CHECK(
+	CHECK(
 		fcppt::either::apply(
 			[](
 				alda::raw::element_type<
@@ -209,15 +201,11 @@ test_conversion(
 
 }
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-BOOST_AUTO_TEST_CASE(
-	alda_float_stream
+TEST_CASE(
+	"bindings::float",
+	"[catch]"
 )
 {
-FCPPT_PP_POP_WARNING
-
 	test_conversion(
 		0.f
 	);

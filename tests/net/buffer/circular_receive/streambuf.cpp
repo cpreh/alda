@@ -16,11 +16,8 @@
 #include <fcppt/io/read_chars.hpp>
 #include <fcppt/optional/object.hpp>
 #include <fcppt/optional/output.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/test/unit_test.hpp>
+#include <catch.hpp>
 #include <istream>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
@@ -51,15 +48,11 @@ operator<<(
 
 }
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-BOOST_AUTO_TEST_CASE(
-	net_buffer_circular_receive_streambuf
+TEST_CASE(
+	"net::buffer::circularr_eceive::streambuf",
+	"[alda]"
 )
 {
-FCPPT_PP_POP_WARNING
-
 	alda::net::buffer::circular_receive::streambuf buffer{
 		alda::net::buffer::max_receive_size{
 			2u
@@ -75,8 +68,9 @@ FCPPT_PP_POP_WARNING
 			buffer.next_receive_part()
 		};
 
-		BOOST_REQUIRE_EQUAL(
-			2u,
+		REQUIRE(
+			2u
+			==
 			next_part.size()
 		);
 
@@ -91,13 +85,15 @@ FCPPT_PP_POP_WARNING
 		);
 	}
 
-	BOOST_CHECK_EQUAL(
-		buffer.showmanyc(),
+	CHECK(
+		buffer.showmanyc()
+		==
 		2
 	);
 
-	BOOST_REQUIRE_EQUAL(
-		buffer.next_receive_part().size(),
+	CHECK(
+		buffer.next_receive_part().size()
+		==
 		0u
 	);
 
@@ -107,28 +103,31 @@ FCPPT_PP_POP_WARNING
 	>
 	optional_char;
 
-	BOOST_REQUIRE_EQUAL(
+	REQUIRE(
 		fcppt::io::get(
 			stream
-		),
+		)
+		==
 		optional_char(
 			'0'
 		)
 	);
 
-	BOOST_REQUIRE_EQUAL(
+	REQUIRE(
 		fcppt::io::get(
 			stream
-		),
+		)
+		==
 		optional_char(
 			'1'
 		)
 	);
 
-	BOOST_REQUIRE_EQUAL(
+	REQUIRE(
 		fcppt::io::get(
 			stream
-		),
+		)
+		==
 		optional_char()
 	);
 
@@ -136,10 +135,11 @@ FCPPT_PP_POP_WARNING
 
 	stream.unget();
 
-	BOOST_REQUIRE_EQUAL(
+	REQUIRE(
 		fcppt::io::get(
 			stream
-		),
+		)
+		==
 		optional_char(
 			'1'
 		)
@@ -150,8 +150,9 @@ FCPPT_PP_POP_WARNING
 			buffer.next_receive_part()
 		};
 
-		BOOST_REQUIRE_EQUAL(
-			1u,
+		REQUIRE(
+			1u
+			==
 			next_part.size()
 		);
 
@@ -162,8 +163,9 @@ FCPPT_PP_POP_WARNING
 		);
 	}
 
-	BOOST_CHECK_EQUAL(
-		buffer.showmanyc(),
+	CHECK(
+		buffer.showmanyc()
+		==
 		1
 	);
 
@@ -172,8 +174,9 @@ FCPPT_PP_POP_WARNING
 			buffer.next_receive_part()
 		};
 
-		BOOST_REQUIRE_EQUAL(
-			1u,
+		REQUIRE(
+			1u
+			==
 			next_part.size()
 		);
 
@@ -184,45 +187,51 @@ FCPPT_PP_POP_WARNING
 		);
 	}
 
-	BOOST_CHECK_EQUAL(
-		buffer.showmanyc(),
+	CHECK(
+		buffer.showmanyc()
+		==
 		2
 	);
 
 	stream.clear();
 
-	BOOST_REQUIRE_EQUAL(
+	REQUIRE(
 		fcppt::io::get(
 			stream
-		),
+		)
+		==
 		optional_char(
 			'2'
 		)
 	);
 
-	BOOST_CHECK_EQUAL(
-		buffer.showmanyc(),
+	CHECK(
+		buffer.showmanyc()
+		==
 		1
 	);
 
-	BOOST_REQUIRE_EQUAL(
+	REQUIRE(
 		fcppt::io::get(
 			stream
-		),
+		)
+		==
 		optional_char(
 			'3'
 		)
 	);
 
-	BOOST_CHECK_EQUAL(
-		buffer.showmanyc(),
+	CHECK(
+		buffer.showmanyc()
+		==
 		0
 	);
 
-	BOOST_REQUIRE_EQUAL(
+	REQUIRE(
 		fcppt::io::get(
 			stream
-		),
+		)
+		==
 		optional_char()
 	);
 
@@ -230,40 +239,45 @@ FCPPT_PP_POP_WARNING
 
 	stream.unget();
 
-	BOOST_CHECK_EQUAL(
-		buffer.showmanyc(),
+	CHECK(
+		buffer.showmanyc()
+		==
 		1
 	);
 
 	stream.unget();
 
-	BOOST_CHECK_EQUAL(
-		buffer.showmanyc(),
+	CHECK(
+		buffer.showmanyc()
+		==
 		2
 	);
 
-	BOOST_REQUIRE_EQUAL(
+	REQUIRE(
 		fcppt::io::get(
 			stream
-		),
+		)
+		==
 		optional_char(
 			'2'
 		)
 	);
 
-	BOOST_REQUIRE_EQUAL(
+	REQUIRE(
 		fcppt::io::get(
 			stream
-		),
+		)
+		==
 		optional_char(
 			'3'
 		)
 	);
 
-	BOOST_REQUIRE_EQUAL(
+	REQUIRE(
 		fcppt::io::get(
 			stream
-		),
+		)
+		==
 		optional_char()
 	);
 
@@ -273,11 +287,12 @@ FCPPT_PP_POP_WARNING
 
 	stream.unget();
 
-	BOOST_CHECK_EQUAL(
+	CHECK(
 		fcppt::io::read_chars(
 			stream,
 			2
-		),
+		)
+		==
 		fcppt::io::optional_buffer(
 			fcppt::io::buffer{
 				'2',

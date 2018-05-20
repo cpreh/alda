@@ -11,14 +11,16 @@
 #include <alda/raw/stream/istream.hpp>
 #include <alda/serialization/write.hpp>
 #include <fcppt/literal.hpp>
+#include <fcppt/strong_typedef_output.hpp>
+#include <fcppt/catch/either.hpp>
 #include <fcppt/either/object.hpp>
+#include <fcppt/either/output.hpp>
 #include <fcppt/endianness/format.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/test/unit_test.hpp>
+#include <catch.hpp>
 #include <cstdint>
 #include <limits>
 #include <sstream>
@@ -38,15 +40,6 @@ alda::bindings::signed_<
 	fcppt::endianness::format::little
 >
 int_binding;
-
-bool
-check_exception(
-	alda::exception const &
-)
-{
-	return
-		true;
-}
 
 typedef
 fcppt::either::object<
@@ -78,29 +71,22 @@ test_conversion(
 		)
 	);
 
-	BOOST_CHECK_EQUAL(
+	CHECK(
 		either_result_type{
 			_value
-		},
+		}
+		==
 		result
 	);
 }
 
 }
 
-BOOST_TEST_DONT_PRINT_LOG_VALUE(
-	either_result_type
-)
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-BOOST_AUTO_TEST_CASE(
-	alda_signed_stream
+TEST_CASE(
+	"bindings::signed",
+	"[alda]"
 )
 {
-FCPPT_PP_POP_WARNING
-
 	int_type const max_value(
 		std::numeric_limits<
 			int_type
@@ -161,15 +147,14 @@ FCPPT_PP_DISABLE_VC_WARNING(4127)
 	{
 		std::ostringstream stream;
 
-		BOOST_CHECK_EXCEPTION(
+		CHECK_THROWS_AS(
 			alda::serialization::write<
 				int_binding
 			>(
 				stream,
 				min_value
 			),
-			alda::exception,
-			::check_exception
+			alda::exception
 		);
 	}
 FCPPT_PP_POP_WARNING
