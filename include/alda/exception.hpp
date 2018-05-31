@@ -26,7 +26,7 @@ public:
 	ALDA_DETAIL_SYMBOL
 	explicit
 	exception(
-		fcppt::string const &
+		fcppt::string &&
 	);
 
 	ALDA_DETAIL_SYMBOL

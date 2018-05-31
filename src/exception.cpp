@@ -7,15 +7,21 @@
 #include <alda/exception.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/assert/information_fwd.hpp>
 #include <fcppt/assert/make_message.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 alda::exception::exception(
-	fcppt::string const &_message
+	fcppt::string &&_message
 )
 :
 	fcppt::exception(
-		_message
+		std::move(
+			_message
+		)
 	)
 {
 }
