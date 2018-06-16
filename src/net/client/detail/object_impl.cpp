@@ -17,7 +17,7 @@
 #include <alda/net/client/error_callback.hpp>
 #include <alda/src/net/client/detail/object_impl.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/insert_to_std_string.hpp>
+#include <fcppt/output_to_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/strong_typedef_output.hpp>
@@ -116,7 +116,7 @@ alda::net::client::detail::object_impl::connect(
 		>(
 			boost::asio::ip::tcp::v4(),
 			_host.get(),
-			fcppt::insert_to_std_string(
+			fcppt::output_to_std_string(
 				_port
 			)
 		)

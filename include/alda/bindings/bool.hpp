@@ -20,7 +20,7 @@
 #include <alda/raw/stream/reference.hpp>
 #include <alda/raw/stream/result.hpp>
 #include <alda/raw/stream/return.hpp>
-#include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/promote_int.hpp>
@@ -148,7 +148,7 @@ make_generic(
 						>(
 							FCPPT_TEXT("Invalid value: ")
 							+
-							fcppt::insert_to_fcppt_string(
+							fcppt::output_to_fcppt_string(
 								fcppt::cast::promote_int(
 									_element
 								)

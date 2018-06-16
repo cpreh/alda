@@ -33,7 +33,7 @@
 #include <alda/serialization/length/remaining_size_function.hpp>
 #include <alda/serialization/length/serialize.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/insert_to_std_string.hpp>
+#include <fcppt/output_to_std_string.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -307,7 +307,7 @@ private:
 			alda::raw::element_type<
 				string_type
 			>(
-				fcppt::insert_to_std_string(
+				fcppt::output_to_std_string(
 					value_
 				)
 			)
@@ -373,7 +373,7 @@ TEST_CASE(
 							casted_index
 						),
 					string_role{} =
-						fcppt::insert_to_std_string(
+						fcppt::output_to_std_string(
 							casted_index
 						)
 				)
