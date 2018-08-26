@@ -19,7 +19,7 @@
 #include <fcppt/enum/array_init.hpp>
 #include <fcppt/enum/size.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
 

@@ -50,7 +50,7 @@
 #include <fcppt/variant/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <brigand/sequences/list.hpp>
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 #include <cstdint>
 #include <sstream>
 #include <string>

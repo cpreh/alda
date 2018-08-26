@@ -24,7 +24,7 @@
 #include <fcppt/record/make_label.hpp>
 #include <fcppt/record/output.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
 
