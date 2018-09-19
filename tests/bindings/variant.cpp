@@ -77,13 +77,6 @@ fcppt::variant::object<
 >
 variant_type;
 
-typedef
-fcppt::either::object<
-	alda::raw::stream::error,
-	variant_type
->
-result_type;
-
 }
 
 namespace
