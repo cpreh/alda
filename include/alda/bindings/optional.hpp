@@ -23,6 +23,7 @@
 #include <alda/raw/stream/result.hpp>
 #include <alda/raw/stream/return.hpp>
 #include <fcppt/const.hpp>
+#include <fcppt/config/compiler.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/object_impl.hpp>
@@ -238,7 +239,9 @@ needed_size(
 				ret
 			),
 			[
+#if defined(FCPPT_CONFIG_MSVC_COMPILER)
 				ret
+#endif
 			](
 				Type const &_value
 			)
