@@ -225,7 +225,7 @@ needed_size(
 	binding::bool_type
 	bool_type;
 
-	alda::raw::size_type const ret(
+	constexpr alda::raw::size_type const ret(
 		alda::raw::needed_size_static<
 			bool_type
 		>()
@@ -237,7 +237,9 @@ needed_size(
 			fcppt::const_(
 				ret
 			),
-			[](
+			[
+				ret
+			](
 				Type const &_value
 			)
 			{
