@@ -14,6 +14,7 @@
 #include <alda/raw/stream/error.hpp>
 #include <alda/raw/stream/istream.hpp>
 #include <alda/serialization/detail/read_decl.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/tag.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
@@ -61,9 +62,11 @@ alda::serialization::detail::read<
 							alda::exception{
 								FCPPT_TEXT("Message stream failed while reading message ")
 								+
-								fcppt::type_name_from_info(
-									typeid(
-										Message
+								fcppt::from_std_string(
+									fcppt::type_name_from_info(
+										typeid(
+											Message
+										)
 									)
 								)
 								+

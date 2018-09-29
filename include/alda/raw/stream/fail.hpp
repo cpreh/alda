@@ -10,6 +10,7 @@
 #include <alda/raw/stream/error.hpp>
 #include <alda/raw/stream/failure.hpp>
 #include <alda/raw/stream/result.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
@@ -49,9 +50,11 @@ fail(
 		alda::raw::stream::failure{
 			FCPPT_TEXT("Type ")
 			+
-			fcppt::type_name_from_info(
-				typeid(
-					Type
+			fcppt::from_std_string(
+				fcppt::type_name_from_info(
+					typeid(
+						Type
+					)
 				)
 			)
 			+
