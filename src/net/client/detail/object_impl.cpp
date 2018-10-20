@@ -26,7 +26,7 @@
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/config/compiler.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/name.hpp>
@@ -101,7 +101,7 @@ alda::net::client::detail::object_impl::connect(
 {
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("resolving hostname ")
 			<< fcppt::from_std_string(
 				_host.get()
@@ -217,7 +217,7 @@ alda::net::client::detail::object_impl::resolve_handler(
 
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("resolved domain, trying to connect")
 	);
 
@@ -246,7 +246,7 @@ alda::net::client::detail::object_impl::handle_error(
 
 	FCPPT_LOG_ERROR(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< _message
 			<< FCPPT_TEXT(" (")
 			<< fcppt::from_std_string(
@@ -285,7 +285,7 @@ alda::net::client::detail::object_impl::read_handler(
 
 	FCPPT_LOG_VERBOSE(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("read ")
 			<< _bytes
 			<< FCPPT_TEXT(" bytes.")
@@ -318,7 +318,7 @@ alda::net::client::detail::object_impl::write_handler(
 
 	FCPPT_LOG_VERBOSE(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("wrote ")
 			<< _bytes
 			<< FCPPT_TEXT(" bytes")
@@ -372,7 +372,7 @@ FCPPT_PP_POP_WARNING
 
 		FCPPT_LOG_DEBUG(
 			log_,
-			fcppt::log::_
+			fcppt::log::out
 				<< FCPPT_TEXT("resolving next endpoint")
 		);
 
@@ -395,7 +395,7 @@ FCPPT_PP_POP_WARNING
 
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("connected")
 	);
 

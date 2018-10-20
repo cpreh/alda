@@ -33,7 +33,7 @@
 #include <fcppt/cast/size.hpp>
 #include <fcppt/config/compiler.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/name.hpp>
@@ -106,7 +106,7 @@ alda::net::server::detail::object_impl::listen(
 {
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("listening on port ")
 			<< _port
 	);
@@ -353,7 +353,7 @@ alda::net::server::detail::object_impl::read_handler(
 
 	FCPPT_LOG_VERBOSE(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("reading ")
 			<< _bytes
 			<< FCPPT_TEXT(" bytes.")
@@ -395,7 +395,7 @@ alda::net::server::detail::object_impl::write_handler(
 
 	FCPPT_LOG_VERBOSE(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("wrote ")
 			<< _bytes
 			<< FCPPT_TEXT(" bytes.")
@@ -431,7 +431,7 @@ alda::net::server::detail::object_impl::accept_handler(
 	{
 		FCPPT_LOG_DEBUG(
 			log_,
-			fcppt::log::_
+			fcppt::log::out
 				<< FCPPT_TEXT("error while accepting")
 		);
 
@@ -442,7 +442,7 @@ alda::net::server::detail::object_impl::accept_handler(
 
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("accepting a connection, id is ")
 			<< _new_connection->id()
 	);
@@ -497,7 +497,7 @@ alda::net::server::detail::object_impl::handle_error(
 
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("disconnected ")
 			<< _con.id()
 			<< FCPPT_TEXT(" (")
