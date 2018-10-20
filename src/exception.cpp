@@ -37,3 +37,29 @@ alda::exception::exception(
 	)
 {
 }
+
+alda::exception::exception(
+	exception &&
+)
+= default;
+
+alda::exception::exception(
+	exception const &
+)
+= default;
+
+alda::exception &
+alda::exception::operator=(
+	exception &&
+)
+= default;
+
+alda::exception &
+alda::exception::operator=(
+	exception const &
+)
+= default;
+
+alda::exception::~exception() noexcept
+{
+}

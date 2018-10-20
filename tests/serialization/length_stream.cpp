@@ -43,6 +43,9 @@
 #include <fcppt/optional/comparison.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/output.hpp>
+#include <fcppt/preprocessor/disable_clang_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/get.hpp>
 #include <fcppt/record/make_label.hpp>
@@ -225,11 +228,17 @@ namespace
 namespace register1
 {
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_CLANG_WARNING(-Wglobal-constructors)
+FCPPT_PP_DISABLE_CLANG_WARNING(-Wexit-time-destructors)
+
 ALDA_SERIALIZATION_REGISTER_MESSAGE(
 	global_context(),
 	type_enum,
 	message1
 );
+
+FCPPT_PP_POP_WARNING
 
 }
 

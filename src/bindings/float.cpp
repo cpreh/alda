@@ -49,7 +49,7 @@ fixed_int const sign_bit(
 	0x1u
 );
 
-float_type const exp(
+constexpr float_type const exp(
 	fcppt::cast::int_to_float<
 		float_type
 	>(

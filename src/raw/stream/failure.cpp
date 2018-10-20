@@ -8,16 +8,47 @@
 #include <alda/raw/stream/failure.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 alda::raw::stream::failure::failure(
-	fcppt::string const &_text
+	fcppt::string &&_text
 )
 :
 	alda::exception{
 		FCPPT_TEXT("Stream failure: ")
 		+
-		_text
+		std::move(
+			_text
+		)
 	}
+{
+}
+
+alda::raw::stream::failure::failure(
+	failure &&
+)
+= default;
+
+alda::raw::stream::failure::failure(
+	failure const &
+)
+= default;
+
+alda::raw::stream::failure &
+alda::raw::stream::failure::operator=(
+	failure &&
+)
+= default;
+
+alda::raw::stream::failure &
+alda::raw::stream::failure::operator=(
+	failure const &
+)
+= default;
+
+alda::raw::stream::failure::~failure() noexcept
 {
 }

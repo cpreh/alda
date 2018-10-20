@@ -8,6 +8,7 @@
 #define ALDA_SERIALIZATION_DEFINE_CONTEXT_FUNCTION_HPP_INCLUDED
 
 #include <alda/serialization/context_decl.hpp>
+#include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -19,6 +20,8 @@
 ) \
 FCPPT_PP_PUSH_WARNING \
 FCPPT_PP_DISABLE_VC_WARNING(4640) \
+FCPPT_PP_DISABLE_CLANG_WARNING(-Wglobal-constructors) \
+FCPPT_PP_DISABLE_CLANG_WARNING(-Wexit-time-destructors) \
 alda::serialization::context<\
 	type_enum\
 > &\

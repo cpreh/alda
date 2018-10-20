@@ -34,6 +34,32 @@ public:
 	exception(
 		fcppt::assert_::information const &
 	);
+
+	ALDA_DETAIL_SYMBOL
+	exception(
+		exception &&
+	);
+
+	ALDA_DETAIL_SYMBOL
+	exception(
+		exception const &
+	);
+
+	ALDA_DETAIL_SYMBOL
+	exception &
+	operator=(
+		exception &&
+	);
+
+	ALDA_DETAIL_SYMBOL
+	exception &
+	operator=(
+		exception const &
+	);
+
+	ALDA_DETAIL_SYMBOL
+	~exception() noexcept
+	override;
 };
 
 }

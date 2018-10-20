@@ -26,6 +26,9 @@
 #include <alda/serialization/serialize.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/endianness/format.hpp>
+#include <fcppt/preprocessor/disable_clang_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/get.hpp>
 #include <fcppt/record/make_label.hpp>
@@ -176,6 +179,10 @@ ALDA_SERIALIZATION_INSTANTIATE_MESSAGE(
 namespace
 {
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_CLANG_WARNING(-Wglobal-constructors)
+FCPPT_PP_DISABLE_CLANG_WARNING(-Wexit-time-destructors)
+
 namespace register1
 {
 
@@ -197,6 +204,8 @@ ALDA_SERIALIZATION_REGISTER_MESSAGE(
 );
 
 }
+
+FCPPT_PP_POP_WARNING
 
 struct dispatcher_function
 {

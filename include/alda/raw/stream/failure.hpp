@@ -29,8 +29,34 @@ public:
 	ALDA_DETAIL_SYMBOL
 	explicit
 	failure(
-		fcppt::string const &
+		fcppt::string &&
 	);
+
+	ALDA_DETAIL_SYMBOL
+	failure(
+		failure &&
+	);
+
+	ALDA_DETAIL_SYMBOL
+	failure(
+		failure const &
+	);
+
+	ALDA_DETAIL_SYMBOL
+	failure &
+	operator=(
+		failure &&
+	);
+
+	ALDA_DETAIL_SYMBOL
+	failure &
+	operator=(
+		failure const &
+	);
+
+	ALDA_DETAIL_SYMBOL
+	~failure() noexcept
+	override;
 };
 
 }
