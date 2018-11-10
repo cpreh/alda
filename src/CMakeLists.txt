@@ -89,6 +89,8 @@ set(
 	include/alda/message/base_unique_ptr.hpp
 	include/alda/message/concrete_decl.hpp
 	include/alda/message/concrete_fwd.hpp
+	include/alda/message/declare_base.hpp
+	include/alda/message/declare_concrete.hpp
 	include/alda/message/detail/extract_id.hpp
 	include/alda/message/detail/extract_id_tpl.hpp
 	include/alda/message/element_type.hpp
@@ -197,6 +199,9 @@ set(
 	include/alda/serialization/buffer_to_stream.hpp
 	include/alda/serialization/context_decl.hpp
 	include/alda/serialization/context_fwd.hpp
+	include/alda/serialization/declare_context.hpp
+	include/alda/serialization/declare_details.hpp
+	include/alda/serialization/declare_message.hpp
 	include/alda/serialization/define_context_function.hpp
 	include/alda/serialization/deserialize.hpp
 	include/alda/serialization/detail/dispatch/base_decl.hpp
