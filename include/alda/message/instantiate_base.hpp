@@ -7,7 +7,6 @@
 #ifndef ALDA_MESSAGE_INSTANTIATE_BASE_HPP_INCLUDED
 #define ALDA_MESSAGE_INSTANTIATE_BASE_HPP_INCLUDED
 
-#include <alda/detail/export_external_class_instantiation.hpp>
 #include <alda/message/impl/base_impl.hpp>
 
 
@@ -16,7 +15,6 @@
 )\
 template \
 class \
-ALDA_DETAIL_EXPORT_EXTERNAL_CLASS_INSTANTIATION \
 alda::message::base<\
 	type_enum\
 >

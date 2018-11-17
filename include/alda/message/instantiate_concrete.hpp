@@ -7,7 +7,6 @@
 #ifndef ALDA_MESSAGE_INSTANTIATE_CONCRETE_HPP_INCLUDED
 #define ALDA_MESSAGE_INSTANTIATE_CONCRETE_HPP_INCLUDED
 
-#include <alda/detail/export_external_class_instantiation.hpp>
 #include <alda/message/impl/concrete_impl.hpp>
 
 
@@ -17,7 +16,6 @@
 )\
 template \
 class \
-ALDA_DETAIL_EXPORT_EXTERNAL_CLASS_INSTANTIATION \
 alda::message::concrete<\
 	type_enum,\
 	message_type\
