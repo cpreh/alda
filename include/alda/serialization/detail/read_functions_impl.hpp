@@ -53,7 +53,7 @@ alda::serialization::detail::read<
 						typename
 						Message::binding
 					>(
-						stream_
+						this->stream_.get()
 					),
 					[](
 						alda::raw::stream::error const &_error

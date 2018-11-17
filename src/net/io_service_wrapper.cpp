@@ -23,5 +23,6 @@ alda::net::io_service_wrapper::io_service_wrapper(
 boost::asio::io_service &
 alda::net::io_service_wrapper::get() const
 {
-	return io_service_;
+	return
+		io_service_.get();
 }

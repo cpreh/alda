@@ -11,7 +11,7 @@
 #include <alda/message/base_unique_ptr.hpp>
 #include <alda/serialization/istream_fwd.hpp>
 #include <alda/serialization/detail/read_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/tag_fwd.hpp>
 
 
@@ -27,9 +27,6 @@ template<
 >
 class read
 {
-	FCPPT_NONASSIGNABLE(
-		read
-	);
 public:
 	typedef alda::message::base_unique_ptr<
 		TypeEnum
@@ -51,7 +48,9 @@ public:
 		>
 	) const;
 private:
-	alda::serialization::istream &stream_;
+	fcppt::reference<
+		alda::serialization::istream
+	> stream_;
 };
 
 }

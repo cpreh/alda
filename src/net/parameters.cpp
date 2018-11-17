@@ -37,14 +37,14 @@ fcppt::log::context &
 alda::net::parameters::log_context() const
 {
 	return
-		log_context_;
+		log_context_.get();
 }
 
 alda::net::io_service_wrapper const &
 alda::net::parameters::io_service_wrapper() const
 {
 	return
-		io_service_wrapper_;
+		io_service_wrapper_.get();
 }
 
 alda::net::buffer::max_send_size

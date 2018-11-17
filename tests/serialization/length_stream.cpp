@@ -36,7 +36,6 @@
 #include <fcppt/output_to_std_string.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_int_range_count.hpp>
-#include <fcppt/nonassignable.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/endianness/format.hpp>
@@ -244,9 +243,6 @@ FCPPT_PP_POP_WARNING
 
 struct dispatcher_function
 {
-	FCPPT_NONASSIGNABLE(
-		dispatcher_function
-	);
 public:
 	explicit
 	dispatcher_function(
@@ -323,7 +319,7 @@ private:
 		);
 	}
 
-	std::uint16_t const value_;
+	std::uint16_t value_;
 };
 
 }
