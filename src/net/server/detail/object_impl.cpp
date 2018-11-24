@@ -109,7 +109,7 @@ alda::net::server::detail::object_impl::listen(
 		fcppt::log::out
 			<< FCPPT_TEXT("listening on port ")
 			<< _port
-	);
+	)
 
 	boost::asio::ip::tcp::endpoint const endpoint(
 		boost::asio::ip::tcp::v4(),
@@ -357,7 +357,7 @@ alda::net::server::detail::object_impl::read_handler(
 			<< FCPPT_TEXT("reading ")
 			<< _bytes
 			<< FCPPT_TEXT(" bytes.")
-	);
+	)
 
 	_con.received_data().bytes_received(
 		_bytes
@@ -399,7 +399,7 @@ alda::net::server::detail::object_impl::write_handler(
 			<< FCPPT_TEXT("wrote ")
 			<< _bytes
 			<< FCPPT_TEXT(" bytes.")
-	);
+	)
 
 	alda::net::buffer::circular_send::streambuf &sent_data(
 		_con.send_data()
@@ -433,7 +433,7 @@ alda::net::server::detail::object_impl::accept_handler(
 			log_,
 			fcppt::log::out
 				<< FCPPT_TEXT("error while accepting")
-		);
+		)
 
 		this->accept();
 
@@ -445,7 +445,7 @@ alda::net::server::detail::object_impl::accept_handler(
 		fcppt::log::out
 			<< FCPPT_TEXT("accepting a connection, id is ")
 			<< _new_connection->id()
-	);
+	)
 
 	alda::net::id const new_id(
 		_new_connection->id()
@@ -503,7 +503,7 @@ alda::net::server::detail::object_impl::handle_error(
 			<< FCPPT_TEXT(" (")
 			<< error_msg
 			<< FCPPT_TEXT(")")
-	);
+	)
 
 	alda::net::id const id(
 		_con.id()

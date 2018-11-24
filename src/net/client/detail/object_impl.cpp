@@ -108,7 +108,7 @@ alda::net::client::detail::object_impl::connect(
 			)
 			<< FCPPT_TEXT(" on port ")
 			<< _port
-	);
+	)
 
 	query_unique_ptr query(
 		fcppt::make_unique_ptr<
@@ -219,7 +219,7 @@ alda::net::client::detail::object_impl::resolve_handler(
 		log_,
 		fcppt::log::out
 			<< FCPPT_TEXT("resolved domain, trying to connect")
-	);
+	)
 
 	boost::asio::ip::tcp::endpoint const endpoint(
 		*_iterator
@@ -253,7 +253,7 @@ alda::net::client::detail::object_impl::handle_error(
 				_error.message()
 			)
 			<< FCPPT_TEXT(')')
-	);
+	)
 
 	error_signal_(
 		_message,
@@ -289,7 +289,7 @@ alda::net::client::detail::object_impl::read_handler(
 			<< FCPPT_TEXT("read ")
 			<< _bytes
 			<< FCPPT_TEXT(" bytes.")
-	);
+	)
 
 	data_signal_(
 		receive_buffer_
@@ -322,7 +322,7 @@ alda::net::client::detail::object_impl::write_handler(
 			<< FCPPT_TEXT("wrote ")
 			<< _bytes
 			<< FCPPT_TEXT(" bytes")
-	);
+	)
 
 	send_buffer_.bytes_sent(
 		_bytes
@@ -374,7 +374,7 @@ FCPPT_PP_POP_WARNING
 			log_,
 			fcppt::log::out
 				<< FCPPT_TEXT("resolving next endpoint")
-		);
+		)
 
 		boost::asio::ip::tcp::endpoint const endpoint(
 			*_iterator
@@ -397,7 +397,7 @@ FCPPT_PP_POP_WARNING
 		log_,
 		fcppt::log::out
 			<< FCPPT_TEXT("connected")
-	);
+	)
 
 	connect_signal_();
 
