@@ -13,11 +13,9 @@
 #include <alda/raw/stream/istream.hpp>
 #include <alda/serialization/write.hpp>
 #include <fcppt/unit.hpp>
-#include <fcppt/catch/defer.hpp>
 #include <fcppt/catch/either.hpp>
 #include <fcppt/either/apply.hpp>
 #include <fcppt/either/object.hpp>
-#include <fcppt/either/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch.hpp>
 #include <algorithm>
@@ -90,17 +88,19 @@ fuzzy_equal(
 	if(
 		max < epsilon
 	)
+	{
 		CHECK(
-			fcppt::catch_::defer(
-				abs1
-				<
-				epsilon
-				&&
-				abs2
-				<
-				epsilon
-			)
+			abs1
+			<
+			epsilon
 		);
+
+		CHECK(
+			abs2
+			<
+			epsilon
+		);
+	}
 	else
 	{
 		float_type const abs_diff(

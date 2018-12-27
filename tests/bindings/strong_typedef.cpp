@@ -13,11 +13,10 @@
 #include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/public_config.hpp>
 #include <fcppt/strong_typedef.hpp>
-#include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/catch/either.hpp>
+#include <fcppt/catch/strong_typedef.hpp>
 #include <fcppt/either/make_success.hpp>
 #include <fcppt/either/object.hpp>
-#include <fcppt/either/output.hpp>
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch.hpp>

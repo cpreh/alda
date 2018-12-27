@@ -10,13 +10,12 @@
 #include <alda/raw/stream/error.hpp>
 #include <alda/raw/stream/istream.hpp>
 #include <alda/serialization/write.hpp>
-#include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/catch/either.hpp>
+#include <fcppt/catch/optional.hpp>
+#include <fcppt/catch/strong_typedef.hpp>
 #include <fcppt/either/object.hpp>
-#include <fcppt/either/output.hpp>
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/optional/object.hpp>
-#include <fcppt/optional/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch.hpp>
 #include <cstdint>

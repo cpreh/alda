@@ -11,10 +11,9 @@
 #include <alda/raw/stream/istream.hpp>
 #include <alda/serialization/write.hpp>
 #include <fcppt/literal.hpp>
-#include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/catch/either.hpp>
+#include <fcppt/catch/strong_typedef.hpp>
 #include <fcppt/either/object.hpp>
-#include <fcppt/either/output.hpp>
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>

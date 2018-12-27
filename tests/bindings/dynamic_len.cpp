@@ -13,7 +13,8 @@
 #include <alda/raw/stream/error.hpp>
 #include <alda/raw/stream/istream.hpp>
 #include <alda/serialization/write.hpp>
-#include <fcppt/catch/defer.hpp>
+#include <fcppt/catch/either.hpp>
+#include <fcppt/catch/strong_typedef.hpp>
 #include <fcppt/either/object.hpp>
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -105,12 +106,10 @@ TEST_CASE(
 	);
 
 	CHECK(
-		fcppt::catch_::defer(
-			result
-			==
-			either_result_type{
-				vec
-			}
-		)
+		result
+		==
+		either_result_type{
+			vec
+		}
 	);
 }

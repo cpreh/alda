@@ -11,7 +11,8 @@
 #include <alda/raw/stream/error.hpp>
 #include <alda/serialization/read.hpp>
 #include <alda/serialization/write.hpp>
-#include <fcppt/catch/defer.hpp>
+#include <fcppt/catch/either.hpp>
+#include <fcppt/catch/strong_typedef.hpp>
 #include <fcppt/either/make_success.hpp>
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -70,20 +71,18 @@ TEST_CASE(
 	);
 
 	CHECK(
-		fcppt::catch_::defer(
-			alda::serialization::read<
-				duration_binding
-			>(
-				stream
-			)
-			==
-			fcppt::either::make_success<
-				alda::raw::stream::error
-			>(
-				duration{
-					10u
-				}
-			)
+		alda::serialization::read<
+			duration_binding
+		>(
+			stream
+		)
+		==
+		fcppt::either::make_success<
+			alda::raw::stream::error
+		>(
+			duration{
+				10u
+			}
 		)
 	);
 }

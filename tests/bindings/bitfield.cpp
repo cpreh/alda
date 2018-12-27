@@ -13,7 +13,6 @@
 #include <alda/serialization/read.hpp>
 #include <alda/serialization/write.hpp>
 #include <fcppt/brigand/ceil_div.hpp>
-#include <fcppt/catch/defer.hpp>
 #include <fcppt/container/bitfield/comparison.hpp>
 #include <fcppt/container/bitfield/object.hpp>
 #include <fcppt/either/comparison.hpp>
@@ -80,18 +79,16 @@ TEST_CASE(
 	);
 
 	CHECK(
-		fcppt::catch_::defer(
-			alda::serialization::read<
-				bitfield_binding
-			>(
-				stream
-			)
-			==
-			fcppt::either::make_success<
-				alda::raw::stream::error
-			>(
-				test
-			)
+		alda::serialization::read<
+			bitfield_binding
+		>(
+			stream
+		)
+		==
+		fcppt::either::make_success<
+			alda::raw::stream::error
+		>(
+			test
 		)
 	);
 }

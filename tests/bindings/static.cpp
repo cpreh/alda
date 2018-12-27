@@ -10,11 +10,10 @@
 #include <alda/raw/stream/error.hpp>
 #include <alda/serialization/read.hpp>
 #include <alda/serialization/write.hpp>
-#include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/catch/either.hpp>
+#include <fcppt/catch/strong_typedef.hpp>
 #include <fcppt/either/make_success.hpp>
 #include <fcppt/either/object.hpp>
-#include <fcppt/either/output.hpp>
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/math/vector/comparison.hpp>
 #include <fcppt/math/vector/output.hpp>

@@ -11,7 +11,8 @@
 #include <alda/serialization/read.hpp>
 #include <alda/serialization/write.hpp>
 #include <fcppt/cast/enum_to_int.hpp>
-#include <fcppt/catch/defer.hpp>
+#include <fcppt/catch/either.hpp>
+#include <fcppt/catch/strong_typedef.hpp>
 #include <fcppt/either/make_success.hpp>
 #include <fcppt/either/object.hpp>
 #include <fcppt/endianness/format.hpp>
@@ -117,18 +118,16 @@ TEST_CASE(
 	);
 
 	CHECK(
-		fcppt::catch_::defer(
-			alda::serialization::read<
-				array_binding
-			>(
-				stream
-			)
-			==
-			fcppt::either::make_success<
-				alda::raw::stream::error
-			>(
-				test
-			)
+		alda::serialization::read<
+			array_binding
+		>(
+			stream
+		)
+		==
+		fcppt::either::make_success<
+			alda::raw::stream::error
+		>(
+			test
 		)
 	);
 }
