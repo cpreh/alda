@@ -17,7 +17,6 @@
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/pre_message.hpp>
-#include <fcppt/preprocessor/warn_unused_result.hpp>
 
 
 namespace alda
@@ -33,26 +32,9 @@ template<
 	typename LengthType,
 	typename TypeEnum
 >
+[[nodiscard]]
 bool
 put_message(
-	alda::message::base<
-		TypeEnum
-	> const &,
-	alda::net::buffer::circular_send::streambuf &
-)
-FCPPT_PP_WARN_UNUSED_RESULT;
-
-}
-}
-}
-}
-
-template<
-	typename LengthType,
-	typename TypeEnum
->
-bool
-alda::net::buffer::circular_send::put_message(
 	alda::message::base<
 		TypeEnum
 	> const &_message,
@@ -104,6 +86,11 @@ alda::net::buffer::circular_send::put_message(
 
 	return
 		true;
+}
+
+}
+}
+}
 }
 
 #endif

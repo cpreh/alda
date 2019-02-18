@@ -11,7 +11,6 @@
 #include <alda/raw/needed_size.hpp>
 #include <alda/raw/place.hpp>
 #include <alda/raw/pointer.hpp>
-#include <fcppt/preprocessor/warn_unused_result.hpp>
 
 
 namespace alda
@@ -22,18 +21,7 @@ namespace raw
 template<
 	typename Type
 >
-alda::raw::pointer
-place_and_update(
-	alda::raw::element_type<
-		Type
-	> const &,
-	alda::raw::pointer
-)
-FCPPT_PP_WARN_UNUSED_RESULT;
-
-template<
-	typename Type
->
+[[nodiscard]]
 inline
 alda::raw::pointer
 place_and_update(
