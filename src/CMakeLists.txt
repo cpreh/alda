@@ -420,6 +420,25 @@ function(
 		fcppt_log_interface
 	)
 
+	if(
+		NOT
+		${VARIANT}
+		STREQUAL
+		"INTERFACE"
+	)
+		target_compile_definitions(
+			${ALDA_LIB_NAME}
+			PRIVATE
+			BOOST_ALL_NO_LIB
+		)
+	endif()
+
+	target_compile_definitions(
+		${ALDA_LIB_NAME}
+		INTERFACE
+		BOOST_ALL_NO_LIB
+	)
+
 	fcppt_utils_export_install_target(
 		${ALDA_LIB_NAME}
 	)
