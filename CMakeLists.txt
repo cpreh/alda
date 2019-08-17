@@ -44,7 +44,6 @@ fcppt_utils_link_target(
 
 set(
 	NEEDED_BOOST_LIBS
-	"filesystem"
 	"system"
 )
 

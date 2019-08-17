@@ -35,7 +35,7 @@ add_alda_example(
 	COMPILE_OPTIONS
 		${FCPPT_UTILS_MAIN_COMPILE_OPTIONS}
 	LINK_LIBS
-		${Boost_FILESYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 		${fcppt_core_TARGET}
 		${fcppt_filesystem_TARGET}
 		${fcppt_options_TARGET}

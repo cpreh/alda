@@ -36,10 +36,10 @@
 #include <fcppt/record/make_label.hpp>
 #include <fcppt/record/get.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
 #include <array>
 #include <cstdint>
 #include <cstdlib>
+#include <filesystem>
 #include <fstream>
 #include <istream>
 #include <ios>
@@ -395,7 +395,7 @@ FCPPT_MAIN(
 				> const &_args
 			)
 			{
-				boost::filesystem::path const path{
+				std::filesystem::path const path{
 					fcppt::record::get<
 						path_label
 					>(
