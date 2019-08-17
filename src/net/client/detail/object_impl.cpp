@@ -17,8 +17,8 @@
 #include <alda/net/client/error_callback.hpp>
 #include <alda/src/net/client/detail/object_impl.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/output_to_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/output_to_std_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
@@ -26,10 +26,10 @@
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/config/compiler.hpp>
-#include <fcppt/log/out.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/name.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/parameters.hpp>
 #include <fcppt/log/verbose.hpp>
 #include <fcppt/log/format/optional_function.hpp>

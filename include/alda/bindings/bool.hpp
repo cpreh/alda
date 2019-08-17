@@ -20,8 +20,8 @@
 #include <alda/raw/stream/reference.hpp>
 #include <alda/raw/stream/result.hpp>
 #include <alda/raw/stream/return.hpp>
-#include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/literal.hpp>
+#include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/promote_int.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>

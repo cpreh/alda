@@ -31,7 +31,6 @@
 #include <fcppt/algorithm/loop_break_brigand.hpp>
 #include <fcppt/record/element_to_label.hpp>
 #include <fcppt/record/element_to_type.hpp>
-#include <fcppt/record/element_to_type.hpp>
 #include <fcppt/record/get.hpp>
 #include <fcppt/record/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>

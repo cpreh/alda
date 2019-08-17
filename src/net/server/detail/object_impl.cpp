@@ -33,11 +33,11 @@
 #include <fcppt/cast/size.hpp>
 #include <fcppt/config/compiler.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
-#include <fcppt/log/out.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/name.hpp>
 #include <fcppt/log/object.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/parameters.hpp>
 #include <fcppt/log/verbose.hpp>
 #include <fcppt/log/format/optional_function.hpp>

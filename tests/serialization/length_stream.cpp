@@ -33,9 +33,9 @@
 #include <alda/serialization/length/remaining_size_function.hpp>
 #include <alda/serialization/length/serialize.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/output_to_std_string.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_int_range_count.hpp>
+#include <fcppt/output_to_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/endianness/format.hpp>
