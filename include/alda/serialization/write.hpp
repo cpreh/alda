@@ -14,8 +14,9 @@
 #include <alda/serialization/buffer_to_stream.hpp>
 #include <alda/serialization/ostream.hpp>
 #include <alda/serialization/static_buffer_to_stream.hpp>
+#include <fcppt/not.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -28,13 +29,12 @@ template<
 	typename Type
 >
 inline
-typename
-boost::enable_if<
+std::enable_if_t<
 	alda::raw::is_static_size<
 		Type
-	>,
+	>::value,
 	void
->::type
+>
 write(
 	alda::serialization::ostream &_stream,
 	alda::raw::element_type<
@@ -58,13 +58,14 @@ template<
 	typename Type
 >
 inline
-typename
-boost::disable_if<
-	alda::raw::is_static_size<
-		Type
-	>,
+std::enable_if_t<
+	fcppt::not_(
+		alda::raw::is_static_size<
+			Type
+		>::value
+	),
 	void
->::type
+>
 write(
 	alda::serialization::ostream &_stream,
 	alda::raw::element_type<

@@ -19,7 +19,6 @@
 #include <fcppt/either/to_exception.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <ios>
 #include <istream>
 #include <type_traits>
@@ -36,20 +35,20 @@ namespace length
 template<
 	typename LengthType
 >
-typename
-boost::enable_if<
-	std::is_unsigned<
-		LengthType
-	>,
-	fcppt::optional::object<
-		LengthType
-	>
->::type
+fcppt::optional::object<
+	LengthType
+>
 extract(
 	alda::serialization::istream &_stream,
 	alda::serialization::length::remaining_size_function const &_remaining_size
 )
 {
+	static_assert(
+		std::is_unsigned_v<
+			LengthType
+		>
+	);
+
 	typedef
 	fcppt::optional::object<
 		LengthType

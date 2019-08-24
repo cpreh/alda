@@ -11,7 +11,7 @@
 #include <alda/raw/size_type.hpp>
 #include <alda/raw/static_size.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -26,12 +26,12 @@ template<
 inline
 constexpr
 typename
-boost::enable_if<
+std::enable_if_t<
 	alda::raw::is_static_size<
 		Type
-	>,
+	>::value,
 	alda::raw::size_type
->::type
+>
 needed_size_static()
 {
 	return

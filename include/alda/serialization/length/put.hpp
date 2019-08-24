@@ -14,7 +14,6 @@
 #include <alda/serialization/length/detail/binding.hpp>
 #include <fcppt/cast/truncation_check.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -31,18 +30,18 @@ template<
 	typename LengthType
 >
 inline
-typename
-boost::enable_if<
-	std::is_unsigned<
-		LengthType
-	>,
-	void
->::type
+void
 put(
 	alda::serialization::ostream &_stream,
 	alda::raw::size_type const _length
 )
 {
+	static_assert(
+		std::is_unsigned_v<
+			LengthType
+		>
+	);
+
 	alda::serialization::write<
 		alda::serialization::length::detail::binding<
 			LengthType

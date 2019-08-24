@@ -16,7 +16,6 @@
 #include <fcppt/algorithm/repeat.hpp>
 #include <fcppt/optional/bind.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <cstddef>
 #include <ios>
 #include <ostream>
@@ -35,15 +34,9 @@ template<
 	typename LengthType,
 	typename TypeEnum
 >
-typename
-boost::enable_if<
-	std::is_unsigned<
-		LengthType
-	>,
-	alda::message::optional_base_unique_ptr<
-		TypeEnum
-	>
->::type
+alda::message::optional_base_unique_ptr<
+	TypeEnum
+>
 deserialize(
 	alda::serialization::context<
 		TypeEnum
@@ -52,6 +45,12 @@ deserialize(
 	alda::serialization::length::remaining_size_function const &_remaining_size
 )
 {
+	static_assert(
+		std::is_unsigned_v<
+			LengthType
+		>
+	);
+
 	typedef
 	alda::message::optional_base_unique_ptr<
 		TypeEnum

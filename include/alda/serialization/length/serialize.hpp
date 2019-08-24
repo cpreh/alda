@@ -14,7 +14,6 @@
 #include <alda/serialization/write_id.hpp>
 #include <alda/serialization/length/put.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -30,13 +29,7 @@ template<
 	typename LengthType,
 	typename TypeEnum
 >
-typename
-boost::enable_if<
-	std::is_unsigned<
-		LengthType
-	>,
-	void
->::type
+void
 serialize(
 	alda::serialization::ostream &_stream,
 	alda::message::base<
@@ -44,6 +37,12 @@ serialize(
 	> const &_message
 )
 {
+	static_assert(
+		std::is_unsigned_v<
+			LengthType
+		>
+	);
+
 	alda::raw::buffer const buffer(
 		_message.to_buffer()
 	);

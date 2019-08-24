@@ -12,8 +12,9 @@
 #include <alda/raw/is_static_size.hpp>
 #include <alda/raw/needed_size_static.hpp>
 #include <alda/raw/size_type.hpp>
+#include <fcppt/not.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -26,13 +27,12 @@ template<
 	typename Type
 >
 inline
-typename
-boost::enable_if<
+std::enable_if_t<
 	alda::raw::is_static_size<
 		Type
-	>,
+	>::value,
 	alda::raw::size_type
->::type
+>
 needed_size(
 	alda::raw::element_type<
 		Type
@@ -49,13 +49,14 @@ template<
 	typename Type
 >
 inline
-typename
-boost::disable_if<
-	alda::raw::is_static_size<
-		Type
-	>,
+std::enable_if_t<
+	fcppt::not_(
+		alda::raw::is_static_size<
+			Type
+		>::value
+	),
 	alda::raw::size_type
->::type
+>
 needed_size(
 	alda::raw::element_type<
 		Type
