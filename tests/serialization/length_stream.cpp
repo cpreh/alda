@@ -51,7 +51,7 @@
 #include <fcppt/variant/comparison.hpp>
 #include <fcppt/variant/output.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <catch2/catch.hpp>
 #include <cstdint>
 #include <sstream>
@@ -112,10 +112,10 @@ optional_uint16_type;
 
 typedef
 alda::bindings::variant<
-	brigand::list<
+	metal::list<
 		std::uint16_t
 	>,
-	brigand::list<
+	metal::list<
 		uint16_type
 	>
 >
@@ -404,7 +404,7 @@ TEST_CASE(
 	typedef
 	alda::call::object<
 		type_enum,
-		brigand::list<
+		metal::list<
 			message1
 		>,
 		dispatcher_function

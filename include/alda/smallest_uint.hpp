@@ -7,14 +7,17 @@
 #ifndef ALDA_SMALLEST_UINT_HPP_INCLUDED
 #define ALDA_SMALLEST_UINT_HPP_INCLUDED
 
-#include <fcppt/brigand/numeric_max.hpp>
+#include <fcppt/metal/to_number.hpp>
+#include <fcppt/type_traits/numeric_max.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/algorithms/find.hpp>
-#include <brigand/functions/comparison/greater_equal.hpp>
-#include <brigand/functions/lambda/bind.hpp>
-#include <brigand/sequences/front.hpp>
-#include <brigand/sequences/list.hpp>
-#include <brigand/types/args.hpp>
+#include <metal/lambda/always.hpp>
+#include <metal/lambda/arg.hpp>
+#include <metal/lambda/bind.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/list/front.hpp>
+#include <metal/list/list.hpp>
+#include <metal/list/remove_if.hpp>
+#include <metal/number/greater.hpp>
 #include <cstddef>
 #include <cstdint>
 #include <type_traits>
@@ -30,23 +33,36 @@ template<
 using
 smallest_uint
 =
-brigand::front<
-	brigand::find<
-		brigand::list<
+metal::front<
+	metal::remove_if<
+		metal::list<
 			std::uint8_t,
 			std::uint16_t,
 			std::uint32_t,
 			std::uint64_t
 		>,
-		brigand::bind<
-			brigand::greater_equal,
-			brigand::bind<
-				fcppt::brigand::numeric_max,
-				brigand::_1
+		metal::bind<
+			metal::lambda<
+				metal::greater
 			>,
-			std::integral_constant<
-				std::size_t,
-				Max
+			metal::always<
+				fcppt::metal::to_number<
+					std::integral_constant<
+						std::size_t,
+						Max
+					>
+				>
+			>,
+			metal::bind<
+				metal::lambda<
+					fcppt::metal::to_number
+				>,
+				metal::bind<
+					metal::lambda<
+						fcppt::type_traits::numeric_max
+					>,
+					metal::_1
+				>
 			>
 		>
 	>

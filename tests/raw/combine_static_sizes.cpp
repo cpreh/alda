@@ -2,9 +2,10 @@
 #include <alda/raw/combine_static_sizes.hpp>
 #include <alda/raw/is_static_size.hpp>
 #include <alda/raw/static_size.hpp>
+#include <alda/raw/detail/dynamic_size.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/functions/arithmetic/plus.hpp>
-#include <brigand/types/args.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/number/add.hpp>
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
@@ -14,9 +15,8 @@ main()
 {
 	static_assert(
 		alda::raw::combine_static_sizes<
-			brigand::plus<
-				brigand::_1,
-				brigand::_2
+			metal::lambda<
+				metal::add
 			>,
 			alda::raw::static_size<
 				alda::bindings::fundamental<
@@ -47,9 +47,8 @@ main()
 	static_assert(
 		!alda::raw::is_static_size<
 			alda::raw::combine_static_sizes<
-				brigand::plus<
-					brigand::_1,
-					brigand::_2
+				metal::lambda<
+					metal::add
 				>,
 				alda::raw::static_size<
 					alda::bindings::fundamental<
@@ -62,5 +61,22 @@ main()
 			>
 		>::value,
 		""
+	);
+
+	static_assert(
+		std::is_same_v<
+			alda::raw::combine_static_sizes<
+				metal::lambda<
+					metal::add
+				>,
+				alda::raw::detail::dynamic_size,
+				alda::raw::static_size<
+					alda::bindings::fundamental<
+						std::uint32_t
+					>
+				>
+			>,
+			alda::raw::detail::dynamic_size
+		>
 	);
 }

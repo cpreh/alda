@@ -14,9 +14,9 @@
 #include <fcppt/record/element_to_type.hpp>
 #include <fcppt/record/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/algorithms/transform.hpp>
-#include <brigand/functions/lambda/bind.hpp>
-#include <brigand/types/args.hpp>
+#include <metal/lambda/bind.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/list/transform.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -36,22 +36,24 @@ struct record
 
 	typedef
 	fcppt::record::object<
-		brigand::transform<
-			Types,
-			brigand::bind<
-				fcppt::record::element,
-				brigand::bind<
-					fcppt::record::element_to_label,
-					brigand::_1
+		metal::transform<
+			metal::bind<
+				metal::lambda<
+					fcppt::record::element
 				>,
-				brigand::bind<
-					alda::raw::element_type,
-					brigand::bind<
-						fcppt::record::element_to_type,
-						brigand::_1
+				metal::lambda<
+					fcppt::record::element_to_label
+				>,
+				metal::bind<
+					metal::lambda<
+						alda::raw::element_type
+					>,
+					metal::lambda<
+						fcppt::record::element_to_type
 					>
 				>
-			>
+			>,
+			Types
 		>
 	>
 	element_type;

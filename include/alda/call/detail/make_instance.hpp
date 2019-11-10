@@ -9,20 +9,19 @@
 
 #include <alda/call/detail/base_impl.hpp>
 #include <alda/call/detail/concrete_decl.hpp>
-#include <alda/message/detail/extract_id_tpl.hpp>
+#include <alda/message/detail/extract_id.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/algorithms/find.hpp>
-#include <brigand/functions/lambda/apply.hpp>
-#include <brigand/functions/lambda/bind.hpp>
-#include <brigand/functions/logical/not.hpp>
-#include <brigand/sequences/contains.hpp>
-#include <brigand/sequences/front.hpp>
-#include <brigand/sequences/list.hpp>
-#include <brigand/types/args.hpp>
+#include <metal/lambda/always.hpp>
+#include <metal/lambda/bind.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/lambda/trait.hpp>
+#include <metal/list/any_of.hpp>
+#include <metal/list/at.hpp>
+#include <metal/list/find_if.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -62,21 +61,18 @@ struct make_instance
 	using
 	has_message
 	=
-	brigand::not_<
-		std::is_same<
-			brigand::find<
-				Messages,
-				brigand::bind<
-					std::is_same,
-					brigand::pin<
-						Type
-					>,
-					alda::message::detail::extract_id_tpl<
-						brigand::_1
-					>
-				>
+	metal::any_of<
+		Messages,
+		metal::bind<
+			metal::trait<
+				std::is_same
 			>,
-			brigand::list<>
+			metal::always<
+				Type
+			>,
+			metal::lambda<
+				alda::message::detail::extract_id
+			>
 		>
 	>;
 
@@ -103,16 +99,19 @@ struct make_instance
 						alda::call::detail::concrete<
 							TypeEnum,
 							Callee,
-							brigand::front<
-								brigand::find<
+							metal::at<
+								Messages,
+								metal::find_if<
 									Messages,
-									brigand::bind<
-										std::is_same,
-										brigand::pin<
+									metal::bind<
+										metal::trait<
+											std::is_same
+										>,
+										metal::always<
 											Type
 										>,
-										alda::message::detail::extract_id_tpl<
-											brigand::_1
+										metal::lambda<
+											alda::message::detail::extract_id
 										>
 									>
 								>

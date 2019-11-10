@@ -12,7 +12,7 @@
 #include <alda/raw/stream/error.hpp>
 #include <alda/serialization/read.hpp>
 #include <alda/serialization/write.hpp>
-#include <fcppt/brigand/ceil_div.hpp>
+#include <fcppt/math/ceil_div_static.hpp>
 #include <fcppt/container/bitfield/comparison.hpp>
 #include <fcppt/container/bitfield/object.hpp>
 #include <fcppt/either/comparison.hpp>
@@ -51,7 +51,7 @@ TEST_CASE(
 			bitfield_binding
 		>::value
 		==
-		fcppt::brigand::ceil_div<
+		fcppt::math::ceil_div_static<
 			alda::raw::size_type,
 			64u,
 			std::numeric_limits<

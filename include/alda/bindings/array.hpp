@@ -26,9 +26,8 @@
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/container/array/size.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/functions/arithmetic/times.hpp>
-#include <brigand/functions/lambda/bind.hpp>
-#include <brigand/types/args.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/number/mul.hpp>
 #include <cstddef>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -213,10 +212,8 @@ struct static_size_impl<
 >
 :
 alda::raw::combine_static_sizes<
-	brigand::bind<
-		brigand::times,
-		brigand::_1,
-		brigand::_2
+	metal::lambda<
+		metal::mul
 	>,
 	fcppt::container::array::size<
 		Type

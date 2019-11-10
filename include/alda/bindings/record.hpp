@@ -28,19 +28,21 @@
 #include <fcppt/use.hpp>
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/algorithm/loop.hpp>
-#include <fcppt/algorithm/loop_break_brigand.hpp>
+#include <fcppt/algorithm/loop_break_metal.hpp>
+#include <fcppt/metal/to_number.hpp>
 #include <fcppt/record/element_to_label.hpp>
 #include <fcppt/record/element_to_type.hpp>
 #include <fcppt/record/get.hpp>
 #include <fcppt/record/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/algorithms/fold.hpp>
-#include <brigand/functions/arithmetic/plus.hpp>
-#include <brigand/functions/lambda/apply.hpp>
-#include <brigand/functions/lambda/bind.hpp>
-#include <brigand/sequences/at.hpp>
-#include <brigand/sequences/size.hpp>
-#include <brigand/types/args.hpp>
+#include <metal/lambda/arg.hpp>
+#include <metal/lambda/bind.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/list/accumulate.hpp>
+#include <metal/list/at.hpp>
+#include <metal/list/size.hpp>
+#include <metal/number/add.hpp>
+#include <metal/number/number.hpp>
 #include <type_traits>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -60,29 +62,41 @@ struct static_size_impl<
 	>
 >
 {
-	typedef
-	brigand::fold<
-		Types,
-		alda::raw::integral_size<
-			0
+	// TODO: can we express this directly?
+	template<
+		typename Element,
+		typename Val
+	>
+	using
+	combine_sizes
+	=
+	alda::raw::combine_static_sizes<
+		metal::lambda<
+			metal::add
 		>,
-		brigand::bind<
-			alda::raw::combine_static_sizes,
-			brigand::defer<
-				brigand::plus<
-					brigand::_1,
-					brigand::_2
-				>
+		alda::raw::static_size<
+			fcppt::record::element_to_type<
+				Element
+			>
+		>,
+		Val
+	>;
+
+	typedef
+	metal::accumulate<
+		metal::bind<
+			metal::lambda<
+				combine_sizes
 			>,
-			brigand::bind<
-				alda::raw::static_size,
-				brigand::bind<
-					fcppt::record::element_to_type,
-					brigand::_element
-				>
-			>,
-			brigand::_state
-		>
+			metal::_2,
+			metal::_1
+		>,
+		fcppt::metal::to_number<
+			alda::raw::integral_size<
+				0
+			>
+		>,
+		Types
 	>
 	type;
 };
@@ -227,8 +241,7 @@ template<
 	typename... Args
 >
 inline
-typename
-std::enable_if<
+std::enable_if_t<
 	Index
 	==
 	MaxIndex,
@@ -238,7 +251,7 @@ std::enable_if<
 			Types
 		>
 	>
->::type
+>
 read(
 	alda::raw::stream::reference<
 		Stream
@@ -272,8 +285,7 @@ template<
 	typename... Args
 >
 inline
-typename
-std::enable_if<
+std::enable_if_t<
 	Index
 	!=
 	MaxIndex,
@@ -283,7 +295,7 @@ std::enable_if<
 			Types
 		>
 	>
->::type
+>
 read(
 	alda::raw::stream::reference<
 		Stream
@@ -292,9 +304,11 @@ read(
 )
 {
 	typedef
-	brigand::at_c<
+	metal::at<
 		Types,
-		Index
+		metal::number<
+			Index
+		>
 	>
 	element;
 
@@ -377,7 +391,7 @@ make_generic(
 			Types,
 			Stream,
 			0u,
-			brigand::size<
+			metal::size<
 				Types
 			>::value
 		>(

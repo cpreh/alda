@@ -9,7 +9,6 @@
 
 #include <alda/raw/detail/dynamic_size.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/functions/logical/not.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -27,7 +26,7 @@ template<
 using
 is_static_size
 =
-brigand::not_<
+std::negation<
 	std::is_same<
 		alda::raw::detail::dynamic_size,
 		Size

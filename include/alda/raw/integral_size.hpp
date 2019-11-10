@@ -21,7 +21,8 @@ namespace raw
 template<
 	alda::raw::size_type Size
 >
-using integral_size
+using
+integral_size
 =
 std::integral_constant<
 	alda::raw::size_type,

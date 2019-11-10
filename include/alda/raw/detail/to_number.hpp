@@ -4,11 +4,13 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef ALDA_RAW_DETAIL_APPLY_BINARY_HPP_INCLUDED
-#define ALDA_RAW_DETAIL_APPLY_BINARY_HPP_INCLUDED
+#ifndef ALDA_RAW_DETAIL_TO_NUMBER_HPP_INCLUDED
+#define ALDA_RAW_DETAIL_TO_NUMBER_HPP_INCLUDED
 
+#include <alda/raw/detail/convert_number.hpp>
+#include <fcppt/metal/to_number.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/functions/lambda/apply.hpp>
+#include <metal/lambda/lambda.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -19,22 +21,18 @@ namespace raw
 namespace detail
 {
 
-
-// TODO: How do we express this using brigand alone?
 template<
-	typename Function,
-	typename Size1,
-	typename Size2
+	typename Type
 >
-struct apply_binary
-:
-brigand::apply<
-	Function,
-	Size1,
-	Size2
->
-{
-};
+using
+to_number
+=
+alda::raw::detail::convert_number<
+	Type,
+	metal::lambda<
+		fcppt::metal::to_number
+	>
+>;
 
 }
 }

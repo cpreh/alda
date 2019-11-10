@@ -20,7 +20,7 @@
 #include <fcppt/variant/comparison.hpp>
 #include <fcppt/variant/object.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <catch2/catch.hpp>
 #include <cstdint>
 #include <sstream>
@@ -39,7 +39,7 @@ std::int16_t
 int_type;
 
 typedef
-brigand::list<
+metal::list<
 	uint_type,
 	int_type
 >
@@ -51,7 +51,7 @@ fcppt::endianness::format const endianness{
 };
 
 typedef
-brigand::list<
+metal::list<
 	alda::bindings::unsigned_<
 		uint_type,
 		endianness

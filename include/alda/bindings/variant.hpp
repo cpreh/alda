@@ -26,14 +26,14 @@
 #include <fcppt/tag_type.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/use.hpp>
-#include <fcppt/brigand/invoke_on.hpp>
+#include <fcppt/metal/invoke_on.hpp>
 #include <fcppt/cast/promote_int.hpp>
 #include <fcppt/cast/truncation_check.hpp>
 #include <fcppt/variant/apply.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/algorithms/index_of.hpp>
-#include <brigand/sequences/at.hpp>
+#include <metal/list/at.hpp>
+#include <metal/list/find.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -102,9 +102,9 @@ place(
 		)
 		{
 			alda::raw::place<
-				brigand::at<
+				metal::at<
 					AdaptedTypes,
-					brigand::index_of<
+					metal::find<
 						Types,
 						typename
 						std::decay<
@@ -181,7 +181,7 @@ make_generic(
 			)
 			{
 				return
-					fcppt::brigand::invoke_on<
+					fcppt::metal::invoke_on<
 						Types
 					>(
 						_index,
@@ -196,9 +196,9 @@ make_generic(
 							);
 
 							typedef
-							brigand::at<
+							metal::at<
 								AdaptedTypes,
-								brigand::index_of<
+								metal::find<
 									Types,
 									fcppt::tag_type<
 										decltype(
@@ -323,9 +323,9 @@ needed_size(
 			{
 				return
 					alda::raw::needed_size<
-						brigand::at<
+						metal::at<
 							AdaptedTypes,
-							brigand::index_of<
+							metal::find<
 								Types,
 								typename
 								std::decay<

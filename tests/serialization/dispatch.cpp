@@ -33,7 +33,7 @@
 #include <fcppt/record/get.hpp>
 #include <fcppt/record/make_label.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <catch2/catch.hpp>
 #include <cstdint>
 #include <sstream>
@@ -297,7 +297,7 @@ TEST_CASE(
 	typedef
 	alda::call::object<
 		type_enum,
-		brigand::list<
+		metal::list<
 			message1,
 			message2
 		>,

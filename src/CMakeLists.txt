@@ -160,10 +160,12 @@ set(
 	include/alda/raw/combine_static_sizes.hpp
 	include/alda/raw/const_pointer.hpp
 	include/alda/raw/data.hpp
-	include/alda/raw/detail/apply_binary.hpp
+	include/alda/raw/detail/convert_number.hpp
 	include/alda/raw/detail/copy_n.hpp
 	include/alda/raw/detail/dynamic_size.hpp
+	include/alda/raw/detail/from_number.hpp
 	include/alda/raw/detail/is_static_size.hpp
+	include/alda/raw/detail/to_number.hpp
 	include/alda/raw/dispatch_type.hpp
 	include/alda/raw/dispatch_value.hpp
 	include/alda/raw/element_type.hpp
@@ -354,7 +356,7 @@ function(
 		"$<BUILD_INTERFACE:${FCPPT_UTILS_PROJECT_BINARY_DIR}/include>"
 		"$<BUILD_INTERFACE:${FCPPT_UTILS_PROJECT_SOURCE_DIR}/include>"
 		${Boost_INCLUDE_DIRS}
-		${BRIGAND_INCLUDE_DIRS}
+		${METAL_INCLUDE_DIRS}
 	)
 
 	if(
