@@ -356,7 +356,6 @@ function(
 		"$<BUILD_INTERFACE:${FCPPT_UTILS_PROJECT_BINARY_DIR}/include>"
 		"$<BUILD_INTERFACE:${FCPPT_UTILS_PROJECT_SOURCE_DIR}/include>"
 		${Boost_INCLUDE_DIRS}
-		${METAL_INCLUDE_DIRS}
 	)
 
 	if(
@@ -417,6 +416,7 @@ function(
 	target_link_libraries(
 		${ALDA_LIB_NAME}
 		INTERFACE
+		Metal
 		fcppt_boost_interface
 		fcppt_core_interface
 		fcppt_log_interface
