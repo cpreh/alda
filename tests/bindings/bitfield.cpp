@@ -12,12 +12,12 @@
 #include <alda/raw/stream/error.hpp>
 #include <alda/serialization/read.hpp>
 #include <alda/serialization/write.hpp>
-#include <fcppt/math/ceil_div_static.hpp>
 #include <fcppt/container/bitfield/comparison.hpp>
 #include <fcppt/container/bitfield/object.hpp>
 #include <fcppt/either/comparison.hpp>
 #include <fcppt/either/make_success.hpp>
 #include <fcppt/endianness/format.hpp>
+#include <fcppt/math/ceil_div_static.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch.hpp>
 #include <limits>

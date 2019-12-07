@@ -26,14 +26,13 @@
 #include <fcppt/tag_type.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/use.hpp>
-#include <fcppt/metal/invoke_on.hpp>
 #include <fcppt/cast/promote_int.hpp>
 #include <fcppt/cast/truncation_check.hpp>
+#include <fcppt/metal/invoke_on.hpp>
 #include <fcppt/variant/apply.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/at.hpp>
-#include <metal/list/find.hpp>
+#include <metal.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 

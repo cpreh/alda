@@ -10,16 +10,9 @@
 #include <fcppt/metal/to_number.hpp>
 #include <fcppt/type_traits/numeric_max.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/lambda/always.hpp>
-#include <metal/lambda/arg.hpp>
-#include <metal/lambda/bind.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/list/front.hpp>
-#include <metal/list/list.hpp>
-#include <metal/list/remove_if.hpp>
-#include <metal/number/greater.hpp>
 #include <cstddef>
 #include <cstdint>
+#include <metal.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 

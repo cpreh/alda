@@ -15,13 +15,7 @@
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/lambda/always.hpp>
-#include <metal/lambda/bind.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/lambda/trait.hpp>
-#include <metal/list/any_of.hpp>
-#include <metal/list/at.hpp>
-#include <metal/list/find_if.hpp>
+#include <metal.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 

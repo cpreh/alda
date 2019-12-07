@@ -10,13 +10,10 @@
 #include <alda/raw/size_type.hpp>
 #include <alda/raw/detail/dynamic_size.hpp>
 #include <alda/raw/detail/from_number.hpp>
-#include <alda/raw/detail/to_number.hpp>
 #include <alda/raw/detail/is_static_size.hpp>
+#include <alda/raw/detail/to_number.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/lambda/always.hpp>
-#include <metal/lambda/bind.hpp>
-#include <metal/number/if.hpp>
-#include <metal/lambda/invoke.hpp>
+#include <metal.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 

@@ -9,11 +9,7 @@
 
 #include <alda/raw/detail/dynamic_size.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/lambda/always.hpp>
-#include <metal/lambda/bind.hpp>
-#include <metal/lambda/invoke.hpp>
-#include <metal/number/if.hpp>
-#include <metal/number/number.hpp>
+#include <metal.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 

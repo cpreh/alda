@@ -10,7 +10,7 @@
 #include <alda/raw/detail/convert_number.hpp>
 #include <fcppt/metal/to_number.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/lambda/lambda.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

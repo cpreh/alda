@@ -35,14 +35,7 @@
 #include <fcppt/record/get.hpp>
 #include <fcppt/record/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/lambda/arg.hpp>
-#include <metal/lambda/bind.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/list/accumulate.hpp>
-#include <metal/list/at.hpp>
-#include <metal/list/size.hpp>
-#include <metal/number/add.hpp>
-#include <metal/number/number.hpp>
+#include <metal.hpp>
 #include <type_traits>
 #include <utility>
 #include <fcppt/config/external_end.hpp>

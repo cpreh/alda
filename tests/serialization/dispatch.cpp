@@ -33,9 +33,9 @@
 #include <fcppt/record/get.hpp>
 #include <fcppt/record/make_label.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/list.hpp>
 #include <catch2/catch.hpp>
 #include <cstdint>
+#include <metal.hpp>
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
 

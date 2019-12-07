@@ -4,9 +4,8 @@
 #include <alda/raw/static_size.hpp>
 #include <alda/raw/detail/dynamic_size.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/number/add.hpp>
 #include <cstdint>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
