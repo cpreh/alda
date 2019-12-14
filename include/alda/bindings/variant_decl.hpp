@@ -10,7 +10,7 @@
 #include <alda/bindings/unsigned_fwd.hpp>
 #include <alda/bindings/variant_fwd.hpp>
 #include <fcppt/endianness/format.hpp>
-#include <fcppt/variant/object_fwd.hpp>
+#include <fcppt/variant/from_list_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdint>
 #include <metal.hpp>
@@ -40,7 +40,7 @@ struct variant
 	);
 
 	typedef
-	fcppt::variant::object<
+	fcppt::variant::from_list<
 		Types
 	>
 	element_type;

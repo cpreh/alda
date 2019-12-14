@@ -30,7 +30,7 @@
 #include <fcppt/cast/truncation_check.hpp>
 #include <fcppt/metal/invoke_on.hpp>
 #include <fcppt/variant/apply.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/variant/from_list.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <metal.hpp>
 #include <type_traits>
@@ -228,7 +228,7 @@ make_generic(
 											alda::raw::stream::return_<
 												Stream
 											>(
-												fcppt::variant::object<
+												fcppt::variant::from_list<
 													Types
 												>(
 													std::move(

@@ -12,7 +12,7 @@
 #include <fcppt/record/element_fwd.hpp>
 #include <fcppt/record/element_to_label.hpp>
 #include <fcppt/record/element_to_type.hpp>
-#include <fcppt/record/object_fwd.hpp>
+#include <fcppt/record/from_list_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -33,7 +33,7 @@ struct record
 	types;
 
 	typedef
-	fcppt::record::object<
+	fcppt::record::from_list<
 		metal::transform<
 			metal::bind<
 				metal::lambda<

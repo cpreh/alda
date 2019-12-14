@@ -32,8 +32,8 @@
 #include <fcppt/metal/to_number.hpp>
 #include <fcppt/record/element_to_label.hpp>
 #include <fcppt/record/element_to_type.hpp>
+#include <fcppt/record/from_list.hpp>
 #include <fcppt/record/get.hpp>
-#include <fcppt/record/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <metal.hpp>
 #include <type_traits>

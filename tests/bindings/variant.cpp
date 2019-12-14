@@ -14,11 +14,11 @@
 #include <fcppt/catch/either.hpp>
 #include <fcppt/catch/strong_typedef.hpp>
 #include <fcppt/catch/variant.hpp>
+#include <fcppt/either/comparison.hpp>
 #include <fcppt/either/make_success.hpp>
-#include <fcppt/either/object.hpp>
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/variant/comparison.hpp>
-#include <fcppt/variant/object.hpp>
+#include <fcppt/variant/from_list.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch.hpp>
 #include <cstdint>
@@ -71,7 +71,7 @@ alda::bindings::variant<
 variant_binding;
 
 typedef
-fcppt::variant::object<
+fcppt::variant::from_list<
 	variant_types
 >
 variant_type;
