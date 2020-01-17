@@ -20,9 +20,9 @@
 #include <fcppt/variant/comparison.hpp>
 #include <fcppt/variant/from_list.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <metal.hpp>
 #include <catch2/catch.hpp>
 #include <cstdint>
-#include <metal.hpp>
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
 

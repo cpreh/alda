@@ -12,8 +12,8 @@
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/variant/from_list_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <cstdint>
 #include <metal.hpp>
+#include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
 

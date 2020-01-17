@@ -10,9 +10,9 @@
 #include <fcppt/metal/to_number.hpp>
 #include <fcppt/type_traits/numeric_max.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <metal.hpp>
 #include <cstddef>
 #include <cstdint>
-#include <metal.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 

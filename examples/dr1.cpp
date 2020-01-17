@@ -2,8 +2,8 @@
 #include <alda/bindings/dynamic_len.hpp>
 #include <alda/bindings/fundamental.hpp>
 #include <alda/bindings/record_variadic.hpp>
-#include <alda/bindings/unsigned.hpp>
 #include <alda/bindings/static.hpp>
+#include <alda/bindings/unsigned.hpp>
 #include <alda/raw/element_type.hpp>
 #include <alda/raw/make_generic.hpp>
 #include <alda/raw/stream/error.hpp>
@@ -14,8 +14,8 @@
 #include <fcppt/string.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/endianness/format.hpp>
 #include <fcppt/either/match.hpp>
+#include <fcppt/endianness/format.hpp>
 #include <fcppt/filesystem/open.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -33,17 +33,17 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/record/element.hpp>
-#include <fcppt/record/make_label.hpp>
 #include <fcppt/record/get.hpp>
+#include <fcppt/record/make_label.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <array>
 #include <cstdint>
 #include <cstdlib>
 #include <filesystem>
 #include <fstream>
-#include <istream>
 #include <ios>
 #include <iostream>
+#include <istream>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 

@@ -26,8 +26,8 @@
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/container/array/size.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <cstddef>
 #include <metal.hpp>
+#include <cstddef>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
