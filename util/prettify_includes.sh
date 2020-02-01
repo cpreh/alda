@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
-ARGS=(--library alda --library fcppt)
+LIBS=(--library alda --library fcppt)
+DIRS=(examples include src tests)
 
-find examples include src tests \( \( -name '*.hpp' -o -name '*.cpp' \) \) -exec update_headers.sh '{}' "${ARGS[@]}" \;
+prettify_includes "${LIBS[@]}" "${DIRS[@]}"
