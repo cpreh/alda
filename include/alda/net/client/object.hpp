@@ -66,19 +66,19 @@ public:
 	ALDA_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	register_connect(
-		alda::net::client::connect_callback const &
+		alda::net::client::connect_callback &&
 	);
 
 	ALDA_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	register_error(
-		alda::net::client::error_callback const &
+		alda::net::client::error_callback &&
 	);
 
 	ALDA_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	register_data(
-		alda::net::client::data_callback const &
+		alda::net::client::data_callback &&
 	);
 private:
 	fcppt::unique_ptr<

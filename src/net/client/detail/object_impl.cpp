@@ -166,34 +166,40 @@ alda::net::client::detail::object_impl::queue_send()
 
 fcppt::signal::auto_connection
 alda::net::client::detail::object_impl::register_connect(
-	alda::net::client::connect_callback const &_function
+	alda::net::client::connect_callback &&_function
 )
 {
 	return
 		connect_signal_.connect(
-			_function
+			std::move(
+				_function
+			)
 		);
 }
 
 fcppt::signal::auto_connection
 alda::net::client::detail::object_impl::register_error(
-	alda::net::client::error_callback const &_function
+	alda::net::client::error_callback &&_function
 )
 {
 	return
 		error_signal_.connect(
-			_function
+			std::move(
+				_function
+			)
 		);
 }
 
 fcppt::signal::auto_connection
 alda::net::client::detail::object_impl::register_data(
-	alda::net::client::data_callback const &_function
+	alda::net::client::data_callback &&_function
 )
 {
 	return
 		data_signal_.connect(
-			_function
+			std::move(
+				_function
+			)
 		);
 }
 

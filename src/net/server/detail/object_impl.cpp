@@ -208,34 +208,40 @@ alda::net::server::detail::object_impl::disconnect(
 
 fcppt::signal::auto_connection
 alda::net::server::detail::object_impl::register_connect(
-	alda::net::server::connect_callback const &_callback
+	alda::net::server::connect_callback &&_callback
 )
 {
 	return
 		connect_signal_.connect(
-			_callback
+			std::move(
+				_callback
+			)
 		);
 }
 
 fcppt::signal::auto_connection
 alda::net::server::detail::object_impl::register_disconnect(
-	alda::net::server::disconnect_callback const &_callback
+	alda::net::server::disconnect_callback &&_callback
 )
 {
 	return
 		disconnect_signal_.connect(
-			_callback
+			std::move(
+				_callback
+			)
 		);
 }
 
 fcppt::signal::auto_connection
 alda::net::server::detail::object_impl::register_data(
-	alda::net::server::data_callback const &_callback
+	alda::net::server::data_callback &&_callback
 )
 {
 	return
 		data_signal_.connect(
-			_callback
+			std::move(
+				_callback
+			)
 		);
 }
 

@@ -15,6 +15,9 @@
 #include <alda/src/net/client/detail/object_impl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 alda::net::client::object::object(
@@ -70,33 +73,39 @@ alda::net::client::object::queue_send()
 
 fcppt::signal::auto_connection
 alda::net::client::object::register_connect(
-	alda::net::client::connect_callback const &_callback
+	alda::net::client::connect_callback &&_callback
 )
 {
 	return
 		impl_->register_connect(
-			_callback
+			std::move(
+				_callback
+			)
 		);
 }
 
 fcppt::signal::auto_connection
 alda::net::client::object::register_error(
-	alda::net::client::error_callback const &_callback
+	alda::net::client::error_callback &&_callback
 )
 {
 	return
 		impl_->register_error(
-			_callback
+			std::move(
+				_callback
+			)
 		);
 }
 
 fcppt::signal::auto_connection
 alda::net::client::object::register_data(
-	alda::net::client::data_callback const &_callback
+	alda::net::client::data_callback &&_callback
 )
 {
 	return
 		impl_->register_data(
-			_callback
+			std::move(
+				_callback
+			)
 		);
 }

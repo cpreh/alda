@@ -82,17 +82,17 @@ public:
 
 	fcppt::signal::auto_connection
 	register_connect(
-		alda::net::server::connect_callback const &
+		alda::net::server::connect_callback &&
 	);
 
 	fcppt::signal::auto_connection
 	register_disconnect(
-		alda::net::server::disconnect_callback const &
+		alda::net::server::disconnect_callback &&
 	);
 
 	fcppt::signal::auto_connection
 	register_data(
-		alda::net::server::data_callback const &
+		alda::net::server::data_callback &&
 	);
 private:
 	fcppt::log::object log_;
