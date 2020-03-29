@@ -8,11 +8,11 @@
 #include <alda/net/parameters.hpp>
 #include <alda/net/buffer/max_receive_size.hpp>
 #include <alda/net/buffer/max_send_size.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference.hpp>
 
 
 alda::net::parameters::parameters(
-	fcppt::log::context &_log_context,
+	fcppt::log::context_reference const _log_context,
 	alda::net::io_service_wrapper const &_io_service_wrapper,
 	alda::net::buffer::max_send_size const _max_send_size,
 	alda::net::buffer::max_receive_size const _max_receive_size
@@ -33,11 +33,11 @@ alda::net::parameters::parameters(
 {
 }
 
-fcppt::log::context &
+fcppt::log::context_reference
 alda::net::parameters::log_context() const
 {
 	return
-		log_context_.get();
+		log_context_;
 }
 
 alda::net::io_service_wrapper const &
