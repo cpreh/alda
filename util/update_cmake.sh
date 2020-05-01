@@ -1,9 +1,14 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 set -e -u
 
 update_cmake \
-	src/CMakeLists.txt \
+	CMakeLists.txt \
 	ALDA_FILES \
 	include \
 	src
+
+update_cmake \
+	net/CMakeLists.txt \
+	ALDA_NET_FILES \
+	net

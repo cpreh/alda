@@ -38,36 +38,20 @@ include(
 
 fcppt_utils_static_shared()
 
-fcppt_utils_link_target(
-	alda
-)
-
-set(
-	NEEDED_BOOST_LIBS
-	"system"
-)
-
 option(
 	ENABLE_TEST
 	"Build the tests"
 	ON
 )
 
-find_package(
-	Boost 1.47.0
-	REQUIRED
-	COMPONENTS
-	${NEEDED_BOOST_LIBS}
-)
-
-add_subdirectory(
-	src
-)
-
 option(
 	ENABLE_EXAMPLES
 	"Build the examples"
 	ON
+)
+
+fcppt_utils_link_target(
+	alda
 )
 
 if(
@@ -92,6 +76,503 @@ if(
 
 	add_subdirectory(
 		tests
+	)
+endif()
+
+set(
+	ALDA_STATIC_LINK_FLAG
+	ALDA_STATIC_LINK
+)
+
+include(
+	CMakeParseArguments
+)
+
+function(
+	add_alda_library_base
+	LIBNAME
+	VARIANT
+)
+	set(
+		OPTION_ARGS
+		HAS_IMPL_DIR
+	)
+
+	set(
+		MULTI_ARGS
+		COMPILE_FLAGS
+		COMPILE_DEFINITIONS
+		INCLUDE_DIRS
+		LINK_LIBS
+		INTERFACE_LINK_LIBS
+	)
+
+	cmake_parse_arguments(
+		""
+		"${OPTION_ARGS}"
+		""
+		"${MULTI_ARGS}"
+		${ARGN}
+	)
+
+	if(
+		${VARIANT}
+		STREQUAL
+		"STATIC"
+	)
+		fcppt_utils_static_link_name(
+			${LIBNAME}
+			TARGET_NAME
+		)
+	elseif(
+		${VARIANT}
+		STREQUAL
+		"INTERFACE"
+	)
+		fcppt_utils_interface_link_name(
+			${LIBNAME}
+			TARGET_NAME
+		)
+	else()
+		set(
+			TARGET_NAME
+			${LIBNAME}
+		)
+	endif()
+
+	string(
+		TOUPPER
+		${LIBNAME}
+		LIBNAME_UPPER
+	)
+
+	fcppt_utils_append_source_dir_and_make_groups(
+		"${${LIBNAME_UPPER}_FILES}"
+		FILES_ABS
+	)
+
+	if(
+		${VARIANT}
+		STREQUAL
+		"INTERFACE"
+	)
+		add_library(
+			${TARGET_NAME}
+			${VARIANT}
+		)
+	else()
+		add_library(
+			${TARGET_NAME}
+			${VARIANT}
+			${FILES_ABS}
+		)
+	endif()
+
+	if(
+		NOT
+		${VARIANT}
+		STREQUAL
+		"INTERFACE"
+	)
+		set_target_properties(
+			${TARGET_NAME}
+			PROPERTIES
+			FOLDER
+			alda
+		)
+
+		fcppt_utils_set_target_compiler_flags(
+			${TARGET_NAME}
+			ADDITIONAL_FLAGS
+			${_COMPILE_FLAGS}
+		)
+	endif()
+
+	set(
+		PUBLIC_INCLUDES
+		"$<BUILD_INTERFACE:${FCPPT_UTILS_PROJECT_BINARY_DIR}/include>"
+		"$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+		${_INCLUDE_DIRS}
+	)
+
+	if(
+		NOT
+		${VARIANT}
+		STREQUAL
+		"INTERFACE"
+	)
+		target_include_directories(
+			${TARGET_NAME}
+			PRIVATE
+			${PUBLIC_INCLUDES}
+		)
+
+		if(
+			"${_HAS_IMPL_DIR}"
+		)
+			target_include_directories(
+				${TARGET_NAME}
+				PRIVATE
+				"$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/impl/include>"
+			)
+		endif()
+	endif()
+
+	target_include_directories(
+		${TARGET_NAME}
+		INTERFACE
+		${PUBLIC_INCLUDES}
+		"$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
+	)
+
+	fcppt_utils_interface_static_link(
+		${TARGET_NAME}
+		${VARIANT}
+		"${ALDA_STATIC_LINK_FLAG}"
+	)
+
+	if(
+		NOT
+		${VARIANT}
+		STREQUAL
+		"INTERFACE"
+	)
+		target_link_libraries(
+			${TARGET_NAME}
+			PRIVATE
+			${_LINK_LIBS}
+		)
+	endif()
+
+	target_link_libraries(
+		${TARGET_NAME}
+		INTERFACE
+		${_INTERFACE_LINK_LIBS}
+	)
+
+	if(
+		NOT
+		${VARIANT}
+		STREQUAL
+		"INTERFACE"
+	)
+		target_compile_definitions(
+			${TARGET_NAME}
+			PRIVATE
+			${_COMPILE_DEFINITIONS}
+		)
+	endif()
+
+	target_compile_definitions(
+		${TARGET_NAME}
+		INTERFACE
+		${_COMPILE_DEFINITIONS}
+	)
+
+	fcppt_utils_export_install_target(
+		${TARGET_NAME}
+	)
+endfunction()
+
+function(
+	add_alda_library
+	LIBNAME
+)
+	set(
+		OPTION_ARGS
+		HAS_IMPL_DIR
+	)
+
+	set(
+		MULTI_ARGS
+		COMPILE_FLAGS
+		COMPILE_DEFINITIONS
+		INCLUDE_DIRS
+		LINK_LIBS
+		INTERFACE_LINK_LIBS
+	)
+
+	string(
+		TOUPPER
+		${LIBNAME}
+		LIBNAME_UPPER
+	)
+
+	fcppt_generate_symbol_header(
+		STATIC_LINK_FLAG
+			"${ALDA_STATIC_LINK_FLAG}"
+		EXPORTS_NAME
+			"${LIBNAME}"
+		SYMBOL_NAME
+			"${LIBNAME_UPPER}_DETAIL"
+	)
+
+	add_alda_library_base(
+		${LIBNAME}
+		"INTERFACE"
+		${ARGN}
+	)
+
+	if(
+		ENABLE_SHARED
+	)
+		add_alda_library_base(
+			${LIBNAME}
+			"SHARED"
+			${ARGN}
+		)
+	endif()
+
+	if(
+		ENABLE_STATIC
+	)
+		add_alda_library_base(
+			${LIBNAME}
+			"STATIC"
+			${ARGN}
+		)
+	endif()
+
+	install(
+		DIRECTORY
+		${CMAKE_CURRENT_SOURCE_DIR}/include/
+		DESTINATION
+		${CMAKE_INSTALL_INCLUDEDIR}
+	)
+endfunction()
+
+install(
+	DIRECTORY
+	${FCPPT_UTILS_PROJECT_BINARY_DIR}/include/
+	DESTINATION
+	${CMAKE_INSTALL_INCLUDEDIR}
+)
+
+set(
+	ALDA_FILES
+	include/alda/bindings/array.hpp
+	include/alda/bindings/array_decl.hpp
+	include/alda/bindings/array_fwd.hpp
+	include/alda/bindings/bitfield.hpp
+	include/alda/bindings/bitfield_decl.hpp
+	include/alda/bindings/bitfield_fwd.hpp
+	include/alda/bindings/bool.hpp
+	include/alda/bindings/bool_decl.hpp
+	include/alda/bindings/bool_fwd.hpp
+	include/alda/bindings/duration.hpp
+	include/alda/bindings/duration_decl.hpp
+	include/alda/bindings/duration_fwd.hpp
+	include/alda/bindings/dynamic_len.hpp
+	include/alda/bindings/dynamic_len_decl.hpp
+	include/alda/bindings/dynamic_len_fwd.hpp
+	include/alda/bindings/enum.hpp
+	include/alda/bindings/enum_array.hpp
+	include/alda/bindings/enum_array_decl.hpp
+	include/alda/bindings/enum_array_fwd.hpp
+	include/alda/bindings/enum_decl.hpp
+	include/alda/bindings/enum_fwd.hpp
+	include/alda/bindings/float.hpp
+	include/alda/bindings/float_decl.hpp
+	include/alda/bindings/float_fwd.hpp
+	include/alda/bindings/float_type.hpp
+	include/alda/bindings/fundamental.hpp
+	include/alda/bindings/fundamental_decl.hpp
+	include/alda/bindings/fundamental_fwd.hpp
+	include/alda/bindings/length_count_policy.hpp
+	include/alda/bindings/length_count_policy_fwd.hpp
+	include/alda/bindings/optional.hpp
+	include/alda/bindings/optional_decl.hpp
+	include/alda/bindings/optional_fwd.hpp
+	include/alda/bindings/record.hpp
+	include/alda/bindings/record_decl.hpp
+	include/alda/bindings/record_fwd.hpp
+	include/alda/bindings/record_variadic.hpp
+	include/alda/bindings/record_variadic_decl.hpp
+	include/alda/bindings/record_variadic_fwd.hpp
+	include/alda/bindings/signed.hpp
+	include/alda/bindings/signed_decl.hpp
+	include/alda/bindings/signed_fwd.hpp
+	include/alda/bindings/static.hpp
+	include/alda/bindings/static_decl.hpp
+	include/alda/bindings/static_fwd.hpp
+	include/alda/bindings/strong_typedef.hpp
+	include/alda/bindings/strong_typedef_decl.hpp
+	include/alda/bindings/strong_typedef_fwd.hpp
+	include/alda/bindings/unit.hpp
+	include/alda/bindings/unit_decl.hpp
+	include/alda/bindings/unit_fwd.hpp
+	include/alda/bindings/unsigned.hpp
+	include/alda/bindings/unsigned_decl.hpp
+	include/alda/bindings/unsigned_fwd.hpp
+	include/alda/bindings/variant.hpp
+	include/alda/bindings/variant_decl.hpp
+	include/alda/bindings/variant_fwd.hpp
+	include/alda/call/default_callback.hpp
+	include/alda/call/default_function.hpp
+	include/alda/call/detail/base_decl.hpp
+	include/alda/call/detail/base_fwd.hpp
+	include/alda/call/detail/base_impl.hpp
+	include/alda/call/detail/concrete_decl.hpp
+	include/alda/call/detail/concrete_fwd.hpp
+	include/alda/call/detail/concrete_impl.hpp
+	include/alda/call/detail/make_instance.hpp
+	include/alda/call/friend_dispatcher.hpp
+	include/alda/call/object.hpp
+	include/alda/call/object_decl.hpp
+	include/alda/call/object_fwd.hpp
+	include/alda/call/object_impl.hpp
+	include/alda/detail/class_symbol.hpp
+	include/alda/detail/export_external_class_instantiation.hpp
+	include/alda/detail/export_external_function_instantiation.hpp
+	include/alda/detail/external_class_symbol.hpp
+	include/alda/detail/external_symbol.hpp
+	include/alda/exception.hpp
+	include/alda/exception_fwd.hpp
+	include/alda/log_location.hpp
+	include/alda/message/base_decl.hpp
+	include/alda/message/base_fwd.hpp
+	include/alda/message/base_unique_ptr.hpp
+	include/alda/message/concrete_decl.hpp
+	include/alda/message/concrete_fwd.hpp
+	include/alda/message/declare_base.hpp
+	include/alda/message/declare_concrete.hpp
+	include/alda/message/detail/extract_id.hpp
+	include/alda/message/detail/extract_id_tpl.hpp
+	include/alda/message/element_type.hpp
+	include/alda/message/impl/base_impl.hpp
+	include/alda/message/impl/concrete_impl.hpp
+	include/alda/message/init_record.hpp
+	include/alda/message/instantiate_base.hpp
+	include/alda/message/instantiate_concrete.hpp
+	include/alda/message/is_object.hpp
+	include/alda/message/make_concrete_ptr.hpp
+	include/alda/message/make_id.hpp
+	include/alda/message/object.hpp
+	include/alda/message/object_decl.hpp
+	include/alda/message/object_fwd.hpp
+	include/alda/message/object_impl.hpp
+	include/alda/message/object_to_buffer.hpp
+	include/alda/message/optional_base_unique_ptr.hpp
+	include/alda/message/optional_base_unique_ptr_fwd.hpp
+	include/alda/raw/buffer.hpp
+	include/alda/raw/buffer_fwd.hpp
+	include/alda/raw/combine_static_sizes.hpp
+	include/alda/raw/const_pointer.hpp
+	include/alda/raw/data.hpp
+	include/alda/raw/detail/convert_number.hpp
+	include/alda/raw/detail/copy_n.hpp
+	include/alda/raw/detail/dynamic_size.hpp
+	include/alda/raw/detail/from_number.hpp
+	include/alda/raw/detail/is_static_size.hpp
+	include/alda/raw/detail/to_number.hpp
+	include/alda/raw/dispatch_type.hpp
+	include/alda/raw/dispatch_value.hpp
+	include/alda/raw/element_type.hpp
+	include/alda/raw/integral_size.hpp
+	include/alda/raw/is_static_size.hpp
+	include/alda/raw/make_generic.hpp
+	include/alda/raw/needed_size.hpp
+	include/alda/raw/needed_size_static.hpp
+	include/alda/raw/place.hpp
+	include/alda/raw/place_and_update.hpp
+	include/alda/raw/pointer.hpp
+	include/alda/raw/size_type.hpp
+	include/alda/raw/static_buffer.hpp
+	include/alda/raw/static_size.hpp
+	include/alda/raw/static_size_impl.hpp
+	include/alda/raw/stream/bind.hpp
+	include/alda/raw/stream/error.hpp
+	include/alda/raw/stream/error_fwd.hpp
+	include/alda/raw/stream/fail.hpp
+	include/alda/raw/stream/failure.hpp
+	include/alda/raw/stream/failure_fwd.hpp
+	include/alda/raw/stream/istream.hpp
+	include/alda/raw/stream/istream_fwd.hpp
+	include/alda/raw/stream/memory.hpp
+	include/alda/raw/stream/memory_fwd.hpp
+	include/alda/raw/stream/read.hpp
+	include/alda/raw/stream/reference.hpp
+	include/alda/raw/stream/result.hpp
+	include/alda/raw/stream/return.hpp
+	include/alda/raw/stream/return_if.hpp
+	include/alda/raw/to_buffer.hpp
+	include/alda/raw/to_static_buffer.hpp
+	include/alda/serialization/buffer_to_stream.hpp
+	include/alda/serialization/context_decl.hpp
+	include/alda/serialization/context_fwd.hpp
+	include/alda/serialization/declare_context.hpp
+	include/alda/serialization/declare_details.hpp
+	include/alda/serialization/declare_message.hpp
+	include/alda/serialization/define_context_function.hpp
+	include/alda/serialization/deserialize.hpp
+	include/alda/serialization/detail/dispatch/base_decl.hpp
+	include/alda/serialization/detail/dispatch/base_fwd.hpp
+	include/alda/serialization/detail/dispatch/base_impl.hpp
+	include/alda/serialization/detail/dispatch/concrete_decl.hpp
+	include/alda/serialization/detail/dispatch/concrete_impl.hpp
+	include/alda/serialization/detail/dispatch/map.hpp
+	include/alda/serialization/detail/dispatch/register_decl.hpp
+	include/alda/serialization/detail/dispatch/register_fwd.hpp
+	include/alda/serialization/detail/dispatch/register_impl.hpp
+	include/alda/serialization/detail/message_type.hpp
+	include/alda/serialization/detail/read_decl.hpp
+	include/alda/serialization/detail/read_functions_impl.hpp
+	include/alda/serialization/detail/read_fwd.hpp
+	include/alda/serialization/detail/read_impl.hpp
+	include/alda/serialization/endianness.hpp
+	include/alda/serialization/impl/context_impl.hpp
+	include/alda/serialization/instantiate_context.hpp
+	include/alda/serialization/instantiate_details.hpp
+	include/alda/serialization/instantiate_message.hpp
+	include/alda/serialization/istream.hpp
+	include/alda/serialization/istream_fwd.hpp
+	include/alda/serialization/length/deserialize.hpp
+	include/alda/serialization/length/detail/binding.hpp
+	include/alda/serialization/length/extract.hpp
+	include/alda/serialization/length/make.hpp
+	include/alda/serialization/length/put.hpp
+	include/alda/serialization/length/remaining_size_function.hpp
+	include/alda/serialization/length/serialize.hpp
+	include/alda/serialization/ostream.hpp
+	include/alda/serialization/ostream_fwd.hpp
+	include/alda/serialization/read.hpp
+	include/alda/serialization/register_message.hpp
+	include/alda/serialization/serialize.hpp
+	include/alda/serialization/static_buffer_to_stream.hpp
+	include/alda/serialization/write.hpp
+	include/alda/serialization/write_id.hpp
+	include/alda/smallest_uint.hpp
+	include/alda/type_enum.hpp
+	include/alda/type_enum_fwd.hpp
+	src/bindings/float.cpp
+	src/exception.cpp
+	src/log_location.cpp
+	src/raw/stream/failure.cpp
+)
+
+add_alda_library(
+	alda
+	INTERFACE_LINK_LIBS
+		Metal
+		fcppt_core_interface
+		fcppt_log_interface
+	LINK_LIBS
+		Metal
+		${fcppt_core_TARGET}
+		${fcppt_log_TARGET}
+)
+
+option(
+	ENABLE_NET
+	"Build the alda_net library"
+	ON
+)
+
+if(
+	ENABLE_NET
+)
+	add_subdirectory(
+		net
 	)
 endif()
 

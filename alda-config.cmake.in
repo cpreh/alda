@@ -6,7 +6,22 @@ fcppt_export_init(
 	"alda"
 )
 
+set(
+	TARGETS
+	"alda"
+)
+
+if(
+	@ENABLE_NET@
+)
+	list(
+		APPEND
+		TARGETS
+		alda_net
+	)
+endif()
+
 fcppt_export_generate_targets(
 	"${alda_USE_STATIC_LIBS}"
-	"alda"
+	${TARGETS}
 )

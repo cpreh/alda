@@ -2,6 +2,10 @@ include(
 	CMakeParseArguments
 )
 
+fcppt_utils_link_target(
+	alda_net
+)
+
 function(
 	ADD_ALDA_TEST
 	PATH_NAME
@@ -152,6 +156,7 @@ add_alda_test(
 	LINK_LIBS
 		${fcppt_core_TARGET}
 		${alda_TARGET}
+		${alda_net_TARGET}
 )
 
 add_alda_test(

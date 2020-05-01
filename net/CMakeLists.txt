@@ -1,0 +1,110 @@
+find_package(
+	FcpptThreads
+	REQUIRED
+)
+
+find_package(
+	Boost 1.47.0
+	REQUIRED
+	COMPONENTS
+	"system"
+)
+
+
+set(
+	ALDA_NET_FILES
+	net/impl/include/alda/impl/net/client/detail/object_impl.hpp
+	net/impl/include/alda/impl/net/server/detail/connection.hpp
+	net/impl/include/alda/impl/net/server/detail/object_impl.hpp
+	net/impl/src/net/client/detail/object_impl.cpp
+	net/impl/src/net/server/detail/connection.cpp
+	net/impl/src/net/server/detail/object_impl.cpp
+	net/include/alda/net/buffer/circular_receive/extract_message.hpp
+	net/include/alda/net/buffer/circular_receive/for_asio.hpp
+	net/include/alda/net/buffer/circular_receive/part.hpp
+	net/include/alda/net/buffer/circular_receive/part_fwd.hpp
+	net/include/alda/net/buffer/circular_receive/streambuf.hpp
+	net/include/alda/net/buffer/circular_receive/streambuf_fwd.hpp
+	net/include/alda/net/buffer/circular_send/optional_streambuf_ref.hpp
+	net/include/alda/net/buffer/circular_send/optional_streambuf_ref_fwd.hpp
+	net/include/alda/net/buffer/circular_send/put_message.hpp
+	net/include/alda/net/buffer/circular_send/streambuf.hpp
+	net/include/alda/net/buffer/circular_send/streambuf_fwd.hpp
+	net/include/alda/net/buffer/max_receive_size.hpp
+	net/include/alda/net/buffer/max_send_size.hpp
+	net/include/alda/net/client/connect_callback.hpp
+	net/include/alda/net/client/connect_function.hpp
+	net/include/alda/net/client/data_callback.hpp
+	net/include/alda/net/client/data_function.hpp
+	net/include/alda/net/client/detail/object_impl_fwd.hpp
+	net/include/alda/net/client/error_callback.hpp
+	net/include/alda/net/client/error_function.hpp
+	net/include/alda/net/client/object.hpp
+	net/include/alda/net/client/object_fwd.hpp
+	net/include/alda/net/host.hpp
+	net/include/alda/net/id.hpp
+	net/include/alda/net/io_service_wrapper.hpp
+	net/include/alda/net/io_service_wrapper_fwd.hpp
+	net/include/alda/net/log_location.hpp
+	net/include/alda/net/parameters.hpp
+	net/include/alda/net/parameters_fwd.hpp
+	net/include/alda/net/port.hpp
+	net/include/alda/net/port_fwd.hpp
+	net/include/alda/net/server/connect_callback.hpp
+	net/include/alda/net/server/connect_function.hpp
+	net/include/alda/net/server/connection_id_container.hpp
+	net/include/alda/net/server/data_callback.hpp
+	net/include/alda/net/server/data_function.hpp
+	net/include/alda/net/server/detail/connection_container.hpp
+	net/include/alda/net/server/detail/connection_fwd.hpp
+	net/include/alda/net/server/detail/connection_unique_ptr.hpp
+	net/include/alda/net/server/detail/object_impl_fwd.hpp
+	net/include/alda/net/server/disconnect_callback.hpp
+	net/include/alda/net/server/disconnect_function.hpp
+	net/include/alda/net/server/object.hpp
+	net/include/alda/net/server/object_fwd.hpp
+	net/include/alda/net/size_type.hpp
+	net/include/alda/net/value_type.hpp
+	net/src/net/buffer/circular_receive/for_asio.cpp
+	net/src/net/buffer/circular_receive/part.cpp
+	net/src/net/buffer/circular_receive/streambuf.cpp
+	net/src/net/buffer/circular_send/streambuf.cpp
+	net/src/net/client/object.cpp
+	net/src/net/io_service_wrapper.cpp
+	net/src/net/log_location.cpp
+	net/src/net/parameters.cpp
+	net/src/net/server/object.cpp
+)
+
+if(
+	WIN32
+)
+	set(
+		ASIO_LIBS
+		WS2_32
+		Mswsock
+	)
+endif()
+
+add_alda_library(
+	alda_net
+	HAS_IMPL_DIR
+	COMPILE_FLAGS
+		"${FcpptThreads_DEFINITIONS}"
+	COMPILE_DEFINITIONS
+		BOOST_ALL_NO_LIB
+	INTERFACE_LINK_LIBS
+		fcppt_boost_interface
+		fcppt_core_interface
+		fcppt_log_interface
+	LINK_LIBS
+		${alda_TARGET}
+		fcppt_boost_interface
+		${fcppt_core_TARGET}
+		${fcppt_log_TARGET}
+		${FcpptThreads_LIBRARIES}
+		${Boost_SYSTEM_LIBRARY}
+		${ASIO_LIBS}
+	INCLUDE_DIRS
+		${Boost_INCLUDE_DIRS}
+)
