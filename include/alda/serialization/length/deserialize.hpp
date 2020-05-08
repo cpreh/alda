@@ -51,11 +51,12 @@ deserialize(
 		>
 	);
 
-	typedef
+	using
+	result_type
+	=
 	alda::message::optional_base_unique_ptr<
 		TypeEnum
-	>
-	result_type;
+	>;
 
 	return
 		fcppt::optional::bind(

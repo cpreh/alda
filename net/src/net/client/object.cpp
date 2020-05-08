@@ -35,8 +35,7 @@ alda::net::client::object::object(
 }
 
 alda::net::client::object::~object()
-{
-}
+= default;
 
 void
 alda::net::client::object::connect(

@@ -20,7 +20,8 @@ TEST_CASE(
 	"[alda]"
 )
 {
-	std::stringstream stream;
+	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+	std::stringstream stream{};
 
 	alda::serialization::write<
 		alda::bindings::unit

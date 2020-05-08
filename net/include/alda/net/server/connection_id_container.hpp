@@ -20,9 +20,12 @@ namespace net
 namespace server
 {
 
-typedef boost::select_first_range<
+using
+connection_id_container
+=
+boost::select_first_range<
 	alda::net::server::detail::connection_container
-> connection_id_container;
+>;
 
 }
 }

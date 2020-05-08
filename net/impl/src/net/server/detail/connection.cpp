@@ -26,6 +26,7 @@ alda::net::server::detail::connection::connection(
 	id_(
 		_id
 	),
+	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
 	socket_(
 		_io_service
 	),
@@ -42,8 +43,7 @@ alda::net::server::detail::connection::connection(
 }
 
 alda::net::server::detail::connection::~connection()
-{
-}
+= default;
 
 alda::net::id
 alda::net::server::detail::connection::id() const

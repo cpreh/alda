@@ -23,19 +23,22 @@ template<
 class object
 {
 public:
-	typedef
-	Type
-	binding;
+	using
+	binding
+	=
+	Type;
 
-	typedef
+	using
+	element_type
+	=
 	alda::raw::element_type<
 		Type
-	>
-	element_type;
+	>;
 
-	typedef
-	Id
-	id_type;
+	using
+	id_type
+	=
+	Id;
 
 	explicit
 	object(

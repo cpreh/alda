@@ -151,13 +151,17 @@ add_alda_test(
 		${alda_TARGET}
 )
 
-add_alda_test(
-	net/buffer/circular_receive/streambuf
-	LINK_LIBS
-		${fcppt_core_TARGET}
-		${alda_TARGET}
-		${alda_net_TARGET}
+if(
+	ENABLE_NET
 )
+	add_alda_test(
+		net/buffer/circular_receive/streambuf
+		LINK_LIBS
+			${fcppt_core_TARGET}
+			${alda_TARGET}
+			${alda_net_TARGET}
+	)
+endif()
 
 add_alda_test(
 	serialization/dispatch

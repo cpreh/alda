@@ -52,12 +52,12 @@ place(
 	alda::raw::pointer const _mem
 )
 {
-	typedef
-	typename
-	std::make_unsigned<
+	using
+	unsigned_type
+	=
+	std::make_unsigned_t<
 		Type
-	>::type
-	unsigned_type;
+	>;
 
 	Type const null(
 		fcppt::literal<
@@ -88,10 +88,12 @@ place(
 			null
 		)
 	)
+	{
 		throw alda::exception(
 			FCPPT_TEXT("alda::bindings::signed has encountered a negative value")
 			FCPPT_TEXT(" whose magnitude is larger than the largest positive value!")
 		);
+	}
 
 	unsigned_type const converted(
 		is_negative
@@ -157,19 +159,21 @@ make_generic(
 	> _stream
 )
 {
-	typedef
+	using
+	unsigned_impl
+	=
 	typename
 	alda::bindings::signed_<
 		Type,
 		Endianness
-	>::impl
-	unsigned_impl;
+	>::impl;
 
-	typedef
+	using
+	unsigned_type
+	=
 	alda::raw::element_type<
 		unsigned_impl
-	>
-	unsigned_type;
+	>;
 
 	return
 		alda::raw::stream::bind<
@@ -191,7 +195,7 @@ make_generic(
 					>::max()
 				);
 
-				unsigned_type const converted_max(
+				auto const converted_max(
 					static_cast<
 						unsigned_type
 					>(

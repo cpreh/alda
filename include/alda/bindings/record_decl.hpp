@@ -28,11 +28,14 @@ template<
 >
 struct record
 {
-	typedef
-	Types
-	types;
+	using
+	types
+	=
+	Types;
 
-	typedef
+	using
+	element_type
+	=
 	fcppt::record::from_list<
 		metal::transform<
 			metal::bind<
@@ -53,8 +56,7 @@ struct record
 			>,
 			Types
 		>
-	>
-	element_type;
+	>;
 };
 
 }

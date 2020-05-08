@@ -63,17 +63,19 @@ place(
 	alda::raw::pointer _mem
 )
 {
-	typedef
+	using
+	binding
+	=
 	alda::bindings::variant<
 		Types,
 		AdaptedTypes
-	>
-	binding;
+	>;
 
-	typedef
+	using
+	index_type
+	=
 	typename
-	binding::index_type
-	index_type;
+	binding::index_type;
 
 	auto const index(
 		fcppt::cast::truncation_check<
@@ -149,17 +151,19 @@ make_generic(
 	> _stream
 )
 {
-	typedef
+	using
+	binding
+	=
 	alda::bindings::variant<
 		Types,
 		AdaptedTypes
-	>
-	binding;
+	>;
 
-	typedef
+	using
+	index_type
+	=
 	typename
-	binding::index_type
-	index_type;
+	binding::index_type;
 
 	return
 		alda::raw::stream::bind<
@@ -194,7 +198,9 @@ make_generic(
 								_tag
 							);
 
-							typedef
+							using
+							adapted_type
+							=
 							metal::at<
 								AdaptedTypes,
 								metal::find<
@@ -205,8 +211,7 @@ make_generic(
 										)
 									>
 								>
-							>
-							adapted_type;
+							>;
 
 							return
 								alda::raw::stream::bind<
@@ -286,17 +291,19 @@ needed_size(
 	> const &_value
 )
 {
-	typedef
+	using
+	binding
+	=
 	alda::bindings::variant<
 		Types,
 		AdaptedTypes
-	>
-	binding;
+	>;
 
-	typedef
+	using
+	index_type
+	=
 	typename
-	binding::index_type
-	index_type;
+	binding::index_type;
 
 	auto const index(
 		fcppt::cast::truncation_check<

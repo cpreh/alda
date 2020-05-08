@@ -25,22 +25,24 @@
 namespace
 {
 
-typedef
+using
+int_array2
+=
 std::array<
 	unsigned,
 	2
->
-int_array2;
+>;
 
-typedef
+using
+array_binding
+=
 alda::bindings::array<
 	int_array2,
 	alda::bindings::unsigned_<
 		int_array2::value_type,
 		fcppt::endianness::format::little
 	>
->
-array_binding;
+>;
 
 static_assert(
 	alda::raw::static_size<
@@ -51,16 +53,16 @@ static_assert(
 		unsigned
 	)
 	*
-	2u,
-	""
+	2U
 );
 
-typedef
+using
+either_result_type
+=
 fcppt::either::object<
 	alda::raw::stream::error,
 	int_array2
->
-either_result_type;
+>;
 
 }
 
@@ -70,10 +72,11 @@ TEST_CASE(
 )
 {
 	int_array2 const test{{
-		2u,
-		4u
+		2U,
+		4U
 	}};
 
+	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
 	std::stringstream stream{};
 
 	alda::serialization::write<

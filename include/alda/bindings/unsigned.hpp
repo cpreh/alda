@@ -96,13 +96,14 @@ make_generic(
 	> _stream
 )
 {
-	typedef
+	using
+	impl_type
+	=
 	typename
 	alda::bindings::unsigned_<
 		Type,
 		Endianness
-	>::impl
-	impl_type;
+	>::impl;
 
 	return
 		alda::raw::stream::bind<

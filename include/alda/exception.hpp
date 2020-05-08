@@ -38,7 +38,8 @@ public:
 	ALDA_DETAIL_SYMBOL
 	exception(
 		exception &&
-	);
+	)
+	noexcept;
 
 	ALDA_DETAIL_SYMBOL
 	exception(
@@ -49,7 +50,8 @@ public:
 	exception &
 	operator=(
 		exception &&
-	);
+	)
+	noexcept;
 
 	ALDA_DETAIL_SYMBOL
 	exception &

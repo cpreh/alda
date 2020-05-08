@@ -20,11 +20,12 @@ namespace serialization
 namespace length
 {
 
-typedef
+using
+remaining_size_function
+=
 fcppt::function<
 	std::streamsize ()
->
-remaining_size_function;
+>;
 
 }
 }

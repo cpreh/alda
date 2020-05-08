@@ -10,7 +10,7 @@
 #include <alda/call/detail/base_decl.hpp>
 #include <alda/call/detail/concrete_fwd.hpp>
 #include <alda/message/base_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace alda
@@ -27,21 +27,29 @@ template<
 >
 class concrete
 :
-	public alda::call::detail::base<
+	public
+	alda::call::detail::base<
 		TypeEnum,
 		Callee
 	>
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		concrete
 	);
 
-	typedef alda::call::detail::base<
+	using
+	base_type
+	=
+	alda::call::detail::base<
 		TypeEnum,
 		Callee
-	> base_type;
+	>;
 public:
-	typedef typename base_type::message_type message_type;
+	using
+	message_type
+	=
+	typename
+	base_type::message_type;
 
 	concrete();
 

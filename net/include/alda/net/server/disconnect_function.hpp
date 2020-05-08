@@ -18,9 +18,10 @@ namespace net
 namespace server
 {
 
-typedef
-void
-disconnect_function(
+using
+disconnect_function
+=
+void (
 	alda::net::id,
 	fcppt::string const &
 );

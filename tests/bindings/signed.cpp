@@ -29,30 +29,34 @@
 namespace
 {
 
-typedef
-std::int16_t
-int_type;
+using
+int_type
+=
+std::int16_t;
 
-typedef
+using
+int_binding
+=
 alda::bindings::signed_<
 	int_type,
 	fcppt::endianness::format::little
->
-int_binding;
+>;
 
-typedef
+using
+either_result_type
+=
 fcppt::either::object<
 	alda::raw::stream::error,
 	int_type
->
-either_result_type;
+>;
 
 void
 test_conversion(
 	int_type const _value
 )
 {
-	std::stringstream stream;
+	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+	std::stringstream stream{};
 
 	alda::serialization::write<
 		int_binding
@@ -110,7 +114,7 @@ TEST_CASE(
 		fcppt::literal<
 			int_type
 		>(
-			1337
+			1337 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		)
 	);
 
@@ -118,7 +122,7 @@ TEST_CASE(
 		fcppt::literal<
 			int_type
 		>(
-			-1337
+			-1337 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		)
 	);
 
@@ -144,7 +148,8 @@ FCPPT_PP_DISABLE_VC_WARNING(4127)
 		0
 	)
 	{
-		std::ostringstream stream;
+		// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+		std::ostringstream stream{};
 
 		CHECK_THROWS_AS(
 			alda::serialization::write<

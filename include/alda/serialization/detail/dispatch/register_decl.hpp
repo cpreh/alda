@@ -10,7 +10,7 @@
 #include <alda/detail/external_symbol.hpp>
 #include <alda/serialization/context_fwd.hpp>
 #include <alda/serialization/detail/dispatch/register_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace alda
@@ -28,13 +28,16 @@ template<
 >
 class register_
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		register_
 	);
 public:
-	typedef alda::serialization::context<
+	using
+	context
+	=
+	alda::serialization::context<
 		TypeEnum
-	> context;
+	>;
 
 	ALDA_DETAIL_EXTERNAL_SYMBOL
 	explicit
@@ -42,8 +45,8 @@ public:
 		context &
 	);
 
-	ALDA_DETAIL_EXTERNAL_SYMBOL
-	~register_();
+	~register_()
+	= default;
 };
 
 }

@@ -9,7 +9,7 @@
 
 #include <alda/call/detail/base_fwd.hpp>
 #include <alda/message/base_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace alda
@@ -25,7 +25,7 @@ template<
 >
 class base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		base
 	);
 protected:
@@ -34,11 +34,15 @@ public:
 	virtual
 	~base() = 0;
 
-	typedef alda::message::base<
+	using
+	message_type
+	=
+	alda::message::base<
 		TypeEnum
-	> message_type;
+	>;
 
-	virtual typename Callee::result_type
+	virtual
+	typename Callee::result_type
 	call(
 		Callee &,
 		message_type const &

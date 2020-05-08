@@ -18,9 +18,10 @@ template<
 >
 struct type_enum
 {
-	typedef
-	Enum
-	type;
+	using
+	type
+	=
+	Enum;
 };
 
 }

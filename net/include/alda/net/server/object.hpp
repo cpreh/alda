@@ -18,7 +18,7 @@
 #include <alda/net/server/disconnect_callback.hpp>
 #include <alda/net/server/object_fwd.hpp>
 #include <alda/net/server/detail/object_impl_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 
@@ -32,7 +32,7 @@ namespace server
 
 class object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
@@ -51,12 +51,14 @@ public:
 		alda::net::port
 	);
 
+	[[nodiscard]]
 	ALDA_NET_DETAIL_SYMBOL
 	alda::net::buffer::circular_send::optional_streambuf_ref
 	send_buffer(
 		alda::net::id
 	);
 
+	[[nodiscard]]
 	ALDA_NET_DETAIL_SYMBOL
 	alda::net::server::connection_id_container
 	connections() const;
@@ -73,18 +75,21 @@ public:
 		alda::net::id
 	);
 
+	[[nodiscard]]
 	ALDA_NET_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	register_connect(
 		alda::net::server::connect_callback &&
 	);
 
+	[[nodiscard]]
 	ALDA_NET_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	register_disconnect(
 		alda::net::server::disconnect_callback &&
 	);
 
+	[[nodiscard]]
 	ALDA_NET_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	register_data(

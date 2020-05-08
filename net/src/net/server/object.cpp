@@ -36,8 +36,7 @@ alda::net::server::object::object(
 }
 
 alda::net::server::object::~object()
-{
-}
+= default;
 
 void
 alda::net::server::object::listen(

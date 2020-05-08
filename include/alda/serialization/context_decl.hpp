@@ -10,7 +10,7 @@
 #include <alda/serialization/context_fwd.hpp>
 #include <alda/serialization/detail/dispatch/map.hpp>
 #include <alda/serialization/detail/dispatch/register_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace alda
@@ -23,7 +23,7 @@ template<
 >
 class context
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		context
 	);
 public:
@@ -31,9 +31,12 @@ public:
 
 	~context();
 
-	typedef alda::serialization::detail::dispatch::map<
+	using
+	dispatch_map
+	=
+	alda::serialization::detail::dispatch::map<
 		TypeEnum
-	> dispatch_map;
+	>;
 
 	dispatch_map const &
 	handlers() const;

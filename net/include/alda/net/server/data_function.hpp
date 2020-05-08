@@ -18,9 +18,10 @@ namespace net
 namespace server
 {
 
-typedef
-void
-data_function(
+using
+data_function
+=
+void (
 	alda::net::id,
 	alda::net::buffer::circular_receive::streambuf &
 );

@@ -16,11 +16,12 @@ namespace alda
 namespace raw
 {
 
-typedef
+using
+buffer
+=
 fcppt::container::raw_vector::object<
 	alda::raw::data
->
-buffer;
+>;
 
 }
 }

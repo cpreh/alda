@@ -23,9 +23,10 @@ namespace stream
 
 struct memory
 {
-	typedef
-	alda::raw::const_pointer &
-	reference;
+	using
+	reference
+	=
+	alda::raw::const_pointer &;
 
 	static
 	inline

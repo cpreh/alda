@@ -39,8 +39,7 @@ alda::call::detail::concrete<
 	Callee,
 	Message
 >::~concrete()
-{
-}
+= default;
 
 template<
 	typename TypeEnum,

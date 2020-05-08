@@ -62,5 +62,5 @@ alda::net::buffer::circular_receive::part::empty() const
 	return
 		this->size()
 		==
-		0u;
+		0U;
 }

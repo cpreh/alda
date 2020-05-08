@@ -30,6 +30,7 @@ alda::raw::stream::failure::failure(
 alda::raw::stream::failure::failure(
 	failure &&
 )
+noexcept
 = default;
 
 alda::raw::stream::failure::failure(
@@ -41,6 +42,7 @@ alda::raw::stream::failure &
 alda::raw::stream::failure::operator=(
 	failure &&
 )
+noexcept
 = default;
 
 alda::raw::stream::failure &
@@ -50,5 +52,4 @@ alda::raw::stream::failure::operator=(
 = default;
 
 alda::raw::stream::failure::~failure() noexcept
-{
-}
+= default;

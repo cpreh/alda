@@ -20,9 +20,10 @@ namespace net
 namespace client
 {
 
-typedef
-void
-error_function(
+using
+error_function
+=
+void (
 	fcppt::string const &,
 	boost::system::error_code
 );

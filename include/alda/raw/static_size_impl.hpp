@@ -20,9 +20,10 @@ template<
 >
 struct static_size_impl
 {
-	typedef
-	alda::raw::detail::dynamic_size
-	type;
+	using
+	type
+	=
+	alda::raw::detail::dynamic_size;
 };
 
 }

@@ -28,7 +28,7 @@ alda::net::buffer::circular_receive::streambuf::streambuf(
 	impl_(
 		_max_receive_size.get()
 		+
-		1u
+		1U
 	),
 	back_{
 		impl_.data()
@@ -43,14 +43,13 @@ alda::net::buffer::circular_receive::streambuf::streambuf(
 }
 
 alda::net::buffer::circular_receive::streambuf::~streambuf()
-{
-}
+= default;
 
 alda::net::buffer::circular_receive::part
 alda::net::buffer::circular_receive::streambuf::next_receive_part()
 {
 	iterator const last(
-		std::prev(
+		std::prev( // NOLINT(fuchsia-default-arguments-calls)
 			this->iterator_group(
 				cur_
 			)
@@ -121,10 +120,12 @@ alda::net::buffer::circular_receive::streambuf::showmanyc()
 		<
 		0
 	)
+	{
 		diff +=
 			fcppt::cast::to_signed(
 				impl_.size()
 			);
+	}
 
 	return
 		diff;
@@ -143,12 +144,14 @@ alda::net::buffer::circular_receive::streambuf::uflow()
 			traits_type::eof()
 		)
 	)
+	{
 		cur_ =
-			std::next(
+			std::next( // NOLINT(fuchsia-default-arguments-calls)
 				this->iterator_group(
 					cur_
 				)
 			).get();
+	}
 
 	return
 		result;
@@ -232,11 +235,13 @@ alda::net::buffer::circular_receive::streambuf::pbackfail(
 		==
 		cur_
 	)
+	{
 		return
 			traits_type::eof();
+	}
 
 	cur_ =
-		std::prev(
+		std::prev( // NOLINT(fuchsia-default-arguments-calls)
 			this->iterator_group(
 				cur_
 			)
@@ -248,10 +253,12 @@ alda::net::buffer::circular_receive::streambuf::pbackfail(
 			traits_type::eof()
 		)
 	)
+	{
 		*cur_ =
 			traits_type::to_char_type(
 				_c
 			);
+	}
 
 	return
 		0;

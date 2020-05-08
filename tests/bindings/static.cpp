@@ -27,22 +27,24 @@
 namespace
 {
 
-typedef
+using
+int_vec2
+=
 fcppt::math::vector::static_<
 	unsigned,
 	2
->
-int_vec2;
+>;
 
-typedef
+using
+vector_binding
+=
 alda::bindings::static_<
 	int_vec2,
 	alda::bindings::unsigned_<
 		int_vec2::value_type,
 		fcppt::endianness::format::little
 	>
->
-vector_binding;
+>;
 
 static_assert(
 	alda::raw::static_size<
@@ -53,16 +55,16 @@ static_assert(
 		unsigned
 	)
 	*
-	2u,
-	""
+	2U
 );
 
-typedef
+using
+either_result_type
+=
 fcppt::either::object<
 	alda::raw::stream::error,
 	int_vec2
->
-either_result_type;
+>;
 
 }
 
@@ -72,11 +74,12 @@ TEST_CASE(
 )
 {
 	int_vec2 const test(
-		2u,
-		5u
+		2U,
+		5U
 	);
 
-	std::stringstream stream;
+	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+	std::stringstream stream{};
 
 	alda::serialization::write<
 		vector_binding

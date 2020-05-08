@@ -58,17 +58,19 @@ place(
 	alda::raw::pointer _mem
 )
 {
-	typedef
+	using
+	binding
+	=
 	alda::bindings::optional<
 		Type,
 		Adapted
-	>
-	binding;
+	>;
 
-	typedef
+	using
+	bool_type
+	=
 	typename
-	binding::bool_type
-	bool_type;
+	binding::bool_type;
 
 	_mem =
 		alda::raw::place_and_update<
@@ -123,13 +125,14 @@ make_generic(
 	> _stream
 )
 {
-	typedef
+	using
+	bool_type
+	=
 	typename
 	alda::bindings::optional<
 		Type,
 		Adapted
-	>::bool_type
-	bool_type;
+	>::bool_type;
 
 	return
 		alda::raw::stream::bind<
@@ -214,17 +217,19 @@ needed_size(
 	> const &_opt_value
 )
 {
-	typedef
+	using
+	binding
+	=
 	alda::bindings::optional<
 		Type,
 		Adapted
-	>
-	binding;
+	>;
 
-	typedef
+	using
+	bool_type
+	=
 	typename
-	binding::bool_type
-	bool_type;
+	binding::bool_type;
 
 	constexpr alda::raw::size_type const ret(
 		alda::raw::needed_size_static<

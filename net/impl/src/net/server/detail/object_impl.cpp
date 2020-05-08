@@ -54,7 +54,6 @@
 #include <boost/range/adaptor/map.hpp>
 #include <boost/system/error_code.hpp>
 #include <cstddef>
-#include <functional>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -82,11 +81,12 @@ alda::net::server::detail::object_impl::object_impl(
 	buffer_send_size_(
 		_parameters.max_send_size()
 	),
+	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
 	acceptor_(
 		io_service_
 	),
 	id_counter_(
-		0u
+		0U
 	),
 	connections_(),
 	connect_signal_(),
@@ -96,8 +96,7 @@ alda::net::server::detail::object_impl::object_impl(
 }
 
 alda::net::server::detail::object_impl::~object_impl()
-{
-}
+= default;
 
 void
 alda::net::server::detail::object_impl::listen(
@@ -114,7 +113,7 @@ alda::net::server::detail::object_impl::listen(
 	boost::asio::ip::tcp::endpoint const endpoint(
 		boost::asio::ip::tcp::v4(),
 		fcppt::cast::size<
-			unsigned short
+			unsigned short // NOLINT(google-runtime-int)
 		>(
 			_port.get()
 		)
@@ -134,6 +133,7 @@ alda::net::server::detail::object_impl::listen(
 		endpoint
 	);
 
+	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
 	acceptor_.listen();
 
 	this->accept();
@@ -189,9 +189,11 @@ alda::net::server::detail::object_impl::queue_send(
 	if(
 		!con.sending()
 	)
+	{
 		this->send_data(
 			con
 		);
+	}
 }
 
 void
@@ -269,7 +271,7 @@ alda::net::server::detail::object_impl::accept()
 	{
 	public:
 		handler(
-			object_impl &_object,
+			object_impl &_object, // NOLINT(google-runtime-references)
 			alda::net::server::detail::connection_unique_ptr &&_connection
 		)
 		:
@@ -294,12 +296,24 @@ FCPPT_PP_POP_WARNING
 
 		handler(
 			handler &&
-		) = default;
+		)
+		noexcept
+		= default;
 
 		handler &
 		operator=(
 			handler const &
 		) = delete;
+
+		handler &
+		operator=(
+			handler &&
+		)
+		noexcept
+		= delete;
+
+		~handler()
+		= default;
 
 		void
 		operator()(
@@ -324,6 +338,7 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Wzero-as-null-pointer-constant)
 #endif
 
+	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
 	acceptor_.async_accept(
 		socket,
 		handler(
@@ -418,11 +433,15 @@ alda::net::server::detail::object_impl::write_handler(
 	if(
 		!sent_data.empty()
 	)
+	{
 		this->send_data(
 			_con
 		);
+	}
 	else
+	{
 		_con.sending() = false;
+	}
 }
 
 void
@@ -536,27 +555,34 @@ alda::net::server::detail::object_impl::send_data(
 		_con.send_data().send_part()
 	);
 
-	_con.sending() = (out_data.second != 0u);
+	_con.sending() = (out_data.second != 0U);
 
 	if(
 		!_con.sending()
 	)
+	{
 		return;
+	}
 
 	_con.socket().async_send(
 		boost::asio::buffer(
 			out_data.first,
 			out_data.second
 		),
-		std::bind(
-			&object_impl::write_handler,
+		[
 			this,
-			std::placeholders::_1,
-			std::placeholders::_2,
-			std::ref(
-				_con
-			)
+			&_con
+		](
+			boost::system::error_code const &_error,
+			std::size_t const _bytes
 		)
+		{
+			this->write_handler(
+				_error,
+				_bytes,
+				_con
+			);
+		}
 	);
 }
 
@@ -574,15 +600,20 @@ alda::net::server::detail::object_impl::receive_data(
 		alda::net::buffer::circular_receive::for_asio(
 			_con.received_data().next_receive_part()
 		),
-		std::bind(
-			&alda::net::server::detail::object_impl::read_handler,
+		[
 			this,
-			std::placeholders::_1,
-			std::placeholders::_2,
-			std::ref(
-				_con
-			)
+			&_con
+		](
+			boost::system::error_code const &_error,
+			std::size_t const _bytes
 		)
+		{
+			this->read_handler(
+				_error,
+				_bytes,
+				_con
+			);
+		}
 	);
 }
 

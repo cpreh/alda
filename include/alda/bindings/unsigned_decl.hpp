@@ -26,15 +26,17 @@ template<
 >
 struct unsigned_
 {
-	typedef
-	Type
-	element_type;
+	using
+	element_type
+	=
+	Type;
 
-	typedef
+	using
+	impl
+	=
 	alda::bindings::fundamental<
 		Type
-	>
-	impl;
+	>;
 
 	static
 	constexpr
@@ -43,9 +45,9 @@ struct unsigned_
 	};
 
 	static_assert(
-		std::is_unsigned<
+		std::is_unsigned_v<
 			Type
-		>::value,
+		>,
 		"alda::bindings::unsigned_ only works on unsigned types"
 	);
 };

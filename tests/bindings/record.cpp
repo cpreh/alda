@@ -31,11 +31,12 @@
 namespace
 {
 
-typedef
+using
+int_
+=
 alda::bindings::fundamental<
 	int
->
-int_;
+>;
 
 FCPPT_RECORD_MAKE_LABEL(
 	int_role
@@ -45,33 +46,36 @@ FCPPT_RECORD_MAKE_LABEL(
 	record_role
 );
 
-typedef
+using
+inner_record_binding
+=
 alda::bindings::record_variadic<
 	fcppt::record::element<
 		int_role,
 		int_
 	>
->
-inner_record_binding;
+>;
 
 static_assert(
 	alda::raw::static_size<
 		inner_record_binding
 	>::value
-	==
+	== // NOLINT(misc-redundant-expression)
 	alda::raw::static_size<
 		int_
-	>::value,
-	""
+	>::value
 );
 
-typedef
+using
+inner_record
+=
 alda::raw::element_type<
 	inner_record_binding
->
-inner_record;
+>;
 
-typedef
+using
+record_binding
+=
 alda::bindings::record_variadic<
 	fcppt::record::element<
 		int_role,
@@ -81,8 +85,7 @@ alda::bindings::record_variadic<
 		record_role,
 		inner_record_binding
 	>
->
-record_binding;
+>;
 
 static_assert(
 	alda::raw::static_size<
@@ -95,8 +98,7 @@ static_assert(
 	+
 	alda::raw::static_size<
 		int_
-	>::value,
-	""
+	>::value
 );
 
 FCPPT_RECORD_MAKE_LABEL(
@@ -118,22 +120,23 @@ static_assert(
 				int_
 			>
 		>
-	>::value,
-	""
+	>::value
 );
 
-typedef
+using
+record
+=
 alda::raw::element_type<
 	record_binding
->
-record;
+>;
 
-typedef
+using
+either_result_type
+=
 fcppt::either::object<
 	alda::raw::stream::error,
 	record
->
-either_result_type;
+>;
 
 }
 
@@ -162,7 +165,8 @@ TEST_CASE(
 		>::value
 	);
 
-	std::stringstream stream;
+	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+	std::stringstream stream{};
 
 	alda::serialization::write<
 		record_binding

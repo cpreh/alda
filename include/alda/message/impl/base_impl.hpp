@@ -16,8 +16,7 @@ template<
 alda::message::base<
 	TypeEnum
 >::base()
-{
-}
+= default;
 
 template<
 	typename TypeEnum
@@ -47,7 +46,8 @@ alda::message::base<
 	TypeEnum
 >::base(
 	base &&
-) = default;
+) noexcept
+= default;
 
 template<
 	typename TypeEnum
@@ -59,7 +59,8 @@ alda::message::base<
 	TypeEnum
 >::operator=(
 	base &&
-) = default;
+) noexcept
+= default;
 
 template<
 	typename TypeEnum
@@ -67,7 +68,6 @@ template<
 alda::message::base<
 	TypeEnum
 >::~base()
-{
-}
+= default;
 
 #endif

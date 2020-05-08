@@ -39,22 +39,25 @@ struct variant
 		"Types and AdaptedTypes must be of same size"
 	);
 
-	typedef
+	using
+	element_type
+	=
 	fcppt::variant::from_list<
 		Types
-	>
-	element_type;
+	>;
 
-	typedef
-	AdaptedTypes
-	adapted_types;
+	using
+	adapted_types
+	=
+	AdaptedTypes;
 
-	typedef
+	using
+	index_type
+	=
 	alda::bindings::unsigned_<
 		std::uint8_t,
 		fcppt::endianness::format::little
-	>
-	index_type;
+	>;
 };
 
 }

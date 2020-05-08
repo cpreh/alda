@@ -50,42 +50,47 @@ enum class message_type
 	fcppt_maximum = message2
 };
 
-typedef
+using
+type_enum
+=
 alda::type_enum<
 	message_type
->
-type_enum;
+>;
 
-typedef
+using
+message_base
+=
 alda::message::base<
 	type_enum
->
-message_base;
+>;
 
-typedef
+using
+message_base_unique_ptr
+=
 alda::message::base_unique_ptr<
 	type_enum
->
-message_base_unique_ptr;
+>;
 
 constexpr
 fcppt::endianness::format const endianness{
 	fcppt::endianness::format::little
 };
 
-typedef
+using
+uint16_type
+=
 alda::bindings::unsigned_<
 	std::uint16_t,
 	endianness
->
-uint16_type;
+>;
 
-typedef
+using
+uint32_type
+=
 alda::bindings::unsigned_<
 	std::uint32_t,
 	endianness
->
-uint32_type;
+>;
 
 FCPPT_RECORD_MAKE_LABEL(
 	uint16_role
@@ -95,7 +100,9 @@ FCPPT_RECORD_MAKE_LABEL(
 	uint32_role
 );
 
-typedef
+using
+message1
+=
 alda::message::object<
 	alda::message::make_id<
 		type_enum,
@@ -107,10 +114,11 @@ alda::message::object<
 			uint16_type
 		>
 	>
->
-message1;
+>;
 
-typedef
+using
+message2
+=
 alda::message::object<
 	alda::message::make_id<
 		type_enum,
@@ -122,14 +130,14 @@ alda::message::object<
 			uint32_type
 		>
 	>
->
-message2;
+>;
 
-typedef
+using
+context
+=
 alda::serialization::context<
 	type_enum
->
-context;
+>;
 
 context &
 global_context();
@@ -186,6 +194,7 @@ FCPPT_PP_DISABLE_CLANG_WARNING(-Wexit-time-destructors)
 namespace register1
 {
 
+// NOLINTNEXTLINE(cert-err58-cpp,fuchsia-statically-constructed-objects)
 ALDA_SERIALIZATION_REGISTER_MESSAGE(
 	global_context(),
 	type_enum,
@@ -197,6 +206,7 @@ ALDA_SERIALIZATION_REGISTER_MESSAGE(
 namespace register2
 {
 
+// NOLINTNEXTLINE(cert-err58-cpp,fuchsia-statically-constructed-objects)
 ALDA_SERIALIZATION_REGISTER_MESSAGE(
 	global_context(),
 	type_enum,
@@ -210,9 +220,12 @@ FCPPT_PP_POP_WARNING
 struct dispatcher_function
 {
 public:
-	typedef void result_type;
-
+	using
 	result_type
+	=
+	void;
+
+	void
 	operator()(
 		message1 const &_msg
 	) const
@@ -232,7 +245,7 @@ public:
 		);
 	}
 
-	result_type
+	void
 	operator()(
 		message2 const &_msg
 	) const
@@ -252,6 +265,7 @@ public:
 		);
 	}
 
+	static
 	result_type
 	default_callback(
 		message_base const &
@@ -270,7 +284,8 @@ TEST_CASE(
 	"[alda]"
 )
 {
-	std::ostringstream ofs;
+	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+	std::ostringstream ofs{};
 
 	alda::serialization::serialize(
 		ofs,
@@ -290,11 +305,14 @@ TEST_CASE(
 		)
 	);
 
-	std::istringstream ifs(
+	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+	std::istringstream ifs{
 		ofs.str()
-	);
+	};
 
-	typedef
+	using
+	dispatcher
+	=
 	alda::call::object<
 		type_enum,
 		metal::list<
@@ -302,19 +320,20 @@ TEST_CASE(
 			message2
 		>,
 		dispatcher_function
-	>
-	dispatcher;
+	>;
 
-	dispatcher const dispatcher_object;
+	dispatcher const dispatcher_object{};
 
-	dispatcher_function receiver;
+	dispatcher_function receiver{};
 
 	dispatcher::default_callback const default_callback(
-		std::bind(
-			&dispatcher_function::default_callback,
-			&receiver,
-			std::placeholders::_1
-		)
+		[](
+			message_base const &_message
+		){
+			dispatcher_function::default_callback(
+				_message
+			);
+		}
 	);
 
 	SECTION(
@@ -355,7 +374,7 @@ TEST_CASE(
 					static_cast<
 						std::uint32_t
 					>(
-						42
+						42 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 					)
 			)
 		)

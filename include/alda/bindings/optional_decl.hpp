@@ -23,15 +23,17 @@ template<
 >
 struct optional
 {
-	typedef
+	using
+	element_type
+	=
 	fcppt::optional::object<
 		Type
-	>
-	element_type;
+	>;
 
-	typedef
-	alda::bindings::bool_
-	bool_type;
+	using
+	bool_type
+	=
+	alda::bindings::bool_;
 };
 
 }

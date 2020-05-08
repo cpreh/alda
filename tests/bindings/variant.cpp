@@ -30,27 +30,32 @@
 namespace
 {
 
-typedef
-std::uint32_t
-uint_type;
+using
+uint_type
+=
+std::uint32_t;
 
-typedef
-std::int16_t
-int_type;
+using
+int_type
+=
+std::int16_t;
 
-typedef
+using
+variant_types
+=
 metal::list<
 	uint_type,
 	int_type
->
-variant_types;
+>;
 
 constexpr
 fcppt::endianness::format const endianness{
 	fcppt::endianness::format::little
 };
 
-typedef
+using
+adapted_types
+=
 metal::list<
 	alda::bindings::unsigned_<
 		uint_type,
@@ -60,21 +65,22 @@ metal::list<
 		int_type,
 		endianness
 	>
->
-adapted_types;
+>;
 
-typedef
+using
+variant_binding
+=
 alda::bindings::variant<
 	variant_types,
 	adapted_types
->
-variant_binding;
+>;
 
-typedef
+using
+variant_type
+=
 fcppt::variant::from_list<
 	variant_types
->
-variant_type;
+>;
 
 }
 
@@ -86,7 +92,8 @@ do_test(
 	variant_type const &_value
 )
 {
-	std::stringstream stream;
+	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+	std::stringstream stream{};
 
 	alda::serialization::write<
 		variant_binding
@@ -122,7 +129,7 @@ TEST_CASE(
 			fcppt::literal<
 				uint_type
 			>(
-				42u
+				42U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			)
 		}
 	);
@@ -132,7 +139,7 @@ TEST_CASE(
 			fcppt::literal<
 				int_type
 			>(
-				13
+				13 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			)
 		}
 	);

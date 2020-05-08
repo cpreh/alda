@@ -55,7 +55,7 @@ struct static_size_impl<
 	>
 >
 {
-	// TODO: can we express this directly?
+	// TODO(philipp): can we express this directly?
 	template<
 		typename Element,
 		typename Val
@@ -75,7 +75,9 @@ struct static_size_impl<
 		Val
 	>;
 
-	typedef
+	using
+	type
+	=
 	metal::accumulate<
 		metal::bind<
 			metal::lambda<
@@ -90,8 +92,7 @@ struct static_size_impl<
 			>
 		>,
 		Types
-	>
-	type;
+	>;
 };
 
 }
@@ -135,13 +136,14 @@ needed_size(
 					_tag
 				);
 
-				typedef
+				using
+				role
+				=
 				fcppt::tag_type<
 					decltype(
 						_tag
 					)
-				>
-				role;
+				>;
 
 				return
 					alda::raw::needed_size<
@@ -195,13 +197,14 @@ place(
 				_tag
 			);
 
-			typedef
+			using
+			role
+			=
 			fcppt::tag_type<
 				decltype(
 					_tag
 				)
-			>
-			role;
+			>;
 
 			_memory =
 				alda::raw::place_and_update<
@@ -225,7 +228,7 @@ place(
 namespace detail
 {
 
-// TODO: Improve this by making std::tuple usable as a range
+// TODO(philipp): Improve this by making std::tuple usable as a range
 template<
 	typename Types,
 	typename Stream,
@@ -296,14 +299,15 @@ read(
 	Args &&..._args
 )
 {
-	typedef
+	using
+	element
+	=
 	metal::at<
 		Types,
 		metal::number<
 			Index
 		>
-	>
-	element;
+	>;
 
 	return
 		alda::raw::stream::bind<
@@ -332,7 +336,7 @@ read(
 					alda::bindings::detail::read<
 						Types,
 						Stream,
-						Index + 1u,
+						Index + 1U,
 						MaxIndex
 					>(
 						_stream,
@@ -383,7 +387,7 @@ make_generic(
 		alda::bindings::detail::read<
 			Types,
 			Stream,
-			0u,
+			0U,
 			metal::size<
 				Types
 			>::value

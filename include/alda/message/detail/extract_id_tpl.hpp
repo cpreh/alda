@@ -20,10 +20,11 @@ template<
 >
 struct extract_id_tpl
 {
-	typedef
+	using
+	type
+	=
 	typename
-	Message::id_type
-	type;
+	Message::id_type;
 };
 
 }

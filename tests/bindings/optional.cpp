@@ -26,32 +26,36 @@
 namespace
 {
 
-typedef
-std::uint32_t
-base_type;
+using
+base_type
+=
+std::uint32_t;
 
-typedef
+using
+optional_type
+=
 fcppt::optional::object<
 	base_type
->
-optional_type;
+>;
 
-typedef
+using
+optional_binding
+=
 alda::bindings::optional<
 	base_type,
 	alda::bindings::unsigned_<
 		base_type,
 		fcppt::endianness::format::little
 	>
->
-optional_binding;
+>;
 
-typedef
+using
+either_result_type
+=
 fcppt::either::object<
 	alda::raw::stream::error,
 	optional_type
->
-either_result_type;
+>;
 
 }
 
@@ -61,14 +65,15 @@ TEST_CASE(
 )
 {
 	{
-		std::stringstream stream;
+		// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+		std::stringstream stream{};
 
 		alda::serialization::write<
 			optional_binding
 		>(
 			stream,
 			optional_type{
-				42u
+				42U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			}
 		);
 
@@ -86,14 +91,15 @@ TEST_CASE(
 			==
 			either_result_type{
 				optional_type{
-					42u
+					42U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				}
 			}
 		);
 	}
 
 	{
-		std::stringstream stream;
+		// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+		std::stringstream stream{};
 
 		alda::serialization::write<
 			optional_binding

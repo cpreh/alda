@@ -34,20 +34,22 @@ template<
 >
 struct make_instance
 {
-	typedef
+	using
+	base
+	=
 	alda::call::detail::base<
 		TypeEnum,
 		Callee
-	>
-	base;
+	>;
 
-	typedef
+	using
+	optional_base_unique_ptr
+	=
 	fcppt::optional::object<
 		fcppt::unique_ptr<
 			base
 		>
-	>
-	optional_base_unique_ptr;
+	>;
 
 	template<
 		typename Type

@@ -45,7 +45,6 @@
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/system/error_code.hpp>
 #include <cstddef>
-#include <functional>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -67,9 +66,11 @@ alda::net::client::detail::object_impl::object_impl(
 	io_service_(
 		_parameters.io_service_wrapper().get()
 	),
+	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
 	socket_(
 		io_service_
 	),
+	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
 	resolver_(
 		io_service_
 	),
@@ -90,8 +91,7 @@ alda::net::client::detail::object_impl::object_impl(
 }
 
 alda::net::client::detail::object_impl::~object_impl()
-{
-}
+= default;
 
 void
 alda::net::client::detail::object_impl::connect(
@@ -122,16 +122,24 @@ alda::net::client::detail::object_impl::connect(
 		)
 	);
 
-	// TODO: We should move the query through this function but
+	// TODO(philipp): We should move the query through this function but
 	// asio makes it extremely difficult
 	resolver_.async_resolve(
 		*query,
-		std::bind(
-			&object_impl::resolve_handler,
-			this,
-			std::placeholders::_1,
-			std::placeholders::_2
+		[
+			this
+		](
+			boost::system::error_code const &_error,
+			boost::asio::ip::tcp::resolver::iterator _iterator
 		)
+		{
+			this->resolve_handler(
+				_error,
+				std::move(
+					_iterator
+				)
+			);
+		}
 	);
 
 	query_ =
@@ -161,7 +169,9 @@ alda::net::client::detail::object_impl::queue_send()
 	if(
 		!sending_
 	)
+	{
 		this->send_data();
+	}
 }
 
 fcppt::signal::auto_connection
@@ -231,14 +241,23 @@ alda::net::client::detail::object_impl::resolve_handler(
 		*_iterator
 	);
 
+	// TODO(philipp): Is this right?
+	++_iterator;
+
 	socket_.async_connect(
 		endpoint,
-		std::bind(
-			&object_impl::connect_handler,
+		[
 			this,
-			std::placeholders::_1,
-			++_iterator
+			_iterator
+		](
+			boost::system::error_code const &_inner_error
 		)
+		{
+			this->connect_handler(
+				_inner_error,
+				_iterator
+			);
+		}
 	);
 }
 
@@ -337,10 +356,14 @@ alda::net::client::detail::object_impl::write_handler(
 	if(
 		!send_buffer_.empty()
 	)
+	{
 		this->send_data();
+	}
 	else
+	{
 		sending_ =
 			false;
+	}
 }
 
 void
@@ -363,6 +386,7 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Wzero-as-null-pointer-constant)
 		if(
 			_iterator == boost::asio::ip::tcp::resolver::iterator()
 			||
+			// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
 			_error == boost::asio::error::operation_aborted
 		)
 		{
@@ -386,14 +410,23 @@ FCPPT_PP_POP_WARNING
 			*_iterator
 		);
 
+		// TODO(philipp): Is this right?
+		++_iterator;
+
 		socket_.async_connect(
 			endpoint,
-			std::bind(
-				&object_impl::connect_handler,
-				this,
-				std::placeholders::_1,
-				++_iterator
+			[
+				_iterator,
+				this
+			](
+				boost::system::error_code const &_inner_error
 			)
+			{
+				this->connect_handler(
+					_inner_error,
+					_iterator
+				);
+			}
 		);
 
 		return;
@@ -417,24 +450,32 @@ alda::net::client::detail::object_impl::send_data()
 		send_buffer_.send_part()
 	);
 
-	sending_ = (out_data.second != 0u);
+	sending_ = (out_data.second != 0U);
 
 	if(
 		!sending_
 	)
+	{
 		return;
+	}
 
 	socket_.async_send(
 		boost::asio::buffer(
 			out_data.first,
 			out_data.second
 		),
-		std::bind(
-			&alda::net::client::detail::object_impl::write_handler,
-			this,
-			std::placeholders::_1,
-			std::placeholders::_2
+		[
+			this
+		](
+			boost::system::error_code const &_error,
+			std::size_t const _bytes
 		)
+		{
+			this->write_handler(
+				_error,
+				_bytes
+			);
+		}
 	);
 }
 
@@ -449,12 +490,18 @@ alda::net::client::detail::object_impl::receive_data()
 		alda::net::buffer::circular_receive::for_asio(
 			receive_buffer_.next_receive_part()
 		),
-		std::bind(
-			&object_impl::read_handler,
-			this,
-			std::placeholders::_1,
-			std::placeholders::_2
+		[
+			this
+		](
+			boost::system::error_code const &_error,
+			std::size_t const _bytes
 		)
+		{
+			this->read_handler(
+				_error,
+				_bytes
+			);
+		}
 	);
 }
 

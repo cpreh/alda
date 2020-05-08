@@ -16,8 +16,7 @@ template<
 alda::serialization::detail::dispatch::base<
 	TypeEnum
 >::base()
-{
-}
+= default;
 
 template<
 	typename TypeEnum
@@ -25,7 +24,6 @@ template<
 alda::serialization::detail::dispatch::base<
 	TypeEnum
 >::~base()
-{
-}
+= default;
 
 #endif

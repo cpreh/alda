@@ -94,13 +94,14 @@ make_generic(
 	> _stream
 )
 {
-	typedef
+	using
+	wrapped
+	=
 	typename
 	alda::bindings::bitfield<
 		Type,
 		Endianness
-	>::wrapped
-	wrapped;
+	>::wrapped;
 
 	return
 		alda::raw::stream::bind<

@@ -20,11 +20,12 @@ namespace buffer
 namespace circular_send
 {
 
-typedef
+using
+optional_streambuf_ref
+=
 fcppt::optional::reference<
 	alda::net::buffer::circular_send::streambuf
->
-optional_streambuf_ref;
+>;
 
 }
 }

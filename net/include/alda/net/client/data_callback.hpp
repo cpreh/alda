@@ -18,11 +18,12 @@ namespace net
 namespace client
 {
 
-typedef
+using
+data_callback
+=
 fcppt::function<
 	alda::net::client::data_function
->
-data_callback;
+>;
 
 }
 }

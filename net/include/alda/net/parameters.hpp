@@ -32,15 +32,19 @@ public:
 		alda::net::buffer::max_receive_size
 	);
 
+	[[nodiscard]]
 	fcppt::log::context_reference
 	log_context() const;
 
+	[[nodiscard]]
 	alda::net::io_service_wrapper const &
 	io_service_wrapper() const;
 
+	[[nodiscard]]
 	alda::net::buffer::max_send_size
 	max_send_size() const;
 
+	[[nodiscard]]
 	alda::net::buffer::max_receive_size
 	max_receive_size() const;
 private:

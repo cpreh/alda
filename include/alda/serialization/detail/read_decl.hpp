@@ -28,9 +28,12 @@ template<
 class read
 {
 public:
-	typedef alda::message::base_unique_ptr<
+	using
+	message_unique_ptr
+	=
+	alda::message::base_unique_ptr<
 		TypeEnum
-	> message_unique_ptr;
+	>;
 
 	explicit
 	read(

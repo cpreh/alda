@@ -24,7 +24,7 @@
 #include <alda/net/server/detail/connection_fwd.hpp>
 #include <alda/net/server/detail/connection_unique_ptr.hpp>
 #include <alda/net/server/detail/object_impl_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -46,7 +46,7 @@ namespace detail
 
 class object_impl
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object_impl
 	);
 public:
@@ -62,11 +62,13 @@ public:
 		alda::net::port
 	);
 
+	[[nodiscard]]
 	alda::net::buffer::circular_send::optional_streambuf_ref
 	send_buffer(
 		alda::net::id
 	);
 
+	[[nodiscard]]
 	alda::net::server::connection_id_container
 	connections() const;
 
@@ -80,16 +82,19 @@ public:
 		alda::net::id
 	);
 
+	[[nodiscard]]
 	fcppt::signal::auto_connection
 	register_connect(
 		alda::net::server::connect_callback &&
 	);
 
+	[[nodiscard]]
 	fcppt::signal::auto_connection
 	register_disconnect(
 		alda::net::server::disconnect_callback &&
 	);
 
+	[[nodiscard]]
 	fcppt::signal::auto_connection
 	register_data(
 		alda::net::server::data_callback &&
@@ -128,15 +133,15 @@ private:
 	read_handler(
 		boost::system::error_code const &,
 		std::size_t,
-		alda::net::server::detail::connection &
-	);
+		alda::net::server::detail::connection & // NOLINT(google-runtime-references)
+	); // NOLINT(google-runtime-references)
 
 	void
 	write_handler(
 		boost::system::error_code const &,
 		std::size_t,
-		alda::net::server::detail::connection &
-	);
+		alda::net::server::detail::connection & // NOLINT(google-runtime-references)
+	); // NOLINT(google-runtime-references)
 
 	void
 	accept_handler(
@@ -153,14 +158,15 @@ private:
 
 	void
 	send_data(
-		alda::net::server::detail::connection &
-	);
+		alda::net::server::detail::connection & // NOLINT(google-runtime-references)
+	); // NOLINT(google-runtime-references)
 
 	void
 	receive_data(
-		alda::net::server::detail::connection &
-	);
+		alda::net::server::detail::connection & // NOLINT(google-runtime-references)
+	); // NOLINT(google-runtime-references)
 
+	[[nodiscard]]
 	alda::net::server::detail::connection &
 	connection(
 		alda::net::id

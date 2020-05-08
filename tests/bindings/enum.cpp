@@ -30,22 +30,24 @@ enum class test_enum
 	fcppt_maximum = value1
 };
 
-typedef
+using
+enum_binding
+=
 alda::bindings::enum_<
 	test_enum,
 	alda::bindings::unsigned_<
 		std::uint8_t,
 		fcppt::endianness::format::little
 	>
->
-enum_binding;
+>;
 
-typedef
+using
+either_result_type
+=
 fcppt::either::object<
 	alda::raw::stream::error,
 	test_enum
->
-either_result_type;
+>;
 
 }
 
@@ -54,6 +56,7 @@ TEST_CASE(
 	"[alda]"
 )
 {
+	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
 	std::stringstream stream{};
 
 	alda::serialization::write<

@@ -18,8 +18,7 @@ alda::call::detail::base<
 	TypeEnum,
 	Callee
 >::base()
-{
-}
+= default;
 
 template<
 	typename TypeEnum,
@@ -29,7 +28,6 @@ alda::call::detail::base<
 	TypeEnum,
 	Callee
 >::~base()
-{
-}
+= default;
 
 #endif

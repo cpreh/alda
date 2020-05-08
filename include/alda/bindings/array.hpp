@@ -63,6 +63,7 @@ place(
 		:
 		_value
 	)
+	{
 		_mem =
 			alda::raw::place_and_update<
 				Adapted
@@ -70,6 +71,7 @@ place(
 				elem,
 				_mem
 			);
+	}
 }
 
 template<
@@ -99,18 +101,19 @@ make_generic(
 	> _stream
 )
 {
-	typedef
+	using
+	result_type
+	=
 	alda::raw::stream::result<
 		Stream,
 		alda::bindings::array<
 			Type,
 			Adapted
 		>
-	>
-	result_type;
+	>;
 
-	// TODO: Improve this by breaking out early
-	// TODO: We should fold the array
+	// TODO(philipp): Improve this by breaking out early
+	// TODO(philipp): We should fold the array
 	return
 		fcppt::algorithm::fold(
 			fcppt::make_int_range_count(

@@ -36,30 +36,34 @@ enum class my_enum
 	fcppt_maximum = enum3
 };
 
-typedef
-unsigned
-int_type;
+using
+int_type
+=
+unsigned;
 
-typedef
+using
+array
+=
 fcppt::enum_::array<
 	my_enum,
 	int_type
->
-array;
+>;
 
-typedef
+using
+unsigned_binding
+=
 alda::bindings::unsigned_<
 	int_type,
 	fcppt::endianness::format::little
->
-unsigned_binding;
+>;
 
-typedef
+using
+array_binding
+=
 alda::bindings::enum_array<
 	array,
 	unsigned_binding
->
-array_binding;
+>;
 
 static_assert(
 	alda::raw::static_size<
@@ -72,16 +76,16 @@ static_assert(
 	*
 	fcppt::enum_::size<
 		my_enum
-	>::value,
-	""
+	>::value
 );
 
-typedef
+using
+either_result_type
+=
 fcppt::either::object<
 	alda::raw::stream::error,
 	array
->
-either_result_type;
+>;
 
 }
 
@@ -90,7 +94,7 @@ TEST_CASE(
 	"[alda]"
 )
 {
-	array const test(
+	auto const test(
 		fcppt::enum_::array_init<
 			array
 		>(
@@ -108,6 +112,7 @@ TEST_CASE(
 		)
 	);
 
+	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
 	std::stringstream stream{};
 
 	alda::serialization::write<

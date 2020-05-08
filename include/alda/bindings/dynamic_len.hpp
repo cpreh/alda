@@ -137,6 +137,7 @@ place(
 		:
 		_value
 	)
+	{
 		_mem =
 			alda::raw::place_and_update<
 				Adapted
@@ -144,6 +145,7 @@ place(
 				elem,
 				_mem
 			);
+	}
 }
 
 template<
@@ -179,21 +181,23 @@ make_generic(
 	> _stream
 )
 {
-	typedef
+	using
+	binding
+	=
 	alda::bindings::dynamic_len<
 		Type,
 		Adapted,
 		Length,
 		LengthPolicy
-	>
-	binding;
+	>;
 
-	typedef
+	using
+	result_type
+	=
 	alda::raw::stream::result<
 		Stream,
 		binding
-	>
-	result_type;
+	>;
 
 	return
 		alda::raw::stream::bind<
@@ -213,7 +217,7 @@ make_generic(
 				> const _my_size
 			)
 			{
-				// TODO: Break out early
+				// TODO(philipp): Break out early
 				return
 					fcppt::algorithm::fold(
 						fcppt::make_int_range_count(

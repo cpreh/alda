@@ -26,7 +26,7 @@ alda::net::buffer::circular_receive::for_asio(
 				fcppt::literal<
 					alda::net::buffer::circular_receive::part::size_type
 				>(
-					4096u
+					4096U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				)
 			)
 		);

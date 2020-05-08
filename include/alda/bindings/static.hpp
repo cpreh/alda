@@ -100,11 +100,12 @@ make_generic(
 	> _stream
 )
 {
-	typedef
+	using
+	array_type
+	=
 	fcppt::math::to_array_type<
 		Type
-	>
-	array_type;
+	>;
 
 	return
 		alda::raw::stream::bind<

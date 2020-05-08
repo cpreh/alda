@@ -25,13 +25,15 @@ namespace circular_receive
 class part
 {
 public:
-	typedef
-	alda::net::value_type *
-	pointer;
+	using
+	pointer
+	=
+	alda::net::value_type *;
 
-	typedef
-	alda::net::size_type
-	size_type;
+	using
+	size_type
+	=
+	alda::net::size_type;
 
 	ALDA_NET_DETAIL_SYMBOL
 	part(
@@ -39,18 +41,22 @@ public:
 		pointer end
 	);
 
+	[[nodiscard]]
 	ALDA_NET_DETAIL_SYMBOL
 	pointer
 	begin() const;
 
+	[[nodiscard]]
 	ALDA_NET_DETAIL_SYMBOL
 	pointer
 	end() const;
 
+	[[nodiscard]]
 	ALDA_NET_DETAIL_SYMBOL
 	size_type
 	size() const;
 
+	[[nodiscard]]
 	ALDA_NET_DETAIL_SYMBOL
 	bool
 	empty() const;

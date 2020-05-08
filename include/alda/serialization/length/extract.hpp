@@ -49,11 +49,12 @@ extract(
 		>
 	);
 
-	typedef
+	using
+	return_type
+	=
 	fcppt::optional::object<
 		LengthType
-	>
-	return_type;
+	>;
 
 	return
 		_remaining_size()

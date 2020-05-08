@@ -13,7 +13,10 @@ namespace alda
 namespace bindings
 {
 
-typedef float float_type;
+using
+float_type
+=
+float;
 
 }
 }

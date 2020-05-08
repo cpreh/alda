@@ -18,11 +18,12 @@ namespace net
 namespace server
 {
 
-typedef
+using
+disconnect_callback
+=
 fcppt::function<
 	alda::net::server::disconnect_function
->
-disconnect_callback;
+>;
 
 }
 }

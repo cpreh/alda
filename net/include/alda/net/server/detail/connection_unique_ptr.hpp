@@ -20,11 +20,12 @@ namespace server
 namespace detail
 {
 
-typedef
+using
+connection_unique_ptr
+=
 fcppt::unique_ptr<
 	alda::net::server::detail::connection
->
-connection_unique_ptr;
+>;
 
 }
 }

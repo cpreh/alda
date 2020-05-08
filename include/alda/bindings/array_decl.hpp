@@ -21,9 +21,10 @@ template<
 >
 struct array
 {
-	typedef
-	Type
-	element_type;
+	using
+	element_type
+	=
+	Type;
 };
 
 }

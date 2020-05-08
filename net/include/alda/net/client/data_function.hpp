@@ -17,9 +17,10 @@ namespace net
 namespace client
 {
 
-typedef
-void
-data_function(
+using
+data_function
+=
+void (
 	alda::net::buffer::circular_receive::streambuf &
 );
 

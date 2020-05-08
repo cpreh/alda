@@ -23,9 +23,10 @@ template<
 >
 struct dynamic_len
 {
-	typedef
-	Type
-	element_type;
+	using
+	element_type
+	=
+	Type;
 };
 
 }

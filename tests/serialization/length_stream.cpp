@@ -68,49 +68,57 @@ enum class message_type
 	fcppt_maximum = message1
 };
 
-typedef
+using
+type_enum
+=
 alda::type_enum<
 	message_type
->
-type_enum;
+>;
 
-typedef
+using
+message_base
+=
 alda::message::base<
 	type_enum
->
-message_base;
+>;
 
-typedef
+using
+message_base_unique_ptr
+=
 alda::message::base_unique_ptr<
 	type_enum
->
-message_base_unique_ptr;
+>;
 
-typedef
+using
+optional_message_base_unique_ptr
+=
 alda::message::optional_base_unique_ptr<
 	type_enum
->
-optional_message_base_unique_ptr;
+>;
 
 constexpr
 fcppt::endianness::format const endianness{
 	fcppt::endianness::format::little
 };
 
-typedef
+using
+uint16_type
+=
 alda::bindings::fundamental<
 	std::uint16_t
->
-uint16_type;
+>;
 
-typedef
+using
+optional_uint16_type
+=
 alda::bindings::optional<
 	std::uint16_t,
 	uint16_type
->
-optional_uint16_type;
+>;
 
-typedef
+using
+variant_type
+=
 alda::bindings::variant<
 	metal::list<
 		std::uint16_t
@@ -118,16 +126,18 @@ alda::bindings::variant<
 	metal::list<
 		uint16_type
 	>
->
-variant_type;
+>;
 
-typedef
+using
+char_type
+=
 alda::bindings::fundamental<
 	char
->
-char_type;
+>;
 
-typedef
+using
+string_type
+=
 alda::bindings::dynamic_len<
 	std::string,
 	char_type,
@@ -135,8 +145,7 @@ alda::bindings::dynamic_len<
 		std::uint16_t,
 		endianness
 	>
->
-string_type;
+>;
 
 FCPPT_RECORD_MAKE_LABEL(
 	uint16_role
@@ -154,7 +163,9 @@ FCPPT_RECORD_MAKE_LABEL(
 	string_role
 );
 
-typedef
+using
+message1
+=
 alda::message::object<
 	alda::message::make_id<
 		type_enum,
@@ -178,14 +189,14 @@ alda::message::object<
 			string_type
 		>
 	>
->
-message1;
+>;
 
-typedef
+using
+context
+=
 alda::serialization::context<
 	type_enum
->
-context;
+>;
 
 context &
 global_context();
@@ -231,6 +242,7 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_CLANG_WARNING(-Wglobal-constructors)
 FCPPT_PP_DISABLE_CLANG_WARNING(-Wexit-time-destructors)
 
+// NOLINTNEXTLINE(cert-err58-cpp,fuchsia-statically-constructed-objects)
 ALDA_SERIALIZATION_REGISTER_MESSAGE(
 	global_context(),
 	type_enum,
@@ -257,7 +269,10 @@ public:
 private:
 	ALDA_CALL_FRIEND_DISPATCHER;
 
-	typedef void result_type;
+	using
+	result_type
+	=
+	void;
 
 	result_type
 	operator()(
@@ -329,13 +344,17 @@ TEST_CASE(
 	"[alda]"
 )
 {
-	std::ostringstream ofs;
+	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+	std::ostringstream ofs{};
 
 	unsigned const count(
-		5u
+		5U
 	);
 
-	typedef std::uint16_t length_type;
+	using
+	length_type
+	=
+	std::uint16_t;
 
 	for(
 		unsigned const index
@@ -386,7 +405,8 @@ TEST_CASE(
 		);
 	}
 
-	std::istringstream ifs;
+	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+	std::istringstream ifs{};
 
 	ifs.str(
 		ofs.str()
@@ -401,15 +421,16 @@ TEST_CASE(
 		}
 	};
 
-	typedef
+	using
+	dispatcher
+	=
 	alda::call::object<
 		type_enum,
 		metal::list<
 			message1
 		>,
 		dispatcher_function
-	>
-	dispatcher;
+	>;
 
 	dispatcher const dispatcher_object;
 
@@ -507,7 +528,7 @@ TEST_CASE(
 		length_type
 	>(
 		ofs,
-		100u
+		100U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	);
 
 	ifs.str(

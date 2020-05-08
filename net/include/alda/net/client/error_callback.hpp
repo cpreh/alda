@@ -18,11 +18,12 @@ namespace net
 namespace client
 {
 
-typedef
+using
+error_callback
+=
 fcppt::function<
 	alda::net::client::error_function
->
-error_callback;
+>;
 
 }
 }

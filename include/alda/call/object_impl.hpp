@@ -53,8 +53,7 @@ alda::call::object<
 	Messages,
 	Callee
 >::~object()
-{
-}
+= default;
 
 template<
 	typename TypeEnum,

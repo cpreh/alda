@@ -41,6 +41,7 @@ alda::exception::exception(
 alda::exception::exception(
 	exception &&
 )
+noexcept
 = default;
 
 alda::exception::exception(
@@ -52,6 +53,7 @@ alda::exception &
 alda::exception::operator=(
 	exception &&
 )
+noexcept
 = default;
 
 alda::exception &
@@ -61,5 +63,4 @@ alda::exception::operator=(
 = default;
 
 alda::exception::~exception() noexcept
-{
-}
+= default;

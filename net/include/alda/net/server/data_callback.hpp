@@ -18,11 +18,12 @@ namespace net
 namespace server
 {
 
-typedef
+using
+data_callback
+=
 fcppt::function<
 	alda::net::server::data_function
->
-data_callback;
+>;
 
 }
 }

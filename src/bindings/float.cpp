@@ -28,32 +28,35 @@ constexpr fcppt::endianness::format const endianness{
 	fcppt::endianness::format::little
 };
 
-typedef
+using
+float_type
+=
 alda::raw::element_type<
 	alda::bindings::float_
->
-float_type;
+>;
 
-typedef
-alda::bindings::float_::fixed_int
-fixed_int;
+using
+fixed_int
+=
+alda::bindings::float_::fixed_int;
 
-typedef
+using
+adapted
+=
 alda::bindings::unsigned_<
 	fixed_int,
 	endianness
->
-adapted;
+>;
 
 fixed_int const sign_bit(
-	0x1u
+	0x1U
 );
 
 constexpr float_type const exp(
 	fcppt::cast::int_to_float<
 		float_type
 	>(
-		1ul << 16
+		1UL << 16U
 	)
 );
 
@@ -126,7 +129,13 @@ deserialize(
 )
 {
 	bool const is_signed(
-		_val & sign_bit
+		(_val & sign_bit)
+		!=
+		fcppt::literal<
+			fixed_int
+		>(
+			0
+		)
 	);
 
 	_val &= ~sign_bit;

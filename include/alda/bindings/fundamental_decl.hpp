@@ -23,14 +23,15 @@ template<
 >
 struct fundamental
 {
-	typedef
-	Type
-	element_type;
+	using
+	element_type
+	=
+	Type;
 
 	static_assert(
-		std::is_fundamental<
+		std::is_fundamental_v<
 			Type
-		>::value,
+		>,
 		"T must be fundamental"
 	);
 };

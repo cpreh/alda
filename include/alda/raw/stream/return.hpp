@@ -9,6 +9,7 @@
 
 #include <alda/raw/stream/error.hpp>
 #include <fcppt/either/object_fwd.hpp>
+#include <fcppt/type_traits/remove_cv_ref_t.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <utility>
@@ -27,17 +28,18 @@ template<
 	typename Type
 >
 inline
-typename
-std::enable_if<
+std::enable_if_t<
 	!Stream::can_fail,
 	Type
->::type
+>
 return_(
 	Type &&_value
 )
 {
 	return
-		std::move(
+		std::forward<
+			Type
+		>(
 			_value
 		);
 }
@@ -47,17 +49,15 @@ template<
 	typename Type
 >
 inline
-typename
-std::enable_if<
+std::enable_if_t<
 	Stream::can_fail,
 	fcppt::either::object<
 		alda::raw::stream::error,
-		typename
-		std::decay<
+		fcppt::type_traits::remove_cv_ref_t<
 			Type
-		>::type
+		>
 	>
->::type
+>
 return_(
 	Type &&_value
 )
@@ -65,12 +65,13 @@ return_(
 	return
 		fcppt::either::object<
 			alda::raw::stream::error,
-			typename
-			std::decay<
+			fcppt::type_traits::remove_cv_ref_t<
 				Type
-			>::type
+			>
 		>(
-			std::move(
+			std::forward<
+				Type
+			>(
 				_value
 			)
 		);

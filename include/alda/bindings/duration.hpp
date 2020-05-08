@@ -106,6 +106,7 @@ make_generic(
 					alda::raw::stream::return_<
 						Stream
 					>(
+						// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
 						alda::raw::element_type<
 							alda::bindings::duration<
 								Adapted,

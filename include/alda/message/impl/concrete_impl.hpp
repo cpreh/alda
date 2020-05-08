@@ -29,7 +29,7 @@ alda::message::concrete<
 	TypeEnum,
 	Type
 >::concrete(
-	Type &&_value
+	Type _value
 )
 :
 	base_type(),
@@ -49,24 +49,6 @@ alda::message::concrete<
 	TypeEnum,
 	Type
 >::concrete(
-	Type const &_value
-)
-:
-	base_type(),
-	value_(
-		_value
-	)
-{
-}
-
-template<
-	typename TypeEnum,
-	typename Type
->
-alda::message::concrete<
-	TypeEnum,
-	Type
->::concrete(
 	concrete const &
 ) = default;
 
@@ -94,7 +76,8 @@ alda::message::concrete<
 	Type
 >::concrete(
 	concrete &&
-) = default;
+) noexcept
+= default;
 
 template<
 	typename TypeEnum,
@@ -109,7 +92,8 @@ alda::message::concrete<
 	Type
 >::operator=(
 	concrete &&
-) = default;
+) noexcept
+= default;
 
 template<
 	typename TypeEnum,
@@ -119,8 +103,7 @@ alda::message::concrete<
 	TypeEnum,
 	Type
 >::~concrete()
-{
-}
+= default;
 
 template<
 	typename TypeEnum,

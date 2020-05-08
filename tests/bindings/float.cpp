@@ -31,13 +31,12 @@ static_assert(
 	alda::raw::static_size<
 		alda::bindings::float_
 	>::value
-	==
+	== // NOLINT(misc-redundant-expression)
 	alda::raw::static_size<
 		alda::bindings::fundamental<
 			alda::bindings::float_::fixed_int
 		>
-	>::value,
-	""
+	>::value
 );
 
 void
@@ -56,11 +55,12 @@ fuzzy_equal(
 		(_val2 < 0)
 	);
 
-	typedef
+	using
+	float_type
+	=
 	alda::raw::element_type<
 		alda::bindings::float_
-	>
-	float_type;
+	>;
 
 	float_type const abs1(
 		std::abs(
@@ -82,7 +82,7 @@ fuzzy_equal(
 	);
 
 	float_type const epsilon(
-		0.0001f
+		0.0001F
 	);
 
 	if(
@@ -112,8 +112,9 @@ fuzzy_equal(
 		);
 
 		if(
-			max > 1.f
+			max > 1.F
 		)
+		{
 			CHECK(
 				abs_diff
 				/
@@ -121,23 +122,27 @@ fuzzy_equal(
 				<
 				epsilon
 			);
+		}
 		else
+		{
 			CHECK(
 				abs_diff
 				<
 				epsilon
 			);
+		}
 	}
 }
 
-typedef
+using
+either_result_type
+=
 fcppt::either::object<
 	alda::raw::stream::error,
 	alda::raw::element_type<
 		alda::bindings::float_
 	>
->
-either_result_type;
+>;
 
 void
 fuzzy_equal_either(
@@ -177,7 +182,8 @@ test_conversion(
 	> const _value
 )
 {
-	std::stringstream stream;
+	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+	std::stringstream stream{};
 
 	alda::serialization::write<
 		alda::bindings::float_
@@ -207,31 +213,31 @@ TEST_CASE(
 )
 {
 	test_conversion(
-		0.f
+		0.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	);
 
 	test_conversion(
-		0.01f
+		0.01F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	);
 
 	test_conversion(
-		-0.01f
+		-0.01F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	);
 
 	test_conversion(
-		-1.f
+		-1.F
 	);
 
 	test_conversion(
-		1.f
+		1.F
 	);
 
 	test_conversion(
-		-10000.f
+		-10000.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	);
 
 	test_conversion(
-		10000.f
+		10000.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	);
 
 	/*
@@ -241,7 +247,7 @@ TEST_CASE(
 	);
 
 	fuzzy_equal(
-		1.f,
-		2.f
+		1.F,
+		2.F
 	);*/
 }

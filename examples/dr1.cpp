@@ -56,24 +56,26 @@ parse_file(
 	std::istream &_stream
 )
 {
-	typedef
+	using
+	string_binding
+	=
 	alda::bindings::array<
 		std::array<
 			char,
-			12
+			12 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		>,
 		alda::bindings::fundamental<
 			char
 		>
-	>
-	string_binding;
+	>;
 
-	typedef
+	using
+	ui16le_binding
+	=
 	alda::bindings::unsigned_<
 		std::uint16_t,
 		fcppt::endianness::format::little
-	>
-	ui16le_binding;
+	>;
 
 	FCPPT_RECORD_MAKE_LABEL(
 		actor_type_label
@@ -83,21 +85,25 @@ parse_file(
 		actor_pos_label
 	);
 
-	typedef
+	using
+	actor_pos
+	=
 	fcppt::math::vector::static_<
 		std::uint16_t,
 		2
-	>
-	actor_pos;
+	>;
 
-	typedef
+	using
+	actor_pos_binding
+	=
 	alda::bindings::static_<
 		actor_pos,
 		ui16le_binding
-	>
-	actor_pos_binding;
+	>;
 
-	typedef
+	using
+	actor_record
+	=
 	alda::bindings::record_variadic<
 		fcppt::record::element<
 			actor_type_label,
@@ -107,16 +113,16 @@ parse_file(
 			actor_pos_label,
 			actor_pos_binding
 		>
-	>
-	actor_record;
+	>;
 
-	typedef
+	using
+	actor_vector
+	=
 	std::vector<
 		alda::raw::element_type<
 			actor_record
 		>
-	>
-	actor_vector;
+	>;
 
 	struct actor_size_policy
 	{
@@ -132,41 +138,44 @@ parse_file(
 				>(
 					_size
 					/
-					3u
+					3U
 				);
 		}
 	};
 
-	typedef
+	using
+	actor_binding
+	=
 	alda::bindings::dynamic_len<
 		actor_vector,
 		actor_record,
 		ui16le_binding,
 		actor_size_policy
-	>
-	actor_binding;
+	>;
 
-	typedef
+	using
+	unknown_binding
+	=
 	alda::bindings::array<
 		std::array<
 			std::uint8_t,
-			480
+			480 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		>,
 		alda::bindings::fundamental<
 			std::uint8_t
 		>
-	>
-	unknown_binding;
+	>;
 
-	typedef
+	using
+	tile_array_binding
+	=
 	alda::bindings::array<
 		std::array<
 			std::uint16_t,
-			16767
+			16767 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		>,
 		ui16le_binding
-	>
-	tile_array_binding;
+	>;
 
 	FCPPT_RECORD_MAKE_LABEL(
 		mask_tiles_label
@@ -216,7 +225,9 @@ parse_file(
 		tile_label
 	);
 
-	typedef
+	using
+	level
+	=
 	alda::bindings::record_variadic<
 		fcppt::record::element<
 			mask_tiles_label,
@@ -266,8 +277,7 @@ parse_file(
 			tile_label,
 			tile_array_binding
 		>
-	>
-	level;
+	>;
 
 	return
 		fcppt::either::match(
@@ -312,6 +322,7 @@ parse_file(
 						_level
 					)
 				)
+				{
 					std::cout
 						<<
 						"Actor type "
@@ -331,6 +342,7 @@ parse_file(
 						)
 						<<
 						'\n';
+				}
 
 				return
 					EXIT_SUCCESS;
@@ -395,6 +407,7 @@ FCPPT_MAIN(
 				> const &_args
 			)
 			{
+				// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
 				std::filesystem::path const path{
 					fcppt::record::get<
 						path_label

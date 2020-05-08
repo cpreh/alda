@@ -9,7 +9,7 @@
 
 #include <alda/detail/external_symbol.hpp>
 #include <alda/serialization/detail/dispatch/base_decl.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace alda
@@ -31,13 +31,16 @@ class concrete
 		TypeEnum
 	>
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		concrete
 	);
 
-	typedef alda::serialization::detail::dispatch::base<
+	using
+	base_type
+	=
+	alda::serialization::detail::dispatch::base<
 		TypeEnum
-	> base_type;
+	>;
 public:
 	ALDA_DETAIL_EXTERNAL_SYMBOL
 	concrete();
@@ -46,9 +49,17 @@ public:
 	~concrete()
 	override;
 
-	typedef typename base_type::message_unique_ptr message_unique_ptr;
+	using
+	message_unique_ptr
+	=
+	typename
+	base_type::message_unique_ptr;
 
-	typedef typename base_type::reader reader;
+	using
+	reader
+	=
+	typename
+	base_type::reader;
 
 	ALDA_DETAIL_EXTERNAL_SYMBOL
 	message_unique_ptr

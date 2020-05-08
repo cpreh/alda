@@ -26,9 +26,10 @@ public:
 	ALDA_NET_DETAIL_SYMBOL
 	explicit
 	io_service_wrapper(
-		boost::asio::io_service &
-	);
+		boost::asio::io_service & // NOLINT(google-runtime-references)
+	); // NOLINT(google-runtime-references)
 
+	[[nodiscard]]
 	ALDA_NET_DETAIL_SYMBOL
 	boost::asio::io_service &
 	get() const;

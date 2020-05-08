@@ -17,9 +17,10 @@ namespace alda
 namespace serialization
 {
 
-typedef
-std::ostream
-ostream;
+using
+ostream
+=
+std::ostream;
 
 }
 }

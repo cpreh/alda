@@ -15,7 +15,10 @@ namespace alda
 namespace raw
 {
 
-typedef alda::raw::data const *const_pointer;
+using
+const_pointer
+=
+alda::raw::data const *;
 
 }
 }

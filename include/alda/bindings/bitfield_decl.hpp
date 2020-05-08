@@ -24,11 +24,14 @@ template<
 >
 struct bitfield
 {
-	typedef
-	Type
-	element_type;
+	using
+	element_type
+	=
+	Type;
 
-	typedef
+	using
+	wrapped
+	=
 	alda::bindings::array<
 		typename
 		element_type::array_type,
@@ -37,8 +40,7 @@ struct bitfield
 			element_type::internal_type,
 			Endianness
 		>
-	>
-	wrapped;
+	>;
 };
 
 }

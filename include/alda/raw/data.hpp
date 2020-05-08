@@ -13,7 +13,10 @@ namespace alda
 namespace raw
 {
 
-typedef unsigned char data;
+using
+data
+=
+unsigned char;
 
 }
 }

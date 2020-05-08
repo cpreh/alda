@@ -24,14 +24,15 @@ template<
 >
 struct enum_
 {
-	typedef
-	Enum
-	element_type;
+	using
+	element_type
+	=
+	Enum;
 
 	static_assert(
-		std::is_enum<
+		std::is_enum_v<
 			Enum
-		>::value,
+		>,
 		"Enum ist not an enumeration type"
 	);
 };

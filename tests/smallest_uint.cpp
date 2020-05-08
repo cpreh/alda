@@ -14,22 +14,20 @@ int
 main()
 {
 	static_assert(
-		std::is_same<
+		std::is_same_v<
 			alda::smallest_uint<
-				20u
+				20U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			>,
 			std::uint8_t
-		>::value,
-		""
+		>
 	);
 
 	static_assert(
-		std::is_same<
+		std::is_same_v<
 			alda::smallest_uint<
-				256u
+				256U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			>,
 			std::uint16_t
-		>::value,
-		""
+		>
 	);
 }

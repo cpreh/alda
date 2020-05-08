@@ -12,7 +12,7 @@
 #include <alda/message/base_unique_ptr.hpp>
 #include <alda/serialization/detail/read_fwd.hpp>
 #include <alda/serialization/detail/dispatch/base_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace alda
@@ -29,25 +29,32 @@ template<
 >
 class ALDA_DETAIL_EXTERNAL_CLASS_SYMBOL base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		base
 	);
 protected:
 	ALDA_DETAIL_EXTERNAL_SYMBOL
 	base();
 public:
-	typedef alda::message::base_unique_ptr<
+	using
+	message_unique_ptr
+	=
+	alda::message::base_unique_ptr<
 		TypeEnum
-	> message_unique_ptr;
+	>;
 
-	typedef alda::serialization::detail::read<
+	using
+	reader
+	=
+	alda::serialization::detail::read<
 		TypeEnum
-	> reader;
+	>;
 
 	ALDA_DETAIL_EXTERNAL_SYMBOL
 	virtual
 	~base() = 0;
 
+	[[nodiscard]]
 	virtual
 	message_unique_ptr
 	on_dispatch(

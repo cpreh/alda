@@ -17,9 +17,10 @@ namespace alda
 namespace serialization
 {
 
-typedef
-std::istream
-istream;
+using
+istream
+=
+std::istream;
 
 }
 }

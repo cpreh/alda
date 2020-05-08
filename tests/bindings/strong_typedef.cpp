@@ -28,31 +28,34 @@
 namespace
 {
 
-typedef
-std::uint32_t
-base_type;
+using
+base_type
+=
+std::uint32_t;
 
 FCPPT_MAKE_STRONG_TYPEDEF(
 	base_type,
 	strong_type
 );
 
-typedef
+using
+strong_binding
+=
 alda::bindings::strong_typedef<
 	strong_type,
 	alda::bindings::unsigned_<
 		base_type,
 		fcppt::endianness::format::little
 	>
->
-strong_binding;
+>;
 
-typedef
+using
+either_result_type
+=
 fcppt::either::object<
 	alda::raw::stream::error,
 	strong_type
->
-either_result_type;
+>;
 
 }
 
@@ -65,11 +68,12 @@ TEST_CASE(
 		fcppt::literal<
 			std::uint32_t
 		>(
-			42u
+			42U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		)
 	};
 
-	std::stringstream stream;
+	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+	std::stringstream stream{};
 
 	alda::serialization::write<
 		strong_binding

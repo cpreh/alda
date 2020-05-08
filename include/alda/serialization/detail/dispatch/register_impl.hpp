@@ -34,11 +34,12 @@ alda::serialization::detail::dispatch::register_<
 	context &_context
 )
 {
-	typedef
+	using
+	constant_value
+	=
 	alda::message::detail::extract_id<
 		Message
-	>
-	constant_value;
+	>;
 
 	if(
 		!_context.handlers_.emplace(
@@ -70,17 +71,6 @@ alda::serialization::detail::dispatch::register_<
 
 		std::terminate();
 	}
-}
-
-template<
-	typename TypeEnum,
-	typename Message
->
-alda::serialization::detail::dispatch::register_<
-	TypeEnum,
-	Message
->::~register_()
-{
 }
 
 #endif

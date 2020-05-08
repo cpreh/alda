@@ -23,7 +23,7 @@ namespace alda
 namespace serialization
 {
 
-// TODO: Should this be inline?
+// TODO(philipp): Should this be inline?
 inline
 void
 buffer_to_stream(

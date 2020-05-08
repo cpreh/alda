@@ -14,7 +14,7 @@
 #include <alda/net/buffer/circular_receive/streambuf_fwd.hpp>
 #include <alda/net/detail/symbol.hpp>
 #include <fcppt/cyclic_iterator_decl.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/container/dynamic_array_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <ios>
@@ -35,7 +35,7 @@ class streambuf
 :
 	public std::streambuf
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		streambuf
 	);
 public:
@@ -95,21 +95,24 @@ private:
 	)
 	override;
 
-	typedef
+	using
+	raw_container
+	=
 	fcppt::container::dynamic_array<
 		alda::net::value_type
-	>
-	raw_container;
+	>;
 
-	typedef
-	raw_container::pointer
-	iterator;
+	using
+	iterator
+	=
+	raw_container::pointer;
 
-	typedef
+	using
+	cyclic_iterator
+	=
 	fcppt::cyclic_iterator<
 		iterator
-	>
-	cyclic_iterator;
+	>;
 
 	cyclic_iterator
 	iterator_group(

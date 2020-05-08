@@ -23,12 +23,13 @@ namespace server
 namespace detail
 {
 
-typedef
+using
+connection_container
+=
 std::map<
 	alda::net::id,
 	alda::net::server::detail::connection_unique_ptr
->
-connection_container;
+>;
 
 }
 }

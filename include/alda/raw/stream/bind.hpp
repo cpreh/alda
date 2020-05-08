@@ -35,21 +35,24 @@ bind(
 	Function const &_function
 )
 ->
-typename
-std::enable_if<
+std::enable_if_t<
 	!Stream::can_fail,
 	decltype(
 		_function(
-			std::move(
+			std::forward<
+				Type
+			>(
 				_value
 			)
 		)
 	)
->::type
+>
 {
 	return
 		_function(
-			std::move(
+			std::forward<
+				Type
+			>(
 				_value
 			)
 		);
@@ -70,8 +73,7 @@ bind(
 	Function const &_function
 )
 ->
-typename
-std::enable_if<
+std::enable_if_t<
 	Stream::can_fail,
 	decltype(
 		fcppt::either::bind(
@@ -81,7 +83,7 @@ std::enable_if<
 			_function
 		)
 	)
->::type
+>
 {
 	return
 		fcppt::either::bind(

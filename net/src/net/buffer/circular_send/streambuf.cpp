@@ -19,6 +19,7 @@ alda::net::buffer::circular_send::streambuf::streambuf(
 )
 :
 	std::streambuf(),
+	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
 	impl_{
 		_size.get()
 	}
@@ -26,8 +27,7 @@ alda::net::buffer::circular_send::streambuf::streambuf(
 }
 
 alda::net::buffer::circular_send::streambuf::~streambuf()
-{
-}
+= default;
 
 alda::net::buffer::circular_send::streambuf::size_type
 alda::net::buffer::circular_send::streambuf::space_left() const
@@ -44,7 +44,7 @@ alda::net::buffer::circular_send::streambuf::send_part() const
 	return
 		impl_.array_two().second
 		==
-		0u
+		0U
 		?
 			impl_.array_one()
 		:
@@ -114,7 +114,7 @@ alda::net::buffer::circular_send::streambuf::xsputn(
 		impl_.end(),
 		_data,
 		_data
-		+
+		+ // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
 		to_write
 	);
 
@@ -130,10 +130,12 @@ alda::net::buffer::circular_send::streambuf::overflow(
 	if(
 		this->space_left()
 		==
-		0u
+		0U
 	)
+	{
 		return
 			traits_type::eof();
+	}
 
 	if(
 		!traits_type::eq_int_type(
@@ -141,11 +143,13 @@ alda::net::buffer::circular_send::streambuf::overflow(
 			traits_type::eof()
 		)
 	)
+	{
 		impl_.push_back(
 			traits_type::to_char_type(
 				_c
 			)
 		);
+	}
 
 	return
 		0;

@@ -15,7 +15,10 @@ namespace alda
 namespace raw
 {
 
-typedef alda::raw::data *pointer;
+using
+pointer
+=
+alda::raw::data *;
 
 }
 }

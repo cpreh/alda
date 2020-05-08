@@ -11,7 +11,7 @@
 #include <alda/call/object_fwd.hpp>
 #include <alda/call/detail/base_fwd.hpp>
 #include <alda/message/base_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/enum/array_decl.hpp>
 #include <fcppt/optional/object_decl.hpp>
@@ -29,25 +29,36 @@ template<
 >
 class object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 
-	typedef typename Callee::result_type result_type;
+	using
+	result_type
+	=
+	typename Callee::result_type;
 
-	typedef alda::call::detail::base<
+	using
+	base
+	=
+	alda::call::detail::base<
 		TypeEnum,
 		Callee
-	> base;
+	>;
 public:
-	typedef alda::call::default_callback<
+	using
+	default_callback
+	=
+	alda::call::default_callback<
 		TypeEnum,
 		result_type
-	> default_callback;
-
-	typedef alda::message::base<
+	>;
+	using
+	message_base
+	=
+	alda::message::base<
 		TypeEnum
-	> message_base;
+	>;
 
 	object();
 
@@ -60,25 +71,28 @@ public:
 		default_callback const &
 	) const;
 private:
-	typedef
+	using
+	base_unique_ptr
+	=
 	fcppt::unique_ptr<
 		base
-	>
-	base_unique_ptr;
+	>;
 
-	typedef
+	using
+	optional_base_unique_ptr
+	=
 	fcppt::optional::object<
 		base_unique_ptr
-	>
-	optional_base_unique_ptr;
+	>;
 
-	typedef
+	using
+	instance_array
+	=
 	fcppt::enum_::array<
 		typename
 		TypeEnum::type,
 		optional_base_unique_ptr
-	>
-	instance_array;
+	>;
 
 	instance_array const instances_;
 };

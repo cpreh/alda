@@ -30,35 +30,36 @@ TEST_CASE(
 	"[alda]"
 )
 {
-	typedef
+	using
+	bitfield
+	=
 	fcppt::container::bitfield::object<
 		unsigned,
 		alda::raw::integral_size<
-			64u
+			64U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		>
-	>
-	bitfield;
+	>;
 
-	typedef
+	using
+	bitfield_binding
+	=
 	alda::bindings::bitfield<
 		bitfield,
 		fcppt::endianness::format::little
-	>
-	bitfield_binding;
+	>;
 
 	static_assert(
 		alda::raw::static_size<
 			bitfield_binding
 		>::value
-		==
+		== // NOLINT(misc-redundant-expression)
 		fcppt::math::ceil_div_static<
 			alda::raw::size_type,
-			64u,
+			64U, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			std::numeric_limits<
 				alda::raw::data
 			>::digits
-		>::value,
-		""
+		>::value
 	);
 
 	bitfield test(
@@ -66,9 +67,10 @@ TEST_CASE(
 	);
 
 	test[
-		42u
+		42U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	] = true;
 
+	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
 	std::stringstream stream{};
 
 	alda::serialization::write<

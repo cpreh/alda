@@ -22,16 +22,18 @@ namespace bindings
 
 struct bool_
 {
-	typedef
-	bool
-	element_type;
+	using
+	element_type
+	=
+	bool;
 
-	typedef
+	using
+	wrapped_type
+	=
 	alda::bindings::unsigned_<
 		std::uint8_t,
 		fcppt::endianness::format::little
-	>
-	wrapped_type;
+	>;
 };
 
 }

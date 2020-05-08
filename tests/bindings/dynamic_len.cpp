@@ -32,48 +32,52 @@ fcppt::endianness::format const endianness{
 	fcppt::endianness::format::little
 };
 
-typedef
+using
+length_binding
+=
 alda::bindings::unsigned_<
 	std::uint16_t,
 	endianness
->
-length_binding;
+>;
 
-typedef
+using
+uint_binding
+=
 alda::bindings::fundamental<
 	unsigned
->
-uint_binding;
+>;
 
-typedef
+using
+uint_vector
+=
 std::vector<
 	unsigned
->
-uint_vector;
+>;
 
-typedef
+using
+dynamic_len_binding
+=
 alda::bindings::dynamic_len<
 	uint_vector,
 	uint_binding,
 	length_binding
->
-dynamic_len_binding;
+>;
 
 static_assert(
 	!alda::raw::is_static_size<
 		alda::raw::static_size<
 			dynamic_len_binding
 		>
-	>::value,
-	""
+	>::value
 );
 
-typedef
+using
+either_result_type
+=
 fcppt::either::object<
 	alda::raw::stream::error,
 	uint_vector
->
-either_result_type;
+>;
 
 }
 
@@ -87,7 +91,8 @@ TEST_CASE(
 		2
 	};
 
-	std::stringstream stream;
+	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+	std::stringstream stream{};
 
 	alda::serialization::write<
 		dynamic_len_binding

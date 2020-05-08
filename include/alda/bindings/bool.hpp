@@ -106,11 +106,12 @@ make_generic(
 				> const _element
 			)
 			{
-				typedef
+				using
+				wrapped_element
+				=
 				alda::raw::element_type<
 					alda::bindings::bool_::wrapped_type
-				>
-				wrapped_element;
+				>;
 
 				switch(
 					_element

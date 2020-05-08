@@ -28,9 +28,10 @@ namespace stream
 
 struct istream
 {
-	typedef
-	std::istream &
-	reference;
+	using
+	reference
+	=
+	std::istream &;
 
 	static
 	inline

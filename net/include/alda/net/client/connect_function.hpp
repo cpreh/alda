@@ -15,9 +15,10 @@ namespace net
 namespace client
 {
 
-typedef
-void
-connect_function();
+using
+connect_function
+=
+void();
 
 }
 }

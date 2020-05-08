@@ -43,41 +43,49 @@ protected:
 	ALDA_DETAIL_EXTERNAL_SYMBOL
 	base(
 		base &&
-	);
+	)
+	noexcept;
 
 	ALDA_DETAIL_EXTERNAL_SYMBOL
 	base &
 	operator=(
 		base &&
-	);
+	)
+	noexcept;
 public:
-	typedef
+	using
+	type_enum
+	=
 	typename
-	TypeEnum::type
-	type_enum;
+	TypeEnum::type;
 
-	typedef
+	using
+	unique_ptr
+	=
 	typename
 	alda::message::base_unique_ptr<
 		TypeEnum
-	>
-	unique_ptr;
+	>;
 
 	virtual
 	~base() = 0;
 
+	[[nodiscard]]
 	virtual
 	type_enum
 	type() const = 0;
 
+	[[nodiscard]]
 	virtual
 	alda::raw::size_type
 	size() const = 0;
 
+	[[nodiscard]]
 	virtual
 	alda::raw::buffer
 	to_buffer() const = 0;
 
+	[[nodiscard]]
 	virtual
 	unique_ptr
 	clone() const = 0;

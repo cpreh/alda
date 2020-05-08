@@ -26,24 +26,25 @@ template<
 >
 struct signed_
 {
-	typedef
-	Type
-	element_type;
+	using
+	element_type
+	=
+	Type;
 
-	typedef
+	using
+	impl
+	=
 	alda::bindings::unsigned_<
-		typename
-		std::make_unsigned<
+		std::make_unsigned_t<
 			Type
-		>::type,
+		>,
 		Endianness
-	>
-	impl;
+	>;
 
 	static_assert(
-		std::is_signed<
+		std::is_signed_v<
 			Type
-		>::value,
+		>,
 		"alda::bindings::signed_ only works on signed types"
 	);
 };

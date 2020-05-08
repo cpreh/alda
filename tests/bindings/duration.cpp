@@ -28,45 +28,49 @@ TEST_CASE(
 	"[alda]"
 )
 {
-	typedef
+	using
+	int_binding
+	=
 	alda::bindings::unsigned_<
 		std::uint32_t,
 		fcppt::endianness::format::little
-	>
-	int_binding;
+	>;
 
-	typedef
+	using
+	duration_binding
+	=
 	alda::bindings::duration<
 		int_binding,
 		std::milli
-	>
-	duration_binding;
+	>;
 
 	static_assert(
 		alda::raw::static_size<
 			duration_binding
 		>::value
-		==
+		== // NOLINT(misc-redundant-expression)
 		alda::raw::static_size<
 			int_binding
-		>::value,
-		""
+		>::value
 	);
 
-	typedef
+	using
+	duration
+	=
 	alda::raw::element_type<
 		duration_binding
-	>
-	duration;
+	>;
 
+	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
 	std::stringstream stream{};
 
 	alda::serialization::write<
 		duration_binding
 	>(
 		stream,
+		// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
 		duration{
-			10u
+			10U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		}
 	);
 
@@ -80,8 +84,9 @@ TEST_CASE(
 		fcppt::either::make_success<
 			alda::raw::stream::error
 		>(
-			duration{
-				10u
+			// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+			duration{ // NOLINT(fuchsia-default-arguments-calls)
+				10U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			}
 		)
 	);

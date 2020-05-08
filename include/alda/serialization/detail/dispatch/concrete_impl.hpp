@@ -20,8 +20,7 @@ alda::serialization::detail::dispatch::concrete<
 	TypeEnum,
 	Message
 >::concrete()
-{
-}
+= default;
 
 template<
 	typename TypeEnum,
@@ -31,8 +30,7 @@ alda::serialization::detail::dispatch::concrete<
 	TypeEnum,
 	Message
 >::~concrete()
-{
-}
+= default;
 
 template<
 	typename TypeEnum,

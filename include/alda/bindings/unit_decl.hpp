@@ -18,9 +18,10 @@ namespace bindings
 
 struct unit
 {
-	typedef
-	fcppt::unit
-	element_type;
+	using
+	element_type
+	=
+	fcppt::unit;
 };
 
 }

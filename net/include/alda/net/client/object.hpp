@@ -17,7 +17,7 @@
 #include <alda/net/client/object_fwd.hpp>
 #include <alda/net/client/detail/object_impl_fwd.hpp>
 #include <alda/net/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 
@@ -31,7 +31,7 @@ namespace client
 
 class object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
@@ -55,6 +55,7 @@ public:
 	void
 	disconnect();
 
+	[[nodiscard]]
 	ALDA_NET_DETAIL_SYMBOL
 	alda::net::buffer::circular_send::streambuf &
 	send_buffer();
@@ -63,18 +64,21 @@ public:
 	void
 	queue_send();
 
+	[[nodiscard]]
 	ALDA_NET_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	register_connect(
 		alda::net::client::connect_callback &&
 	);
 
+	[[nodiscard]]
 	ALDA_NET_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	register_error(
 		alda::net::client::error_callback &&
 	);
 
+	[[nodiscard]]
 	ALDA_NET_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	register_data(

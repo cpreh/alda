@@ -35,7 +35,8 @@ public:
 	ALDA_DETAIL_SYMBOL
 	failure(
 		failure &&
-	);
+	)
+	noexcept;
 
 	ALDA_DETAIL_SYMBOL
 	failure(
@@ -46,7 +47,8 @@ public:
 	failure &
 	operator=(
 		failure &&
-	);
+	)
+	noexcept;
 
 	ALDA_DETAIL_SYMBOL
 	failure &

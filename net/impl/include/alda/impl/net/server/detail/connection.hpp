@@ -13,7 +13,7 @@
 #include <alda/net/buffer/max_send_size.hpp>
 #include <alda/net/buffer/circular_receive/streambuf.hpp>
 #include <alda/net/buffer/circular_send/streambuf.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/asio/io_service.hpp>
 #include <boost/asio/ip/tcp.hpp>
@@ -31,7 +31,7 @@ namespace detail
 
 class connection
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		connection
 	);
 public:
@@ -39,23 +39,28 @@ public:
 		alda::net::id,
 		alda::net::buffer::max_receive_size,
 		alda::net::buffer::max_send_size,
-		boost::asio::io_service &
-	);
+		boost::asio::io_service & // NOLINT(google-runtime-references)
+	); // NOLINT(google-runtime-references)
 
 	~connection();
 
+	[[nodiscard]]
 	alda::net::id
 	id() const;
 
+	[[nodiscard]]
 	boost::asio::ip::tcp::socket &
 	socket();
 
+	[[nodiscard]]
 	alda::net::buffer::circular_send::streambuf &
 	send_data();
 
+	[[nodiscard]]
 	alda::net::buffer::circular_receive::streambuf &
 	received_data();
 
+	[[nodiscard]]
 	bool &
 	sending();
 private:

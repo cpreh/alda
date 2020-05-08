@@ -55,7 +55,7 @@ TEST_CASE(
 {
 	alda::net::buffer::circular_receive::streambuf buffer{
 		alda::net::buffer::max_receive_size{
-			2u
+			2U
 		}
 	};
 
@@ -69,19 +69,20 @@ TEST_CASE(
 		};
 
 		REQUIRE(
-			2u
+			2U
 			==
 			next_part.size()
 		);
 
 		*next_part.begin() = '0';
 
+		// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
 		*std::next(
 			next_part.begin()
 		) = '1';
 
 		buffer.bytes_received(
-			2u
+			2U
 		);
 	}
 
@@ -92,16 +93,15 @@ TEST_CASE(
 	);
 
 	CHECK(
-		buffer.next_receive_part().size()
-		==
-		0u
+		buffer.next_receive_part().empty()
 	);
 
-	typedef
+	using
+	optional_char
+	=
 	fcppt::optional::object<
 		char
-	>
-	optional_char;
+	>;
 
 	REQUIRE(
 		fcppt::io::get(
@@ -131,6 +131,7 @@ TEST_CASE(
 		optional_char()
 	);
 
+	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
 	stream.clear();
 
 	stream.unget();
@@ -151,7 +152,7 @@ TEST_CASE(
 		};
 
 		REQUIRE(
-			1u
+			1U
 			==
 			next_part.size()
 		);
@@ -159,7 +160,7 @@ TEST_CASE(
 		*next_part.begin() = '2';
 
 		buffer.bytes_received(
-			1u
+			1U
 		);
 	}
 
@@ -175,7 +176,7 @@ TEST_CASE(
 		};
 
 		REQUIRE(
-			1u
+			1U
 			==
 			next_part.size()
 		);
@@ -183,7 +184,7 @@ TEST_CASE(
 		*next_part.begin() = '3';
 
 		buffer.bytes_received(
-			1u
+			1U
 		);
 	}
 
@@ -193,6 +194,7 @@ TEST_CASE(
 		2
 	);
 
+	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
 	stream.clear();
 
 	REQUIRE(
@@ -235,6 +237,7 @@ TEST_CASE(
 		optional_char()
 	);
 
+	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
 	stream.clear();
 
 	stream.unget();
@@ -281,6 +284,7 @@ TEST_CASE(
 		optional_char()
 	);
 
+	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
 	stream.clear();
 
 	stream.unget();

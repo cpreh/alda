@@ -11,7 +11,7 @@
 #include <alda/net/buffer/max_send_size.hpp>
 #include <alda/net/buffer/circular_send/streambuf_fwd.hpp>
 #include <alda/net/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/circular_buffer.hpp>
 #include <ios>
@@ -33,23 +33,26 @@ class streambuf
 	public
 		std::streambuf
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		streambuf
 	);
 
-	typedef
+	using
+	impl_type
+	=
 	boost::circular_buffer<
 		alda::net::value_type
-	>
-	impl_type;
+	>;
 public:
-	typedef
-	impl_type::size_type
-	size_type;
+	using
+	size_type
+	=
+	impl_type::size_type;
 
-	typedef
-	impl_type::const_array_range
-	const_array_range;
+	using
+	const_array_range
+	=
+	impl_type::const_array_range;
 
 	ALDA_NET_DETAIL_SYMBOL
 	explicit
@@ -61,10 +64,12 @@ public:
 	~streambuf()
 	override;
 
+	[[nodiscard]]
 	ALDA_NET_DETAIL_SYMBOL
 	size_type
 	space_left() const;
 
+	[[nodiscard]]
 	ALDA_NET_DETAIL_SYMBOL
 	const_array_range
 	send_part() const;
@@ -75,10 +80,12 @@ public:
 		size_type
 	);
 
+	[[nodiscard]]
 	ALDA_NET_DETAIL_SYMBOL
 	bool
 	empty() const;
 
+	[[nodiscard]]
 	ALDA_NET_DETAIL_SYMBOL
 	size_type
 	capacity() const;

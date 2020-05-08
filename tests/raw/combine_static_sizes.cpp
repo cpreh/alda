@@ -39,8 +39,7 @@ main()
 			alda::bindings::fundamental<
 				std::uint32_t
 			>
-		>::value,
-		""
+		>::value
 	);
 
 	static_assert(
@@ -58,8 +57,7 @@ main()
 					void
 				>
 			>
-		>::value,
-		""
+		>::value
 	);
 
 	static_assert(

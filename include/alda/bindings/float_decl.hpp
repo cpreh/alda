@@ -21,13 +21,15 @@ namespace bindings
 
 struct float_
 {
-	typedef
-	alda::bindings::float_type
-	element_type;
+	using
+	element_type
+	=
+	alda::bindings::float_type;
 
-	typedef
-	std::uint32_t
-	fixed_int;
+	using
+	fixed_int
+	=
+	std::uint32_t;
 };
 
 }

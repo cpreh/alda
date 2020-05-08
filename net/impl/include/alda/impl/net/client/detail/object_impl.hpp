@@ -19,7 +19,7 @@
 #include <alda/net/client/error_callback.hpp>
 #include <alda/net/client/error_function.hpp>
 #include <alda/net/client/detail/object_impl_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/log/object.hpp>
@@ -46,7 +46,7 @@ namespace detail
 
 class object_impl
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object_impl
 	);
 public:
@@ -95,17 +95,19 @@ private:
 
 	boost::asio::ip::tcp::resolver resolver_;
 
-	typedef
+	using
+	query_unique_ptr
+	=
 	fcppt::unique_ptr<
 		boost::asio::ip::tcp::resolver::query
-	>
-	query_unique_ptr;
+	>;
 
-	typedef
+	using
+	optional_query_unique_ptr
+	=
 	fcppt::optional::object<
 		query_unique_ptr
-	>
-	optional_query_unique_ptr;
+	>;
 
 	optional_query_unique_ptr query_;
 

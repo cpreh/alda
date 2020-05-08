@@ -28,13 +28,13 @@ template<
 alda::serialization::context<
 	TypeEnum
 >::~context()
-{
-}
+= default;
 
 template<
 	typename TypeEnum
 >
-typename alda::serialization::context<
+typename
+alda::serialization::context<
 	TypeEnum
 >::dispatch_map const &
 alda::serialization::context<

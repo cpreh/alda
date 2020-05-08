@@ -93,13 +93,14 @@ make_generic(
 	> _stream
 )
 {
-	typedef
+	using
+	array_type
+	=
 	alda::bindings::array<
 		typename
 		Type::internal,
 		Adapted
-	>
-	array_type;
+	>;
 
 	return
 		alda::raw::stream::bind<
