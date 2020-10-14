@@ -27,7 +27,9 @@ template<
 >
 alda::serialization::context<
 	TypeEnum
->::~context()
+>::~context<
+	TypeEnum
+>()
 = default;
 
 template<

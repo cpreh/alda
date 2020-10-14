@@ -52,7 +52,11 @@ alda::call::object<
 	TypeEnum,
 	Messages,
 	Callee
->::~object()
+>::~object<
+	TypeEnum,
+	Messages,
+	Callee
+>()
 = default;
 
 template<

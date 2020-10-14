@@ -23,7 +23,9 @@ template<
 >
 alda::serialization::detail::dispatch::base<
 	TypeEnum
->::~base()
+>::~base<
+	TypeEnum
+>()
 = default;
 
 #endif

@@ -67,7 +67,9 @@ template<
 >
 alda::message::base<
 	TypeEnum
->::~base()
+>::~base<
+	TypeEnum
+>()
 = default;
 
 #endif

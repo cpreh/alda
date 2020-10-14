@@ -27,7 +27,10 @@ template<
 alda::call::detail::base<
 	TypeEnum,
 	Callee
->::~base()
+>::~base<
+	TypeEnum,
+	Callee
+>()
 = default;
 
 #endif

@@ -29,7 +29,10 @@ template<
 alda::serialization::detail::dispatch::concrete<
 	TypeEnum,
 	Message
->::~concrete()
+>::~concrete<
+	TypeEnum,
+	Message
+>()
 = default;
 
 template<

@@ -102,7 +102,10 @@ template<
 alda::message::concrete<
 	TypeEnum,
 	Type
->::~concrete()
+>::~concrete<
+	TypeEnum,
+	Type
+>()
 = default;
 
 template<
