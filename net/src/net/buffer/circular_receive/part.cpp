@@ -13,8 +13,8 @@
 
 
 alda::net::buffer::circular_receive::part::part(
-	pointer const _begin,
-	pointer const _end
+	pointer const _begin, // NOLINT(misc-misplaced-const)
+	pointer const _end // NOLINT(misc-misplaced-const)
 )
 :
 	begin_(

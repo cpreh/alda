@@ -25,14 +25,15 @@ template<
 >
 struct duration
 {
-	typedef
+	using
+	element_type
+	=
 	std::chrono::duration<
 		alda::raw::element_type<
 			Adapted
 		>,
 		Ratio
-	>
-	element_type;
+	>;
 };
 
 }
