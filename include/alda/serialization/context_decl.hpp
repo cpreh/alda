@@ -38,6 +38,7 @@ public:
 		TypeEnum
 	>;
 
+	[[nodiscard]]
 	dispatch_map const &
 	handlers() const;
 private:
