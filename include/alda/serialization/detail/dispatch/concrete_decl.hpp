@@ -61,6 +61,7 @@ public:
 	typename
 	base_type::reader;
 
+	[[nodiscard]]
 	ALDA_DETAIL_EXTERNAL_SYMBOL
 	message_unique_ptr
 	on_dispatch(
