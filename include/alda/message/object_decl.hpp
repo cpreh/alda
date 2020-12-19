@@ -50,6 +50,7 @@ public:
 		element_type &&
 	);
 
+	[[nodiscard]]
 	element_type const &
 	get() const;
 private:
