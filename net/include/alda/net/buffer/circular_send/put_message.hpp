@@ -38,8 +38,8 @@ put_message(
 	alda::message::base<
 		TypeEnum
 	> const &_message,
-	alda::net::buffer::circular_send::streambuf &_buffer
-)
+	alda::net::buffer::circular_send::streambuf &_buffer // NOLINT(google-runtime-references)
+) // NOLINT(google-runtime-references)
 {
 	alda::raw::size_type const size(
 		alda::serialization::length::make<
@@ -66,8 +66,10 @@ put_message(
 		>
 		_buffer.space_left()
 	)
+	{
 		return
 			false;
+	}
 
 	alda::serialization::ostream stream(
 		&_buffer

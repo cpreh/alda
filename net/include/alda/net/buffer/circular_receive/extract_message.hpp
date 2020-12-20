@@ -35,8 +35,8 @@ extract_message(
 	alda::serialization::context<
 		TypeEnum
 	> const &_context,
-	alda::net::buffer::circular_receive::streambuf &_data
-)
+	alda::net::buffer::circular_receive::streambuf &_data // NOLINT(google-runtime-references)
+) // NOLINT(google-runtime-references)
 {
 	alda::serialization::istream stream{
 		&_data
