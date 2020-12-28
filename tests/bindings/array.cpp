@@ -10,6 +10,7 @@
 #include <alda/raw/stream/error.hpp>
 #include <alda/serialization/read.hpp>
 #include <alda/serialization/write.hpp>
+#include <fcppt/array/object.hpp>
 #include <fcppt/catch/either.hpp>
 #include <fcppt/catch/strong_typedef.hpp>
 #include <fcppt/either/make_success.hpp>
@@ -17,7 +18,6 @@
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch.hpp>
-#include <array>
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
 
@@ -28,7 +28,7 @@ namespace
 using
 int_array2
 =
-std::array<
+fcppt::array::object<
 	unsigned,
 	2
 >;
@@ -71,10 +71,10 @@ TEST_CASE(
 	"[alda]"
 )
 {
-	int_array2 const test{{
+	int_array2 const test{
 		2U,
 		4U
-	}};
+	};
 
 	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
 	std::stringstream stream{};

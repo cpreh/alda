@@ -24,7 +24,8 @@
 #include <alda/raw/stream/return.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/algorithm/fold.hpp>
-#include <fcppt/container/array/size.hpp>
+#include <fcppt/array/impl_type.hpp>
+#include <fcppt/array/size.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <metal.hpp>
 #include <cstddef>
@@ -117,7 +118,7 @@ make_generic(
 	return
 		fcppt::algorithm::fold(
 			fcppt::make_int_range_count(
-				fcppt::container::array::size<
+				fcppt::array::size<
 					Type
 				>::value
 			),
@@ -129,7 +130,16 @@ make_generic(
 						Type,
 						Adapted
 					>
-				>()
+				>{
+					fcppt::array::impl_type<
+						alda::raw::element_type<
+							alda::bindings::array<
+								Type,
+								Adapted
+							>
+						>
+					>{}
+				}
 			),
 			[
 				&_stream
@@ -171,9 +181,9 @@ make_generic(
 										> &&_elem
 									)
 									{
-										_array[
+										_array.get_unsafe(
 											_index
-										] =
+										) =
 											std::move(
 												_elem
 											);
@@ -217,7 +227,7 @@ alda::raw::combine_static_sizes<
 	metal::lambda<
 		metal::mul
 	>,
-	fcppt::container::array::size<
+	fcppt::array::size<
 		Type
 	>,
 	alda::raw::static_size<

@@ -9,9 +9,7 @@
 
 #include <alda/raw/data.hpp>
 #include <alda/raw/static_size.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <array>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/array/object_impl.hpp>
 
 
 namespace alda
@@ -25,7 +23,7 @@ template<
 using
 static_buffer
 =
-std::array<
+fcppt::array::object<
 	alda::raw::data,
 	alda::raw::static_size<
 		Type

@@ -9,6 +9,7 @@
 
 #include <alda/raw/static_buffer.hpp>
 #include <alda/serialization/ostream.hpp>
+#include <fcppt/array/size.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/cast/to_signed.hpp>
@@ -45,7 +46,11 @@ static_buffer_to_stream(
 			std::streamsize
 		>(
 			fcppt::cast::to_signed(
-				_buffer.size()
+				fcppt::array::size<
+					alda::raw::static_buffer<
+						Type
+					>
+				>::value
 			)
 		)
 	);

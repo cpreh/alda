@@ -10,6 +10,7 @@
 #include <alda/raw/element_type.hpp>
 #include <alda/raw/place.hpp>
 #include <alda/raw/static_buffer.hpp>
+#include <fcppt/no_init.hpp>
 
 
 namespace alda
@@ -32,7 +33,9 @@ to_static_buffer(
 	alda::raw::static_buffer<
 		Type
 	>
-	temp_buffer;
+	temp_buffer{
+		fcppt::no_init{}
+	};
 
 	alda::raw::place<
 		Type

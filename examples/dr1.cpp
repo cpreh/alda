@@ -14,6 +14,7 @@
 #include <fcppt/string.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/array/object_impl.hpp>
 #include <fcppt/either/match.hpp>
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/filesystem/open.hpp>
@@ -36,7 +37,6 @@
 #include <fcppt/record/get.hpp>
 #include <fcppt/record/make_label.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <array>
 #include <cstdint>
 #include <cstdlib>
 #include <filesystem>
@@ -60,7 +60,7 @@ parse_file(
 	string_binding
 	=
 	alda::bindings::array<
-		std::array<
+		fcppt::array::object<
 			char,
 			12 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		>,
@@ -157,7 +157,7 @@ parse_file(
 	unknown_binding
 	=
 	alda::bindings::array<
-		std::array<
+		fcppt::array::object<
 			std::uint8_t,
 			480 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		>,
@@ -170,7 +170,7 @@ parse_file(
 	tile_array_binding
 	=
 	alda::bindings::array<
-		std::array<
+		fcppt::array::object<
 			std::uint16_t,
 			16767 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		>,
