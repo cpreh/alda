@@ -19,13 +19,17 @@
 #include <alda/raw/static_size.hpp>
 #include <alda/raw/static_size_impl.hpp>
 #include <alda/raw/stream/bind.hpp>
+#include <alda/raw/stream/error.hpp>
+#include <alda/raw/stream/fail.hpp>
+#include <alda/raw/stream/get_error.hpp>
 #include <alda/raw/stream/reference.hpp>
 #include <alda/raw/stream/result.hpp>
 #include <alda/raw/stream/return.hpp>
 #include <fcppt/make_int_range_count.hpp>
-#include <fcppt/algorithm/fold.hpp>
+#include <fcppt/no_init.hpp>
 #include <fcppt/array/impl_type.hpp>
 #include <fcppt/array/size.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <metal.hpp>
 #include <cstddef>
@@ -102,106 +106,94 @@ make_generic(
 	> _stream
 )
 {
-	using
-	result_type
-	=
-	alda::raw::stream::result<
-		Stream,
+	alda::raw::element_type<
 		alda::bindings::array<
 			Type,
 			Adapted
 		>
-	>;
+	> result{
+		fcppt::no_init{}
+	};
 
-	// TODO(philipp): Improve this by breaking out early
-	// TODO(philipp): We should fold the array
-	return
-		fcppt::algorithm::fold(
-			fcppt::make_int_range_count(
-				fcppt::array::size<
-					Type
-				>::value
-			),
-			alda::raw::stream::return_<
+	for(
+		auto const index
+		:
+		fcppt::make_int_range_count(
+			fcppt::array::size<
+				Type
+			>::value
+		)
+	)
+	{
+		fcppt::optional::object<
+			alda::raw::stream::error
+		> error{
+			alda::raw::stream::get_error<
 				Stream
 			>(
-				alda::raw::element_type<
+				alda::raw::stream::bind<
+					Stream
+				>(
+					alda::raw::make_generic<
+						Stream,
+						Adapted
+					>(
+						_stream
+					),
+					[
+						&result,
+						index
+					](
+						alda::raw::element_type<
+							Adapted
+						> &&_elem
+					)
+					{
+						result.get_unsafe(
+							index
+						) =
+							std::move(
+								_elem
+							);
+
+						return
+							alda::raw::stream::return_<
+								Stream
+							>(
+								fcppt::unit{}
+							);
+					}
+				)
+			)
+		};
+
+		if(
+			error.has_value()
+		)
+		{
+			return
+				alda::raw::stream::fail<
+					Stream,
 					alda::bindings::array<
 						Type,
 						Adapted
 					>
-				>{
-					fcppt::array::impl_type<
-						alda::raw::element_type<
-							alda::bindings::array<
-								Type,
-								Adapted
-							>
-						>
-					>{}
-				}
-			),
-			[
-				&_stream
-			](
-				std::size_t const _index,
-				result_type &&_result
-			)
-			{
-				return
-					alda::raw::stream::bind<
-						Stream
-					>(
-						std::move(
-							_result
-						),
-						[
-							&_stream,
-							_index
-						](
-							Type &&_array
-						)
-						{
-							return
-								alda::raw::stream::bind<
-									Stream
-								>(
-									alda::raw::make_generic<
-										Stream,
-										Adapted
-									>(
-										_stream
-									),
-									[
-										&_array,
-										_index
-									](
-										alda::raw::element_type<
-											Adapted
-										> &&_elem
-									)
-									{
-										_array.get_unsafe(
-											_index
-										) =
-											std::move(
-												_elem
-											);
+				>(
+					std::move(
+						error.get_unsafe().get()
+					)
+				);
+		}
+	}
 
-										return
-											alda::raw::stream::return_<
-												Stream
-											>(
-												std::move(
-													_array
-												)
-											);
-									}
-								);
-						}
-					);
-				}
-			);
+	return
+		alda::raw::stream::return_<
+			Stream
+		>(
+			std::move(
+				result
+			)
+		);
 }
 
 }

@@ -486,6 +486,7 @@ set(
 	include/alda/raw/stream/fail.hpp
 	include/alda/raw/stream/failure.hpp
 	include/alda/raw/stream/failure_fwd.hpp
+	include/alda/raw/stream/get_error.hpp
 	include/alda/raw/stream/istream.hpp
 	include/alda/raw/stream/istream_fwd.hpp
 	include/alda/raw/stream/memory.hpp
