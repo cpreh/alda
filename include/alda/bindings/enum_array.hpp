@@ -123,6 +123,7 @@ make_generic(
 						Stream
 					>(
 						Type{
+							typename Type::from_internal{},
 							std::move(
 								_inner
 							)
