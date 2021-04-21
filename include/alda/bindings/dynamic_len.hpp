@@ -7,6 +7,7 @@
 #ifndef ALDA_BINDINGS_DYNAMIC_LEN_HPP_INCLUDED
 #define ALDA_BINDINGS_DYNAMIC_LEN_HPP_INCLUDED
 
+#include <alda/exception.hpp>
 #include <alda/bindings/dynamic_len_decl.hpp>
 #include <alda/bindings/length_count_policy.hpp>
 #include <alda/bindings/unsigned.hpp>
@@ -23,8 +24,10 @@
 #include <alda/raw/stream/result.hpp>
 #include <alda/raw/stream/return.hpp>
 #include <fcppt/make_int_range_count.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/cast/truncation_check.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -120,14 +123,22 @@ place(
 		alda::raw::place_and_update<
 			Length
 		>(
-			fcppt::cast::truncation_check<
-				alda::raw::element_type<
-					Length
-				>
-			>(
-				LengthPolicy::place(
-					_value
-				)
+			fcppt::optional::to_exception(
+				fcppt::cast::truncation_check<
+					alda::raw::element_type<
+						Length
+					>
+				>(
+					LengthPolicy::place(
+						_value
+					)
+				),
+				[]{
+					return
+						alda::exception{
+							FCPPT_TEXT("dynamic_len: size too large")
+						};
+				}
 			),
 			_mem
 		);

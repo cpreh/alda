@@ -78,6 +78,7 @@ add_alda_test(
 	LINK_LIBS
 		fcppt_catch_interface
 		${fcppt_core_TARGET}
+		${alda_TARGET}
 )
 
 add_alda_test(

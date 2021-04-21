@@ -7,6 +7,7 @@
 #ifndef ALDA_BINDINGS_VARIANT_HPP_INCLUDED
 #define ALDA_BINDINGS_VARIANT_HPP_INCLUDED
 
+#include <alda/exception.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <alda/bindings/variant_decl.hpp>
 #include <alda/raw/dispatch_type.hpp>
@@ -29,6 +30,7 @@
 #include <fcppt/cast/promote_int.hpp>
 #include <fcppt/cast/truncation_check.hpp>
 #include <fcppt/metal/invoke_on.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/variant/apply.hpp>
 #include <fcppt/variant/from_list.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -78,12 +80,20 @@ place(
 	binding::index_type;
 
 	auto const index(
-		fcppt::cast::truncation_check<
-			alda::raw::element_type<
-				index_type
-			>
-		>(
-			_value.type_index()
+		fcppt::optional::to_exception(
+			fcppt::cast::truncation_check<
+				alda::raw::element_type<
+					index_type
+				>
+			>(
+				_value.type_index()
+			),
+			[]{
+				return
+					alda::exception{
+						FCPPT_TEXT("variant index too large")
+					};
+			}
 		)
 	);
 
@@ -107,12 +117,11 @@ place(
 					AdaptedTypes,
 					metal::find<
 						Types,
-						typename
-						std::decay<
+						std::decay_t<
 							decltype(
 								_type
 							)
-						>::type
+						>
 					>
 				>
 			>(
@@ -306,12 +315,20 @@ needed_size(
 	binding::index_type;
 
 	auto const index(
-		fcppt::cast::truncation_check<
-			alda::raw::element_type<
-				index_type
-			>
-		>(
-			_value.type_index()
+		fcppt::optional::to_exception(
+			fcppt::cast::truncation_check<
+				alda::raw::element_type<
+					index_type
+				>
+			>(
+				_value.type_index()
+			),
+			[]{
+				return
+					alda::exception{
+						FCPPT_TEXT("variant index too large")
+					};
+			}
 		)
 	);
 
@@ -333,12 +350,11 @@ needed_size(
 							AdaptedTypes,
 							metal::find<
 								Types,
-								typename
-								std::decay<
+								std::decay_t<
 									decltype(
 										_type
 									)
-								>::type
+								>
 							>
 						>
 					>(

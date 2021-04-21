@@ -4,14 +4,17 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <alda/exception.hpp>
 #include <alda/net/size_type.hpp>
 #include <alda/net/buffer/max_receive_size.hpp>
 #include <alda/net/buffer/circular_receive/part.hpp>
 #include <alda/net/buffer/circular_receive/streambuf.hpp>
 #include <fcppt/cyclic_iterator_impl.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/cast/truncation_check.hpp>
 #include <fcppt/container/dynamic_array_impl.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <ios>
@@ -195,12 +198,20 @@ alda::net::buffer::circular_receive::streambuf::xsgetn(
 	cyclic_iterator const end{
 		beg
 		+
-		fcppt::cast::truncation_check<
-			std::iterator_traits<
-				cyclic_iterator
-			>::difference_type
-		>(
-			to_copy
+		fcppt::optional::to_exception(
+			fcppt::cast::truncation_check<
+				std::iterator_traits<
+					cyclic_iterator
+				>::difference_type
+			>(
+				to_copy
+			),
+			[]{
+				return
+					alda::exception{
+						FCPPT_TEXT("circular_receive, size too large")
+					};
+			}
 		)
 	};
 
