@@ -6,13 +6,11 @@
 
 #include <alda/bindings/bitfield.hpp>
 #include <alda/raw/data.hpp>
-#include <alda/raw/integral_size.hpp>
 #include <alda/raw/size_type.hpp>
 #include <alda/raw/static_size.hpp>
 #include <alda/raw/stream/error.hpp>
 #include <alda/serialization/read.hpp>
 #include <alda/serialization/write.hpp>
-#include <fcppt/container/bitfield/comparison.hpp>
 #include <fcppt/container/bitfield/object.hpp>
 #include <fcppt/either/comparison.hpp>
 #include <fcppt/either/make_success.hpp>
@@ -30,14 +28,20 @@ TEST_CASE(
 	"[alda]"
 )
 {
+	enum class test_enum
+	{
+		test1,
+		test2,
+		test3,
+		fcppt_maximum = test3
+	};
+
 	using
 	bitfield
 	=
 	fcppt::container::bitfield::object<
-		unsigned,
-		alda::raw::integral_size<
-			64U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-		>
+		test_enum,
+		alda::raw::data
 	>;
 
 	using
@@ -55,7 +59,7 @@ TEST_CASE(
 		== // NOLINT(misc-redundant-expression)
 		fcppt::math::ceil_div_static<
 			alda::raw::size_type,
-			64U, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+			3U, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			std::numeric_limits<
 				alda::raw::data
 			>::digits
@@ -67,7 +71,7 @@ TEST_CASE(
 	);
 
 	test[
-		42U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+		test_enum::test2
 	] = true;
 
 	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
