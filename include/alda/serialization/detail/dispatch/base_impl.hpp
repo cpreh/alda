@@ -18,14 +18,15 @@ alda::serialization::detail::dispatch::base<
 >::base()
 = default;
 
+namespace alda::serialization::detail::dispatch
+{
 template<
 	typename TypeEnum
 >
-alda::serialization::detail::dispatch::base<
+base<
 	TypeEnum
->::~base<
-	TypeEnum
->()
+>::~base()
 = default;
+}
 
 #endif

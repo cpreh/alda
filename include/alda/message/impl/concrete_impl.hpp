@@ -95,18 +95,18 @@ alda::message::concrete<
 ) noexcept
 = default;
 
+namespace alda::message
+{
 template<
 	typename TypeEnum,
 	typename Type
 >
-alda::message::concrete<
+concrete<
 	TypeEnum,
 	Type
->::~concrete<
-	TypeEnum,
-	Type
->()
+>::~concrete()
 = default;
+}
 
 template<
 	typename TypeEnum,

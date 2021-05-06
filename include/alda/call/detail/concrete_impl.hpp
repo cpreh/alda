@@ -29,21 +29,20 @@ alda::call::detail::concrete<
 {
 }
 
+namespace alda::call::detail
+{
 template<
 	typename TypeEnum,
 	typename Callee,
 	typename Message
 >
-alda::call::detail::concrete<
+concrete<
 	TypeEnum,
 	Callee,
 	Message
->::~concrete<
-	TypeEnum,
-	Callee,
-	Message
->()
+>::~concrete()
 = default;
+}
 
 template<
 	typename TypeEnum,

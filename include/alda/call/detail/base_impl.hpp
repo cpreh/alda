@@ -20,17 +20,17 @@ alda::call::detail::base<
 >::base()
 = default;
 
+namespace alda::call::detail
+{
 template<
 	typename TypeEnum,
 	typename Callee
 >
-alda::call::detail::base<
+base<
 	TypeEnum,
 	Callee
->::~base<
-	TypeEnum,
-	Callee
->()
+>::~base()
 = default;
+}
 
 #endif

@@ -43,21 +43,20 @@ alda::call::object<
 {
 }
 
+namespace alda::call
+{
 template<
 	typename TypeEnum,
 	typename Messages,
 	typename Callee
 >
-alda::call::object<
+object<
 	TypeEnum,
 	Messages,
 	Callee
->::~object<
-	TypeEnum,
-	Messages,
-	Callee
->()
+>::~object()
 = default;
+}
 
 template<
 	typename TypeEnum,

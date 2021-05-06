@@ -62,14 +62,15 @@ alda::message::base<
 ) noexcept
 = default;
 
+namespace alda::message
+{
 template<
 	typename TypeEnum
 >
-alda::message::base<
+base<
 	TypeEnum
->::~base<
-	TypeEnum
->()
+>::~base()
 = default;
+}
 
 #endif

@@ -22,18 +22,18 @@ alda::serialization::detail::dispatch::concrete<
 >::concrete()
 = default;
 
+namespace alda::serialization::detail::dispatch
+{
 template<
 	typename TypeEnum,
 	typename Message
 >
-alda::serialization::detail::dispatch::concrete<
+concrete<
 	TypeEnum,
 	Message
->::~concrete<
-	TypeEnum,
-	Message
->()
+>::~concrete()
 = default;
+}
 
 template<
 	typename TypeEnum,

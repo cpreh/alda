@@ -22,15 +22,16 @@ alda::serialization::context<
 {
 }
 
+namespace alda::serialization
+{
 template<
 	typename TypeEnum
 >
-alda::serialization::context<
+context<
 	TypeEnum
->::~context<
-	TypeEnum
->()
+>::~context()
 = default;
+}
 
 template<
 	typename TypeEnum
