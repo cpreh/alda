@@ -14,10 +14,10 @@
 #include <fcppt/container/bitfield/object.hpp>
 #include <fcppt/either/comparison.hpp>
 #include <fcppt/either/make_success.hpp>
-#include <fcppt/endianness/format.hpp>
 #include <fcppt/math/ceil_div_static.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch.hpp>
+#include <bit>
 #include <limits>
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
@@ -49,7 +49,7 @@ TEST_CASE(
 	=
 	alda::bindings::bitfield<
 		bitfield,
-		fcppt::endianness::format::little
+		std::endian::little
 	>;
 
 	static_assert(

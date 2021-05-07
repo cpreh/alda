@@ -14,12 +14,12 @@
 #include <fcppt/catch/strong_typedef.hpp>
 #include <fcppt/either/make_success.hpp>
 #include <fcppt/either/object.hpp>
-#include <fcppt/endianness/format.hpp>
 #include <fcppt/math/vector/comparison.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch.hpp>
+#include <bit>
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
 
@@ -42,7 +42,7 @@ alda::bindings::static_<
 	int_vec2,
 	alda::bindings::unsigned_<
 		int_vec2::value_type,
-		fcppt::endianness::format::little
+		std::endian::little
 	>
 >;
 

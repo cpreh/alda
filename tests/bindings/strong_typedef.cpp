@@ -17,9 +17,9 @@
 #include <fcppt/catch/strong_typedef.hpp>
 #include <fcppt/either/make_success.hpp>
 #include <fcppt/either/object.hpp>
-#include <fcppt/endianness/format.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch.hpp>
+#include <bit>
 #include <cstdint>
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
@@ -45,7 +45,7 @@ alda::bindings::strong_typedef<
 	strong_type,
 	alda::bindings::unsigned_<
 		base_type,
-		fcppt::endianness::format::little
+		std::endian::little
 	>
 >;
 

@@ -9,10 +9,10 @@
 
 #include <alda/bindings/unsigned_fwd.hpp>
 #include <alda/bindings/variant_fwd.hpp>
-#include <fcppt/endianness/format.hpp>
 #include <fcppt/variant/from_list_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <metal.hpp>
+#include <bit>
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
@@ -56,7 +56,7 @@ struct variant
 	=
 	alda::bindings::unsigned_<
 		std::uint8_t,
-		fcppt::endianness::format::little
+		std::endian::little
 	>;
 };
 

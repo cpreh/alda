@@ -10,7 +10,9 @@
 #include <alda/bindings/array_fwd.hpp>
 #include <alda/bindings/bitfield_fwd.hpp>
 #include <alda/bindings/unsigned_fwd.hpp>
-#include <fcppt/endianness/format_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <bit>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace alda
@@ -20,7 +22,7 @@ namespace bindings
 
 template<
 	typename Type,
-	fcppt::endianness::format Endianness
+	std::endian Endianness
 >
 struct bitfield
 {

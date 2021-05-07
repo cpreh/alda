@@ -14,12 +14,12 @@
 #include <fcppt/catch/either.hpp>
 #include <fcppt/catch/strong_typedef.hpp>
 #include <fcppt/either/object.hpp>
-#include <fcppt/endianness/format.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch.hpp>
+#include <bit>
 #include <cstdint>
 #include <limits>
 #include <sstream>
@@ -39,7 +39,7 @@ int_binding
 =
 alda::bindings::signed_<
 	int_type,
-	fcppt::endianness::format::little
+	std::endian::little
 >;
 
 using

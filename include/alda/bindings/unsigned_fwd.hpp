@@ -7,7 +7,9 @@
 #ifndef ALDA_BINDINGS_UNSIGNED_FWD_HPP_INCLUDED
 #define ALDA_BINDINGS_UNSIGNED_FWD_HPP_INCLUDED
 
-#include <fcppt/endianness/format_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <bit>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace alda
@@ -17,7 +19,7 @@ namespace bindings
 
 template<
 	typename Type,
-	fcppt::endianness::format
+	std::endian
 >
 struct unsigned_;
 

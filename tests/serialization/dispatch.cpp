@@ -25,7 +25,6 @@
 #include <alda/serialization/register_message.hpp>
 #include <alda/serialization/serialize.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/endianness/format.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -35,6 +34,7 @@
 #include <fcppt/config/external_begin.hpp>
 #include <metal.hpp>
 #include <catch2/catch.hpp>
+#include <bit>
 #include <cstdint>
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
@@ -72,8 +72,8 @@ alda::message::base_unique_ptr<
 >;
 
 constexpr
-fcppt::endianness::format const endianness{
-	fcppt::endianness::format::little
+std::endian const endianness{
+	std::endian::little
 };
 
 using

@@ -14,9 +14,9 @@
 #include <fcppt/catch/either.hpp>
 #include <fcppt/catch/strong_typedef.hpp>
 #include <fcppt/either/make_success.hpp>
-#include <fcppt/endianness/format.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch.hpp>
+#include <bit>
 #include <cstdint>
 #include <ratio>
 #include <sstream>
@@ -33,7 +33,7 @@ TEST_CASE(
 	=
 	alda::bindings::unsigned_<
 		std::uint32_t,
-		fcppt::endianness::format::little
+		std::endian::little
 	>;
 
 	using

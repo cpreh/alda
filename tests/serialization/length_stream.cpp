@@ -38,7 +38,6 @@
 #include <fcppt/output_to_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
-#include <fcppt/endianness/format.hpp>
 #include <fcppt/optional/comparison.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/output.hpp>
@@ -53,6 +52,7 @@
 #include <fcppt/config/external_begin.hpp>
 #include <metal.hpp>
 #include <catch2/catch.hpp>
+#include <bit>
 #include <cstdint>
 #include <sstream>
 #include <string>
@@ -97,8 +97,8 @@ alda::message::optional_base_unique_ptr<
 >;
 
 constexpr
-fcppt::endianness::format const endianness{
-	fcppt::endianness::format::little
+std::endian const endianness{
+	std::endian::little
 };
 
 using

@@ -20,11 +20,11 @@
 #include <alda/raw/stream/reference.hpp>
 #include <alda/raw/stream/result.hpp>
 #include <alda/raw/stream/return.hpp>
-#include <fcppt/endianness/format_fwd.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <bit>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -36,7 +36,7 @@ namespace bindings
 
 template<
 	typename Type,
-	fcppt::endianness::format Endianness
+	std::endian Endianness
 >
 void
 place(
@@ -70,7 +70,7 @@ place(
 template<
 	typename Stream,
 	typename Type,
-	fcppt::endianness::format Endianness
+	std::endian Endianness
 >
 alda::raw::stream::result<
 	Stream,
@@ -146,7 +146,7 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename Type,
-	fcppt::endianness::format Endianness
+	std::endian Endianness
 >
 struct static_size_impl<
 	alda::bindings::bitfield<

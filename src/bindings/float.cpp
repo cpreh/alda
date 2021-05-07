@@ -15,8 +15,8 @@
 #include <alda/raw/stream/memory.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/cast/int_to_float.hpp>
-#include <fcppt/endianness/format.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <bit>
 #include <cmath>
 #include <fcppt/config/external_end.hpp>
 
@@ -24,8 +24,8 @@
 namespace
 {
 
-constexpr fcppt::endianness::format const endianness{
-	fcppt::endianness::format::little
+constexpr std::endian const endianness{
+	std::endian::little
 };
 
 using

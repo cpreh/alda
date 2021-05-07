@@ -7,7 +7,9 @@
 #ifndef ALDA_SERIALIZATION_ENDIANNESS_HPP_INCLUDED
 #define ALDA_SERIALIZATION_ENDIANNESS_HPP_INCLUDED
 
-#include <fcppt/endianness/format.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <bit>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace alda
@@ -17,11 +19,11 @@ namespace serialization
 
 inline
 constexpr
-fcppt::endianness::format
+std::endian
 endianness()
 {
 	return
-		fcppt::endianness::format::little;
+		std::endian::little;
 }
 
 }

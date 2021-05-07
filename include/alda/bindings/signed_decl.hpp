@@ -9,8 +9,8 @@
 
 #include <alda/bindings/signed_fwd.hpp>
 #include <alda/bindings/unsigned_fwd.hpp>
-#include <fcppt/endianness/format_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <bit>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -22,7 +22,7 @@ namespace bindings
 
 template<
 	typename Type,
-	fcppt::endianness::format Endianness
+	std::endian Endianness
 >
 struct signed_
 {

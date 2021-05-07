@@ -16,7 +16,6 @@
 #include <fcppt/text.hpp>
 #include <fcppt/array/object_impl.hpp>
 #include <fcppt/either/match.hpp>
-#include <fcppt/endianness/format.hpp>
 #include <fcppt/filesystem/open.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -37,6 +36,7 @@
 #include <fcppt/record/get.hpp>
 #include <fcppt/record/make_label.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <bit>
 #include <cstdint>
 #include <cstdlib>
 #include <filesystem>
@@ -74,7 +74,7 @@ parse_file(
 	=
 	alda::bindings::unsigned_<
 		std::uint16_t,
-		fcppt::endianness::format::little
+		std::endian::little
 	>;
 
 	FCPPT_RECORD_MAKE_LABEL(

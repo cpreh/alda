@@ -15,12 +15,12 @@
 #include <fcppt/catch/strong_typedef.hpp>
 #include <fcppt/either/make_success.hpp>
 #include <fcppt/either/object.hpp>
-#include <fcppt/endianness/format.hpp>
 #include <fcppt/enum/array.hpp>
 #include <fcppt/enum/array_init.hpp>
 #include <fcppt/enum/size.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch.hpp>
+#include <bit>
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
 
@@ -54,7 +54,7 @@ unsigned_binding
 =
 alda::bindings::unsigned_<
 	int_type,
-	fcppt::endianness::format::little
+	std::endian::little
 >;
 
 using

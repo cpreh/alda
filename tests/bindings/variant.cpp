@@ -16,12 +16,12 @@
 #include <fcppt/catch/variant.hpp>
 #include <fcppt/either/comparison.hpp>
 #include <fcppt/either/make_success.hpp>
-#include <fcppt/endianness/format.hpp>
 #include <fcppt/variant/comparison.hpp>
 #include <fcppt/variant/from_list.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <metal.hpp>
 #include <catch2/catch.hpp>
+#include <bit>
 #include <cstdint>
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
@@ -49,8 +49,8 @@ metal::list<
 >;
 
 constexpr
-fcppt::endianness::format const endianness{
-	fcppt::endianness::format::little
+std::endian const endianness{
+	std::endian::little
 };
 
 using

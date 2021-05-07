@@ -13,9 +13,9 @@
 #include <fcppt/catch/either.hpp>
 #include <fcppt/catch/strong_typedef.hpp>
 #include <fcppt/either/object.hpp>
-#include <fcppt/endianness/format.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch.hpp>
+#include <bit>
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
@@ -37,7 +37,7 @@ alda::bindings::enum_<
 	test_enum,
 	alda::bindings::unsigned_<
 		std::uint8_t,
-		fcppt::endianness::format::little
+		std::endian::little
 	>
 >;
 
