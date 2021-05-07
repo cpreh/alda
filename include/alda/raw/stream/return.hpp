@@ -9,7 +9,6 @@
 
 #include <alda/raw/stream/error.hpp>
 #include <fcppt/either/object_fwd.hpp>
-#include <fcppt/type_traits/remove_cv_ref_t.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <utility>
@@ -53,7 +52,7 @@ std::enable_if_t<
 	Stream::can_fail,
 	fcppt::either::object<
 		alda::raw::stream::error,
-		fcppt::type_traits::remove_cv_ref_t<
+		std::remove_cvref_t<
 			Type
 		>
 	>
@@ -65,7 +64,7 @@ return_(
 	return
 		fcppt::either::object<
 			alda::raw::stream::error,
-			fcppt::type_traits::remove_cv_ref_t<
+			std::remove_cvref_t<
 				Type
 			>
 		>(
