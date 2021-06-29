@@ -27,11 +27,13 @@
 #include <alda/raw/stream/return.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/no_init.hpp>
+#include <fcppt/unit.hpp>
 #include <fcppt/array/impl_type.hpp>
 #include <fcppt/array/size.hpp>
+#include <fcppt/mpl/lambda.hpp>
+#include <fcppt/mpl/mul.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <cstddef>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -216,8 +218,8 @@ struct static_size_impl<
 >
 :
 alda::raw::combine_static_sizes<
-	metal::lambda<
-		metal::mul
+	fcppt::mpl::lambda<
+		fcppt::mpl::mul
 	>,
 	fcppt::array::size<
 		Type

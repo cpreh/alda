@@ -3,8 +3,9 @@
 #include <alda/raw/is_static_size.hpp>
 #include <alda/raw/static_size.hpp>
 #include <alda/raw/detail/dynamic_size.hpp>
+#include <fcppt/mpl/add.hpp>
+#include <fcppt/mpl/lambda.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
@@ -14,8 +15,8 @@ main()
 {
 	static_assert(
 		alda::raw::combine_static_sizes<
-			metal::lambda<
-				metal::add
+			fcppt::mpl::lambda<
+				fcppt::mpl::add
 			>,
 			alda::raw::static_size<
 				alda::bindings::fundamental<
@@ -45,8 +46,8 @@ main()
 	static_assert(
 		!alda::raw::is_static_size<
 			alda::raw::combine_static_sizes<
-				metal::lambda<
-					metal::add
+				fcppt::mpl::lambda<
+					fcppt::mpl::add
 				>,
 				alda::raw::static_size<
 					alda::bindings::fundamental<
@@ -63,8 +64,8 @@ main()
 	static_assert(
 		std::is_same_v<
 			alda::raw::combine_static_sizes<
-				metal::lambda<
-					metal::add
+				fcppt::mpl::lambda<
+					fcppt::mpl::add
 				>,
 				alda::raw::detail::dynamic_size,
 				alda::raw::static_size<

@@ -25,6 +25,7 @@
 #include <alda/serialization/register_message.hpp>
 #include <alda/serialization/serialize.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -32,7 +33,6 @@
 #include <fcppt/record/get.hpp>
 #include <fcppt/record/make_label.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <catch2/catch.hpp>
 #include <bit>
 #include <cstdint>
@@ -315,7 +315,7 @@ TEST_CASE(
 	=
 	alda::call::object<
 		type_enum,
-		metal::list<
+		fcppt::mpl::list::object<
 			message1,
 			message2
 		>,

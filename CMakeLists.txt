@@ -23,11 +23,6 @@ find_package(
 	REQUIRED
 )
 
-find_package(
-	Metal
-	REQUIRED
-)
-
 include(
 	FcpptCMakeUtils
 )
@@ -459,12 +454,9 @@ set(
 	include/alda/raw/combine_static_sizes.hpp
 	include/alda/raw/const_pointer.hpp
 	include/alda/raw/data.hpp
-	include/alda/raw/detail/convert_number.hpp
 	include/alda/raw/detail/copy_n.hpp
 	include/alda/raw/detail/dynamic_size.hpp
-	include/alda/raw/detail/from_number.hpp
 	include/alda/raw/detail/is_static_size.hpp
-	include/alda/raw/detail/to_number.hpp
 	include/alda/raw/dispatch_type.hpp
 	include/alda/raw/dispatch_value.hpp
 	include/alda/raw/element_type.hpp
@@ -554,11 +546,9 @@ set(
 add_alda_library(
 	alda
 	INTERFACE_LINK_LIBS
-		Metal
 		fcppt_core_interface
 		fcppt_log_interface
 	LINK_LIBS
-		Metal
 		${fcppt_core_TARGET}
 		${fcppt_log_TARGET}
 )

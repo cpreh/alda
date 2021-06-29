@@ -38,6 +38,7 @@
 #include <fcppt/output_to_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/comparison.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/output.hpp>
@@ -50,7 +51,6 @@
 #include <fcppt/variant/comparison.hpp>
 #include <fcppt/variant/output.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <catch2/catch.hpp>
 #include <bit>
 #include <cstdint>
@@ -120,10 +120,10 @@ using
 variant_type
 =
 alda::bindings::variant<
-	metal::list<
+	fcppt::mpl::list::object<
 		std::uint16_t
 	>,
-	metal::list<
+	fcppt::mpl::list::object<
 		uint16_type
 	>
 >;
@@ -426,7 +426,7 @@ TEST_CASE(
 	=
 	alda::call::object<
 		type_enum,
-		metal::list<
+		fcppt::mpl::list::object<
 			message1
 		>,
 		dispatcher_function

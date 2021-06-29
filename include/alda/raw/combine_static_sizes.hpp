@@ -7,13 +7,13 @@
 #ifndef ALDA_RAW_COMBINE_STATIC_SIZES_HPP_INCLUDED
 #define ALDA_RAW_COMBINE_STATIC_SIZES_HPP_INCLUDED
 
-#include <alda/raw/size_type.hpp>
 #include <alda/raw/detail/dynamic_size.hpp>
-#include <alda/raw/detail/from_number.hpp>
 #include <alda/raw/detail/is_static_size.hpp>
-#include <alda/raw/detail/to_number.hpp>
+#include <fcppt/mpl/apply.hpp>
+#include <fcppt/mpl/bind.hpp>
+#include <fcppt/mpl/constant.hpp>
+#include <fcppt/mpl/if.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -31,36 +31,27 @@ template<
 using
 combine_static_sizes
 =
-alda::raw::detail::from_number<
-	alda::raw::size_type,
-	metal::invoke<
-		metal::if_<
-			fcppt::metal::to_number<
-				std::conjunction<
-					alda::raw::detail::is_static_size<
-						Size1
-					>,
-					alda::raw::detail::is_static_size<
-						Size2
-					>
-				>
+fcppt::mpl::apply<
+	fcppt::mpl::if_<
+		std::conjunction<
+			alda::raw::detail::is_static_size<
+				Size1
 			>,
-			metal::bind<
-				Function,
-				metal::always<
-					alda::raw::detail::to_number<
-						Size1
-					>
-				>,
-				metal::always<
-					alda::raw::detail::to_number<
-						Size2
-					>
-				>
-			>,
-			metal::always<
-				alda::raw::detail::dynamic_size
+			alda::raw::detail::is_static_size<
+				Size2
 			>
+		>,
+		fcppt::mpl::bind<
+			Function,
+			fcppt::mpl::constant<
+				Size1
+			>,
+			fcppt::mpl::constant<
+				Size2
+			>
+		>,
+		fcppt::mpl::constant<
+			alda::raw::detail::dynamic_size
 		>
 	>
 >;

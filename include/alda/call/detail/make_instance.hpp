@@ -13,9 +13,14 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/mpl/bind.hpp>
+#include <fcppt/mpl/constant.hpp>
+#include <fcppt/mpl/lambda.hpp>
+#include <fcppt/mpl/list/at.hpp>
+#include <fcppt/mpl/list/any_of.hpp>
+#include <fcppt/mpl/list/index_of_if.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -57,16 +62,16 @@ struct make_instance
 	using
 	has_message
 	=
-	metal::any_of<
+	fcppt::mpl::list::any_of<
 		Messages,
-		metal::bind<
-			metal::trait<
+		fcppt::mpl::bind<
+			fcppt::mpl::lambda<
 				std::is_same
 			>,
-			metal::always<
+			fcppt::mpl::constant<
 				Type
 			>,
-			metal::lambda<
+			fcppt::mpl::lambda<
 				alda::message::detail::extract_id
 			>
 		>
@@ -95,18 +100,18 @@ struct make_instance
 						alda::call::detail::concrete<
 							TypeEnum,
 							Callee,
-							metal::at<
+							fcppt::mpl::list::at<
 								Messages,
-								metal::find_if<
+								fcppt::mpl::list::index_of_if<
 									Messages,
-									metal::bind<
-										metal::trait<
+									fcppt::mpl::bind<
+										fcppt::mpl::lambda<
 											std::is_same
 										>,
-										metal::always<
+										fcppt::mpl::constant<
 											Type
 										>,
-										metal::lambda<
+										fcppt::mpl::lambda<
 											alda::message::detail::extract_id
 										>
 									>

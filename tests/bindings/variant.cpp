@@ -16,10 +16,10 @@
 #include <fcppt/catch/variant.hpp>
 #include <fcppt/either/comparison.hpp>
 #include <fcppt/either/make_success.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/variant/comparison.hpp>
 #include <fcppt/variant/from_list.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <catch2/catch.hpp>
 #include <bit>
 #include <cstdint>
@@ -43,7 +43,7 @@ std::int16_t;
 using
 variant_types
 =
-metal::list<
+fcppt::mpl::list::object<
 	uint_type,
 	int_type
 >;
@@ -56,7 +56,7 @@ std::endian const endianness{
 using
 adapted_types
 =
-metal::list<
+fcppt::mpl::list::object<
 	alda::bindings::unsigned_<
 		uint_type,
 		endianness

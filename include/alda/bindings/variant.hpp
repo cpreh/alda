@@ -29,12 +29,13 @@
 #include <fcppt/use.hpp>
 #include <fcppt/cast/promote_int.hpp>
 #include <fcppt/cast/truncation_check.hpp>
-#include <fcppt/metal/invoke_on.hpp>
+#include <fcppt/mpl/list/at.hpp>
+#include <fcppt/mpl/list/index_of.hpp>
+#include <fcppt/mpl/list/invoke_on.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/variant/apply.hpp>
 #include <fcppt/variant/from_list.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -113,9 +114,9 @@ place(
 		)
 		{
 			alda::raw::place<
-				metal::at<
+				fcppt::mpl::list::at<
 					AdaptedTypes,
-					metal::find<
+					fcppt::mpl::list::index_of<
 						Types,
 						std::decay_t<
 							decltype(
@@ -193,7 +194,7 @@ make_generic(
 			)
 			{
 				return
-					fcppt::metal::invoke_on<
+					fcppt::mpl::list::invoke_on<
 						Types
 					>(
 						_index,
@@ -210,9 +211,9 @@ make_generic(
 							using
 							adapted_type
 							=
-							metal::at<
+							fcppt::mpl::list::at<
 								AdaptedTypes,
-								metal::find<
+								fcppt::mpl::list::index_of<
 									Types,
 									fcppt::tag_type<
 										decltype(
@@ -346,9 +347,9 @@ needed_size(
 			{
 				return
 					alda::raw::needed_size<
-						metal::at<
+						fcppt::mpl::list::at<
 							AdaptedTypes,
-							metal::find<
+							fcppt::mpl::list::index_of<
 								Types,
 								std::decay_t<
 									decltype(

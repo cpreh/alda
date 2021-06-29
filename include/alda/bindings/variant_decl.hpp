@@ -9,9 +9,9 @@
 
 #include <alda/bindings/unsigned_fwd.hpp>
 #include <alda/bindings/variant_fwd.hpp>
+#include <fcppt/mpl/list/size.hpp>
 #include <fcppt/variant/from_list_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <bit>
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
@@ -29,11 +29,11 @@ template<
 struct variant
 {
 	static_assert(
-		metal::size<
+		fcppt::mpl::list::size<
 			Types
 		>::value
 		==
-		metal::size<
+		fcppt::mpl::list::size<
 			AdaptedTypes
 		>::value,
 		"Types and AdaptedTypes must be of same size"

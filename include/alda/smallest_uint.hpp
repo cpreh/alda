@@ -7,10 +7,18 @@
 #ifndef ALDA_SMALLEST_UINT_HPP_INCLUDED
 #define ALDA_SMALLEST_UINT_HPP_INCLUDED
 
-#include <fcppt/metal/to_number.hpp>
+#include <fcppt/cast/size_fun.hpp>
+#include <fcppt/mpl/arg.hpp>
+#include <fcppt/mpl/bind.hpp>
+#include <fcppt/mpl/constant.hpp>
+#include <fcppt/mpl/greater.hpp>
+#include <fcppt/mpl/lambda.hpp>
+#include <fcppt/mpl/list/front.hpp>
+#include <fcppt/mpl/list/object.hpp>
+#include <fcppt/mpl/list/remove_if.hpp>
+#include <fcppt/type_traits/integral_cast.hpp>
 #include <fcppt/type_traits/numeric_max.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <cstddef>
 #include <cstdint>
 #include <type_traits>
@@ -26,35 +34,39 @@ template<
 using
 smallest_uint
 =
-metal::front<
-	metal::remove_if<
-		metal::list<
+fcppt::mpl::list::front<
+	fcppt::mpl::list::remove_if<
+		fcppt::mpl::list::object<
 			std::uint8_t,
 			std::uint16_t,
 			std::uint32_t,
 			std::uint64_t
 		>,
-		metal::bind<
-			metal::lambda<
-				metal::greater
+		fcppt::mpl::bind<
+			fcppt::mpl::lambda<
+				fcppt::mpl::greater
 			>,
-			metal::always<
-				fcppt::metal::to_number<
-					std::integral_constant<
-						std::size_t,
-						Max
-					>
+			fcppt::mpl::constant<
+				std::integral_constant<
+					std::size_t,
+					Max
 				>
 			>,
-			metal::bind<
-				metal::lambda<
-					fcppt::metal::to_number
+			fcppt::mpl::bind<
+				fcppt::mpl::lambda<
+					fcppt::type_traits::integral_cast
 				>,
-				metal::bind<
-					metal::lambda<
+				fcppt::mpl::constant<
+					std::size_t
+				>,
+				fcppt::mpl::constant<
+					fcppt::cast::size_fun
+				>,
+				fcppt::mpl::bind<
+					fcppt::mpl::lambda<
 						fcppt::type_traits::numeric_max
 					>,
-					metal::_1
+					fcppt::mpl::arg<1>
 				>
 			>
 		>

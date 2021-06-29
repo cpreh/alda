@@ -8,9 +8,7 @@
 #define ALDA_BINDINGS_RECORD_VARIADIC_FWD_HPP_INCLUDED
 
 #include <alda/bindings/record_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/list/object.hpp>
 
 
 namespace alda
@@ -25,7 +23,7 @@ using
 record_variadic
 =
 alda::bindings::record<
-	metal::list<
+	fcppt::mpl::list::object<
 		Types...
 	>
 >;

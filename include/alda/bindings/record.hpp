@@ -28,14 +28,20 @@
 #include <fcppt/use.hpp>
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/algorithm/loop.hpp>
-#include <fcppt/algorithm/loop_break_metal.hpp>
-#include <fcppt/metal/to_number.hpp>
+#include <fcppt/algorithm/loop_break_mpl.hpp>
+#include <fcppt/mpl/add.hpp>
+#include <fcppt/mpl/arg.hpp>
+#include <fcppt/mpl/bind.hpp>
+#include <fcppt/mpl/lambda.hpp>
+#include <fcppt/mpl/size_type.hpp>
+#include <fcppt/mpl/list/at.hpp>
+#include <fcppt/mpl/list/fold.hpp>
+#include <fcppt/mpl/list/size.hpp>
 #include <fcppt/record/element_to_label.hpp>
 #include <fcppt/record/element_to_type.hpp>
 #include <fcppt/record/from_list.hpp>
 #include <fcppt/record/get.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <type_traits>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -64,8 +70,8 @@ struct static_size_impl<
 	combine_sizes
 	=
 	alda::raw::combine_static_sizes<
-		metal::lambda<
-			metal::add
+		fcppt::mpl::lambda<
+			fcppt::mpl::add
 		>,
 		alda::raw::static_size<
 			fcppt::record::element_to_type<
@@ -78,20 +84,18 @@ struct static_size_impl<
 	using
 	type
 	=
-	metal::accumulate<
-		metal::bind<
-			metal::lambda<
+	fcppt::mpl::list::fold<
+		Types,
+		fcppt::mpl::bind<
+			fcppt::mpl::lambda<
 				combine_sizes
 			>,
-			metal::_2,
-			metal::_1
+			fcppt::mpl::arg<1>,
+			fcppt::mpl::arg<2>
 		>,
-		fcppt::metal::to_number<
-			alda::raw::integral_size<
-				0
-			>
-		>,
-		Types
+		alda::raw::integral_size<
+			0
+		>
 	>;
 };
 
@@ -302,9 +306,9 @@ read(
 	using
 	element
 	=
-	metal::at<
+	fcppt::mpl::list::at<
 		Types,
-		metal::number<
+		fcppt::mpl::size_type<
 			Index
 		>
 	>;
@@ -388,7 +392,7 @@ make_generic(
 			Types,
 			Stream,
 			0U,
-			metal::size<
+			fcppt::mpl::list::size<
 				Types
 			>::value
 		>(

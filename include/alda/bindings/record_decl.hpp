@@ -9,13 +9,13 @@
 
 #include <alda/bindings/record_fwd.hpp>
 #include <alda/raw/element_type.hpp>
+#include <fcppt/mpl/bind.hpp>
+#include <fcppt/mpl/lambda.hpp>
+#include <fcppt/mpl/list/map.hpp>
 #include <fcppt/record/element_fwd.hpp>
 #include <fcppt/record/element_to_label.hpp>
 #include <fcppt/record/element_to_type.hpp>
 #include <fcppt/record/from_list_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace alda
@@ -37,24 +37,24 @@ struct record
 	element_type
 	=
 	fcppt::record::from_list<
-		metal::transform<
-			metal::bind<
-				metal::lambda<
+		fcppt::mpl::list::map<
+			Types,
+			fcppt::mpl::bind<
+				fcppt::mpl::lambda<
 					fcppt::record::element
 				>,
-				metal::lambda<
+				fcppt::mpl::lambda<
 					fcppt::record::element_to_label
 				>,
-				metal::bind<
-					metal::lambda<
+				fcppt::mpl::bind<
+					fcppt::mpl::lambda<
 						alda::raw::element_type
 					>,
-					metal::lambda<
+					fcppt::mpl::lambda<
 						fcppt::record::element_to_type
 					>
 				>
-			>,
-			Types
+			>
 		>
 	>;
 };
