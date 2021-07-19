@@ -81,8 +81,8 @@ if(
 )
 	set(
 		ASIO_LIBS
-		WS2_32
-		Mswsock
+		ws2_32
+		mswsock
 	)
 endif()
 
