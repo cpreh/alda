@@ -29,7 +29,6 @@
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/optional_error.hpp>
-#include <fcppt/assert/pre.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/config/compiler.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
@@ -591,7 +590,7 @@ alda::net::server::detail::object_impl::receive_data(
 	alda::net::server::detail::connection &_con
 )
 {
-	FCPPT_ASSERT_PRE(
+	FCPPT_ASSERT_ERROR(
 		!_con.received_data().next_receive_part().empty()
 	);
 

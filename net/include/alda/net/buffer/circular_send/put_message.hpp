@@ -7,16 +7,16 @@
 #ifndef ALDA_NET_BUFFER_CIRCULAR_SEND_PUT_MESSAGE_HPP_INCLUDED
 #define ALDA_NET_BUFFER_CIRCULAR_SEND_PUT_MESSAGE_HPP_INCLUDED
 
+#include <alda/exception.hpp>
 #include <alda/message/base_decl.hpp>
 #include <alda/net/buffer/circular_send/streambuf.hpp>
 #include <alda/raw/size_type.hpp>
 #include <alda/serialization/ostream.hpp>
 #include <alda/serialization/length/make.hpp>
 #include <alda/serialization/length/serialize.hpp>
-#include <fcppt/format.hpp>
+#include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
-#include <fcppt/assert/pre_message.hpp>
 
 
 namespace alda
@@ -49,17 +49,23 @@ put_message(
 		)
 	);
 
-	FCPPT_ASSERT_PRE_MESSAGE(
+	if(
 		_buffer.capacity()
-		>=
-		size,
-		(
-			fcppt::format(
-				FCPPT_TEXT("Send message size %1% is too big for the buffer!")
-			)
-			% size
-		).str()
-	);
+		<
+		size
+	)
+	{
+		throw
+			alda::exception{
+				FCPPT_TEXT("Send message size ")
+				+
+				fcppt::output_to_fcppt_string(
+					size
+				)
+				+
+				FCPPT_TEXT(" is too big for the buffer!")
+			};
+	}
 
 	if(
 		size

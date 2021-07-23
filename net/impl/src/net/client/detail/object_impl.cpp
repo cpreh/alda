@@ -24,7 +24,7 @@
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/config/compiler.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/error.hpp>
@@ -482,7 +482,7 @@ alda::net::client::detail::object_impl::send_data()
 void
 alda::net::client::detail::object_impl::receive_data()
 {
-	FCPPT_ASSERT_PRE(
+	FCPPT_ASSERT_ERROR(
 		!receive_buffer_.next_receive_part().empty()
 	);
 
