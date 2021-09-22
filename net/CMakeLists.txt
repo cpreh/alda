@@ -1,9 +1,4 @@
 find_package(
-	FcpptThreads
-	REQUIRED
-)
-
-find_package(
 	Boost 1.47.0
 	REQUIRED
 	COMPONENTS
@@ -89,8 +84,6 @@ endif()
 add_alda_library(
 	alda_net
 	HAS_IMPL_DIR
-	COMPILE_FLAGS
-		"${FcpptThreads_DEFINITIONS}"
 	COMPILE_DEFINITIONS
 		BOOST_ALL_NO_LIB
 	INTERFACE_LINK_LIBS
@@ -102,8 +95,6 @@ add_alda_library(
 		fcppt_boost_interface
 		${fcppt_core_TARGET}
 		${fcppt_log_TARGET}
-		${FcpptThreads_LIBRARIES}
-		${Boost_SYSTEM_LIBRARY}
 		${ASIO_LIBS}
 	INCLUDE_DIRS
 		${Boost_INCLUDE_DIRS}
