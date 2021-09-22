@@ -71,13 +71,21 @@ set(
 	net/src/net/server/object.cpp
 )
 
-if(
-	WIN32
-)
+if(WIN32)
 	set(
 		ASIO_LIBS
 		ws2_32
 		mswsock
+	)
+elseif(UNIX)
+	set(
+		ASIO_LIBS
+		pthread
+	)
+
+	set(
+		ASIO_OPTIONS
+		-pthread
 	)
 endif()
 
@@ -86,6 +94,8 @@ add_alda_library(
 	HAS_IMPL_DIR
 	COMPILE_DEFINITIONS
 		BOOST_ALL_NO_LIB
+	COMPILE_FLAGS
+		${ASIO_OPTIONS}
 	INTERFACE_LINK_LIBS
 		fcppt_boost_interface
 		fcppt_core_interface
