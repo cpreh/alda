@@ -25,6 +25,8 @@
 #include <alda/serialization/register_message.hpp>
 #include <alda/serialization/serialize.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/catch/begin.hpp>
+#include <fcppt/catch/end.hpp>
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -279,6 +281,8 @@ public:
 
 }
 
+FCPPT_CATCH_BEGIN
+
 TEST_CASE(
 	"serialization dispatch",
 	"[alda]"
@@ -408,3 +412,5 @@ TEST_CASE(
 		);
 	}
 }
+
+FCPPT_CATCH_END

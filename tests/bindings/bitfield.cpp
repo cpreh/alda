@@ -11,6 +11,8 @@
 #include <alda/raw/stream/error.hpp>
 #include <alda/serialization/read.hpp>
 #include <alda/serialization/write.hpp>
+#include <fcppt/catch/begin.hpp>
+#include <fcppt/catch/end.hpp>
 #include <fcppt/container/bitfield/object.hpp>
 #include <fcppt/either/comparison.hpp>
 #include <fcppt/either/make_success.hpp>
@@ -22,6 +24,8 @@
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
 
+
+FCPPT_CATCH_BEGIN
 
 TEST_CASE(
 	"bindings::bitfield",
@@ -98,3 +102,5 @@ TEST_CASE(
 		)
 	);
 }
+
+FCPPT_CATCH_END

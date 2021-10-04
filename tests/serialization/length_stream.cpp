@@ -38,6 +38,8 @@
 #include <fcppt/output_to_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
+#include <fcppt/catch/begin.hpp>
+#include <fcppt/catch/end.hpp>
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/comparison.hpp>
 #include <fcppt/optional/maybe.hpp>
@@ -339,6 +341,8 @@ private:
 
 }
 
+FCPPT_CATCH_BEGIN
+
 TEST_CASE(
 	"serialization::length_stream",
 	"[alda]"
@@ -555,3 +559,5 @@ TEST_CASE(
 		ifs.good()
 	);
 }
+
+FCPPT_CATCH_END

@@ -8,6 +8,8 @@
 #include <alda/net/buffer/max_receive_size.hpp>
 #include <alda/net/buffer/circular_receive/part.hpp>
 #include <alda/net/buffer/circular_receive/streambuf.hpp>
+#include <fcppt/catch/begin.hpp>
+#include <fcppt/catch/end.hpp>
 #include <fcppt/container/output.hpp>
 #include <fcppt/container/raw_vector/comparison.hpp>
 #include <fcppt/io/buffer.hpp>
@@ -47,6 +49,8 @@ operator<<(
 }
 
 }
+
+FCPPT_CATCH_BEGIN
 
 TEST_CASE(
 	"net::buffer::circularr_eceive::streambuf",
@@ -305,3 +309,5 @@ TEST_CASE(
 		)
 	);
 }
+
+FCPPT_CATCH_END

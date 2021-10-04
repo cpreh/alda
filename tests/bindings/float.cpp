@@ -13,7 +13,9 @@
 #include <alda/raw/stream/istream.hpp>
 #include <alda/serialization/write.hpp>
 #include <fcppt/unit.hpp>
+#include <fcppt/catch/begin.hpp>
 #include <fcppt/catch/either.hpp>
+#include <fcppt/catch/end.hpp>
 #include <fcppt/either/apply.hpp>
 #include <fcppt/either/object.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -207,6 +209,8 @@ test_conversion(
 
 }
 
+FCPPT_CATCH_BEGIN
+
 TEST_CASE(
 	"bindings::float",
 	"[catch]"
@@ -251,3 +255,5 @@ TEST_CASE(
 		2.F
 	);*/
 }
+
+FCPPT_CATCH_END

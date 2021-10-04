@@ -11,7 +11,9 @@
 #include <alda/serialization/read.hpp>
 #include <alda/serialization/write.hpp>
 #include <fcppt/literal.hpp>
+#include <fcppt/catch/begin.hpp>
 #include <fcppt/catch/either.hpp>
+#include <fcppt/catch/end.hpp>
 #include <fcppt/catch/strong_typedef.hpp>
 #include <fcppt/catch/variant.hpp>
 #include <fcppt/either/comparison.hpp>
@@ -119,6 +121,8 @@ do_test(
 
 }
 
+FCPPT_CATCH_BEGIN
+
 TEST_CASE(
 	"bindings::variant",
 	"[alda]"
@@ -144,3 +148,5 @@ TEST_CASE(
 		}
 	);
 }
+
+FCPPT_CATCH_END

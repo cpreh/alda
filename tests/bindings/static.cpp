@@ -10,7 +10,9 @@
 #include <alda/raw/stream/error.hpp>
 #include <alda/serialization/read.hpp>
 #include <alda/serialization/write.hpp>
+#include <fcppt/catch/begin.hpp>
 #include <fcppt/catch/either.hpp>
+#include <fcppt/catch/end.hpp>
 #include <fcppt/catch/strong_typedef.hpp>
 #include <fcppt/either/make_success.hpp>
 #include <fcppt/either/object.hpp>
@@ -68,6 +70,8 @@ fcppt::either::object<
 
 }
 
+FCPPT_CATCH_BEGIN
+
 TEST_CASE(
 	"bindings::static",
 	"[alda]"
@@ -102,3 +106,5 @@ TEST_CASE(
 		)
 	);
 }
+
+FCPPT_CATCH_END

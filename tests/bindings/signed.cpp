@@ -11,7 +11,9 @@
 #include <alda/raw/stream/istream.hpp>
 #include <alda/serialization/write.hpp>
 #include <fcppt/literal.hpp>
+#include <fcppt/catch/begin.hpp>
 #include <fcppt/catch/either.hpp>
+#include <fcppt/catch/end.hpp>
 #include <fcppt/catch/strong_typedef.hpp>
 #include <fcppt/either/object.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -84,6 +86,8 @@ test_conversion(
 }
 
 }
+
+FCPPT_CATCH_BEGIN
 
 TEST_CASE(
 	"bindings::signed",
@@ -164,3 +168,5 @@ FCPPT_PP_DISABLE_VC_WARNING(4127)
 FCPPT_PP_POP_WARNING
 
 }
+
+FCPPT_CATCH_END
