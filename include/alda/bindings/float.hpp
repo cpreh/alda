@@ -26,9 +26,7 @@
 #include <fcppt/preprocessor/push_warning.hpp>
 
 
-namespace alda
-{
-namespace bindings
+namespace alda::bindings
 {
 
 ALDA_DETAIL_SYMBOL
@@ -103,11 +101,8 @@ make_generic(
 }
 
 }
-}
 
-namespace alda
-{
-namespace raw
+namespace alda::raw
 {
 
 FCPPT_PP_PUSH_WARNING
@@ -128,7 +123,6 @@ alda::raw::static_size_impl<
 
 FCPPT_PP_POP_WARNING
 
-}
 }
 
 #endif

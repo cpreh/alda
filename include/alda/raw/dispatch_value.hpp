@@ -10,9 +10,7 @@
 #include <alda/raw/dispatch_type.hpp>
 
 
-namespace alda
-{
-namespace raw
+namespace alda::raw
 {
 
 template<
@@ -28,7 +26,6 @@ dispatch_value()
 		nullptr;
 }
 
-}
 }
 
 #endif

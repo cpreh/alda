@@ -8,9 +8,7 @@
 #define ALDA_RAW_DISPATCH_TYPE_HPP_INCLUDED
 
 
-namespace alda
-{
-namespace raw
+namespace alda::raw
 {
 
 template<
@@ -21,7 +19,6 @@ dispatch_type
 =
 Tag const *;
 
-}
 }
 
 #endif

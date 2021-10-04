@@ -32,9 +32,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace alda
-{
-namespace bindings
+namespace alda::bindings
 {
 
 template<
@@ -263,7 +261,6 @@ needed_size(
 		);
 }
 
-}
 }
 
 #endif

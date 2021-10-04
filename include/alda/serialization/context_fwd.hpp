@@ -8,9 +8,7 @@
 #define ALDA_SERIALIZATION_CONTEXT_FWD_HPP_INCLUDED
 
 
-namespace alda
-{
-namespace serialization
+namespace alda::serialization
 {
 
 template<
@@ -18,7 +16,6 @@ template<
 >
 class context;
 
-}
 }
 
 #endif

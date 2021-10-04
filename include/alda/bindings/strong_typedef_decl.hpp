@@ -14,9 +14,7 @@
 #include <fcppt/preprocessor/push_warning.hpp>
 
 
-namespace alda
-{
-namespace bindings
+namespace alda::bindings
 {
 
 template<
@@ -43,7 +41,6 @@ struct strong_typedef
 	Adapted;
 };
 
-}
 }
 
 #endif

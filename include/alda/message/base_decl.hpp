@@ -15,9 +15,7 @@
 #include <alda/raw/size_type.hpp>
 
 
-namespace alda
-{
-namespace message
+namespace alda::message
 {
 
 template<
@@ -91,7 +89,6 @@ public:
 	clone() const = 0;
 };
 
-}
 }
 
 #endif

@@ -11,9 +11,7 @@
 #include <fcppt/unit_fwd.hpp>
 
 
-namespace alda
-{
-namespace bindings
+namespace alda::bindings
 {
 
 struct unit
@@ -24,7 +22,6 @@ struct unit
 	fcppt::unit;
 };
 
-}
 }
 
 #endif

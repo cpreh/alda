@@ -25,11 +25,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace alda
-{
-namespace call
-{
-namespace detail
+namespace alda::call::detail
 {
 
 template<
@@ -142,8 +138,6 @@ struct make_instance
 	}
 };
 
-}
-}
 }
 
 #endif

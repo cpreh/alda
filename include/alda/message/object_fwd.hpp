@@ -8,9 +8,7 @@
 #define ALDA_MESSAGE_OBJECT_FWD_HPP_INCLUDED
 
 
-namespace alda
-{
-namespace message
+namespace alda::message
 {
 
 template<
@@ -19,7 +17,6 @@ template<
 >
 class object;
 
-}
 }
 
 #endif

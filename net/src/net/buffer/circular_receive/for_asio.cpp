@@ -19,7 +19,7 @@ alda::net::buffer::circular_receive::for_asio(
 )
 {
 	return
-		boost::asio::mutable_buffers_1(
+		{
 			_part.begin(),
 			std::min(
 				_part.size(),
@@ -29,5 +29,5 @@ alda::net::buffer::circular_receive::for_asio(
 					4096U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				)
 			)
-		);
+		};
 }

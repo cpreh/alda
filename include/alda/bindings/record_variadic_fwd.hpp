@@ -11,9 +11,7 @@
 #include <fcppt/mpl/list/object.hpp>
 
 
-namespace alda
-{
-namespace bindings
+namespace alda::bindings
 {
 
 template<
@@ -28,7 +26,6 @@ alda::bindings::record<
 	>
 >;
 
-}
 }
 
 #endif

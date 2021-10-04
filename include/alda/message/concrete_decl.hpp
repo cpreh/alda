@@ -15,9 +15,7 @@
 #include <alda/raw/size_type.hpp>
 
 
-namespace alda
-{
-namespace message
+namespace alda::message
 {
 
 template<
@@ -123,7 +121,6 @@ private:
 	Type value_;
 };
 
-}
 }
 
 #endif

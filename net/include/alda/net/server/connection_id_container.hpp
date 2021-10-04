@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace alda
-{
-namespace net
-{
-namespace server
+namespace alda::net::server
 {
 
 using
@@ -27,8 +23,6 @@ boost::select_first_range<
 	alda::net::server::detail::connection_container
 >;
 
-}
-}
 }
 
 #endif

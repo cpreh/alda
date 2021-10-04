@@ -12,11 +12,7 @@
 #include <alda/serialization/detail/message_type.hpp>
 
 
-namespace alda
-{
-namespace serialization
-{
-namespace length
+namespace alda::serialization::length
 {
 
 template<
@@ -38,8 +34,6 @@ make(
 		>::value;
 }
 
-}
-}
 }
 
 #endif

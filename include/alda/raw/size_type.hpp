@@ -12,9 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace alda
-{
-namespace raw
+namespace alda::raw
 {
 
 using
@@ -22,7 +20,6 @@ size_type
 =
 std::size_t;
 
-}
 }
 
 #endif

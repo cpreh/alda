@@ -14,13 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace alda
-{
-namespace serialization
-{
-namespace detail
-{
-namespace dispatch
+namespace alda::serialization::detail::dispatch
 {
 
 template<
@@ -37,9 +31,6 @@ std::map<
 	>
 >;
 
-}
-}
-}
 }
 
 #endif

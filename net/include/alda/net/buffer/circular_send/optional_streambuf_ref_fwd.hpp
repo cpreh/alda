@@ -11,13 +11,7 @@
 #include <fcppt/optional/reference_fwd.hpp>
 
 
-namespace alda
-{
-namespace net
-{
-namespace buffer
-{
-namespace circular_send
+namespace alda::net::buffer::circular_send
 {
 
 using
@@ -27,9 +21,6 @@ fcppt::optional::reference<
 	alda::net::buffer::circular_send::streambuf
 >;
 
-}
-}
-}
 }
 
 #endif

@@ -7,9 +7,7 @@
 #ifndef ALDA_MESSAGE_BASE_FWD_HPP_INCLUDED
 #define ALDA_MESSAGE_BASE_FWD_HPP_INCLUDED
 
-namespace alda
-{
-namespace message
+namespace alda::message
 {
 
 template<
@@ -17,7 +15,6 @@ template<
 >
 class base;
 
-}
 }
 
 #endif

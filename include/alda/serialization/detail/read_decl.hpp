@@ -15,11 +15,7 @@
 #include <fcppt/tag_fwd.hpp>
 
 
-namespace alda
-{
-namespace serialization
-{
-namespace detail
+namespace alda::serialization::detail
 {
 
 template<
@@ -56,8 +52,6 @@ private:
 	> stream_;
 };
 
-}
-}
 }
 
 #endif

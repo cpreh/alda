@@ -35,13 +35,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace alda
-{
-namespace net
-{
-namespace client
-{
-namespace detail
+namespace alda::net::client::detail
 {
 
 class object_impl
@@ -169,9 +163,6 @@ private:
 	clear();
 };
 
-}
-}
-}
 }
 
 #endif

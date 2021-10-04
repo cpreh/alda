@@ -10,11 +10,7 @@
 #include <alda/net/buffer/circular_receive/streambuf_fwd.hpp>
 
 
-namespace alda
-{
-namespace net
-{
-namespace client
+namespace alda::net::client
 {
 
 using
@@ -24,8 +20,6 @@ void (
 	alda::net::buffer::circular_receive::streambuf &
 );
 
-}
-}
 }
 
 #endif

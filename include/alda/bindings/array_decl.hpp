@@ -11,9 +11,7 @@
 #include <fcppt/array/is_object.hpp>
 
 
-namespace alda
-{
-namespace bindings
+namespace alda::bindings
 {
 
 template<
@@ -34,7 +32,6 @@ struct array
 	Type;
 };
 
-}
 }
 
 #endif

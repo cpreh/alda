@@ -11,9 +11,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace alda
-{
-namespace net
+namespace alda::net
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -21,7 +19,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	id
 );
 
-}
 }
 
 #endif

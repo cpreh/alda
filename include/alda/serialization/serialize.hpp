@@ -14,9 +14,7 @@
 #include <alda/serialization/write_id.hpp>
 
 
-namespace alda
-{
-namespace serialization
+namespace alda::serialization
 {
 
 template<
@@ -42,7 +40,6 @@ serialize(
 	);
 }
 
-}
 }
 
 #endif

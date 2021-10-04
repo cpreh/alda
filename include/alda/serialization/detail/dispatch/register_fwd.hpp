@@ -8,13 +8,7 @@
 #define ALDA_SERIALIZATION_DETAIL_DISPATCH_REGISTER_FWD_HPP_INCLUDED
 
 
-namespace alda
-{
-namespace serialization
-{
-namespace detail
-{
-namespace dispatch
+namespace alda::serialization::detail::dispatch
 {
 
 template<
@@ -23,9 +17,6 @@ template<
 >
 class register_;
 
-}
-}
-}
 }
 
 #endif

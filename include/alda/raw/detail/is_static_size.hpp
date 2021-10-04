@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace alda
-{
-namespace raw
-{
-namespace detail
+namespace alda::raw::detail
 {
 
 template<
@@ -33,8 +29,6 @@ std::negation<
 	>
 >;
 
-}
-}
 }
 
 #endif

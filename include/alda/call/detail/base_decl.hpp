@@ -12,11 +12,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace alda
-{
-namespace call
-{
-namespace detail
+namespace alda::call::detail
 {
 
 template<
@@ -49,8 +45,6 @@ public:
 	) const = 0;
 };
 
-}
-}
 }
 
 #endif

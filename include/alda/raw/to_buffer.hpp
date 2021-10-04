@@ -17,9 +17,7 @@
 #include <fcppt/container/buffer/to_raw_vector.hpp>
 
 
-namespace alda
-{
-namespace raw
+namespace alda::raw
 {
 
 template<
@@ -65,7 +63,6 @@ to_buffer(
 		);
 }
 
-}
 }
 
 #endif

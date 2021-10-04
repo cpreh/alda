@@ -11,9 +11,7 @@
 #include <alda/raw/detail/is_static_size.hpp>
 
 
-namespace alda
-{
-namespace raw
+namespace alda::raw
 {
 
 template<
@@ -27,7 +25,6 @@ alda::raw::detail::is_static_size<
 	>
 >;
 
-}
 }
 
 #endif

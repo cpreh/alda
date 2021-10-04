@@ -7,11 +7,7 @@
 #ifndef ALDA_CALL_DETAIL_BASE_FWD_HPP_INCLUDED
 #define ALDA_CALL_DETAIL_BASE_FWD_HPP_INCLUDED
 
-namespace alda
-{
-namespace call
-{
-namespace detail
+namespace alda::call::detail
 {
 
 template<
@@ -20,8 +16,6 @@ template<
 >
 class base;
 
-}
-}
 }
 
 #endif

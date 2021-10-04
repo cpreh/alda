@@ -10,9 +10,7 @@
 #include <alda/bindings/dynamic_len_fwd.hpp>
 
 
-namespace alda
-{
-namespace bindings
+namespace alda::bindings
 {
 
 template<
@@ -29,7 +27,6 @@ struct dynamic_len
 	Type;
 };
 
-}
 }
 
 #endif

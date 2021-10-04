@@ -11,16 +11,13 @@
 #include <fcppt/log/location.hpp>
 
 
-namespace alda
-{
-namespace net
+namespace alda::net
 {
 
 ALDA_NET_DETAIL_SYMBOL
 fcppt::log::location
 log_location();
 
-}
 }
 
 #endif

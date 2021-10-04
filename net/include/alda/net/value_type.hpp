@@ -8,9 +8,7 @@
 #define ALDA_NET_VALUE_TYPE_HPP_INCLUDED
 
 
-namespace alda
-{
-namespace net
+namespace alda::net
 {
 
 using
@@ -18,7 +16,6 @@ value_type
 =
 char;
 
-}
 }
 
 #endif

@@ -13,13 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace alda
-{
-namespace net
-{
-namespace buffer
-{
-namespace circular_receive
+namespace alda::net::buffer::circular_receive
 {
 
 boost::asio::mutable_buffers_1
@@ -27,9 +21,6 @@ for_asio(
 	alda::net::buffer::circular_receive::part const &
 );
 
-}
-}
-}
 }
 
 #endif

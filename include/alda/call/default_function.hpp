@@ -10,9 +10,7 @@
 #include <alda/message/base_fwd.hpp>
 
 
-namespace alda
-{
-namespace call
+namespace alda::call
 {
 
 template<
@@ -28,7 +26,6 @@ Result
 	> const &
 );
 
-}
 }
 
 #endif

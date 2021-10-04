@@ -13,9 +13,7 @@
 #include <fcppt/no_init.hpp>
 
 
-namespace alda
-{
-namespace raw
+namespace alda::raw
 {
 
 template<
@@ -48,7 +46,6 @@ to_static_buffer(
 		temp_buffer;
 }
 
-}
 }
 
 #endif

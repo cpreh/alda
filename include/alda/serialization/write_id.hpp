@@ -13,9 +13,7 @@
 #include <alda/serialization/detail/message_type.hpp>
 
 
-namespace alda
-{
-namespace serialization
+namespace alda::serialization
 {
 
 template<
@@ -40,7 +38,6 @@ write_id(
 	);
 }
 
-}
 }
 
 #endif

@@ -18,9 +18,7 @@
 #include <fcppt/record/from_list_fwd.hpp>
 
 
-namespace alda
-{
-namespace bindings
+namespace alda::bindings
 {
 
 template<
@@ -59,7 +57,6 @@ struct record
 	>;
 };
 
-}
 }
 
 #endif

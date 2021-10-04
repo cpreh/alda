@@ -10,11 +10,7 @@
 #include <alda/message/detail/extract_id_tpl.hpp>
 
 
-namespace alda
-{
-namespace message
-{
-namespace detail
+namespace alda::message::detail
 {
 
 template<
@@ -27,8 +23,6 @@ alda::message::detail::extract_id_tpl<
 	Message
 >::type;
 
-}
-}
 }
 
 #endif

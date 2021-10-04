@@ -12,9 +12,7 @@
 #include <alda/raw/stream/result.hpp>
 
 
-namespace alda
-{
-namespace raw
+namespace alda::raw
 {
 
 template<
@@ -44,7 +42,6 @@ make_generic(
 		);
 }
 
-}
 }
 
 #endif

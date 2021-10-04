@@ -13,9 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace alda
-{
-namespace raw
+namespace alda::raw
 {
 
 template<
@@ -29,7 +27,6 @@ std::integral_constant<
 	Size
 >;
 
-}
 }
 
 #endif

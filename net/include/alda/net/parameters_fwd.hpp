@@ -8,14 +8,11 @@
 #define ALDA_NET_PARAMETERS_FWD_HPP_INCLUDED
 
 
-namespace alda
-{
-namespace net
+namespace alda::net
 {
 
 class parameters;
 
-}
 }
 
 #endif

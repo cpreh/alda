@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace alda
-{
-namespace net
-{
-namespace client
+namespace alda::net::client
 {
 
 using
@@ -28,8 +24,6 @@ void (
 	boost::system::error_code
 );
 
-}
-}
 }
 
 #endif

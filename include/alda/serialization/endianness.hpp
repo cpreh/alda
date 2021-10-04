@@ -12,9 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace alda
-{
-namespace serialization
+namespace alda::serialization
 {
 
 inline
@@ -26,7 +24,6 @@ endianness()
 		std::endian::little;
 }
 
-}
 }
 
 #endif

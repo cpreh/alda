@@ -14,11 +14,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace alda
-{
-namespace raw
-{
-namespace stream
+namespace alda::raw::stream
 {
 
 class ALDA_DETAIL_CLASS_SYMBOL failure
@@ -61,8 +57,6 @@ public:
 	override;
 };
 
-}
-}
 }
 
 #endif

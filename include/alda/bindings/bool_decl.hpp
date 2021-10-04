@@ -15,9 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace alda
-{
-namespace bindings
+namespace alda::bindings
 {
 
 struct bool_
@@ -36,7 +34,6 @@ struct bool_
 	>;
 };
 
-}
 }
 
 #endif

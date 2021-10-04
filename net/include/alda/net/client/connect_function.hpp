@@ -8,11 +8,7 @@
 #define ALDA_NET_CLIENT_CONNECT_FUNCTION_HPP_INCLUDED
 
 
-namespace alda
-{
-namespace net
-{
-namespace client
+namespace alda::net::client
 {
 
 using
@@ -20,8 +16,6 @@ connect_function
 =
 void();
 
-}
-}
 }
 
 #endif

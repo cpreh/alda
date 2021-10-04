@@ -11,13 +11,7 @@
 #include <fcppt/unique_ptr_impl.hpp>
 
 
-namespace alda
-{
-namespace net
-{
-namespace server
-{
-namespace detail
+namespace alda::net::server::detail
 {
 
 using
@@ -27,9 +21,6 @@ fcppt::unique_ptr<
 	alda::net::server::detail::connection
 >;
 
-}
-}
-}
 }
 
 #endif

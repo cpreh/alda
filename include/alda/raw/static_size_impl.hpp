@@ -10,9 +10,7 @@
 #include <alda/raw/detail/dynamic_size.hpp>
 
 
-namespace alda
-{
-namespace raw
+namespace alda::raw
 {
 
 template<
@@ -26,7 +24,6 @@ struct static_size_impl
 	alda::raw::detail::dynamic_size;
 };
 
-}
 }
 
 #endif

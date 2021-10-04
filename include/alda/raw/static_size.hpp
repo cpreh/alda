@@ -10,9 +10,7 @@
 #include <alda/raw/static_size_impl.hpp>
 
 
-namespace alda
-{
-namespace raw
+namespace alda::raw
 {
 
 template<
@@ -26,7 +24,6 @@ alda::raw::static_size_impl<
 	T
 >::type;
 
-}
 }
 
 #endif

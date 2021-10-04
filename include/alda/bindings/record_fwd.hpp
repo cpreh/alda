@@ -8,9 +8,7 @@
 #define ALDA_BINDINGS_RECORD_FWD_HPP_INCLUDED
 
 
-namespace alda
-{
-namespace bindings
+namespace alda::bindings
 {
 
 template<
@@ -18,7 +16,6 @@ template<
 >
 struct record;
 
-}
 }
 
 #endif

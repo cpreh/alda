@@ -11,11 +11,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace alda
-{
-namespace raw
-{
-namespace stream
+namespace alda::raw::stream
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -23,8 +19,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	error
 );
 
-}
-}
 }
 
 #endif

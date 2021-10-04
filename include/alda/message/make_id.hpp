@@ -12,9 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace alda
-{
-namespace message
+namespace alda::message
 {
 
 template<
@@ -29,7 +27,6 @@ std::integral_constant<
 	MessageType
 >;
 
-}
 }
 
 #endif

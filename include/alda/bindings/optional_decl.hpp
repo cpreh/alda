@@ -12,9 +12,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace alda
-{
-namespace bindings
+namespace alda::bindings
 {
 
 template<
@@ -36,7 +34,6 @@ struct optional
 	alda::bindings::bool_;
 };
 
-}
 }
 
 #endif

@@ -11,13 +11,7 @@
 #include <alda/serialization/endianness.hpp>
 
 
-namespace alda
-{
-namespace serialization
-{
-namespace length
-{
-namespace detail
+namespace alda::serialization::length::detail
 {
 
 template<
@@ -31,9 +25,6 @@ alda::bindings::unsigned_<
 	alda::serialization::endianness()
 >;
 
-}
-}
-}
 }
 
 #endif

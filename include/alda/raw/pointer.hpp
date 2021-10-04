@@ -10,9 +10,7 @@
 #include <alda/raw/data.hpp>
 
 
-namespace alda
-{
-namespace raw
+namespace alda::raw
 {
 
 using
@@ -20,7 +18,6 @@ pointer
 =
 alda::raw::data *;
 
-}
 }
 
 #endif

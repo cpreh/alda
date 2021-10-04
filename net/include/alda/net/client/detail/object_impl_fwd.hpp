@@ -8,20 +8,11 @@
 #define ALDA_NET_CLIENT_DETAIL_OBJECT_IMPL_FWD_HPP_INCLUDED
 
 
-namespace alda
-{
-namespace net
-{
-namespace client
-{
-namespace detail
+namespace alda::net::client::detail
 {
 
 class object_impl;
 
-}
-}
-}
 }
 
 #endif

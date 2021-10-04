@@ -13,13 +13,7 @@
 #include <alda/net/detail/symbol.hpp>
 
 
-namespace alda
-{
-namespace net
-{
-namespace buffer
-{
-namespace circular_receive
+namespace alda::net::buffer::circular_receive
 {
 
 class part
@@ -66,9 +60,6 @@ private:
 	pointer end_;
 };
 
-}
-}
-}
 }
 
 #endif

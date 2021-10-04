@@ -8,17 +8,11 @@
 #define ALDA_NET_SERVER_OBJECT_FWD_HPP_INCLUDED
 
 
-namespace alda
-{
-namespace net
-{
-namespace server
+namespace alda::net::server
 {
 
 class object;
 
-}
-}
 }
 
 #endif

@@ -14,9 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace alda
-{
-namespace bindings
+namespace alda::bindings
 {
 
 struct float_
@@ -32,7 +30,6 @@ struct float_
 	std::uint32_t;
 };
 
-}
 }
 
 #endif

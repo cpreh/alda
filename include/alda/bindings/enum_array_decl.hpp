@@ -10,9 +10,7 @@
 #include <alda/bindings/enum_array_fwd.hpp>
 
 
-namespace alda
-{
-namespace bindings
+namespace alda::bindings
 {
 
 template<
@@ -27,7 +25,6 @@ struct enum_array
 	Type;
 };
 
-}
 }
 
 #endif

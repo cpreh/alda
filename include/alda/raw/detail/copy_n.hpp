@@ -15,11 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace alda
-{
-namespace raw
-{
-namespace detail
+namespace alda::raw::detail
 {
 
 inline
@@ -37,8 +33,6 @@ copy_n(
 	);
 }
 
-}
-}
 }
 
 #endif

@@ -12,11 +12,7 @@
 #include <alda/raw/stream/reference.hpp>
 
 
-namespace alda
-{
-namespace raw
-{
-namespace stream
+namespace alda::raw::stream
 {
 
 template<
@@ -39,8 +35,6 @@ read(
 	);
 }
 
-}
-}
 }
 
 #endif

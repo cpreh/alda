@@ -12,13 +12,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace alda
-{
-namespace serialization
-{
-namespace detail
-{
-namespace dispatch
+namespace alda::serialization::detail::dispatch
 {
 
 template<
@@ -70,9 +64,6 @@ public:
 	override;
 };
 
-}
-}
-}
 }
 
 #endif

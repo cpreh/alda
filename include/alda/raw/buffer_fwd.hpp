@@ -11,9 +11,7 @@
 #include <fcppt/container/raw_vector/object_fwd.hpp>
 
 
-namespace alda
-{
-namespace raw
+namespace alda::raw
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::container::raw_vector::object<
 	alda::raw::data
 >;
 
-}
 }
 
 #endif

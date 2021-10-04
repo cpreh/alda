@@ -14,11 +14,7 @@
 #include <alda/raw/stream/memory_fwd.hpp>
 
 
-namespace alda
-{
-namespace raw
-{
-namespace stream
+namespace alda::raw::stream
 {
 
 struct memory
@@ -53,8 +49,6 @@ struct memory
 	can_fail = false;
 };
 
-}
-}
 }
 
 #endif

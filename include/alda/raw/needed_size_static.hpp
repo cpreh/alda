@@ -15,9 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace alda
-{
-namespace raw
+namespace alda::raw
 {
 
 template<
@@ -40,7 +38,6 @@ needed_size_static()
 		>::value;
 }
 
-}
 }
 
 #endif

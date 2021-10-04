@@ -25,11 +25,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace alda
-{
-namespace serialization
-{
-namespace length
+namespace alda::serialization::length
 {
 
 template<
@@ -97,8 +93,6 @@ extract(
 		;
 }
 
-}
-}
 }
 
 #endif

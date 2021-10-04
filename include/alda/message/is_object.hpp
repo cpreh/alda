@@ -16,9 +16,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace alda
-{
-namespace message
+namespace alda::message
 {
 
 FCPPT_PP_PUSH_WARNING
@@ -50,7 +48,6 @@ std::true_type
 
 FCPPT_PP_POP_WARNING
 
-}
 }
 
 #endif

@@ -23,9 +23,7 @@
 #include <fcppt/optional/to_exception.hpp>
 
 
-namespace alda
-{
-namespace serialization
+namespace alda::serialization
 {
 
 template<
@@ -83,7 +81,6 @@ deserialize(
 		);
 }
 
-}
 }
 
 #endif

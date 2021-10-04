@@ -14,11 +14,7 @@
 #include <fcppt/enum/size.hpp>
 
 
-namespace alda
-{
-namespace serialization
-{
-namespace detail
+namespace alda::serialization::detail
 {
 
 template<
@@ -41,8 +37,6 @@ alda::bindings::enum_<
 	>
 >;
 
-}
-}
 }
 
 #endif

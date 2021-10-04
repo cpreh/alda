@@ -8,11 +8,7 @@
 #define ALDA_CALL_DETAIL_CONCRETE_FWD_HPP_INCLUDED
 
 
-namespace alda
-{
-namespace call
-{
-namespace detail
+namespace alda::call::detail
 {
 
 template<
@@ -22,8 +18,6 @@ template<
 >
 class concrete;
 
-}
-}
 }
 
 #endif

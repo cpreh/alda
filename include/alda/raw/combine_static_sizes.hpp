@@ -18,9 +18,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace alda
-{
-namespace raw
+namespace alda::raw
 {
 
 template<
@@ -56,7 +54,6 @@ fcppt::mpl::apply<
 	>
 >;
 
-}
 }
 
 #endif

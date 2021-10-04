@@ -19,13 +19,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace alda
-{
-namespace net
-{
-namespace buffer
-{
-namespace circular_send
+namespace alda::net::buffer::circular_send
 {
 
 class streambuf
@@ -110,9 +104,6 @@ private:
 	impl_type impl_;
 };
 
-}
-}
-}
 }
 
 #endif

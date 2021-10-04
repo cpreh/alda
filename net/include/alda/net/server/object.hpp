@@ -23,11 +23,7 @@
 #include <fcppt/signal/auto_connection_fwd.hpp>
 
 
-namespace alda
-{
-namespace net
-{
-namespace server
+namespace alda::net::server
 {
 
 class object
@@ -101,8 +97,6 @@ private:
 	> const impl_;
 };
 
-}
-}
 }
 
 #endif

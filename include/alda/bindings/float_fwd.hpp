@@ -8,14 +8,11 @@
 #define ALDA_BINDINGS_FLOAT_FWD_HPP_INCLUDED
 
 
-namespace alda
-{
-namespace bindings
+namespace alda::bindings
 {
 
 struct float_;
 
-}
 }
 
 #endif

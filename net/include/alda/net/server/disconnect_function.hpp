@@ -11,11 +11,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace alda
-{
-namespace net
-{
-namespace server
+namespace alda::net::server
 {
 
 using
@@ -26,8 +22,6 @@ void (
 	fcppt::string const &
 );
 
-}
-}
 }
 
 #endif

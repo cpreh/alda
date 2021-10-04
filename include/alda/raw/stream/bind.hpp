@@ -16,11 +16,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace alda
-{
-namespace raw
-{
-namespace stream
+namespace alda::raw::stream
 {
 
 template<
@@ -94,8 +90,6 @@ std::enable_if_t<
 		);
 }
 
-}
-}
 }
 
 #endif

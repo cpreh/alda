@@ -8,14 +8,11 @@
 #define ALDA_NET_IO_SERVICE_WRAPPER_FWD_HPP_INCLUDED
 
 
-namespace alda
-{
-namespace net
+namespace alda::net
 {
 
 class io_service_wrapper;
 
-}
 }
 
 #endif

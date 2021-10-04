@@ -11,9 +11,7 @@
 #include <fcppt/unique_ptr_impl.hpp>
 
 
-namespace alda
-{
-namespace message
+namespace alda::message
 {
 
 template<
@@ -27,7 +25,6 @@ fcppt::unique_ptr<
 	>
 >;
 
-}
 }
 
 #endif

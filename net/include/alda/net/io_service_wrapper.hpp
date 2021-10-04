@@ -15,9 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace alda
-{
-namespace net
+namespace alda::net
 {
 
 class io_service_wrapper
@@ -39,7 +37,6 @@ private:
 	> io_service_;
 };
 
-}
 }
 
 #endif

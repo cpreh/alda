@@ -8,14 +8,11 @@
 #define ALDA_BINDINGS_LENGTH_COUNT_POLICY_FWD_HPP_INCLUDED
 
 
-namespace alda
-{
-namespace bindings
+namespace alda::bindings
 {
 
 struct length_count_policy;
 
-}
 }
 
 #endif

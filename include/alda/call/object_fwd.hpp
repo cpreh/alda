@@ -8,9 +8,7 @@
 #define ALDA_CALL_OBJECT_FWD_HPP_INCLUDED
 
 
-namespace alda
-{
-namespace call
+namespace alda::call
 {
 
 template<
@@ -20,7 +18,6 @@ template<
 >
 class object;
 
-}
 }
 
 #endif

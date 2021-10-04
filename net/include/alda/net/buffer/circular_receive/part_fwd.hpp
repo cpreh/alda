@@ -8,20 +8,11 @@
 #define ALDA_NET_BUFFER_CIRCULAR_RECEIVE_PART_FWD_HPP_INCLUDED
 
 
-namespace alda
-{
-namespace net
-{
-namespace buffer
-{
-namespace circular_receive
+namespace alda::net::buffer::circular_receive
 {
 
 class part;
 
-}
-}
-}
 }
 
 #endif

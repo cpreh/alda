@@ -12,9 +12,7 @@
 #include <fcppt/array/object_impl.hpp>
 
 
-namespace alda
-{
-namespace raw
+namespace alda::raw
 {
 
 template<
@@ -30,7 +28,6 @@ fcppt::array::object<
 	>::type::value
 >;
 
-}
 }
 
 #endif

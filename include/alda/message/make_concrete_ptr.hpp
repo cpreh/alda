@@ -14,9 +14,7 @@
 #include <fcppt/unique_ptr_to_base.hpp>
 
 
-namespace alda
-{
-namespace message
+namespace alda::message
 {
 
 template<
@@ -47,7 +45,6 @@ make_concrete_ptr(
 		);
 }
 
-}
 }
 
 #endif

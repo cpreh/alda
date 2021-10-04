@@ -19,9 +19,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace alda
-{
-namespace serialization
+namespace alda::serialization
 {
 
 template<
@@ -56,7 +54,6 @@ static_buffer_to_stream(
 	);
 }
 
-}
 }
 
 #endif

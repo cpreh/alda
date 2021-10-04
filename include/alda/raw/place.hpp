@@ -12,9 +12,7 @@
 #include <alda/raw/pointer.hpp>
 
 
-namespace alda
-{
-namespace raw
+namespace alda::raw
 {
 
 template<
@@ -39,7 +37,6 @@ place(
 		);
 }
 
-}
 }
 
 #endif

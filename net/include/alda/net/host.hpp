@@ -14,9 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace alda
-{
-namespace net
+namespace alda::net
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -24,7 +22,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	host
 );
 
-}
 }
 
 #endif

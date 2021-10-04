@@ -11,11 +11,7 @@
 #include <fcppt/function_impl.hpp>
 
 
-namespace alda
-{
-namespace net
-{
-namespace client
+namespace alda::net::client
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::function<
 	alda::net::client::error_function
 >;
 
-}
-}
 }
 
 #endif

@@ -16,9 +16,7 @@
 #include <fcppt/log/context_reference.hpp>
 
 
-namespace alda
-{
-namespace net
+namespace alda::net
 {
 
 class parameters
@@ -59,7 +57,6 @@ private:
 	alda::net::buffer::max_receive_size max_receive_size_;
 };
 
-}
 }
 
 #endif

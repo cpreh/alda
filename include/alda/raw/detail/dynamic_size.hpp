@@ -8,19 +8,13 @@
 #define ALDA_RAW_DETAIL_DYNAMIC_SIZE_HPP_INCLUDED
 
 
-namespace alda
-{
-namespace raw
-{
-namespace detail
+namespace alda::raw::detail
 {
 
 struct dynamic_size
 {
 };
 
-}
-}
 }
 
 #endif

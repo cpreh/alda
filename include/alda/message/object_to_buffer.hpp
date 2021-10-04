@@ -12,9 +12,7 @@
 #include <alda/raw/to_buffer.hpp>
 
 
-namespace alda
-{
-namespace message
+namespace alda::message
 {
 
 template<
@@ -38,7 +36,6 @@ object_to_buffer(
 		);
 }
 
-}
 }
 
 #endif

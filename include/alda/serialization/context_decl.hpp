@@ -13,9 +13,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace alda
-{
-namespace serialization
+namespace alda::serialization
 {
 
 template<
@@ -51,7 +49,6 @@ private:
 	alda::serialization::detail::dispatch::register_;
 };
 
-}
 }
 
 #endif

@@ -11,9 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace alda
-{
-namespace message
+namespace alda::message
 {
 
 template<
@@ -27,7 +25,6 @@ fcppt::optional::object<
 	>
 >;
 
-}
 }
 
 #endif

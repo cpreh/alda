@@ -8,9 +8,7 @@
 #define ALDA_RAW_ELEMENT_TYPE_HPP_INCLUDED
 
 
-namespace alda
-{
-namespace raw
+namespace alda::raw
 {
 
 template<
@@ -22,7 +20,6 @@ element_type
 typename
 Element::element_type;
 
-}
 }
 
 #endif

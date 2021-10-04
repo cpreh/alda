@@ -8,9 +8,7 @@
 #define ALDA_MESSAGE_ELEMENT_TYPE_HPP_INCLUDED
 
 
-namespace alda
-{
-namespace message
+namespace alda::message
 {
 
 template<
@@ -22,7 +20,6 @@ element_type
 typename
 Object::element_type;
 
-}
 }
 
 #endif

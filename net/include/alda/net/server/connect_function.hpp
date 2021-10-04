@@ -10,11 +10,7 @@
 #include <alda/net/id.hpp>
 
 
-namespace alda
-{
-namespace net
-{
-namespace server
+namespace alda::net::server
 {
 
 using
@@ -24,8 +20,6 @@ void (
 	alda::net::id
 );
 
-}
-}
 }
 
 #endif

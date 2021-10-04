@@ -8,17 +8,11 @@
 #define ALDA_RAW_STREAM_FAILURE_FWD_HPP_INCLUDED
 
 
-namespace alda
-{
-namespace raw
-{
-namespace stream
+namespace alda::raw::stream
 {
 
 class failure;
 
-}
-}
 }
 
 #endif

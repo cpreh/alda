@@ -10,9 +10,7 @@
 #include <alda/bindings/length_count_policy_fwd.hpp>
 
 
-namespace alda
-{
-namespace bindings
+namespace alda::bindings
 {
 
 struct length_count_policy
@@ -49,7 +47,6 @@ struct length_count_policy
 
 };
 
-}
 }
 
 #endif

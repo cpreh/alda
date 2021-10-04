@@ -12,11 +12,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace alda
-{
-namespace net
-{
-namespace buffer
+namespace alda::net::buffer
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -24,8 +20,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	max_receive_size
 );
 
-}
-}
 }
 
 #endif

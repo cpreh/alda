@@ -8,9 +8,7 @@
 #define ALDA_RAW_DATA_HPP_INCLUDED
 
 
-namespace alda
-{
-namespace raw
+namespace alda::raw
 {
 
 using
@@ -18,7 +16,6 @@ data
 =
 unsigned char;
 
-}
 }
 
 #endif

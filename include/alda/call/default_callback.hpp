@@ -11,9 +11,7 @@
 #include <fcppt/function_impl.hpp>
 
 
-namespace alda
-{
-namespace call
+namespace alda::call
 {
 
 template<
@@ -29,7 +27,6 @@ fcppt::function<
 	>
 >;
 
-}
 }
 
 #endif

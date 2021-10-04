@@ -13,9 +13,7 @@
 #include <alda/serialization/istream.hpp>
 
 
-namespace alda
-{
-namespace serialization
+namespace alda::serialization
 {
 
 template<
@@ -39,7 +37,6 @@ read(
 		);
 }
 
-}
 }
 
 #endif

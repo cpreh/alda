@@ -8,11 +8,7 @@
 #define ALDA_SERIALIZATION_DETAIL_READ_FWD_HPP_INCLUDED
 
 
-namespace alda
-{
-namespace serialization
-{
-namespace detail
+namespace alda::serialization::detail
 {
 
 template<
@@ -20,8 +16,6 @@ template<
 >
 class read;
 
-}
-}
 }
 
 #endif

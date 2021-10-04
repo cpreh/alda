@@ -8,9 +8,7 @@
 #define ALDA_BINDINGS_OPTIONAL_FWD_HPP_INCLUDED
 
 
-namespace alda
-{
-namespace bindings
+namespace alda::bindings
 {
 
 template<
@@ -19,7 +17,6 @@ template<
 >
 struct optional;
 
-}
 }
 
 #endif

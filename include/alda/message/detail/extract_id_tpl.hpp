@@ -8,11 +8,7 @@
 #define ALDA_MESSAGE_DETAIL_EXTRACT_ID_TPL_HPP_INCLUDED
 
 
-namespace alda
-{
-namespace message
-{
-namespace detail
+namespace alda::message::detail
 {
 
 template<
@@ -27,8 +23,6 @@ struct extract_id_tpl
 	Message::id_type;
 };
 
-}
-}
 }
 
 #endif

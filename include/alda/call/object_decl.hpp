@@ -17,9 +17,7 @@
 #include <fcppt/optional/object_decl.hpp>
 
 
-namespace alda
-{
-namespace call
+namespace alda::call
 {
 
 template<
@@ -97,7 +95,6 @@ private:
 	instance_array const instances_;
 };
 
-}
 }
 
 #endif

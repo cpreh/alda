@@ -10,9 +10,7 @@
 #include <alda/bindings/static_fwd.hpp>
 
 
-namespace alda
-{
-namespace bindings
+namespace alda::bindings
 {
 
 template<
@@ -27,7 +25,6 @@ struct static_
 	Type;
 };
 
-}
 }
 
 #endif

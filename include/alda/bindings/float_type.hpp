@@ -8,9 +8,7 @@
 #define ALDA_BINDINGS_FLOAT_TYPE_HPP_INCLUDED
 
 
-namespace alda
-{
-namespace bindings
+namespace alda::bindings
 {
 
 using
@@ -18,7 +16,6 @@ float_type
 =
 float;
 
-}
 }
 
 #endif

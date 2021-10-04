@@ -18,9 +18,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace alda
-{
-namespace serialization
+namespace alda::serialization
 {
 
 // TODO(philipp): Should this be inline?
@@ -47,7 +45,6 @@ buffer_to_stream(
 	);
 }
 
-}
 }
 
 #endif

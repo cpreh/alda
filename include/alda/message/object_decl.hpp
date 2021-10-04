@@ -11,9 +11,7 @@
 #include <alda/raw/element_type.hpp>
 
 
-namespace alda
-{
-namespace message
+namespace alda::message
 {
 
 template<
@@ -57,7 +55,6 @@ private:
 	element_type value_;
 };
 
-}
 }
 
 #endif
