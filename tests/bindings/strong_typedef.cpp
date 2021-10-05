@@ -10,7 +10,7 @@
 #include <alda/serialization/read.hpp>
 #include <alda/serialization/write.hpp>
 #include <fcppt/literal.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/public_config.hpp>
 #include <fcppt/strong_typedef.hpp>
 #include <fcppt/catch/begin.hpp>
@@ -35,7 +35,7 @@ base_type
 =
 std::uint32_t;
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	base_type,
 	strong_type
 );

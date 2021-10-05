@@ -15,13 +15,7 @@
 #include <alda/serialization/length/remaining_size_function.hpp>
 
 
-namespace alda
-{
-namespace net
-{
-namespace buffer
-{
-namespace circular_receive
+namespace alda::net::buffer::circular_receive
 {
 
 template<
@@ -59,9 +53,6 @@ extract_message(
 		);
 }
 
-}
-}
-}
 }
 
 #endif

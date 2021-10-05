@@ -8,14 +8,14 @@
 #define ALDA_NET_BUFFER_MAX_SEND_SIZE_HPP_INCLUDED
 
 #include <alda/net/size_type.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
 namespace alda::net::buffer
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	alda::net::size_type,
 	max_send_size
 );

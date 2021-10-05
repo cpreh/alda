@@ -7,13 +7,13 @@
 #ifndef ALDA_NET_PORT_FWD_HPP_INCLUDED
 #define ALDA_NET_PORT_FWD_HPP_INCLUDED
 
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 
 
 namespace alda::net
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	unsigned int,
 	port
 );
