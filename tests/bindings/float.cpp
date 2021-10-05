@@ -148,7 +148,7 @@ fcppt::either::object<
 
 void
 fuzzy_equal_either(
-	either_result_type const &_left,
+	either_result_type const &_left, //NOLINT(bugprone-easily-swappable-parameters)
 	either_result_type const &_right
 )
 {
