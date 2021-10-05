@@ -9,8 +9,8 @@
 #include <alda/raw/stream/error.hpp>
 #include <alda/serialization/read.hpp>
 #include <alda/serialization/write.hpp>
-#include <fcppt/literal.hpp>
 #include <fcppt/declare_strong_typedef.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/public_config.hpp>
 #include <fcppt/strong_typedef.hpp>
 #include <fcppt/catch/begin.hpp>
