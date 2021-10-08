@@ -11,7 +11,7 @@
 #include <fcppt/config/external_end.hpp>
 
 alda::net::buffer::circular_receive::part::part(
-    pointer const _begin, // NOLINT(misc-misplaced-const)
+    pointer const _begin, // NOLINT(misc-misplaced-const,bugprone-easily-swappable-parameters)
     pointer const _end // NOLINT(misc-misplaced-const)
     )
     : begin_(_begin), end_(_end)
