@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_CALL_DETAIL_MAKE_INSTANCE_HPP_INCLUDED
 #define ALDA_CALL_DETAIL_MAKE_INSTANCE_HPP_INCLUDED
 
@@ -24,118 +23,48 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace alda::call::detail
 {
 
-template<
-	typename TypeEnum,
-	typename Messages,
-	typename Callee
->
+template <typename TypeEnum, typename Messages, typename Callee>
 struct make_instance
 {
-	using
-	base
-	=
-	alda::call::detail::base<
-		TypeEnum,
-		Callee
-	>;
+  using base = alda::call::detail::base<TypeEnum, Callee>;
 
-	using
-	optional_base_unique_ptr
-	=
-	fcppt::optional::object<
-		fcppt::unique_ptr<
-			base
-		>
-	>;
+  using optional_base_unique_ptr = fcppt::optional::object<fcppt::unique_ptr<base>>;
 
-	template<
-		typename Type
-	>
-	using
-	has_message
-	=
-	fcppt::mpl::list::any_of<
-		Messages,
-		fcppt::mpl::bind<
-			fcppt::mpl::lambda<
-				std::is_same
-			>,
-			fcppt::mpl::constant<
-				Type
-			>,
-			fcppt::mpl::lambda<
-				alda::message::detail::extract_id
-			>
-		>
-	>;
+  template <typename Type>
+  using has_message = fcppt::mpl::list::any_of<
+      Messages,
+      fcppt::mpl::bind<
+          fcppt::mpl::lambda<std::is_same>,
+          fcppt::mpl::constant<Type>,
+          fcppt::mpl::lambda<alda::message::detail::extract_id>>>;
 
-	template<
-		typename Type
-	>
-	typename
-	std::enable_if<
-		has_message<
-			Type
-		>::value,
-		optional_base_unique_ptr
-	>::type
-	operator()(
-		Type
-	) const
-	{
-		return
-			optional_base_unique_ptr{
-				fcppt::unique_ptr_to_base<
-					base
-				>(
-					fcppt::make_unique_ptr<
-						alda::call::detail::concrete<
-							TypeEnum,
-							Callee,
-							fcppt::mpl::list::at<
-								Messages,
-								fcppt::mpl::list::index_of_if<
-									Messages,
-									fcppt::mpl::bind<
-										fcppt::mpl::lambda<
-											std::is_same
-										>,
-										fcppt::mpl::constant<
-											Type
-										>,
-										fcppt::mpl::lambda<
-											alda::message::detail::extract_id
-										>
-									>
-								>
-							>
-						>
-					>()
-				)
-			};
-	}
+  template <typename Type>
+  typename std::enable_if<has_message<Type>::value, optional_base_unique_ptr>::type
+  operator()(Type) const
+  {
+    return optional_base_unique_ptr{fcppt::unique_ptr_to_base<base>(
+        fcppt::make_unique_ptr<alda::call::detail::concrete<
+            TypeEnum,
+            Callee,
+            fcppt::mpl::list::at<
+                Messages,
+                fcppt::mpl::list::index_of_if<
+                    Messages,
+                    fcppt::mpl::bind<
+                        fcppt::mpl::lambda<std::is_same>,
+                        fcppt::mpl::constant<Type>,
+                        fcppt::mpl::lambda<alda::message::detail::extract_id>>>>>>())};
+  }
 
-	template<
-		typename Type
-	>
-	typename
-	std::enable_if<
-		!has_message<
-			Type
-		>::value,
-		optional_base_unique_ptr
-	>::type
-	operator()(
-		Type
-	) const
-	{
-		return
-			optional_base_unique_ptr();
-	}
+  template <typename Type>
+  typename std::enable_if<!has_message<Type>::value, optional_base_unique_ptr>::type
+  operator()(Type) const
+  {
+    return optional_base_unique_ptr();
+  }
 };
 
 }

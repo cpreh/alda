@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_BINDINGS_RECORD_DECL_HPP_INCLUDED
 #define ALDA_BINDINGS_RECORD_DECL_HPP_INCLUDED
 
@@ -17,44 +16,22 @@
 #include <fcppt/record/element_to_type.hpp>
 #include <fcppt/record/from_list_fwd.hpp>
 
-
 namespace alda::bindings
 {
 
-template<
-	typename Types
->
+template <typename Types>
 struct record
 {
-	using
-	types
-	=
-	Types;
+  using types = Types;
 
-	using
-	element_type
-	=
-	fcppt::record::from_list<
-		fcppt::mpl::list::map<
-			Types,
-			fcppt::mpl::bind<
-				fcppt::mpl::lambda<
-					fcppt::record::element
-				>,
-				fcppt::mpl::lambda<
-					fcppt::record::element_to_label
-				>,
-				fcppt::mpl::bind<
-					fcppt::mpl::lambda<
-						alda::raw::element_type
-					>,
-					fcppt::mpl::lambda<
-						fcppt::record::element_to_type
-					>
-				>
-			>
-		>
-	>;
+  using element_type = fcppt::record::from_list<fcppt::mpl::list::map<
+      Types,
+      fcppt::mpl::bind<
+          fcppt::mpl::lambda<fcppt::record::element>,
+          fcppt::mpl::lambda<fcppt::record::element_to_label>,
+          fcppt::mpl::bind<
+              fcppt::mpl::lambda<alda::raw::element_type>,
+              fcppt::mpl::lambda<fcppt::record::element_to_type>>>>>;
 };
 
 }

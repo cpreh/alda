@@ -3,18 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_NET_CLIENT_CONNECT_FUNCTION_HPP_INCLUDED
 #define ALDA_NET_CLIENT_CONNECT_FUNCTION_HPP_INCLUDED
-
 
 namespace alda::net::client
 {
 
-using
-connect_function
-=
-void();
+using connect_function = void();
 
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_MESSAGE_OBJECT_TO_BUFFER_HPP_INCLUDED
 #define ALDA_MESSAGE_OBJECT_TO_BUFFER_HPP_INCLUDED
 
@@ -11,29 +10,13 @@
 #include <alda/raw/buffer.hpp>
 #include <alda/raw/to_buffer.hpp>
 
-
 namespace alda::message
 {
 
-template<
-	typename Id,
-	typename Type
->
-inline
-alda::raw::buffer
-object_to_buffer(
-	alda::message::object<
-		Id,
-		Type
-	> const &_value
-)
+template <typename Id, typename Type>
+inline alda::raw::buffer object_to_buffer(alda::message::object<Id, Type> const &_value)
 {
-	return
-		alda::raw::to_buffer<
-			Type
-		>(
-			_value.get()
-		);
+  return alda::raw::to_buffer<Type>(_value.get());
 }
 
 }

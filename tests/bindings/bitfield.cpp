@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <alda/bindings/bitfield.hpp>
 #include <alda/raw/data.hpp>
 #include <alda/raw/size_type.hpp>
@@ -24,83 +23,41 @@
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
 
-
 FCPPT_CATCH_BEGIN
 
-TEST_CASE(
-	"bindings::bitfield",
-	"[alda]"
-)
+TEST_CASE("bindings::bitfield", "[alda]")
 {
-	enum class test_enum
-	{
-		test1,
-		test2,
-		test3,
-		fcppt_maximum = test3
-	};
+  enum class test_enum
+  {
+    test1,
+    test2,
+    test3,
+    fcppt_maximum = test3
+  };
 
-	using
-	bitfield
-	=
-	fcppt::container::bitfield::object<
-		test_enum,
-		alda::raw::data
-	>;
+  using bitfield = fcppt::container::bitfield::object<test_enum, alda::raw::data>;
 
-	using
-	bitfield_binding
-	=
-	alda::bindings::bitfield<
-		bitfield,
-		std::endian::little
-	>;
+  using bitfield_binding = alda::bindings::bitfield<bitfield, std::endian::little>;
 
-	static_assert(
-		alda::raw::static_size<
-			bitfield_binding
-		>::value
-		== // NOLINT(misc-redundant-expression)
-		fcppt::math::ceil_div_static<
-			alda::raw::size_type,
-			3U, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-			std::numeric_limits<
-				alda::raw::data
-			>::digits
-		>::value
-	);
+  static_assert(
+      alda::raw::static_size<bitfield_binding>::value == // NOLINT(misc-redundant-expression)
+      fcppt::math::ceil_div_static<
+          alda::raw::size_type,
+          3U, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+          std::numeric_limits<alda::raw::data>::digits>::value);
 
-	bitfield test(
-		bitfield::null()
-	);
+  bitfield test(bitfield::null());
 
-	test[
-		test_enum::test2
-	] = true;
+  test[test_enum::test2] = true;
 
-	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
-	std::stringstream stream{};
+  // NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+  std::stringstream stream{};
 
-	alda::serialization::write<
-		bitfield_binding
-	>(
-		stream,
-		test
-	);
+  alda::serialization::write<bitfield_binding>(stream, test);
 
-	CHECK(
-		alda::serialization::read<
-			bitfield_binding
-		>(
-			stream
-		)
-		==
-		fcppt::either::make_success<
-			alda::raw::stream::error
-		>(
-			test
-		)
-	);
+  CHECK(
+      alda::serialization::read<bitfield_binding>(stream) ==
+      fcppt::either::make_success<alda::raw::stream::error>(test));
 }
 
 FCPPT_CATCH_END

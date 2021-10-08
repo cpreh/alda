@@ -9,72 +9,25 @@
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
-
-int
-main()
+int main()
 {
-	static_assert(
-		alda::raw::combine_static_sizes<
-			fcppt::mpl::lambda<
-				fcppt::mpl::add
-			>,
-			alda::raw::static_size<
-				alda::bindings::fundamental<
-					std::uint16_t
-				>
-			>,
-			alda::raw::static_size<
-				alda::bindings::fundamental<
-					std::uint32_t
-				>
-			>
-		>::value
-		==
-		alda::raw::static_size<
-			alda::bindings::fundamental<
-				std::uint16_t
-			>
-		>::value
-		+
-		alda::raw::static_size<
-			alda::bindings::fundamental<
-				std::uint32_t
-			>
-		>::value
-	);
+  static_assert(
+      alda::raw::combine_static_sizes<
+          fcppt::mpl::lambda<fcppt::mpl::add>,
+          alda::raw::static_size<alda::bindings::fundamental<std::uint16_t>>,
+          alda::raw::static_size<alda::bindings::fundamental<std::uint32_t>>>::value ==
+      alda::raw::static_size<alda::bindings::fundamental<std::uint16_t>>::value +
+          alda::raw::static_size<alda::bindings::fundamental<std::uint32_t>>::value);
 
-	static_assert(
-		!alda::raw::is_static_size<
-			alda::raw::combine_static_sizes<
-				fcppt::mpl::lambda<
-					fcppt::mpl::add
-				>,
-				alda::raw::static_size<
-					alda::bindings::fundamental<
-						std::uint16_t
-					>
-				>,
-				alda::raw::static_size<
-					void
-				>
-			>
-		>::value
-	);
+  static_assert(!alda::raw::is_static_size<alda::raw::combine_static_sizes<
+                    fcppt::mpl::lambda<fcppt::mpl::add>,
+                    alda::raw::static_size<alda::bindings::fundamental<std::uint16_t>>,
+                    alda::raw::static_size<void>>>::value);
 
-	static_assert(
-		std::is_same_v<
-			alda::raw::combine_static_sizes<
-				fcppt::mpl::lambda<
-					fcppt::mpl::add
-				>,
-				alda::raw::detail::dynamic_size,
-				alda::raw::static_size<
-					alda::bindings::fundamental<
-						std::uint32_t
-					>
-				>
-			>,
-			alda::raw::detail::dynamic_size
-		>
-	);
+  static_assert(std::is_same_v<
+                alda::raw::combine_static_sizes<
+                    fcppt::mpl::lambda<fcppt::mpl::add>,
+                    alda::raw::detail::dynamic_size,
+                    alda::raw::static_size<alda::bindings::fundamental<std::uint32_t>>>,
+                alda::raw::detail::dynamic_size>);
 }

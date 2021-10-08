@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_SERIALIZATION_CONTEXT_DECL_HPP_INCLUDED
 #define ALDA_SERIALIZATION_CONTEXT_DECL_HPP_INCLUDED
 
@@ -12,41 +11,28 @@
 #include <alda/serialization/detail/dispatch/register_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace alda::serialization
 {
 
-template<
-	typename TypeEnum
->
+template <typename TypeEnum>
 class context
 {
-	FCPPT_NONMOVABLE(
-		context
-	);
+  FCPPT_NONMOVABLE(context);
+
 public:
-	context();
+  context();
 
-	~context();
+  ~context();
 
-	using
-	dispatch_map
-	=
-	alda::serialization::detail::dispatch::map<
-		TypeEnum
-	>;
+  using dispatch_map = alda::serialization::detail::dispatch::map<TypeEnum>;
 
-	[[nodiscard]]
-	dispatch_map const &
-	handlers() const;
+  [[nodiscard]] dispatch_map const &handlers() const;
+
 private:
-	dispatch_map handlers_;
+  dispatch_map handlers_;
 
-	template<
-		typename OtherTypeEnum,
-		typename Message
-	> friend class
-	alda::serialization::detail::dispatch::register_;
+  template <typename OtherTypeEnum, typename Message>
+  friend class alda::serialization::detail::dispatch::register_;
 };
 
 }

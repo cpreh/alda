@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_SERIALIZATION_LENGTH_EXTRACT_HPP_INCLUDED
 #define ALDA_SERIALIZATION_LENGTH_EXTRACT_HPP_INCLUDED
 
@@ -24,73 +23,29 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace alda::serialization::length
 {
 
-template<
-	typename LengthType
->
-fcppt::optional::object<
-	LengthType
->
-extract(
-	alda::serialization::istream &_stream,
-	alda::serialization::length::remaining_size_function const &_remaining_size
-)
+template <typename LengthType>
+fcppt::optional::object<LengthType> extract(
+    alda::serialization::istream &_stream,
+    alda::serialization::length::remaining_size_function const &_remaining_size)
 {
-	static_assert(
-		std::is_unsigned_v<
-			LengthType
-		>
-	);
+  static_assert(std::is_unsigned_v<LengthType>);
 
-	using
-	return_type
-	=
-	fcppt::optional::object<
-		LengthType
-	>;
+  using return_type = fcppt::optional::object<LengthType>;
 
-	return
-		_remaining_size()
-		<
-		fcppt::cast::size<
-			std::streamsize
-		>(
-			fcppt::cast::to_signed(
-				sizeof(
-					LengthType
-				)
-			)
-		)
-		?
-			return_type{}
-		:
-			return_type{
-				fcppt::either::to_exception(
-					alda::raw::make_generic<
-						alda::raw::stream::istream,
-						alda::serialization::length::detail::binding<
-							LengthType
-						>
-					>(
-						_stream
-					),
-					[](
-						alda::raw::stream::error const &_error
-					)
-					{
-						return
-							alda::exception{
-								FCPPT_TEXT("Invalid remaining size in stream: ")
-								+
-								_error.get()
-							};
-					}
-				)
-			}
-		;
+  return _remaining_size() <
+                 fcppt::cast::size<std::streamsize>(fcppt::cast::to_signed(sizeof(LengthType)))
+             ? return_type{}
+             : return_type{fcppt::either::to_exception(
+                   alda::raw::make_generic<
+                       alda::raw::stream::istream,
+                       alda::serialization::length::detail::binding<LengthType>>(_stream),
+                   [](alda::raw::stream::error const &_error) {
+                     return alda::exception{
+                         FCPPT_TEXT("Invalid remaining size in stream: ") + _error.get()};
+                   })};
 }
 
 }

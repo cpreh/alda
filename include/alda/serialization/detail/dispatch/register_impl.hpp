@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_SERIALIZATION_DETAIL_DISPATCH_REGISTER_IMPL_HPP_INCLUDED
 #define ALDA_SERIALIZATION_DETAIL_DISPATCH_REGISTER_IMPL_HPP_INCLUDED
 
@@ -22,55 +21,26 @@
 #include <exception>
 #include <fcppt/config/external_end.hpp>
 
-
-template<
-	typename TypeEnum,
-	typename Message
->
-alda::serialization::detail::dispatch::register_<
-	TypeEnum,
-	Message
->::register_(
-	context &_context
-)
+template <typename TypeEnum, typename Message>
+alda::serialization::detail::dispatch::register_<TypeEnum, Message>::register_(context &_context)
 {
-	using
-	constant_value
-	=
-	alda::message::detail::extract_id<
-		Message
-	>;
+  using constant_value = alda::message::detail::extract_id<Message>;
 
-	if(
-		!_context.handlers_.emplace(
-			constant_value::value,
-			fcppt::unique_ptr_to_base<
-				alda::serialization::detail::dispatch::base<
-					TypeEnum
-				>
-			>(
-				fcppt::make_unique_ptr<
-					alda::serialization::detail::dispatch::concrete<
-						TypeEnum,
-						Message
-					>
-				>()
-			)
-		).second
-	)
-	{
-		fcppt::io::cerr()
-			<< FCPPT_TEXT("Message type registered twice: ")
-			<<
-			fcppt::cast::promote_int(
-				fcppt::cast::enum_to_underlying(
-					constant_value::value
-				)
-			)
-			<< FCPPT_TEXT('\n');
+  if (!_context.handlers_
+           .emplace(
+               constant_value::value,
+               fcppt::unique_ptr_to_base<alda::serialization::detail::dispatch::base<TypeEnum>>(
+                   fcppt::make_unique_ptr<
+                       alda::serialization::detail::dispatch::concrete<TypeEnum, Message>>()))
+           .second)
+  {
+    fcppt::io::cerr() << FCPPT_TEXT("Message type registered twice: ")
+                      << fcppt::cast::promote_int(
+                             fcppt::cast::enum_to_underlying(constant_value::value))
+                      << FCPPT_TEXT('\n');
 
-		std::terminate();
-	}
+    std::terminate();
+  }
 }
 
 #endif

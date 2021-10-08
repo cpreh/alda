@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <alda/exception.hpp>
 #include <alda/bindings/signed.hpp>
 #include <alda/raw/make_generic.hpp>
@@ -27,146 +26,62 @@
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace
 {
 
-using
-int_type
-=
-std::int16_t;
+using int_type = std::int16_t;
 
-using
-int_binding
-=
-alda::bindings::signed_<
-	int_type,
-	std::endian::little
->;
+using int_binding = alda::bindings::signed_<int_type, std::endian::little>;
 
-using
-either_result_type
-=
-fcppt::either::object<
-	alda::raw::stream::error,
-	int_type
->;
+using either_result_type = fcppt::either::object<alda::raw::stream::error, int_type>;
 
-void
-test_conversion(
-	int_type const _value
-)
+void test_conversion(int_type const _value)
 {
-	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
-	std::stringstream stream{};
+  // NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+  std::stringstream stream{};
 
-	alda::serialization::write<
-		int_binding
-	>(
-		stream,
-		_value
-	);
+  alda::serialization::write<int_binding>(stream, _value);
 
-	either_result_type const result(
-		alda::raw::make_generic<
-			alda::raw::stream::istream,
-			int_binding
-		>(
-			stream
-		)
-	);
+  either_result_type const result(
+      alda::raw::make_generic<alda::raw::stream::istream, int_binding>(stream));
 
-	CHECK(
-		either_result_type{
-			_value
-		}
-		==
-		result
-	);
+  CHECK(either_result_type{_value} == result);
 }
 
 }
 
 FCPPT_CATCH_BEGIN
 
-TEST_CASE(
-	"bindings::signed",
-	"[alda]"
-)
+TEST_CASE("bindings::signed", "[alda]")
 {
-	int_type const max_value(
-		std::numeric_limits<
-			int_type
-		>::max()
-	);
+  int_type const max_value(std::numeric_limits<int_type>::max());
 
-	int_type const min_value(
-		std::numeric_limits<
-			int_type
-		>::min()
-	);
+  int_type const min_value(std::numeric_limits<int_type>::min());
 
-	test_conversion(
-		fcppt::literal<
-			int_type
-		>(
-			0
-		)
-	);
+  test_conversion(fcppt::literal<int_type>(0));
 
-	test_conversion(
-		fcppt::literal<
-			int_type
-		>(
-			1337 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-		)
-	);
+  test_conversion(fcppt::literal<int_type>(
+      1337 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+      ));
 
-	test_conversion(
-		fcppt::literal<
-			int_type
-		>(
-			-1337 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-		)
-	);
+  test_conversion(fcppt::literal<int_type>(
+      -1337 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+      ));
 
-	test_conversion(
-		max_value
-	);
+  test_conversion(max_value);
 
-	test_conversion(
-		fcppt::literal<
-			int_type
-		>(
-			-max_value
-		)
-	);
+  test_conversion(fcppt::literal<int_type>(-max_value));
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_VC_WARNING(4127)
-	if(
-		min_value
-		+
-		max_value
-		<
-		0
-	)
-	{
-		// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
-		std::ostringstream stream{};
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_VC_WARNING(4127)
+  if (min_value + max_value < 0)
+  {
+    // NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+    std::ostringstream stream{};
 
-		CHECK_THROWS_AS(
-			alda::serialization::write<
-				int_binding
-			>(
-				stream,
-				min_value
-			),
-			alda::exception
-		);
-	}
-FCPPT_PP_POP_WARNING
-
+    CHECK_THROWS_AS(alda::serialization::write<int_binding>(stream, min_value), alda::exception);
+  }
+  FCPPT_PP_POP_WARNING
 }
 
 FCPPT_CATCH_END

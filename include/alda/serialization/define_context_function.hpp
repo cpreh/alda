@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_SERIALIZATION_DEFINE_CONTEXT_FUNCTION_HPP_INCLUDED
 #define ALDA_SERIALIZATION_DEFINE_CONTEXT_FUNCTION_HPP_INCLUDED
 
@@ -13,26 +12,17 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 
-
-#define ALDA_SERIALIZATION_DEFINE_CONTEXT_FUNCTION(\
-	type_enum,\
-	function_name\
-) \
-FCPPT_PP_PUSH_WARNING \
-FCPPT_PP_DISABLE_VC_WARNING(4640) \
-FCPPT_PP_DISABLE_CLANG_WARNING(-Wglobal-constructors) \
-FCPPT_PP_DISABLE_CLANG_WARNING(-Wexit-time-destructors) \
-alda::serialization::context<\
-	type_enum\
-> &\
-function_name()\
-{\
-	static alda::serialization::context<\
-		type_enum\
-	> object;\
+#define ALDA_SERIALIZATION_DEFINE_CONTEXT_FUNCTION(type_enum, function_name) \
+  FCPPT_PP_PUSH_WARNING \
+  FCPPT_PP_DISABLE_VC_WARNING(4640) \
+  FCPPT_PP_DISABLE_CLANG_WARNING(-Wglobal-constructors) \
+  FCPPT_PP_DISABLE_CLANG_WARNING(-Wexit-time-destructors) \
+  alda::serialization::context<type_enum> &function_name() \
+  { \
+    static alda::serialization::context<type_enum> object; \
 \
-	return object;\
-} \
-FCPPT_PP_POP_WARNING
+    return object; \
+  } \
+  FCPPT_PP_POP_WARNING
 
 #endif

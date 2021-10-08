@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_RAW_TO_BUFFER_HPP_INCLUDED
 #define ALDA_RAW_TO_BUFFER_HPP_INCLUDED
 
@@ -16,51 +15,22 @@
 #include <fcppt/container/buffer/read_from.hpp>
 #include <fcppt/container/buffer/to_raw_vector.hpp>
 
-
 namespace alda::raw
 {
 
-template<
-	typename Type
->
-alda::raw::buffer
-to_buffer(
-	alda::raw::element_type<
-		Type
-	> const &_value
-)
+template <typename Type>
+alda::raw::buffer to_buffer(alda::raw::element_type<Type> const &_value)
 {
-	return
-		fcppt::container::buffer::to_raw_vector(
-			fcppt::container::buffer::read_from<
-				fcppt::container::buffer::object<
-					alda::raw::data
-				>
-			>(
-				alda::raw::needed_size<
-					Type
-				>(
-					_value
-				),
-				[
-					&_value
-				](
-					alda::raw::buffer::pointer const _data,
-					alda::raw::buffer::size_type const _size
-				)
-				{
-					alda::raw::place<
-						Type
-					>(
-						_value,
-						_data
-					);
+  return fcppt::container::buffer::to_raw_vector(
+      fcppt::container::buffer::read_from<fcppt::container::buffer::object<alda::raw::data>>(
+          alda::raw::needed_size<Type>(_value),
+          [&_value](
+              alda::raw::buffer::pointer const _data, alda::raw::buffer::size_type const _size)
+          {
+            alda::raw::place<Type>(_value, _data);
 
-					return
-						_size;
-				}
-			)
-		);
+            return _size;
+          }));
 }
 
 }

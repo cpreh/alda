@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_RAW_STREAM_ISTREAM_HPP_INCLUDED
 #define ALDA_RAW_STREAM_ISTREAM_HPP_INCLUDED
 
@@ -18,57 +17,29 @@
 #include <istream>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace alda::raw::stream
 {
 
 struct istream
 {
-	using
-	reference
-	=
-	std::istream &;
+  using reference = std::istream &;
 
-	static
-	inline
-	void
-	read(
-		alda::raw::stream::istream::reference _stream,
-		alda::raw::size_type const _size,
-		alda::raw::pointer const _result
-	)
-	{
-		_stream.read(
-			fcppt::cast::to_char_ptr<
-				std::istream::char_type *
-			>(
-				_result
-			),
-			fcppt::cast::size<
-				std::streamsize
-			>(
-				fcppt::cast::to_signed(
-					_size
-				)
-			)
-		);
-	}
+  static inline void read(
+      alda::raw::stream::istream::reference _stream,
+      alda::raw::size_type const _size,
+      alda::raw::pointer const _result)
+  {
+    _stream.read(
+        fcppt::cast::to_char_ptr<std::istream::char_type *>(_result),
+        fcppt::cast::size<std::streamsize>(fcppt::cast::to_signed(_size)));
+  }
 
-	static
-	constexpr
-	bool const
-	can_fail = true;
+  static constexpr bool const can_fail = true;
 
-	static
-	inline
-	bool
-	failed(
-		alda::raw::stream::istream::reference _stream
-	)
-	{
-		return
-			_stream.fail();
-	}
+  static inline bool failed(alda::raw::stream::istream::reference _stream)
+  {
+    return _stream.fail();
+  }
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_SERIALIZATION_DETAIL_DISPATCH_MAP_HPP_INCLUDED
 #define ALDA_SERIALIZATION_DETAIL_DISPATCH_MAP_HPP_INCLUDED
 
@@ -13,23 +12,13 @@
 #include <map>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace alda::serialization::detail::dispatch
 {
 
-template<
-	typename TypeEnum
->
-using map
-=
-std::map<
-	typename TypeEnum::type,
-	fcppt::unique_ptr<
-		alda::serialization::detail::dispatch::base<
-			TypeEnum
-		>
-	>
->;
+template <typename TypeEnum>
+using map = std::map<
+    typename TypeEnum::type,
+    fcppt::unique_ptr<alda::serialization::detail::dispatch::base<TypeEnum>>>;
 
 }
 

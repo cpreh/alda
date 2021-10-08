@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_NET_SERVER_DETAIL_CONNECTION_UNIQUE_PTR_HPP_INCLUDED
 #define ALDA_NET_SERVER_DETAIL_CONNECTION_UNIQUE_PTR_HPP_INCLUDED
 
 #include <alda/net/server/detail/connection_fwd.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 
-
 namespace alda::net::server::detail
 {
 
-using
-connection_unique_ptr
-=
-fcppt::unique_ptr<
-	alda::net::server::detail::connection
->;
+using connection_unique_ptr = fcppt::unique_ptr<alda::net::server::detail::connection>;
 
 }
 

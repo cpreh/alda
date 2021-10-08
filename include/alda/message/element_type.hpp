@@ -3,22 +3,14 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_MESSAGE_ELEMENT_TYPE_HPP_INCLUDED
 #define ALDA_MESSAGE_ELEMENT_TYPE_HPP_INCLUDED
-
 
 namespace alda::message
 {
 
-template<
-	typename Object
->
-using
-element_type
-=
-typename
-Object::element_type;
+template <typename Object>
+using element_type = typename Object::element_type;
 
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_BINDINGS_UNSIGNED_HPP_INCLUDED
 #define ALDA_BINDINGS_UNSIGNED_HPP_INCLUDED
 
@@ -27,111 +26,32 @@
 #include <bit>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace alda::bindings
 {
 
-template<
-	typename Type,
-	std::endian Endianness
->
-inline
-void
-place(
-	alda::raw::dispatch_type<
-		alda::bindings::unsigned_<
-			Type,
-			Endianness
-		>
-	>,
-	alda::raw::element_type<
-		alda::bindings::unsigned_<
-			Type,
-			Endianness
-		>
-	> const &_type,
-	alda::raw::pointer const _mem
-)
+template <typename Type, std::endian Endianness>
+inline void place(
+    alda::raw::dispatch_type<alda::bindings::unsigned_<Type, Endianness>>,
+    alda::raw::element_type<alda::bindings::unsigned_<Type, Endianness>> const &_type,
+    alda::raw::pointer const _mem)
 {
-	alda::raw::place<
-		typename
-		alda::bindings::unsigned_<
-			Type,
-			Endianness
-		>::impl
-	>(
-		fcppt::endianness::convert(
-			_type,
-			Endianness
-		),
-		_mem
-	);
+  alda::raw::place<typename alda::bindings::unsigned_<Type, Endianness>::impl>(
+      fcppt::endianness::convert(_type, Endianness), _mem);
 }
 
-template<
-	typename Stream,
-	typename Type,
-	std::endian Endianness
->
-inline
-alda::raw::stream::result<
-	Stream,
-	alda::bindings::unsigned_<
-		Type,
-		Endianness
-	>
->
-make_generic(
-	alda::raw::dispatch_type<
-		alda::bindings::unsigned_<
-			Type,
-			Endianness
-		>
-	>,
-	alda::raw::dispatch_type<
-		Stream
-	>,
-	alda::raw::stream::reference<
-		Stream
-	> _stream
-)
+template <typename Stream, typename Type, std::endian Endianness>
+inline alda::raw::stream::result<Stream, alda::bindings::unsigned_<Type, Endianness>> make_generic(
+    alda::raw::dispatch_type<alda::bindings::unsigned_<Type, Endianness>>,
+    alda::raw::dispatch_type<Stream>,
+    alda::raw::stream::reference<Stream> _stream)
 {
-	using
-	impl_type
-	=
-	typename
-	alda::bindings::unsigned_<
-		Type,
-		Endianness
-	>::impl;
+  using impl_type = typename alda::bindings::unsigned_<Type, Endianness>::impl;
 
-	return
-		alda::raw::stream::bind<
-			Stream
-		>(
-			alda::raw::make_generic<
-				Stream,
-				impl_type
-			>(
-				_stream
-			),
-			[](
-				alda::raw::element_type<
-					impl_type
-				> const _value
-			)
-			{
-				return
-					alda::raw::stream::return_<
-						Stream
-					>(
-						fcppt::endianness::convert(
-							_value,
-							Endianness
-						)
-					);
-			}
-		);
+  return alda::raw::stream::bind<Stream>(
+      alda::raw::make_generic<Stream, impl_type>(_stream),
+      [](alda::raw::element_type<impl_type> const _value) {
+        return alda::raw::stream::return_<Stream>(fcppt::endianness::convert(_value, Endianness));
+      });
 }
 
 }
@@ -142,24 +62,9 @@ namespace alda::raw
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
-template<
-	typename Type,
-	std::endian Endianness
->
-struct static_size_impl<
-	alda::bindings::unsigned_<
-		Type,
-		Endianness
-	>
->
-:
-alda::raw::static_size_impl<
-	typename
-	alda::bindings::unsigned_<
-		Type,
-		Endianness
-	>::impl
->
+template <typename Type, std::endian Endianness>
+struct static_size_impl<alda::bindings::unsigned_<Type, Endianness>>
+    : alda::raw::static_size_impl<typename alda::bindings::unsigned_<Type, Endianness>::impl>
 {
 };
 

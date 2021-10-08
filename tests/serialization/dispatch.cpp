@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <alda/type_enum.hpp>
 #include <alda/bindings/record_variadic.hpp>
 #include <alda/bindings/unsigned.hpp>
@@ -41,113 +40,45 @@
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace
 {
 
 enum class message_type
 {
-	message1,
-	message2,
-	fcppt_maximum = message2
+  message1,
+  message2,
+  fcppt_maximum = message2
 };
 
-using
-type_enum
-=
-alda::type_enum<
-	message_type
->;
+using type_enum = alda::type_enum<message_type>;
 
-using
-message_base
-=
-alda::message::base<
-	type_enum
->;
+using message_base = alda::message::base<type_enum>;
 
-using
-message_base_unique_ptr
-=
-alda::message::base_unique_ptr<
-	type_enum
->;
+using message_base_unique_ptr = alda::message::base_unique_ptr<type_enum>;
 
-constexpr
-std::endian const endianness{
-	std::endian::little
-};
+constexpr std::endian const endianness{std::endian::little};
 
-using
-uint16_type
-=
-alda::bindings::unsigned_<
-	std::uint16_t,
-	endianness
->;
+using uint16_type = alda::bindings::unsigned_<std::uint16_t, endianness>;
 
-using
-uint32_type
-=
-alda::bindings::unsigned_<
-	std::uint32_t,
-	endianness
->;
+using uint32_type = alda::bindings::unsigned_<std::uint32_t, endianness>;
 
-FCPPT_RECORD_MAKE_LABEL(
-	uint16_role
-);
+FCPPT_RECORD_MAKE_LABEL(uint16_role);
 
-FCPPT_RECORD_MAKE_LABEL(
-	uint32_role
-);
+FCPPT_RECORD_MAKE_LABEL(uint32_role);
 
-using
-message1
-=
-alda::message::object<
-	alda::message::make_id<
-		type_enum,
-		message_type::message1
-	>,
-	alda::bindings::record_variadic<
-		fcppt::record::element<
-			uint16_role,
-			uint16_type
-		>
-	>
->;
+using message1 = alda::message::object<
+    alda::message::make_id<type_enum, message_type::message1>,
+    alda::bindings::record_variadic<fcppt::record::element<uint16_role, uint16_type>>>;
 
-using
-message2
-=
-alda::message::object<
-	alda::message::make_id<
-		type_enum,
-		message_type::message2
-	>,
-	alda::bindings::record_variadic<
-		fcppt::record::element<
-			uint32_role,
-			uint32_type
-		>
-	>
->;
+using message2 = alda::message::object<
+    alda::message::make_id<type_enum, message_type::message2>,
+    alda::bindings::record_variadic<fcppt::record::element<uint32_role, uint32_type>>>;
 
-using
-context
-=
-alda::serialization::context<
-	type_enum
->;
+using context = alda::serialization::context<type_enum>;
 
-context &
-global_context();
+context &global_context();
 
-ALDA_SERIALIZATION_DEFINE_CONTEXT_FUNCTION(
-	type_enum,
-	global_context
-)
+ALDA_SERIALIZATION_DEFINE_CONTEXT_FUNCTION(type_enum, global_context)
 
 }
 
@@ -156,13 +87,9 @@ ALDA_MESSAGE_INSTANTIATE_BASE(
 	type_enum
 );*/
 
-ALDA_SERIALIZATION_INSTANTIATE_CONTEXT(
-	type_enum
-);
+ALDA_SERIALIZATION_INSTANTIATE_CONTEXT(type_enum);
 
-ALDA_SERIALIZATION_INSTANTIATE_DETAILS(
-	type_enum
-);
+ALDA_SERIALIZATION_INSTANTIATE_DETAILS(type_enum);
 
 /*
 ALDA_MESSAGE_INSTANTIATE_CONCRETE(
@@ -170,10 +97,7 @@ ALDA_MESSAGE_INSTANTIATE_CONCRETE(
 	message1
 );*/
 
-ALDA_SERIALIZATION_INSTANTIATE_MESSAGE(
-	type_enum,
-	message1
-);
+ALDA_SERIALIZATION_INSTANTIATE_MESSAGE(type_enum, message1);
 
 /*
 ALDA_MESSAGE_INSTANTIATE_CONCRETE(
@@ -181,10 +105,7 @@ ALDA_MESSAGE_INSTANTIATE_CONCRETE(
 	message2
 );*/
 
-ALDA_SERIALIZATION_INSTANTIATE_MESSAGE(
-	type_enum,
-	message2
-);
+ALDA_SERIALIZATION_INSTANTIATE_MESSAGE(type_enum, message2);
 
 namespace
 {
@@ -197,11 +118,7 @@ namespace register1
 {
 
 // NOLINTNEXTLINE(cert-err58-cpp,fuchsia-statically-constructed-objects)
-ALDA_SERIALIZATION_REGISTER_MESSAGE(
-	global_context(),
-	type_enum,
-	message1
-);
+ALDA_SERIALIZATION_REGISTER_MESSAGE(global_context(), type_enum, message1);
 
 }
 
@@ -209,11 +126,7 @@ namespace register2
 {
 
 // NOLINTNEXTLINE(cert-err58-cpp,fuchsia-statically-constructed-objects)
-ALDA_SERIALIZATION_REGISTER_MESSAGE(
-	global_context(),
-	type_enum,
-	message2
-);
+ALDA_SERIALIZATION_REGISTER_MESSAGE(global_context(), type_enum, message2);
 
 }
 
@@ -222,195 +135,79 @@ FCPPT_PP_POP_WARNING
 struct dispatcher_function
 {
 public:
-	using
-	result_type
-	=
-	void;
+  using result_type = void;
 
-	void
-	operator()(
-		message1 const &_msg
-	) const
-	{
-		CHECK(
-			fcppt::record::get<
-				uint16_role
-			>(
-				_msg.get()
-			)
-			==
-			static_cast<
-				std::uint16_t
-			>(
-				2//1337
-			)
-		);
-	}
+  void operator()(message1 const &_msg) const
+  {
+    CHECK(
+        fcppt::record::get<uint16_role>(_msg.get()) == static_cast<std::uint16_t>(2 //1337
+                                                                                  ));
+  }
 
-	void
-	operator()(
-		message2 const &_msg
-	) const
-	{
-		CHECK(
-			fcppt::record::get<
-				uint32_role
-			>(
-				_msg.get()
-			)
-			==
-			static_cast<
-				std::uint32_t
-			>(
-				42
-			)
-		);
-	}
+  void operator()(message2 const &_msg) const
+  {
+    CHECK(fcppt::record::get<uint32_role>(_msg.get()) == static_cast<std::uint32_t>(42));
+  }
 
-	static
-	result_type
-	default_callback(
-		message_base const &
-	)
-	{
-		CHECK(
-			false
-		);
-	}
+  static result_type default_callback(message_base const &) { CHECK(false); }
 };
 
 }
 
 FCPPT_CATCH_BEGIN
 
-TEST_CASE(
-	"serialization dispatch",
-	"[alda]"
-)
+TEST_CASE("serialization dispatch", "[alda]")
 {
-	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
-	std::ostringstream ofs{};
+  // NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+  std::ostringstream ofs{};
 
-	alda::serialization::serialize(
-		ofs,
-		*alda::message::make_concrete_ptr<
-			type_enum
-		>(
-			alda::message::init_record<
-				message1
-			>(
-				uint16_role{} =
-					static_cast<
-						std::uint16_t
-					>(
-						2//1337
-					)
-			)
-		)
-	);
+  alda::serialization::serialize(
+      ofs,
+      *alda::message::make_concrete_ptr<type_enum>(alda::message::init_record<message1>(
+          uint16_role{} = static_cast<std::uint16_t>(2 //1337
+                                                     ))));
 
-	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
-	std::istringstream ifs{
-		ofs.str()
-	};
+  // NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+  std::istringstream ifs{ofs.str()};
 
-	using
-	dispatcher
-	=
-	alda::call::object<
-		type_enum,
-		fcppt::mpl::list::object<
-			message1,
-			message2
-		>,
-		dispatcher_function
-	>;
+  using dispatcher = alda::call::
+      object<type_enum, fcppt::mpl::list::object<message1, message2>, dispatcher_function>;
 
-	dispatcher const dispatcher_object{};
+  dispatcher const dispatcher_object{};
 
-	dispatcher_function receiver{};
+  dispatcher_function receiver{};
 
-	dispatcher::default_callback const default_callback(
-		[](
-			message_base const &_message
-		){
-			dispatcher_function::default_callback(
-				_message
-			);
-		}
-	);
+  dispatcher::default_callback const default_callback(
+      [](message_base const &_message) { dispatcher_function::default_callback(_message); });
 
-	SECTION(
-		"message1"
-	)
-	{
-		message_base_unique_ptr result(
-			alda::serialization::deserialize(
-				global_context(),
-				ifs
-			)
-		);
+  SECTION("message1")
+  {
+    message_base_unique_ptr result(alda::serialization::deserialize(global_context(), ifs));
 
-		CHECK(
-			result->type()
-			==
-			message_type::message1
-		);
+    CHECK(result->type() == message_type::message1);
 
-		dispatcher_object(
-			*result,
-			receiver,
-			default_callback
-		);
-	}
+    dispatcher_object(*result, receiver, default_callback);
+  }
 
-	ofs.str("");
+  ofs.str("");
 
-	alda::serialization::serialize(
-		ofs,
-		*alda::message::make_concrete_ptr<
-			type_enum
-		>(
-			alda::message::init_record<
-				message2
-			>(
-				uint32_role{} =
-					static_cast<
-						std::uint32_t
-					>(
-						42 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-					)
-			)
-		)
-	);
+  alda::serialization::serialize(
+      ofs,
+      *alda::message::make_concrete_ptr<type_enum>(alda::message::init_record<message2>(
+          uint32_role{} = static_cast<std::uint32_t>(
+              42 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+              ))));
 
-	ifs.str(
-		ofs.str()
-	);
+  ifs.str(ofs.str());
 
-	SECTION(
-		"message2"
-	)
-	{
-		message_base_unique_ptr result(
-			alda::serialization::deserialize(
-				global_context(),
-				ifs
-			)
-		);
+  SECTION("message2")
+  {
+    message_base_unique_ptr result(alda::serialization::deserialize(global_context(), ifs));
 
-		CHECK(
-			result->type()
-			==
-			message_type::message2
-		);
+    CHECK(result->type() == message_type::message2);
 
-		dispatcher_object(
-			*result,
-			receiver,
-			default_callback
-		);
-	}
+    dispatcher_object(*result, receiver, default_callback);
+  }
 }
 
 FCPPT_CATCH_END

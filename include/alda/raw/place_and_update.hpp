@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_RAW_PLACE_AND_UPDATE_HPP_INCLUDED
 #define ALDA_RAW_PLACE_AND_UPDATE_HPP_INCLUDED
 
@@ -12,38 +11,16 @@
 #include <alda/raw/place.hpp>
 #include <alda/raw/pointer.hpp>
 
-
 namespace alda::raw
 {
 
-template<
-	typename Type
->
-[[nodiscard]]
-inline
-alda::raw::pointer
-place_and_update(
-	alda::raw::element_type<
-		Type
-	> const &_value,
-	alda::raw::pointer const _data
-)
+template <typename Type>
+[[nodiscard]] inline alda::raw::pointer
+place_and_update(alda::raw::element_type<Type> const &_value, alda::raw::pointer const _data)
 {
-	alda::raw::place<
-		Type
-	>(
-		_value,
-		_data
-	);
+  alda::raw::place<Type>(_value, _data);
 
-	return
-		_data
-		+
-		alda::raw::needed_size<
-			Type
-		>(
-			_value
-		);
+  return _data + alda::raw::needed_size<Type>(_value);
 }
 
 }

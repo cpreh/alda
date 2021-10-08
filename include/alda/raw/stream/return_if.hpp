@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_RAW_STREAM_RETURN_IF_HPP_INCLUDED
 #define ALDA_RAW_STREAM_RETURN_IF_HPP_INCLUDED
 
@@ -17,77 +16,23 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace alda::raw::stream
 {
 
-template<
-	typename Stream,
-	typename Type
->
-inline
-typename
-std::enable_if<
-	Stream::can_fail,
-	alda::raw::stream::result<
-		Stream,
-		Type
-	>
->::type
-return_if(
-	alda::raw::stream::reference<
-		Stream
-	> _stream,
-	alda::raw::element_type<
-		Type
-	> const &_value
-)
+template <typename Stream, typename Type>
+inline typename std::enable_if<Stream::can_fail, alda::raw::stream::result<Stream, Type>>::type
+return_if(alda::raw::stream::reference<Stream> _stream, alda::raw::element_type<Type> const &_value)
 {
-	return
-		Stream::failed(
-			_stream
-		)
-		?
-			alda::raw::stream::fail<
-				Stream,
-				Type
-			>(
-				FCPPT_TEXT("Stream failed")
-			)
-		:
-			alda::raw::stream::return_<
-				Stream
-			>(
-				_value
-			)
-		;
-
+  return Stream::failed(_stream)
+             ? alda::raw::stream::fail<Stream, Type>(FCPPT_TEXT("Stream failed"))
+             : alda::raw::stream::return_<Stream>(_value);
 }
 
-template<
-	typename Stream,
-	typename Type
->
-inline
-typename
-std::enable_if<
-	!Stream::can_fail,
-	alda::raw::stream::result<
-		Stream,
-		Type
-	>
->::type
-return_if(
-	alda::raw::stream::reference<
-		Stream
-	>,
-	alda::raw::element_type<
-		Type
-	> const &_value
-)
+template <typename Stream, typename Type>
+inline typename std::enable_if<!Stream::can_fail, alda::raw::stream::result<Stream, Type>>::type
+return_if(alda::raw::stream::reference<Stream>, alda::raw::element_type<Type> const &_value)
 {
-	return
-		_value;
+  return _value;
 }
 
 }

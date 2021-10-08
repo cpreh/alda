@@ -3,20 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_NET_PORT_FWD_HPP_INCLUDED
 #define ALDA_NET_PORT_FWD_HPP_INCLUDED
 
 #include <fcppt/declare_strong_typedef.hpp>
 
-
 namespace alda::net
 {
 
-FCPPT_DECLARE_STRONG_TYPEDEF(
-	unsigned int,
-	port
-);
+FCPPT_DECLARE_STRONG_TYPEDEF(unsigned int, port);
 
 }
 

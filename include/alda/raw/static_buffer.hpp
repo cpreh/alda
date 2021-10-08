@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_RAW_STATIC_BUFFER_HPP_INCLUDED
 #define ALDA_RAW_STATIC_BUFFER_HPP_INCLUDED
 
@@ -11,22 +10,12 @@
 #include <alda/raw/static_size.hpp>
 #include <fcppt/array/object_impl.hpp>
 
-
 namespace alda::raw
 {
 
-template<
-	typename Type
->
-using
-static_buffer
-=
-fcppt::array::object<
-	alda::raw::data,
-	alda::raw::static_size<
-		Type
-	>::type::value
->;
+template <typename Type>
+using static_buffer =
+    fcppt::array::object<alda::raw::data, alda::raw::static_size<Type>::type::value>;
 
 }
 

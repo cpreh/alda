@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_BINDINGS_ENUM_HPP_INCLUDED
 #define ALDA_BINDINGS_ENUM_HPP_INCLUDED
 
@@ -29,131 +28,39 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 
-
 namespace alda::bindings
 {
 
-template<
-	typename Enum,
-	typename Adapted
->
-inline
-void
-place(
-	alda::raw::dispatch_type<
-		alda::bindings::enum_<
-			Enum,
-			Adapted
-		>
-	>,
-	alda::raw::element_type<
-		alda::bindings::enum_<
-			Enum,
-			Adapted
-		>
-	> const &_enum,
-	alda::raw::pointer const _mem
-)
+template <typename Enum, typename Adapted>
+inline void place(
+    alda::raw::dispatch_type<alda::bindings::enum_<Enum, Adapted>>,
+    alda::raw::element_type<alda::bindings::enum_<Enum, Adapted>> const &_enum,
+    alda::raw::pointer const _mem)
 {
-	alda::raw::place<
-		Adapted
-	>(
-		fcppt::cast::enum_to_int<
-			alda::raw::element_type<
-				Adapted
-			>
-		>(
-			_enum
-		),
-		_mem
-	);
+  alda::raw::place<Adapted>(
+      fcppt::cast::enum_to_int<alda::raw::element_type<Adapted>>(_enum), _mem);
 }
 
-template<
-	typename Stream,
-	typename Enum,
-	typename Adapted
->
-inline
-alda::raw::stream::result<
-	Stream,
-	alda::bindings::enum_<
-		Enum,
-		Adapted
-	>
->
-make_generic(
-	alda::raw::dispatch_type<
-		alda::bindings::enum_<
-			Enum,
-			Adapted
-		>
-	>,
-	alda::raw::dispatch_type<
-		Stream
-	>,
-	alda::raw::stream::reference<
-		Stream
-	> _stream
-)
+template <typename Stream, typename Enum, typename Adapted>
+inline alda::raw::stream::result<Stream, alda::bindings::enum_<Enum, Adapted>> make_generic(
+    alda::raw::dispatch_type<alda::bindings::enum_<Enum, Adapted>>,
+    alda::raw::dispatch_type<Stream>,
+    alda::raw::stream::reference<Stream> _stream)
 {
-	return
-		alda::raw::stream::bind<
-			Stream
-		>(
-			alda::raw::make_generic<
-				Stream,
-				Adapted
-			>(
-				_stream
-			),
-			[](
-				alda::raw::element_type<
-					Adapted
-				> const _element
-			)
-			{
-				return
-					fcppt::optional::maybe(
-						fcppt::enum_::from_int<
-							Enum
-						>(
-							_element
-						),
-						[
-							_element
-						]{
-							return
-								alda::raw::stream::fail<
-									Stream,
-									alda::bindings::enum_<
-										Enum,
-										Adapted
-									>
-								>(
-									FCPPT_TEXT("Invalid value ")
-									+
-									fcppt::output_to_fcppt_string(
-										fcppt::cast::promote_int(
-											_element
-										)
-									)
-								);
-						},
-						[](
-							Enum const _value
-						)
-						{
-							return
-								alda::raw::stream::return_<
-									Stream
-								>(
-									_value
-								);
-						}
-					);
-			}
-		);
+  return alda::raw::stream::bind<Stream>(
+      alda::raw::make_generic<Stream, Adapted>(_stream),
+      [](alda::raw::element_type<Adapted> const _element)
+      {
+        return fcppt::optional::maybe(
+            fcppt::enum_::from_int<Enum>(_element),
+            [_element]
+            {
+              return alda::raw::stream::fail<Stream, alda::bindings::enum_<Enum, Adapted>>(
+                  FCPPT_TEXT("Invalid value ") +
+                  fcppt::output_to_fcppt_string(fcppt::cast::promote_int(_element)));
+            },
+            [](Enum const _value) { return alda::raw::stream::return_<Stream>(_value); });
+      });
 }
 
 }
@@ -164,20 +71,8 @@ namespace alda::raw
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
-template<
-	typename Enum,
-	typename Adapted
->
-struct static_size_impl<
-	alda::bindings::enum_<
-		Enum,
-		Adapted
-	>
->
-:
-alda::raw::static_size_impl<
-	Adapted
->
+template <typename Enum, typename Adapted>
+struct static_size_impl<alda::bindings::enum_<Enum, Adapted>> : alda::raw::static_size_impl<Adapted>
 {
 };
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_SERIALIZATION_ENDIANNESS_HPP_INCLUDED
 #define ALDA_SERIALIZATION_ENDIANNESS_HPP_INCLUDED
 
@@ -11,18 +10,10 @@
 #include <bit>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace alda::serialization
 {
 
-inline
-constexpr
-std::endian
-endianness()
-{
-	return
-		std::endian::little;
-}
+inline constexpr std::endian endianness() { return std::endian::little; }
 
 }
 

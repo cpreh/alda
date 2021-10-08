@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_BINDINGS_UNSIGNED_DECL_HPP_INCLUDED
 #define ALDA_BINDINGS_UNSIGNED_DECL_HPP_INCLUDED
 
@@ -14,40 +13,19 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace alda::bindings
 {
 
-template<
-	typename Type,
-	std::endian Endianness
->
+template <typename Type, std::endian Endianness>
 struct unsigned_
 {
-	using
-	element_type
-	=
-	Type;
+  using element_type = Type;
 
-	using
-	impl
-	=
-	alda::bindings::fundamental<
-		Type
-	>;
+  using impl = alda::bindings::fundamental<Type>;
 
-	static
-	constexpr
-	std::endian const endianness{
-		Endianness
-	};
+  static constexpr std::endian const endianness{Endianness};
 
-	static_assert(
-		std::is_unsigned_v<
-			Type
-		>,
-		"alda::bindings::unsigned_ only works on unsigned types"
-	);
+  static_assert(std::is_unsigned_v<Type>, "alda::bindings::unsigned_ only works on unsigned types");
 };
 
 }

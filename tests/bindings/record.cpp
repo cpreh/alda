@@ -29,218 +29,79 @@
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace
 {
 
-using
-int_
-=
-alda::bindings::fundamental<
-	int
->;
+using int_ = alda::bindings::fundamental<int>;
 
-FCPPT_RECORD_MAKE_LABEL(
-	int_role
-);
+FCPPT_RECORD_MAKE_LABEL(int_role);
 
-FCPPT_RECORD_MAKE_LABEL(
-	record_role
-);
+FCPPT_RECORD_MAKE_LABEL(record_role);
 
-using
-inner_record_binding
-=
-alda::bindings::record_variadic<
-	fcppt::record::element<
-		int_role,
-		int_
-	>
->;
+using inner_record_binding =
+    alda::bindings::record_variadic<fcppt::record::element<int_role, int_>>;
 
 static_assert(
-	alda::raw::static_size<
-		inner_record_binding
-	>::value
-	== // NOLINT(misc-redundant-expression)
-	alda::raw::static_size<
-		int_
-	>::value
-);
+    alda::raw::static_size<inner_record_binding>::value == // NOLINT(misc-redundant-expression)
+    alda::raw::static_size<int_>::value);
 
-using
-inner_record
-=
-alda::raw::element_type<
-	inner_record_binding
->;
+using inner_record = alda::raw::element_type<inner_record_binding>;
 
-using
-record_binding
-=
-alda::bindings::record_variadic<
-	fcppt::record::element<
-		int_role,
-		int_
-	>,
-	fcppt::record::element<
-		record_role,
-		inner_record_binding
-	>
->;
+using record_binding = alda::bindings::record_variadic<
+    fcppt::record::element<int_role, int_>,
+    fcppt::record::element<record_role, inner_record_binding>>;
 
 static_assert(
-	alda::raw::static_size<
-		record_binding
-	>::value
-	==
-	alda::raw::static_size<
-		inner_record_binding
-	>::value
-	+
-	alda::raw::static_size<
-		int_
-	>::value
-);
+    alda::raw::static_size<record_binding>::value ==
+    alda::raw::static_size<inner_record_binding>::value + alda::raw::static_size<int_>::value);
 
-FCPPT_RECORD_MAKE_LABEL(
-	optional_label
-);
+FCPPT_RECORD_MAKE_LABEL(optional_label);
 
 static_assert(
-	!alda::raw::is_static_size<
-		alda::bindings::record_variadic<
-			fcppt::record::element<
-				optional_label,
-				alda::bindings::optional<
-					bool,
-					alda::bindings::bool_
-				>
-			>,
-			fcppt::record::element<
-				int_role,
-				int_
-			>
-		>
-	>::value
-);
+    !alda::raw::is_static_size<alda::bindings::record_variadic<
+        fcppt::record::
+            element<optional_label, alda::bindings::optional<bool, alda::bindings::bool_>>,
+        fcppt::record::element<int_role, int_>>>::value);
 
-using
-record
-=
-alda::raw::element_type<
-	record_binding
->;
+using record = alda::raw::element_type<record_binding>;
 
-using
-either_result_type
-=
-fcppt::either::object<
-	alda::raw::stream::error,
-	record
->;
+using either_result_type = fcppt::either::object<alda::raw::stream::error, record>;
 
 }
 
 FCPPT_CATCH_BEGIN
 
-TEST_CASE(
-	"bindings::record istream",
-	"[alda]"
-)
+TEST_CASE("bindings::record istream", "[alda]")
 {
-	record const test{
-		int_role{} = 42,
-		record_role{} =
-			inner_record{
-				int_role{} = 10
-			}
-	};
+  record const test{int_role{} = 42, record_role{} = inner_record{int_role{} = 10}};
 
-	CHECK(
-		alda::raw::needed_size<
-			record_binding
-		>(
-			test
-		)
-		==
-		alda::raw::static_size<
-			record_binding
-		>::value
-	);
+  CHECK(
+      alda::raw::needed_size<record_binding>(test) ==
+      alda::raw::static_size<record_binding>::value);
 
-	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
-	std::stringstream stream{};
+  // NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+  std::stringstream stream{};
 
-	alda::serialization::write<
-		record_binding
-	>(
-		stream,
-		test
-	);
+  alda::serialization::write<record_binding>(stream, test);
 
-	CHECK(
-		alda::serialization::read<
-			record_binding
-		>(
-			stream
-		)
-		==
-		fcppt::either::make_success<
-			alda::raw::stream::error
-		>(
-			test
-		)
-	);
+  CHECK(
+      alda::serialization::read<record_binding>(stream) ==
+      fcppt::either::make_success<alda::raw::stream::error>(test));
 
-	CHECK(
-		alda::serialization::read<
-			record_binding
-		>(
-			stream
-		).has_failure()
-	);
+  CHECK(alda::serialization::read<record_binding>(stream).has_failure());
 }
 
-TEST_CASE(
-	"bindings::record raw",
-	"[alda]"
-)
+TEST_CASE("bindings::record raw", "[alda]")
 {
-	record const test{
-		int_role{} = 42,
-		record_role{} =
-			inner_record{
-				int_role{} = 10
-			}
-	};
+  record const test{int_role{} = 42, record_role{} = inner_record{int_role{} = 10}};
 
-	alda::raw::buffer const buffer(
-		alda::raw::to_buffer<
-			record_binding
-		>(
-			test
-		)
-	);
+  alda::raw::buffer const buffer(alda::raw::to_buffer<record_binding>(test));
 
-	alda::raw::const_pointer stream(
-		buffer.data()
-	);
+  alda::raw::const_pointer stream(buffer.data());
 
-	record const result{
-		alda::raw::make_generic<
-			alda::raw::stream::memory,
-			record_binding
-		>(
-			stream
-		)
-	};
+  record const result{alda::raw::make_generic<alda::raw::stream::memory, record_binding>(stream)};
 
-	CHECK(
-		test
-		==
-		result
-	);
+  CHECK(test == result);
 }
 
 FCPPT_CATCH_END

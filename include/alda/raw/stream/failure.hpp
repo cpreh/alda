@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_RAW_STREAM_FAILURE_HPP_INCLUDED
 #define ALDA_RAW_STREAM_FAILURE_HPP_INCLUDED
 
@@ -13,48 +12,29 @@
 #include <alda/raw/stream/failure_fwd.hpp>
 #include <fcppt/string.hpp>
 
-
 namespace alda::raw::stream
 {
 
-class ALDA_DETAIL_CLASS_SYMBOL failure
-:
-	public alda::exception
+class ALDA_DETAIL_CLASS_SYMBOL failure : public alda::exception
 {
 public:
-	ALDA_DETAIL_SYMBOL
-	explicit
-	failure(
-		fcppt::string &&
-	);
+  ALDA_DETAIL_SYMBOL
+  explicit failure(fcppt::string &&);
 
-	ALDA_DETAIL_SYMBOL
-	failure(
-		failure &&
-	)
-	noexcept;
+  ALDA_DETAIL_SYMBOL
+  failure(failure &&) noexcept;
 
-	ALDA_DETAIL_SYMBOL
-	failure(
-		failure const &
-	);
+  ALDA_DETAIL_SYMBOL
+  failure(failure const &);
 
-	ALDA_DETAIL_SYMBOL
-	failure &
-	operator=(
-		failure &&
-	)
-	noexcept;
+  ALDA_DETAIL_SYMBOL
+  failure &operator=(failure &&) noexcept;
 
-	ALDA_DETAIL_SYMBOL
-	failure &
-	operator=(
-		failure const &
-	);
+  ALDA_DETAIL_SYMBOL
+  failure &operator=(failure const &);
 
-	ALDA_DETAIL_SYMBOL
-	~failure() noexcept
-	override;
+  ALDA_DETAIL_SYMBOL
+  ~failure() noexcept override;
 };
 
 }

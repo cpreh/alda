@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_BINDINGS_BOOL_HPP_INCLUDED
 #define ALDA_BINDINGS_BOOL_HPP_INCLUDED
 
@@ -28,138 +27,47 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 
-
 namespace alda::bindings
 {
 
-inline
-void
-place(
-	alda::raw::dispatch_type<
-		alda::bindings::bool_
-	>,
-	alda::raw::element_type<
-		alda::bindings::bool_
-	> const _value,
-	alda::raw::pointer const _data
-)
+inline void place(
+    alda::raw::dispatch_type<alda::bindings::bool_>,
+    alda::raw::element_type<alda::bindings::bool_> const _value,
+    alda::raw::pointer const _data)
 {
-	alda::raw::place<
-		alda::bindings::bool_::wrapped_type
-	>(
-		_value
-		?
-			fcppt::literal<
-				alda::raw::element_type<
-					alda::bindings::bool_::wrapped_type
-				>
-			>(
-				1
-			)
-		:
-			fcppt::literal<
-				alda::raw::element_type<
-					alda::bindings::bool_::wrapped_type
-				>
-			>(
-				0
-			)
-		,
-		_data
-	);
+  alda::raw::place<alda::bindings::bool_::wrapped_type>(
+      _value ? fcppt::literal<alda::raw::element_type<alda::bindings::bool_::wrapped_type>>(1)
+             : fcppt::literal<alda::raw::element_type<alda::bindings::bool_::wrapped_type>>(0),
+      _data);
 }
 
-template<
-	typename Stream
->
-alda::raw::stream::result<
-	Stream,
-	alda::bindings::bool_
->
-make_generic(
-	alda::raw::dispatch_type<
-		alda::bindings::bool_
-	>,
-	alda::raw::dispatch_type<
-		Stream
-	>,
-	alda::raw::stream::reference<
-		Stream
-	> _stream
-)
+template <typename Stream>
+alda::raw::stream::result<Stream, alda::bindings::bool_> make_generic(
+    alda::raw::dispatch_type<alda::bindings::bool_>,
+    alda::raw::dispatch_type<Stream>,
+    alda::raw::stream::reference<Stream> _stream)
 {
-	return
-		alda::raw::stream::bind<
-			Stream
-		>(
-			alda::raw::make_generic<
-				Stream,
-				alda::bindings::bool_::wrapped_type
-			>(
-				_stream
-			),
-			[](
-				alda::raw::element_type<
-					alda::bindings::bool_::wrapped_type
-				> const _element
-			)
-			{
-				using
-				wrapped_element
-				=
-				alda::raw::element_type<
-					alda::bindings::bool_::wrapped_type
-				>;
+  return alda::raw::stream::bind<Stream>(
+      alda::raw::make_generic<Stream, alda::bindings::bool_::wrapped_type>(_stream),
+      [](alda::raw::element_type<alda::bindings::bool_::wrapped_type> const _element)
+      {
+        using wrapped_element = alda::raw::element_type<alda::bindings::bool_::wrapped_type>;
 
-				switch(
-					_element
-				)
-				{
-				case
-					fcppt::literal<
-						wrapped_element
-					>(
-						0
-					):
-					return
-						alda::raw::stream::return_<
-							Stream
-						>(
-							false
-						);
-				case
-					fcppt::literal<
-						wrapped_element
-					>(
-						1
-					):
-					return
-						alda::raw::stream::return_<
-							Stream
-						>(
-							true
-						);
-				default:
-					return
-						alda::raw::stream::fail<
-							Stream,
-							alda::bindings::bool_
-						>(
-							FCPPT_TEXT("Invalid value: ")
-							+
-							fcppt::output_to_fcppt_string(
-								fcppt::cast::promote_int(
-									_element
-								)
-							)
-						);
-				}
-			}
-		);
+        switch (_element)
+        {
+        case fcppt::literal<wrapped_element>(0):
+          return alda::raw::stream::return_<Stream>(false);
+        case fcppt::literal<wrapped_element>(1):
+          return alda::raw::stream::return_<Stream>(true);
+        default:
+          return alda::raw::stream::fail<Stream, alda::bindings::bool_>(
+              FCPPT_TEXT("Invalid value: ") +
+              fcppt::output_to_fcppt_string(fcppt::cast::promote_int(_element)));
+        }
+      });
 }
 
 }
-
 
 namespace alda::raw
 {
@@ -167,14 +75,9 @@ namespace alda::raw
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
-template<>
-struct static_size_impl<
-	alda::bindings::bool_
->
-:
-alda::raw::static_size_impl<
-	alda::bindings::bool_::wrapped_type
->
+template <>
+struct static_size_impl<alda::bindings::bool_>
+    : alda::raw::static_size_impl<alda::bindings::bool_::wrapped_type>
 {
 };
 

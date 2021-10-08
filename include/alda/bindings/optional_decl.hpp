@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_BINDINGS_OPTIONAL_DECL_HPP_INCLUDED
 #define ALDA_BINDINGS_OPTIONAL_DECL_HPP_INCLUDED
 
@@ -11,27 +10,15 @@
 #include <alda/bindings/optional_fwd.hpp>
 #include <fcppt/optional/object_fwd.hpp>
 
-
 namespace alda::bindings
 {
 
-template<
-	typename Type,
-	typename Adapted
->
+template <typename Type, typename Adapted>
 struct optional
 {
-	using
-	element_type
-	=
-	fcppt::optional::object<
-		Type
-	>;
+  using element_type = fcppt::optional::object<Type>;
 
-	using
-	bool_type
-	=
-	alda::bindings::bool_;
+  using bool_type = alda::bindings::bool_;
 };
 
 }

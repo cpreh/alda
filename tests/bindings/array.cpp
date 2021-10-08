@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <alda/bindings/array.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <alda/raw/static_size.hpp>
@@ -23,86 +22,34 @@
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace
 {
 
-using
-int_array2
-=
-fcppt::array::object<
-	unsigned,
-	2
->;
+using int_array2 = fcppt::array::object<unsigned, 2>;
 
-using
-array_binding
-=
-alda::bindings::array<
-	int_array2,
-	alda::bindings::unsigned_<
-		int_array2::value_type,
-		std::endian::little
-	>
->;
+using array_binding = alda::bindings::
+    array<int_array2, alda::bindings::unsigned_<int_array2::value_type, std::endian::little>>;
 
-static_assert(
-	alda::raw::static_size<
-		array_binding
-	>::value
-	==
-	sizeof(
-		unsigned
-	)
-	*
-	2U
-);
+static_assert(alda::raw::static_size<array_binding>::value == sizeof(unsigned) * 2U);
 
-using
-either_result_type
-=
-fcppt::either::object<
-	alda::raw::stream::error,
-	int_array2
->;
+using either_result_type = fcppt::either::object<alda::raw::stream::error, int_array2>;
 
 }
 
 FCPPT_CATCH_BEGIN
 
-TEST_CASE(
-	"bindings::array",
-	"[alda]"
-)
+TEST_CASE("bindings::array", "[alda]")
 {
-	int_array2 const test{
-		2U,
-		4U
-	};
+  int_array2 const test{2U, 4U};
 
-	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
-	std::stringstream stream{};
+  // NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+  std::stringstream stream{};
 
-	alda::serialization::write<
-		array_binding
-	>(
-		stream,
-		test
-	);
+  alda::serialization::write<array_binding>(stream, test);
 
-	CHECK(
-		alda::serialization::read<
-			array_binding
-		>(
-			stream
-		)
-		==
-		fcppt::either::make_success<
-			alda::raw::stream::error
-		>(
-			test
-		)
-	);
+  CHECK(
+      alda::serialization::read<array_binding>(stream) ==
+      fcppt::either::make_success<alda::raw::stream::error>(test));
 }
 
 FCPPT_CATCH_END

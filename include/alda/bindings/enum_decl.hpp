@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_BINDINGS_ENUM_DECL_HPP_INCLUDED
 #define ALDA_BINDINGS_ENUM_DECL_HPP_INCLUDED
 
@@ -12,27 +11,15 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace alda::bindings
 {
 
-template<
-	typename Enum,
-	typename Adapted
->
+template <typename Enum, typename Adapted>
 struct enum_
 {
-	using
-	element_type
-	=
-	Enum;
+  using element_type = Enum;
 
-	static_assert(
-		std::is_enum_v<
-			Enum
-		>,
-		"Enum ist not an enumeration type"
-	);
+  static_assert(std::is_enum_v<Enum>, "Enum ist not an enumeration type");
 };
 
 }

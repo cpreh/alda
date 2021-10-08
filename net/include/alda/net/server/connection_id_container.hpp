@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_NET_SERVER_CONNECTION_ID_CONTAINER_HPP_INCLUDED
 #define ALDA_NET_SERVER_CONNECTION_ID_CONTAINER_HPP_INCLUDED
 
@@ -12,16 +11,11 @@
 #include <boost/range/adaptor/map.hpp>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace alda::net::server
 {
 
-using
-connection_id_container
-=
-boost::select_first_range<
-	alda::net::server::detail::connection_container
->;
+using connection_id_container =
+    boost::select_first_range<alda::net::server::detail::connection_container>;
 
 }
 

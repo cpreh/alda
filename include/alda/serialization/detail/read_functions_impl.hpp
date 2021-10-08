@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_SERIALIZATION_DETAIL_READ_FUNCTIONS_IMPL_HPP_INCLUDED
 #define ALDA_SERIALIZATION_DETAIL_READ_FUNCTIONS_IMPL_HPP_INCLUDED
 
@@ -23,61 +22,21 @@
 #include <typeinfo>
 #include <fcppt/config/external_end.hpp>
 
-
-template<
-	typename TypeEnum
->
-template<
-	typename Message
->
-typename
-alda::serialization::detail::read<
-	TypeEnum
->::message_unique_ptr
-alda::serialization::detail::read<
-	TypeEnum
->::operator()(
-	fcppt::tag<
-		Message
-	>
-) const
+template <typename TypeEnum>
+template <typename Message>
+typename alda::serialization::detail::read<TypeEnum>::message_unique_ptr
+alda::serialization::detail::read<TypeEnum>::operator()(fcppt::tag<Message>) const
 {
-	return
-		alda::message::make_concrete_ptr<
-			TypeEnum
-		>(
-			Message{
-				fcppt::either::to_exception(
-					alda::raw::make_generic<
-						alda::raw::stream::istream,
-						typename
-						Message::binding
-					>(
-						this->stream_.get()
-					),
-					[](
-						alda::raw::stream::error const &_error
-					){
-						return
-							alda::exception{
-								FCPPT_TEXT("Message stream failed while reading message ")
-								+
-								fcppt::from_std_string(
-									fcppt::type_name_from_info(
-										typeid(
-											Message
-										)
-									)
-								)
-								+
-								FCPPT_TEXT(" with error: ")
-								+
-								_error.get()
-							};
-					}
-				)
-			}
-		);
+  return alda::message::make_concrete_ptr<TypeEnum>(Message{fcppt::either::to_exception(
+      alda::raw::make_generic<alda::raw::stream::istream, typename Message::binding>(
+          this->stream_.get()),
+      [](alda::raw::stream::error const &_error)
+      {
+        return alda::exception{
+            FCPPT_TEXT("Message stream failed while reading message ") +
+            fcppt::from_std_string(fcppt::type_name_from_info(typeid(Message))) +
+            FCPPT_TEXT(" with error: ") + _error.get()};
+      })});
 }
 
 #endif

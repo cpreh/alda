@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_SERIALIZATION_DETAIL_DISPATCH_BASE_DECL_HPP_INCLUDED
 #define ALDA_SERIALIZATION_DETAIL_DISPATCH_BASE_DECL_HPP_INCLUDED
 
@@ -14,46 +13,27 @@
 #include <alda/serialization/detail/dispatch/base_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace alda::serialization::detail::dispatch
 {
 
-template<
-	typename TypeEnum
->
+template <typename TypeEnum>
 class ALDA_DETAIL_EXTERNAL_CLASS_SYMBOL base
 {
-	FCPPT_NONMOVABLE(
-		base
-	);
+  FCPPT_NONMOVABLE(base);
+
 protected:
-	ALDA_DETAIL_EXTERNAL_SYMBOL
-	base();
+  ALDA_DETAIL_EXTERNAL_SYMBOL
+  base();
+
 public:
-	using
-	message_unique_ptr
-	=
-	alda::message::base_unique_ptr<
-		TypeEnum
-	>;
+  using message_unique_ptr = alda::message::base_unique_ptr<TypeEnum>;
 
-	using
-	reader
-	=
-	alda::serialization::detail::read<
-		TypeEnum
-	>;
+  using reader = alda::serialization::detail::read<TypeEnum>;
 
-	ALDA_DETAIL_EXTERNAL_SYMBOL
-	virtual
-	~base() = 0;
+  ALDA_DETAIL_EXTERNAL_SYMBOL
+  virtual ~base() = 0;
 
-	[[nodiscard]]
-	virtual
-	message_unique_ptr
-	on_dispatch(
-		reader const &
-	) const = 0;
+  [[nodiscard]] virtual message_unique_ptr on_dispatch(reader const &) const = 0;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_BINDINGS_FUNDAMENTAL_HPP_INCLUDED
 #define ALDA_BINDINGS_FUNDAMENTAL_HPP_INCLUDED
 
@@ -25,7 +24,6 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 
-
 namespace alda
 {
 namespace raw
@@ -34,18 +32,8 @@ namespace raw
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
-template<
-	typename T
->
-struct static_size_impl<
-	alda::bindings::fundamental<
-		T
-	>
->
-:
-alda::raw::integral_size<
-	sizeof(T)
->
+template <typename T>
+struct static_size_impl<alda::bindings::fundamental<T>> : alda::raw::integral_size<sizeof(T)>
 {
 };
 
@@ -56,89 +44,32 @@ FCPPT_PP_POP_WARNING
 namespace bindings
 {
 
-template<
-	typename Type
->
-inline
-void
-place(
-	alda::raw::dispatch_type<
-		alda::bindings::fundamental<
-			Type
-		>
-	>,
-	Type const &_value,
-	alda::raw::pointer const _memory
-)
+template <typename Type>
+inline void place(
+    alda::raw::dispatch_type<alda::bindings::fundamental<Type>>,
+    Type const &_value,
+    alda::raw::pointer const _memory)
 {
-	alda::raw::detail::copy_n(
-		fcppt::cast::to_char_ptr<
-			alda::raw::const_pointer
-		>(
-			&_value
-		),
-		alda::raw::static_size<
-			alda::bindings::fundamental<
-				Type
-			>
-		>::value,
-		_memory
-	);
+  alda::raw::detail::copy_n(
+      fcppt::cast::to_char_ptr<alda::raw::const_pointer>(&_value),
+      alda::raw::static_size<alda::bindings::fundamental<Type>>::value,
+      _memory);
 }
 
-template<
-	typename Type,
-	typename Stream
->
-inline
-alda::raw::stream::result<
-	Stream,
-	alda::bindings::fundamental<
-		Type
-	>
->
-make_generic(
-	alda::raw::dispatch_type<
-		alda::bindings::fundamental<
-			Type
-		>
-	>,
-	alda::raw::dispatch_type<
-		Stream
-	>,
-	alda::raw::stream::reference<
-		Stream
-	> _stream
-)
+template <typename Type, typename Stream>
+inline alda::raw::stream::result<Stream, alda::bindings::fundamental<Type>> make_generic(
+    alda::raw::dispatch_type<alda::bindings::fundamental<Type>>,
+    alda::raw::dispatch_type<Stream>,
+    alda::raw::stream::reference<Stream> _stream)
 {
-	Type ret;
+  Type ret;
 
-	alda::raw::stream::read<
-		Stream
-	>(
-		_stream,
-		alda::raw::static_size<
-			alda::bindings::fundamental<
-				Type
-			>
-		>::value,
-		fcppt::cast::to_char_ptr<
-			alda::raw::pointer
-		>(
-			&ret
-		)
-	);
+  alda::raw::stream::read<Stream>(
+      _stream,
+      alda::raw::static_size<alda::bindings::fundamental<Type>>::value,
+      fcppt::cast::to_char_ptr<alda::raw::pointer>(&ret));
 
-	return
-		alda::raw::stream::return_if<
-			Stream,
-			alda::bindings::fundamental<
-				Type
-			>
-		>(
-			_stream,
-			ret
-		);
+  return alda::raw::stream::return_if<Stream, alda::bindings::fundamental<Type>>(_stream, ret);
 }
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_CALL_OBJECT_DECL_HPP_INCLUDED
 #define ALDA_CALL_OBJECT_DECL_HPP_INCLUDED
 
@@ -16,83 +15,36 @@
 #include <fcppt/enum/array_decl.hpp>
 #include <fcppt/optional/object_decl.hpp>
 
-
 namespace alda::call
 {
 
-template<
-	typename TypeEnum,
-	typename Messages,
-	typename Callee
->
+template <typename TypeEnum, typename Messages, typename Callee>
 class object
 {
-	FCPPT_NONMOVABLE(
-		object
-	);
+  FCPPT_NONMOVABLE(object);
 
-	using
-	result_type
-	=
-	typename Callee::result_type;
+  using result_type = typename Callee::result_type;
 
-	using
-	base
-	=
-	alda::call::detail::base<
-		TypeEnum,
-		Callee
-	>;
+  using base = alda::call::detail::base<TypeEnum, Callee>;
+
 public:
-	using
-	default_callback
-	=
-	alda::call::default_callback<
-		TypeEnum,
-		result_type
-	>;
-	using
-	message_base
-	=
-	alda::message::base<
-		TypeEnum
-	>;
+  using default_callback = alda::call::default_callback<TypeEnum, result_type>;
+  using message_base = alda::message::base<TypeEnum>;
 
-	object();
+  object();
 
-	~object();
+  ~object();
 
-	result_type
-	operator()(
-		message_base const &,
-		Callee &,
-		default_callback const &
-	) const;
+  result_type operator()(message_base const &, Callee &, default_callback const &) const;
+
 private:
-	using
-	base_unique_ptr
-	=
-	fcppt::unique_ptr<
-		base
-	>;
+  using base_unique_ptr = fcppt::unique_ptr<base>;
 
-	using
-	optional_base_unique_ptr
-	=
-	fcppt::optional::object<
-		base_unique_ptr
-	>;
+  using optional_base_unique_ptr = fcppt::optional::object<base_unique_ptr>;
 
-	using
-	instance_array
-	=
-	fcppt::enum_::array<
-		typename
-		TypeEnum::type,
-		optional_base_unique_ptr
-	>;
+  using instance_array = fcppt::enum_::array<typename TypeEnum::type, optional_base_unique_ptr>;
 
-	instance_array const instances_;
+  instance_array const instances_;
 };
 
 }

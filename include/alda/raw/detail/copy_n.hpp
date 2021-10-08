@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_RAW_DETAIL_COPY_N_HPP_INCLUDED
 #define ALDA_RAW_DETAIL_COPY_N_HPP_INCLUDED
 
@@ -14,23 +13,15 @@
 #include <cstring>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace alda::raw::detail
 {
 
-inline
-void
-copy_n(
-	alda::raw::const_pointer const _src,
-	alda::raw::size_type const _sz,
-	alda::raw::pointer const _dest
-)
+inline void copy_n(
+    alda::raw::const_pointer const _src,
+    alda::raw::size_type const _sz,
+    alda::raw::pointer const _dest)
 {
-	std::memcpy(
-		_dest,
-		_src,
-		_sz
-	);
+  std::memcpy(_dest, _src, _sz);
 }
 
 }

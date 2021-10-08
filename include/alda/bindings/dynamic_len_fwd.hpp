@@ -3,23 +3,19 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_BINDINGS_DYNAMIC_LEN_FWD_HPP_INCLUDED
 #define ALDA_BINDINGS_DYNAMIC_LEN_FWD_HPP_INCLUDED
 
 #include <alda/bindings/length_count_policy_fwd.hpp>
 
-
 namespace alda::bindings
 {
 
-template<
-	typename Type,
-	typename Adapted,
-	typename Length,
-	typename LengthPolicy =
-		alda::bindings::length_count_policy
->
+template <
+    typename Type,
+    typename Adapted,
+    typename Length,
+    typename LengthPolicy = alda::bindings::length_count_policy>
 struct dynamic_len;
 
 }

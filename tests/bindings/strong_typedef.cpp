@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <alda/bindings/strong_typedef.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <alda/raw/stream/error.hpp>
@@ -26,79 +25,36 @@
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace
 {
 
-using
-base_type
-=
-std::uint32_t;
+using base_type = std::uint32_t;
 
-FCPPT_DECLARE_STRONG_TYPEDEF(
-	base_type,
-	strong_type
-);
+FCPPT_DECLARE_STRONG_TYPEDEF(base_type, strong_type);
 
-using
-strong_binding
-=
-alda::bindings::strong_typedef<
-	strong_type,
-	alda::bindings::unsigned_<
-		base_type,
-		std::endian::little
-	>
->;
+using strong_binding = alda::bindings::
+    strong_typedef<strong_type, alda::bindings::unsigned_<base_type, std::endian::little>>;
 
-using
-either_result_type
-=
-fcppt::either::object<
-	alda::raw::stream::error,
-	strong_type
->;
+using either_result_type = fcppt::either::object<alda::raw::stream::error, strong_type>;
 
 }
 
 FCPPT_CATCH_BEGIN
 
-TEST_CASE(
-	"bindings::strong_typedef",
-	"[alda]"
-)
+TEST_CASE("bindings::strong_typedef", "[alda]")
 {
-	strong_type const value{
-		fcppt::literal<
-			std::uint32_t
-		>(
-			42U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-		)
-	};
+  strong_type const value{fcppt::literal<std::uint32_t>(
+      42U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+      )};
 
-	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
-	std::stringstream stream{};
+  // NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+  std::stringstream stream{};
 
-	alda::serialization::write<
-		strong_binding
-	>(
-		stream,
-		value
-	);
+  alda::serialization::write<strong_binding>(stream, value);
 
-	CHECK(
-		alda::serialization::read<
-			strong_binding
-		>(
-			stream
-		)
-		==
-		fcppt::either::make_success<
-			alda::raw::stream::error
-		>(
-			value
-		)
-	);
+  CHECK(
+      alda::serialization::read<strong_binding>(stream) ==
+      fcppt::either::make_success<alda::raw::stream::error>(value));
 }
 
 FCPPT_CATCH_END

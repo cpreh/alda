@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_BINDINGS_STATIC_HPP_INCLUDED
 #define ALDA_BINDINGS_STATIC_HPP_INCLUDED
 
@@ -30,112 +29,33 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace alda::bindings
 {
 
-template<
-	typename Type,
-	typename Adapted
->
-inline
-void
-place(
-	alda::raw::dispatch_type<
-		alda::bindings::static_<
-			Type,
-			Adapted
-		>
-	>,
-	alda::raw::element_type<
-		alda::bindings::static_<
-			Type,
-			Adapted
-		>
-	> const &_value,
-	alda::raw::pointer const _mem
-)
+template <typename Type, typename Adapted>
+inline void place(
+    alda::raw::dispatch_type<alda::bindings::static_<Type, Adapted>>,
+    alda::raw::element_type<alda::bindings::static_<Type, Adapted>> const &_value,
+    alda::raw::pointer const _mem)
 {
-	alda::raw::place<
-		alda::bindings::array<
-			fcppt::math::to_array_type<
-				Type
-			>,
-			Adapted
-		>
-	>(
-		fcppt::math::to_array(
-			_value
-		),
-		_mem
-	);
+  alda::raw::place<alda::bindings::array<fcppt::math::to_array_type<Type>, Adapted>>(
+      fcppt::math::to_array(_value), _mem);
 }
 
-template<
-	typename Stream,
-	typename Type,
-	typename Adapted
->
-alda::raw::stream::result<
-	Stream,
-	alda::bindings::static_<
-		Type,
-		Adapted
-	>
->
-make_generic(
-	alda::raw::dispatch_type<
-		alda::bindings::static_<
-			Type,
-			Adapted
-		>
-	>,
-	alda::raw::dispatch_type<
-		Stream
-	>,
-	alda::raw::stream::reference<
-		Stream
-	> _stream
-)
+template <typename Stream, typename Type, typename Adapted>
+alda::raw::stream::result<Stream, alda::bindings::static_<Type, Adapted>> make_generic(
+    alda::raw::dispatch_type<alda::bindings::static_<Type, Adapted>>,
+    alda::raw::dispatch_type<Stream>,
+    alda::raw::stream::reference<Stream> _stream)
 {
-	using
-	array_type
-	=
-	fcppt::math::to_array_type<
-		Type
-	>;
+  using array_type = fcppt::math::to_array_type<Type>;
 
-	return
-		alda::raw::stream::bind<
-			Stream
-		>(
-			alda::raw::make_generic<
-				Stream,
-				alda::bindings::array<
-					array_type,
-					Adapted
-				>
-			>(
-				_stream
-			),
-			[](
-				array_type &&_result
-			)
-			{
-				return
-					alda::raw::stream::return_<
-						Stream
-					>(
-						fcppt::math::from_array<
-							Type
-						>(
-							std::move(
-								_result
-							)
-						)
-					);
-			}
-		);
+  return alda::raw::stream::bind<Stream>(
+      alda::raw::make_generic<Stream, alda::bindings::array<array_type, Adapted>>(_stream),
+      [](array_type &&_result) {
+        return alda::raw::stream::return_<Stream>(
+            fcppt::math::from_array<Type>(std::move(_result)));
+      });
 }
 
 }
@@ -146,25 +66,9 @@ namespace alda::raw
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
-template<
-	typename Type,
-	typename Adapted
->
-struct static_size_impl<
-	alda::bindings::static_<
-		Type,
-		Adapted
-	>
->
-:
-alda::raw::static_size_impl<
-	alda::bindings::array<
-		fcppt::math::to_array_type<
-			Type
-		>,
-		Adapted
-	>
->
+template <typename Type, typename Adapted>
+struct static_size_impl<alda::bindings::static_<Type, Adapted>>
+    : alda::raw::static_size_impl<alda::bindings::array<fcppt::math::to_array_type<Type>, Adapted>>
 {
 };
 

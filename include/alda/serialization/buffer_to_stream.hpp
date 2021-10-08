@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_SERIALIZATION_BUFFER_TO_STREAM_HPP_INCLUDED
 #define ALDA_SERIALIZATION_BUFFER_TO_STREAM_HPP_INCLUDED
 
@@ -17,32 +16,16 @@
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace alda::serialization
 {
 
 // TODO(philipp): Should this be inline?
-inline
-void
-buffer_to_stream(
-	alda::serialization::ostream &_stream,
-	alda::raw::buffer const &_buffer
-)
+inline void
+buffer_to_stream(alda::serialization::ostream &_stream, alda::raw::buffer const &_buffer)
 {
-	_stream.write(
-		fcppt::cast::to_char_ptr<
-			alda::serialization::ostream::char_type const *
-		>(
-			_buffer.data()
-		),
-		fcppt::cast::size<
-			std::streamsize
-		>(
-			fcppt::cast::to_signed(
-				_buffer.size()
-			)
-		)
-	);
+  _stream.write(
+      fcppt::cast::to_char_ptr<alda::serialization::ostream::char_type const *>(_buffer.data()),
+      fcppt::cast::size<std::streamsize>(fcppt::cast::to_signed(_buffer.size())));
 }
 
 }

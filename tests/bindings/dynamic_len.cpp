@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <alda/bindings/dynamic_len.hpp>
 #include <alda/bindings/fundamental.hpp>
 #include <alda/bindings/unsigned.hpp>
@@ -25,102 +24,40 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace
 {
 
-constexpr
-std::endian const endianness{
-	std::endian::little
-};
+constexpr std::endian const endianness{std::endian::little};
 
-using
-length_binding
-=
-alda::bindings::unsigned_<
-	std::uint16_t,
-	endianness
->;
+using length_binding = alda::bindings::unsigned_<std::uint16_t, endianness>;
 
-using
-uint_binding
-=
-alda::bindings::fundamental<
-	unsigned
->;
+using uint_binding = alda::bindings::fundamental<unsigned>;
 
-using
-uint_vector
-=
-std::vector<
-	unsigned
->;
+using uint_vector = std::vector<unsigned>;
 
-using
-dynamic_len_binding
-=
-alda::bindings::dynamic_len<
-	uint_vector,
-	uint_binding,
-	length_binding
->;
+using dynamic_len_binding = alda::bindings::dynamic_len<uint_vector, uint_binding, length_binding>;
 
-static_assert(
-	!alda::raw::is_static_size<
-		alda::raw::static_size<
-			dynamic_len_binding
-		>
-	>::value
-);
+static_assert(!alda::raw::is_static_size<alda::raw::static_size<dynamic_len_binding>>::value);
 
-using
-either_result_type
-=
-fcppt::either::object<
-	alda::raw::stream::error,
-	uint_vector
->;
+using either_result_type = fcppt::either::object<alda::raw::stream::error, uint_vector>;
 
 }
 
 FCPPT_CATCH_BEGIN
 
-TEST_CASE(
-	"bindings::dynamic_len",
-	"[alda]"
-)
+TEST_CASE("bindings::dynamic_len", "[alda]")
 {
-	uint_vector const vec{
-		1,
-		2
-	};
+  uint_vector const vec{1, 2};
 
-	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
-	std::stringstream stream{};
+  // NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+  std::stringstream stream{};
 
-	alda::serialization::write<
-		dynamic_len_binding
-	>(
-		stream,
-		vec
-	);
+  alda::serialization::write<dynamic_len_binding>(stream, vec);
 
-	either_result_type const result(
-		alda::raw::make_generic<
-			alda::raw::stream::istream,
-			dynamic_len_binding
-		>(
-			stream
-		)
-	);
+  either_result_type const result(
+      alda::raw::make_generic<alda::raw::stream::istream, dynamic_len_binding>(stream));
 
-	CHECK(
-		result
-		==
-		either_result_type{
-			vec
-		}
-	);
+  CHECK(result == either_result_type{vec});
 }
 
 FCPPT_CATCH_END

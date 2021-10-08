@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_SERIALIZATION_DETAIL_DISPATCH_REGISTER_DECL_HPP_INCLUDED
 #define ALDA_SERIALIZATION_DETAIL_DISPATCH_REGISTER_DECL_HPP_INCLUDED
 
@@ -12,35 +11,21 @@
 #include <alda/serialization/detail/dispatch/register_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace alda::serialization::detail::dispatch
 {
 
-template<
-	typename TypeEnum,
-	typename Message
->
+template <typename TypeEnum, typename Message>
 class register_
 {
-	FCPPT_NONMOVABLE(
-		register_
-	);
+  FCPPT_NONMOVABLE(register_);
+
 public:
-	using
-	context
-	=
-	alda::serialization::context<
-		TypeEnum
-	>;
+  using context = alda::serialization::context<TypeEnum>;
 
-	ALDA_DETAIL_EXTERNAL_SYMBOL
-	explicit
-	register_(
-		context &
-	);
+  ALDA_DETAIL_EXTERNAL_SYMBOL
+  explicit register_(context &);
 
-	~register_()
-	= default;
+  ~register_() = default;
 };
 
 }

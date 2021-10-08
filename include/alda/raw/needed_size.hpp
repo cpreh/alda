@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_RAW_NEEDED_SIZE_HPP_INCLUDED
 #define ALDA_RAW_NEEDED_SIZE_HPP_INCLUDED
 
@@ -17,57 +16,21 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace alda::raw
 {
 
-template<
-	typename Type
->
-inline
-std::enable_if_t<
-	alda::raw::is_static_size<
-		Type
-	>::value,
-	alda::raw::size_type
->
-needed_size(
-	alda::raw::element_type<
-		Type
-	> const &
-)
+template <typename Type>
+inline std::enable_if_t<alda::raw::is_static_size<Type>::value, alda::raw::size_type>
+needed_size(alda::raw::element_type<Type> const &)
 {
-	return
-		alda::raw::needed_size_static<
-			Type
-		>();
+  return alda::raw::needed_size_static<Type>();
 }
 
-template<
-	typename Type
->
-inline
-std::enable_if_t<
-	fcppt::not_(
-		alda::raw::is_static_size<
-			Type
-		>::value
-	),
-	alda::raw::size_type
->
-needed_size(
-	alda::raw::element_type<
-		Type
-	> const &_value
-)
+template <typename Type>
+inline std::enable_if_t<fcppt::not_(alda::raw::is_static_size<Type>::value), alda::raw::size_type>
+needed_size(alda::raw::element_type<Type> const &_value)
 {
-	return
-		needed_size(
-			alda::raw::dispatch_value<
-				Type
-			>(),
-			_value
-		);
+  return needed_size(alda::raw::dispatch_value<Type>(), _value);
 }
 
 }

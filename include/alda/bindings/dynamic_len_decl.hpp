@@ -3,28 +3,18 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_BINDINGS_DYNAMIC_LEN_DECL_HPP_INCLUDED
 #define ALDA_BINDINGS_DYNAMIC_LEN_DECL_HPP_INCLUDED
 
 #include <alda/bindings/dynamic_len_fwd.hpp>
 
-
 namespace alda::bindings
 {
 
-template<
-	typename Type,
-	typename Adapted,
-	typename Length,
-	typename LengthPolicy
->
+template <typename Type, typename Adapted, typename Length, typename LengthPolicy>
 struct dynamic_len
 {
-	using
-	element_type
-	=
-	Type;
+  using element_type = Type;
 };
 
 }

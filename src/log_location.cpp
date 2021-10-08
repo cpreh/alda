@@ -3,20 +3,12 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <alda/log_location.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/location.hpp>
 #include <fcppt/log/name.hpp>
 
-
-fcppt::log::location
-alda::log_location()
+fcppt::log::location alda::log_location()
 {
-	return
-		fcppt::log::location(
-			fcppt::log::name{
-				FCPPT_TEXT("alda")
-			}
-		);
+  return fcppt::log::location(fcppt::log::name{FCPPT_TEXT("alda")});
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_BINDINGS_DURATION_DECL_HPP_INCLUDED
 #define ALDA_BINDINGS_DURATION_DECL_HPP_INCLUDED
 
@@ -13,25 +12,13 @@
 #include <chrono>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace alda::bindings
 {
 
-template<
-	typename Adapted,
-	typename Ratio
->
+template <typename Adapted, typename Ratio>
 struct duration
 {
-	using
-	element_type
-	=
-	std::chrono::duration<
-		alda::raw::element_type<
-			Adapted
-		>,
-		Ratio
-	>;
+  using element_type = std::chrono::duration<alda::raw::element_type<Adapted>, Ratio>;
 };
 
 }

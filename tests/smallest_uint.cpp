@@ -3,31 +3,22 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <alda/smallest_uint.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
-int
-main()
+int main()
 {
-	static_assert(
-		std::is_same_v<
-			alda::smallest_uint<
-				20U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-			>,
-			std::uint8_t
-		>
-	);
+  static_assert(std::is_same_v<
+                alda::smallest_uint<
+                    20U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+                    >,
+                std::uint8_t>);
 
-	static_assert(
-		std::is_same_v<
-			alda::smallest_uint<
-				256U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-			>,
-			std::uint16_t
-		>
-	);
+  static_assert(std::is_same_v<
+                alda::smallest_uint<
+                    256U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+                    >,
+                std::uint16_t>);
 }

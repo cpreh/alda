@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <alda/bindings/duration.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <alda/raw/element_type.hpp>
@@ -24,76 +23,38 @@
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
 
-
 FCPPT_CATCH_BEGIN
 
-TEST_CASE(
-	"bindings::duration",
-	"[alda]"
-)
+TEST_CASE("bindings::duration", "[alda]")
 {
-	using
-	int_binding
-	=
-	alda::bindings::unsigned_<
-		std::uint32_t,
-		std::endian::little
-	>;
+  using int_binding = alda::bindings::unsigned_<std::uint32_t, std::endian::little>;
 
-	using
-	duration_binding
-	=
-	alda::bindings::duration<
-		int_binding,
-		std::milli
-	>;
+  using duration_binding = alda::bindings::duration<int_binding, std::milli>;
 
-	static_assert(
-		alda::raw::static_size<
-			duration_binding
-		>::value
-		== // NOLINT(misc-redundant-expression)
-		alda::raw::static_size<
-			int_binding
-		>::value
-	);
+  static_assert(
+      alda::raw::static_size<duration_binding>::value == // NOLINT(misc-redundant-expression)
+      alda::raw::static_size<int_binding>::value);
 
-	using
-	duration
-	=
-	alda::raw::element_type<
-		duration_binding
-	>;
+  using duration = alda::raw::element_type<duration_binding>;
 
-	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
-	std::stringstream stream{};
+  // NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+  std::stringstream stream{};
 
-	alda::serialization::write<
-		duration_binding
-	>(
-		stream,
-		// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
-		duration{
-			10U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-		}
-	);
+  alda::serialization::write<duration_binding>(
+      stream,
+      // NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+      duration{
+          10U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+      });
 
-	CHECK(
-		alda::serialization::read<
-			duration_binding
-		>(
-			stream
-		)
-		==
-		fcppt::either::make_success<
-			alda::raw::stream::error
-		>(
-			// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
-			duration{ // NOLINT(fuchsia-default-arguments-calls)
-				10U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-			}
-		)
-	);
+  CHECK(
+      alda::serialization::read<duration_binding>(stream) ==
+      fcppt::either::make_success<alda::raw::stream::error>(
+          // NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+          duration{
+              // NOLINT(fuchsia-default-arguments-calls)
+              10U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+          }));
 }
 
 FCPPT_CATCH_END

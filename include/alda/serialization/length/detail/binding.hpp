@@ -3,27 +3,17 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_SERIALIZATION_LENGTH_DETAIL_BINDING_HPP_INCLUDED
 #define ALDA_SERIALIZATION_LENGTH_DETAIL_BINDING_HPP_INCLUDED
 
 #include <alda/bindings/unsigned.hpp>
 #include <alda/serialization/endianness.hpp>
 
-
 namespace alda::serialization::length::detail
 {
 
-template<
-	typename LengthType
->
-using
-binding
-=
-alda::bindings::unsigned_<
-	LengthType,
-	alda::serialization::endianness()
->;
+template <typename LengthType>
+using binding = alda::bindings::unsigned_<LengthType, alda::serialization::endianness()>;
 
 }
 

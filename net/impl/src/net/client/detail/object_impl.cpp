@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <alda/impl/net/client/detail/object_impl.hpp>
 #include <alda/net/host.hpp>
 #include <alda/net/io_service_wrapper.hpp>
@@ -48,476 +47,243 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
-alda::net::client::detail::object_impl::object_impl(
-	alda::net::parameters const &_parameters
-)
-:
-	log_{
-		_parameters.log_context(),
-		alda::net::log_location(),
-		fcppt::log::parameters{
-			fcppt::log::name{
-				FCPPT_TEXT("client")
-			},
-			fcppt::log::format::optional_function()
-		}
-	},
-	io_service_(
-		_parameters.io_service_wrapper().get()
-	),
-	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
-	socket_(
-		io_service_
-	),
-	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
-	resolver_(
-		io_service_
-	),
-	query_(),
-	receive_buffer_(
-		_parameters.max_receive_size()
-	),
-	send_buffer_(
-		_parameters.max_send_size()
-	),
-	connect_signal_(),
-	error_signal_(),
-	data_signal_(),
-	sending_(
-		false
-	)
+alda::net::client::detail::object_impl::object_impl(alda::net::parameters const &_parameters)
+    : log_{_parameters.log_context(), alda::net::log_location(), fcppt::log::parameters{fcppt::log::name{FCPPT_TEXT("client")}, fcppt::log::format::optional_function()}},
+      io_service_(_parameters.io_service_wrapper().get()),
+      // NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+      socket_(io_service_),
+      // NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+      resolver_(io_service_),
+      query_(),
+      receive_buffer_(_parameters.max_receive_size()),
+      send_buffer_(_parameters.max_send_size()),
+      connect_signal_(),
+      error_signal_(),
+      data_signal_(),
+      sending_(false)
 {
 }
 
-alda::net::client::detail::object_impl::~object_impl()
-= default;
+alda::net::client::detail::object_impl::~object_impl() = default;
 
-void
-alda::net::client::detail::object_impl::connect(
-	alda::net::host const &_host,
-	alda::net::port const _port
-)
+void alda::net::client::detail::object_impl::connect(
+    alda::net::host const &_host, alda::net::port const _port)
 {
-	FCPPT_LOG_DEBUG(
-		log_,
-		fcppt::log::out
-			<< FCPPT_TEXT("resolving hostname ")
-			<< fcppt::from_std_string(
-				_host.get()
-			)
-			<< FCPPT_TEXT(" on port ")
-			<< _port
-	)
+  FCPPT_LOG_DEBUG(
+      log_,
+      fcppt::log::out << FCPPT_TEXT("resolving hostname ") << fcppt::from_std_string(_host.get())
+                      << FCPPT_TEXT(" on port ") << _port)
 
-	query_unique_ptr query(
-		fcppt::make_unique_ptr<
-			boost::asio::ip::tcp::resolver::query
-		>(
-			boost::asio::ip::tcp::v4(),
-			_host.get(),
-			fcppt::output_to_std_string(
-				_port
-			)
-		)
-	);
+  query_unique_ptr query(fcppt::make_unique_ptr<boost::asio::ip::tcp::resolver::query>(
+      boost::asio::ip::tcp::v4(), _host.get(), fcppt::output_to_std_string(_port)));
 
-	// TODO(philipp): We should move the query through this function but
-	// asio makes it extremely difficult
-	resolver_.async_resolve(
-		*query,
-		[
-			this
-		](
-			boost::system::error_code const &_error,
-			boost::asio::ip::tcp::resolver::iterator _iterator
-		)
-		{
-			this->resolve_handler(
-				_error,
-				std::move(
-					_iterator
-				)
-			);
-		}
-	);
+  // TODO(philipp): We should move the query through this function but
+  // asio makes it extremely difficult
+  resolver_.async_resolve(
+      *query,
+      [this](
+          boost::system::error_code const &_error,
+          boost::asio::ip::tcp::resolver::iterator _iterator)
+      { this->resolve_handler(_error, std::move(_iterator)); });
 
-	query_ =
-		optional_query_unique_ptr(
-			std::move(
-				query
-			)
-		);
+  query_ = optional_query_unique_ptr(std::move(query));
 }
 
-void
-alda::net::client::detail::object_impl::disconnect()
+void alda::net::client::detail::object_impl::disconnect() { this->clear(); }
+
+alda::net::buffer::circular_send::streambuf &alda::net::client::detail::object_impl::send_buffer()
 {
-	this->clear();
+  return send_buffer_;
 }
 
-alda::net::buffer::circular_send::streambuf &
-alda::net::client::detail::object_impl::send_buffer()
+void alda::net::client::detail::object_impl::queue_send()
 {
-	return
-		send_buffer_;
+  if (!sending_)
+  {
+    this->send_data();
+  }
 }
 
-void
-alda::net::client::detail::object_impl::queue_send()
+fcppt::signal::auto_connection alda::net::client::detail::object_impl::register_connect(
+    alda::net::client::connect_callback &&_function)
 {
-	if(
-		!sending_
-	)
-	{
-		this->send_data();
-	}
+  return connect_signal_.connect(std::move(_function));
+}
+
+fcppt::signal::auto_connection alda::net::client::detail::object_impl::register_error(
+    alda::net::client::error_callback &&_function)
+{
+  return error_signal_.connect(std::move(_function));
 }
 
 fcppt::signal::auto_connection
-alda::net::client::detail::object_impl::register_connect(
-	alda::net::client::connect_callback &&_function
-)
+alda::net::client::detail::object_impl::register_data(alda::net::client::data_callback &&_function)
 {
-	return
-		connect_signal_.connect(
-			std::move(
-				_function
-			)
-		);
+  return data_signal_.connect(std::move(_function));
 }
 
-fcppt::signal::auto_connection
-alda::net::client::detail::object_impl::register_error(
-	alda::net::client::error_callback &&_function
-)
+void alda::net::client::detail::object_impl::resolve_handler(
+    boost::system::error_code const &_error, boost::asio::ip::tcp::resolver::iterator _iterator)
 {
-	return
-		error_signal_.connect(
-			std::move(
-				_function
-			)
-		);
+  if (_error)
+  {
+    this->handle_error(FCPPT_TEXT("resolving address: "), _error);
+
+    return;
+  }
+
+  FCPPT_LOG_DEBUG(log_, fcppt::log::out << FCPPT_TEXT("resolved domain, trying to connect"))
+
+  boost::asio::ip::tcp::endpoint const endpoint(*_iterator);
+
+  // TODO(philipp): Is this right?
+  ++_iterator;
+
+  socket_.async_connect(
+      endpoint,
+      [this, _iterator](boost::system::error_code const &_inner_error)
+      { this->connect_handler(_inner_error, _iterator); });
 }
 
-fcppt::signal::auto_connection
-alda::net::client::detail::object_impl::register_data(
-	alda::net::client::data_callback &&_function
-)
+void alda::net::client::detail::object_impl::handle_error(
+    fcppt::string const &_message, boost::system::error_code const &_error)
 {
-	return
-		data_signal_.connect(
-			std::move(
-				_function
-			)
-		);
+  this->clear();
+
+  FCPPT_LOG_ERROR(
+      log_,
+      fcppt::log::out << _message << FCPPT_TEXT(" (") << fcppt::from_std_string(_error.message())
+                      << FCPPT_TEXT(')'))
+
+  error_signal_(_message, _error);
 }
 
-void
-alda::net::client::detail::object_impl::resolve_handler(
-	boost::system::error_code const &_error,
-	boost::asio::ip::tcp::resolver::iterator _iterator
-)
+void alda::net::client::detail::object_impl::read_handler(
+    boost::system::error_code const &_error, std::size_t const _bytes)
 {
-	if(
-		_error
-	)
-	{
-		this->handle_error(
-			FCPPT_TEXT("resolving address: "),
-			_error
-		);
+  if (_error)
+  {
+    this->handle_error(FCPPT_TEXT("read"), _error);
 
-		return;
-	}
+    return;
+  }
 
-	FCPPT_LOG_DEBUG(
-		log_,
-		fcppt::log::out
-			<< FCPPT_TEXT("resolved domain, trying to connect")
-	)
+  receive_buffer_.bytes_received(_bytes);
 
-	boost::asio::ip::tcp::endpoint const endpoint(
-		*_iterator
-	);
+  FCPPT_LOG_VERBOSE(log_, fcppt::log::out << FCPPT_TEXT("read ") << _bytes << FCPPT_TEXT(" bytes."))
 
-	// TODO(philipp): Is this right?
-	++_iterator;
+  data_signal_(receive_buffer_);
 
-	socket_.async_connect(
-		endpoint,
-		[
-			this,
-			_iterator
-		](
-			boost::system::error_code const &_inner_error
-		)
-		{
-			this->connect_handler(
-				_inner_error,
-				_iterator
-			);
-		}
-	);
+  this->receive_data();
 }
 
-void
-alda::net::client::detail::object_impl::handle_error(
-	fcppt::string const &_message,
-	boost::system::error_code const &_error
-)
+void alda::net::client::detail::object_impl::write_handler(
+    boost::system::error_code const &_error, std::size_t const _bytes)
 {
-	this->clear();
+  if (_error)
+  {
+    this->handle_error(FCPPT_TEXT("write "), _error);
 
-	FCPPT_LOG_ERROR(
-		log_,
-		fcppt::log::out
-			<< _message
-			<< FCPPT_TEXT(" (")
-			<< fcppt::from_std_string(
-				_error.message()
-			)
-			<< FCPPT_TEXT(')')
-	)
+    return;
+  }
 
-	error_signal_(
-		_message,
-		_error
-	);
+  FCPPT_LOG_VERBOSE(log_, fcppt::log::out << FCPPT_TEXT("wrote ") << _bytes << FCPPT_TEXT(" bytes"))
+
+  send_buffer_.bytes_sent(_bytes);
+
+  if (!send_buffer_.empty())
+  {
+    this->send_data();
+  }
+  else
+  {
+    sending_ = false;
+  }
 }
 
-void
-alda::net::client::detail::object_impl::read_handler(
-	boost::system::error_code const &_error,
-	std::size_t const _bytes
-)
+void alda::net::client::detail::object_impl::connect_handler(
+    boost::system::error_code const &_error, boost::asio::ip::tcp::resolver::iterator _iterator)
 {
-	if(
-		_error
-	)
-	{
-		this->handle_error(
-			FCPPT_TEXT("read"),
-			_error
-		);
-
-		return;
-	}
-
-	receive_buffer_.bytes_received(
-		_bytes
-	);
-
-	FCPPT_LOG_VERBOSE(
-		log_,
-		fcppt::log::out
-			<< FCPPT_TEXT("read ")
-			<< _bytes
-			<< FCPPT_TEXT(" bytes.")
-	)
-
-	data_signal_(
-		receive_buffer_
-	);
-
-	this->receive_data();
-}
-
-void
-alda::net::client::detail::object_impl::write_handler(
-	boost::system::error_code const &_error,
-	std::size_t const _bytes
-)
-{
-	if(
-		_error
-	)
-	{
-		this->handle_error(
-			FCPPT_TEXT("write "),
-			_error
-		);
-
-		return;
-	}
-
-	FCPPT_LOG_VERBOSE(
-		log_,
-		fcppt::log::out
-			<< FCPPT_TEXT("wrote ")
-			<< _bytes
-			<< FCPPT_TEXT(" bytes")
-	)
-
-	send_buffer_.bytes_sent(
-		_bytes
-	);
-
-	if(
-		!send_buffer_.empty()
-	)
-	{
-		this->send_data();
-	}
-	else
-	{
-		sending_ =
-			false;
-	}
-}
-
-void
-alda::net::client::detail::object_impl::connect_handler(
-	boost::system::error_code const &_error,
-	boost::asio::ip::tcp::resolver::iterator _iterator
-)
-{
-	if(
-		_error
-	)
-	{
-
-FCPPT_PP_PUSH_WARNING
+  if (_error)
+  {
+    FCPPT_PP_PUSH_WARNING
 #if defined(FCPPT_CONFIG_GNU_GCC_COMPILER)
-FCPPT_PP_DISABLE_GCC_WARNING(-Wzero-as-null-pointer-constant)
+    FCPPT_PP_DISABLE_GCC_WARNING(-Wzero-as-null-pointer-constant)
 #endif
 
-		// are we at the end of the endpoint list?
-		if(
-			_iterator == boost::asio::ip::tcp::resolver::iterator()
-			||
-			// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
-			_error == boost::asio::error::operation_aborted
-		)
-		{
-			this->handle_error(
-				FCPPT_TEXT("exhausted endpoints or connection aborted: "),
-				_error
-			);
+    // are we at the end of the endpoint list?
+    if (_iterator == boost::asio::ip::tcp::resolver::iterator() ||
+        // NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+        _error == boost::asio::error::operation_aborted)
+    {
+      this->handle_error(FCPPT_TEXT("exhausted endpoints or connection aborted: "), _error);
 
-			return;
-		}
+      return;
+    }
 
-FCPPT_PP_POP_WARNING
+    FCPPT_PP_POP_WARNING
 
-		FCPPT_LOG_DEBUG(
-			log_,
-			fcppt::log::out
-				<< FCPPT_TEXT("resolving next endpoint")
-		)
+    FCPPT_LOG_DEBUG(log_, fcppt::log::out << FCPPT_TEXT("resolving next endpoint"))
 
-		boost::asio::ip::tcp::endpoint const endpoint(
-			*_iterator
-		);
+    boost::asio::ip::tcp::endpoint const endpoint(*_iterator);
 
-		// TODO(philipp): Is this right?
-		++_iterator;
+    // TODO(philipp): Is this right?
+    ++_iterator;
 
-		socket_.async_connect(
-			endpoint,
-			[
-				_iterator,
-				this
-			](
-				boost::system::error_code const &_inner_error
-			)
-			{
-				this->connect_handler(
-					_inner_error,
-					_iterator
-				);
-			}
-		);
+    socket_.async_connect(
+        endpoint,
+        [_iterator, this](boost::system::error_code const &_inner_error)
+        { this->connect_handler(_inner_error, _iterator); });
 
-		return;
-	}
+    return;
+  }
 
-	FCPPT_LOG_DEBUG(
-		log_,
-		fcppt::log::out
-			<< FCPPT_TEXT("connected")
-	)
+  FCPPT_LOG_DEBUG(log_, fcppt::log::out << FCPPT_TEXT("connected"))
 
-	connect_signal_();
+  connect_signal_();
 
-	this->receive_data();
+  this->receive_data();
 }
 
-void
-alda::net::client::detail::object_impl::send_data()
+void alda::net::client::detail::object_impl::send_data()
 {
-	alda::net::buffer::circular_send::streambuf::const_array_range const out_data(
-		send_buffer_.send_part()
-	);
+  alda::net::buffer::circular_send::streambuf::const_array_range const out_data(
+      send_buffer_.send_part());
 
-	sending_ = (out_data.second != 0U);
+  sending_ = (out_data.second != 0U);
 
-	if(
-		!sending_
-	)
-	{
-		return;
-	}
+  if (!sending_)
+  {
+    return;
+  }
 
-	socket_.async_send(
-		boost::asio::buffer(
-			out_data.first,
-			out_data.second
-		),
-		[
-			this
-		](
-			boost::system::error_code const &_error,
-			std::size_t const _bytes
-		)
-		{
-			this->write_handler(
-				_error,
-				_bytes
-			);
-		}
-	);
+  socket_.async_send(
+      boost::asio::buffer(out_data.first, out_data.second),
+      [this](boost::system::error_code const &_error, std::size_t const _bytes)
+      { this->write_handler(_error, _bytes); });
 }
 
-void
-alda::net::client::detail::object_impl::receive_data()
+void alda::net::client::detail::object_impl::receive_data()
 {
-	FCPPT_ASSERT_ERROR(
-		!receive_buffer_.next_receive_part().empty()
-	);
+  FCPPT_ASSERT_ERROR(!receive_buffer_.next_receive_part().empty());
 
-	socket_.async_receive(
-		alda::net::buffer::circular_receive::for_asio(
-			receive_buffer_.next_receive_part()
-		),
-		[
-			this
-		](
-			boost::system::error_code const &_error,
-			std::size_t const _bytes
-		)
-		{
-			this->read_handler(
-				_error,
-				_bytes
-			);
-		}
-	);
+  socket_.async_receive(
+      alda::net::buffer::circular_receive::for_asio(receive_buffer_.next_receive_part()),
+      [this](boost::system::error_code const &_error, std::size_t const _bytes)
+      { this->read_handler(_error, _bytes); });
 }
 
-void
-alda::net::client::detail::object_impl::clear()
+void alda::net::client::detail::object_impl::clear()
 {
-	resolver_.cancel();
+  resolver_.cancel();
 
-	query_ =
-		optional_query_unique_ptr();
+  query_ = optional_query_unique_ptr();
 
-	socket_.close();
+  socket_.close();
 
-	send_buffer_.clear();
+  send_buffer_.clear();
 
-	receive_buffer_.clear();
+  receive_buffer_.clear();
 
-	sending_ = false;
+  sending_ = false;
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_RAW_COMBINE_STATIC_SIZES_HPP_INCLUDED
 #define ALDA_RAW_COMBINE_STATIC_SIZES_HPP_INCLUDED
 
@@ -17,42 +16,16 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace alda::raw
 {
 
-template<
-	typename Function,
-	typename Size1,
-	typename Size2
->
-using
-combine_static_sizes
-=
-fcppt::mpl::apply<
-	fcppt::mpl::if_<
-		std::conjunction<
-			alda::raw::detail::is_static_size<
-				Size1
-			>,
-			alda::raw::detail::is_static_size<
-				Size2
-			>
-		>,
-		fcppt::mpl::bind<
-			Function,
-			fcppt::mpl::constant<
-				Size1
-			>,
-			fcppt::mpl::constant<
-				Size2
-			>
-		>,
-		fcppt::mpl::constant<
-			alda::raw::detail::dynamic_size
-		>
-	>
->;
+template <typename Function, typename Size1, typename Size2>
+using combine_static_sizes = fcppt::mpl::apply<fcppt::mpl::if_<
+    std::conjunction<
+        alda::raw::detail::is_static_size<Size1>,
+        alda::raw::detail::is_static_size<Size2>>,
+    fcppt::mpl::bind<Function, fcppt::mpl::constant<Size1>, fcppt::mpl::constant<Size2>>,
+    fcppt::mpl::constant<alda::raw::detail::dynamic_size>>>;
 
 }
 

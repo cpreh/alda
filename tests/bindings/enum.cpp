@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <alda/bindings/enum.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <alda/raw/make_generic.hpp>
@@ -21,84 +20,40 @@
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace
 {
 
 enum class test_enum
 {
-	value0,
-	value1,
-	fcppt_maximum = value1
+  value0,
+  value1,
+  fcppt_maximum = value1
 };
 
-using
-enum_binding
-=
-alda::bindings::enum_<
-	test_enum,
-	alda::bindings::unsigned_<
-		std::uint8_t,
-		std::endian::little
-	>
->;
+using enum_binding =
+    alda::bindings::enum_<test_enum, alda::bindings::unsigned_<std::uint8_t, std::endian::little>>;
 
-using
-either_result_type
-=
-fcppt::either::object<
-	alda::raw::stream::error,
-	test_enum
->;
+using either_result_type = fcppt::either::object<alda::raw::stream::error, test_enum>;
 
 }
 
 FCPPT_CATCH_BEGIN
 
-TEST_CASE(
-	"bindings::enum",
-	"[alda]"
-)
+TEST_CASE("bindings::enum", "[alda]")
 {
-	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
-	std::stringstream stream{};
+  // NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+  std::stringstream stream{};
 
-	alda::serialization::write<
-		enum_binding
-	>(
-		stream,
-		test_enum::value1
-	);
+  alda::serialization::write<enum_binding>(stream, test_enum::value1);
 
-	either_result_type const result(
-		alda::raw::make_generic<
-			alda::raw::stream::istream,
-			enum_binding
-		>(
-			stream
-		)
-	);
+  either_result_type const result(
+      alda::raw::make_generic<alda::raw::stream::istream, enum_binding>(stream));
 
-	CHECK(
-		result
-		==
-		either_result_type{
-			test_enum::value1
-		}
-	);
+  CHECK(result == either_result_type{test_enum::value1});
 
-	stream.str(
-		"\x15"
-	);
+  stream.str("\x15");
 
-	CHECK(
-		alda::raw::make_generic<
-			alda::raw::stream::istream,
-			enum_binding
-		>(
-			stream
-		).has_failure()
-	);
+  CHECK(alda::raw::make_generic<alda::raw::stream::istream, enum_binding>(stream).has_failure());
 }
 
 FCPPT_CATCH_END

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_CALL_DETAIL_BASE_DECL_HPP_INCLUDED
 #define ALDA_CALL_DETAIL_BASE_DECL_HPP_INCLUDED
 
@@ -11,38 +10,23 @@
 #include <alda/message/base_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace alda::call::detail
 {
 
-template<
-	typename TypeEnum,
-	typename Callee
->
+template <typename TypeEnum, typename Callee>
 class base
 {
-	FCPPT_NONMOVABLE(
-		base
-	);
+  FCPPT_NONMOVABLE(base);
+
 protected:
-	base();
+  base();
+
 public:
-	virtual
-	~base() = 0;
+  virtual ~base() = 0;
 
-	using
-	message_type
-	=
-	alda::message::base<
-		TypeEnum
-	>;
+  using message_type = alda::message::base<TypeEnum>;
 
-	virtual
-	typename Callee::result_type
-	call(
-		Callee &,
-		message_type const &
-	) const = 0;
+  virtual typename Callee::result_type call(Callee &, message_type const &) const = 0;
 };
 
 }

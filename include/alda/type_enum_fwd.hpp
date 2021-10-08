@@ -3,17 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_TYPE_ENUM_FWD_HPP_INCLUDED
 #define ALDA_TYPE_ENUM_FWD_HPP_INCLUDED
-
 
 namespace alda
 {
 
-template<
-	typename Enum
->
+template <typename Enum>
 struct type_enum;
 
 }

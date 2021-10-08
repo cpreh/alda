@@ -3,15 +3,14 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_DETAIL_EXTERNAL_CLASS_SYMBOL_HPP_INCLUDED
 #define ALDA_DETAIL_EXTERNAL_CLASS_SYMBOL_HPP_INCLUDED
 
 #if defined(ALDA_EXTERNAL_INSTANTIATION)
-#	include <fcppt/symbol/class.hpp>
-#	define ALDA_DETAIL_EXTERNAL_CLASS_SYMBOL FCPPT_SYMBOL_CLASS
+#include <fcppt/symbol/class.hpp>
+#define ALDA_DETAIL_EXTERNAL_CLASS_SYMBOL FCPPT_SYMBOL_CLASS
 #else
-#	define ALDA_DETAIL_EXTERNAL_CLASS_SYMBOL
+#define ALDA_DETAIL_EXTERNAL_CLASS_SYMBOL
 #endif
 
 #endif

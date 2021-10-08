@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_IMPL_NET_CLIENT_DETAIL_OBJECT_IMPL_HPP_INCLUDED
 #define ALDA_IMPL_NET_CLIENT_DETAIL_OBJECT_IMPL_HPP_INCLUDED
 
@@ -34,133 +33,74 @@
 #include <memory>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace alda::net::client::detail
 {
 
 class object_impl
 {
-	FCPPT_NONMOVABLE(
-		object_impl
-	);
+  FCPPT_NONMOVABLE(object_impl);
+
 public:
-	explicit
-	object_impl(
-		alda::net::parameters const &
-	);
+  explicit object_impl(alda::net::parameters const &);
 
-	~object_impl();
+  ~object_impl();
 
-	void
-	connect(
-		alda::net::host const &,
-		alda::net::port
-	);
+  void connect(alda::net::host const &, alda::net::port);
 
-	void
-	disconnect();
+  void disconnect();
 
-	alda::net::buffer::circular_send::streambuf &
-	send_buffer();
+  alda::net::buffer::circular_send::streambuf &send_buffer();
 
-	void
-	queue_send();
+  void queue_send();
 
-	fcppt::signal::auto_connection
-	register_connect(
-		alda::net::client::connect_callback &&
-	);
+  fcppt::signal::auto_connection register_connect(alda::net::client::connect_callback &&);
 
-	fcppt::signal::auto_connection
-	register_error(
-		alda::net::client::error_callback &&
-	);
+  fcppt::signal::auto_connection register_error(alda::net::client::error_callback &&);
 
-	fcppt::signal::auto_connection
-	register_data(
-		alda::net::client::data_callback &&
-	);
+  fcppt::signal::auto_connection register_data(alda::net::client::data_callback &&);
+
 private:
-	fcppt::log::object log_;
+  fcppt::log::object log_;
 
-	boost::asio::io_service &io_service_;
+  boost::asio::io_service &io_service_;
 
-	boost::asio::ip::tcp::socket socket_;
+  boost::asio::ip::tcp::socket socket_;
 
-	boost::asio::ip::tcp::resolver resolver_;
+  boost::asio::ip::tcp::resolver resolver_;
 
-	using
-	query_unique_ptr
-	=
-	fcppt::unique_ptr<
-		boost::asio::ip::tcp::resolver::query
-	>;
+  using query_unique_ptr = fcppt::unique_ptr<boost::asio::ip::tcp::resolver::query>;
 
-	using
-	optional_query_unique_ptr
-	=
-	fcppt::optional::object<
-		query_unique_ptr
-	>;
+  using optional_query_unique_ptr = fcppt::optional::object<query_unique_ptr>;
 
-	optional_query_unique_ptr query_;
+  optional_query_unique_ptr query_;
 
-	alda::net::buffer::circular_receive::streambuf receive_buffer_;
+  alda::net::buffer::circular_receive::streambuf receive_buffer_;
 
-	alda::net::buffer::circular_send::streambuf send_buffer_;
+  alda::net::buffer::circular_send::streambuf send_buffer_;
 
-	fcppt::signal::object<
-		alda::net::client::connect_function
-	> connect_signal_;
+  fcppt::signal::object<alda::net::client::connect_function> connect_signal_;
 
-	fcppt::signal::object<
-		alda::net::client::error_function
-	> error_signal_;
+  fcppt::signal::object<alda::net::client::error_function> error_signal_;
 
-	fcppt::signal::object<
-		alda::net::client::data_function
-	> data_signal_;
+  fcppt::signal::object<alda::net::client::data_function> data_signal_;
 
-	bool sending_;
+  bool sending_;
 
-	void
-	handle_error(
-		fcppt::string const &,
-		boost::system::error_code const &
-	);
+  void handle_error(fcppt::string const &, boost::system::error_code const &);
 
-	void
-	read_handler(
-		boost::system::error_code const &,
-		std::size_t
-	);
+  void read_handler(boost::system::error_code const &, std::size_t);
 
-	void
-	write_handler(
-		boost::system::error_code const &,
-		std::size_t
-	);
+  void write_handler(boost::system::error_code const &, std::size_t);
 
-	void
-	resolve_handler(
-		boost::system::error_code const &,
-		boost::asio::ip::tcp::resolver::iterator
-	);
+  void resolve_handler(boost::system::error_code const &, boost::asio::ip::tcp::resolver::iterator);
 
-	void
-	connect_handler(
-		boost::system::error_code const &,
-		boost::asio::ip::tcp::resolver::iterator
-	);
+  void connect_handler(boost::system::error_code const &, boost::asio::ip::tcp::resolver::iterator);
 
-	void
-	send_data();
+  void send_data();
 
-	void
-	receive_data();
+  void receive_data();
 
-	void
-	clear();
+  void clear();
 };
 
 }

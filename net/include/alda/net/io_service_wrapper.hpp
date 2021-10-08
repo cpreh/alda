@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_NET_IO_SERVICE_WRAPPER_HPP_INCLUDED
 #define ALDA_NET_IO_SERVICE_WRAPPER_HPP_INCLUDED
 
@@ -14,27 +13,20 @@
 #include <boost/asio/io_service.hpp>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace alda::net
 {
 
 class io_service_wrapper
 {
 public:
-	ALDA_NET_DETAIL_SYMBOL
-	explicit
-	io_service_wrapper(
-		boost::asio::io_service & // NOLINT(google-runtime-references)
-	); // NOLINT(google-runtime-references)
+  ALDA_NET_DETAIL_SYMBOL
+  explicit io_service_wrapper(boost::asio::io_service & // NOLINT(google-runtime-references)
+  ); // NOLINT(google-runtime-references)
 
-	[[nodiscard]]
-	ALDA_NET_DETAIL_SYMBOL
-	boost::asio::io_service &
-	get() const;
+  [[nodiscard]] ALDA_NET_DETAIL_SYMBOL boost::asio::io_service &get() const;
+
 private:
-	fcppt::reference<
-		boost::asio::io_service
-	> io_service_;
+  fcppt::reference<boost::asio::io_service> io_service_;
 };
 
 }

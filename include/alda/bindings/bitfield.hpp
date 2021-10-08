@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_BINDINGS_BITFIELD_HPP_INCLUDED
 #define ALDA_BINDINGS_BITFIELD_HPP_INCLUDED
 
@@ -28,107 +27,31 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace alda::bindings
 {
 
-template<
-	typename Type,
-	std::endian Endianness
->
-void
-place(
-	alda::raw::dispatch_type<
-		alda::bindings::bitfield<
-			Type,
-			Endianness
-		>
-	>,
-	alda::raw::element_type<
-		alda::bindings::bitfield<
-			Type,
-			Endianness
-		>
-	> const &_value,
-	alda::raw::pointer const _mem
-)
+template <typename Type, std::endian Endianness>
+void place(
+    alda::raw::dispatch_type<alda::bindings::bitfield<Type, Endianness>>,
+    alda::raw::element_type<alda::bindings::bitfield<Type, Endianness>> const &_value,
+    alda::raw::pointer const _mem)
 {
-	alda::raw::place<
-		typename
-		alda::bindings::bitfield<
-			Type,
-			Endianness
-		>::wrapped
-	>(
-		_value.array(),
-		_mem
-	);
+  alda::raw::place<typename alda::bindings::bitfield<Type, Endianness>::wrapped>(
+      _value.array(), _mem);
 }
 
-template<
-	typename Stream,
-	typename Type,
-	std::endian Endianness
->
-alda::raw::stream::result<
-	Stream,
-	alda::bindings::bitfield<
-		Type,
-		Endianness
-	>
->
-make_generic(
-	alda::raw::dispatch_type<
-		alda::bindings::bitfield<
-			Type,
-			Endianness
-		>
-	>,
-	alda::raw::dispatch_type<
-		Stream
-	>,
-	alda::raw::stream::reference<
-		Stream
-	> _stream
-)
+template <typename Stream, typename Type, std::endian Endianness>
+alda::raw::stream::result<Stream, alda::bindings::bitfield<Type, Endianness>> make_generic(
+    alda::raw::dispatch_type<alda::bindings::bitfield<Type, Endianness>>,
+    alda::raw::dispatch_type<Stream>,
+    alda::raw::stream::reference<Stream> _stream)
 {
-	using
-	wrapped
-	=
-	typename
-	alda::bindings::bitfield<
-		Type,
-		Endianness
-	>::wrapped;
+  using wrapped = typename alda::bindings::bitfield<Type, Endianness>::wrapped;
 
-	return
-		alda::raw::stream::bind<
-			Stream
-		>(
-			alda::raw::make_generic<
-				Stream,
-				wrapped
-			>(
-				_stream
-			),
-			[](
-				alda::raw::element_type<
-					wrapped
-				> &&_inner
-			)
-			{
-				return
-					alda::raw::stream::return_<
-						Stream
-					>(
-						Type(
-							std::move(
-								_inner
-							)
-						)
-					);
-			}
-		);
+  return alda::raw::stream::bind<Stream>(
+      alda::raw::make_generic<Stream, wrapped>(_stream),
+      [](alda::raw::element_type<wrapped> &&_inner)
+      { return alda::raw::stream::return_<Stream>(Type(std::move(_inner))); });
 }
 
 }
@@ -139,24 +62,9 @@ namespace alda::raw
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
-template<
-	typename Type,
-	std::endian Endianness
->
-struct static_size_impl<
-	alda::bindings::bitfield<
-		Type,
-		Endianness
-	>
->
-:
-alda::raw::static_size_impl<
-	typename
-	alda::bindings::bitfield<
-		Type,
-		Endianness
-	>::wrapped
->
+template <typename Type, std::endian Endianness>
+struct static_size_impl<alda::bindings::bitfield<Type, Endianness>>
+    : alda::raw::static_size_impl<typename alda::bindings::bitfield<Type, Endianness>::wrapped>
 {
 };
 

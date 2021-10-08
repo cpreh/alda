@@ -3,27 +3,18 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_RAW_DISPATCH_VALUE_HPP_INCLUDED
 #define ALDA_RAW_DISPATCH_VALUE_HPP_INCLUDED
 
 #include <alda/raw/dispatch_type.hpp>
 
-
 namespace alda::raw
 {
 
-template<
-	typename Type
->
-inline
-alda::raw::dispatch_type<
-	Type
->
-dispatch_value()
+template <typename Type>
+inline alda::raw::dispatch_type<Type> dispatch_value()
 {
-	return
-		nullptr;
+  return nullptr;
 }
 
 }

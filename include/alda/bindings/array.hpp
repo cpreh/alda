@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_BINDINGS_ARRAY_HPP_INCLUDED
 #define ALDA_BINDINGS_ARRAY_HPP_INCLUDED
 
@@ -38,162 +37,49 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace alda::bindings
 {
 
-template<
-	typename Type,
-	typename Adapted
->
-void
-place(
-	alda::raw::dispatch_type<
-		alda::bindings::array<
-			Type,
-			Adapted
-		>
-	>,
-	alda::raw::element_type<
-		alda::bindings::array<
-			Type,
-			Adapted
-		>
-	> const &_value,
-	alda::raw::pointer _mem
-)
+template <typename Type, typename Adapted>
+void place(
+    alda::raw::dispatch_type<alda::bindings::array<Type, Adapted>>,
+    alda::raw::element_type<alda::bindings::array<Type, Adapted>> const &_value,
+    alda::raw::pointer _mem)
 {
-	for(
-		auto const &elem
-		:
-		_value
-	)
-	{
-		_mem =
-			alda::raw::place_and_update<
-				Adapted
-			>(
-				elem,
-				_mem
-			);
-	}
+  for (auto const &elem : _value)
+  {
+    _mem = alda::raw::place_and_update<Adapted>(elem, _mem);
+  }
 }
 
-template<
-	typename Stream,
-	typename Type,
-	typename Adapted
->
-alda::raw::stream::result<
-	Stream,
-	alda::bindings::array<
-		Type,
-		Adapted
-	>
->
-make_generic(
-	alda::raw::dispatch_type<
-		alda::bindings::array<
-			Type,
-			Adapted
-		>
-	>,
-	alda::raw::dispatch_type<
-		Stream
-	>,
-	alda::raw::stream::reference<
-		Stream
-	> _stream
-)
+template <typename Stream, typename Type, typename Adapted>
+alda::raw::stream::result<Stream, alda::bindings::array<Type, Adapted>> make_generic(
+    alda::raw::dispatch_type<alda::bindings::array<Type, Adapted>>,
+    alda::raw::dispatch_type<Stream>,
+    alda::raw::stream::reference<Stream> _stream)
 {
-	alda::raw::element_type<
-		alda::bindings::array<
-			Type,
-			Adapted
-		>
-	> result{
-		fcppt::no_init{}
-	};
+  alda::raw::element_type<alda::bindings::array<Type, Adapted>> result{fcppt::no_init{}};
 
-	for(
-		auto const index
-		:
-		fcppt::make_int_range_count(
-			fcppt::array::size<
-				Type
-			>::value
-		)
-	)
-	{
-		fcppt::optional::object<
-			alda::raw::stream::error
-		> error{
-			alda::raw::stream::get_error<
-				Stream
-			>(
-				alda::raw::stream::bind<
-					Stream
-				>(
-					alda::raw::make_generic<
-						Stream,
-						Adapted
-					>(
-						_stream
-					),
-					[
-						&result,
-						index
-					](
-						alda::raw::element_type<
-							Adapted
-						> &&_elem
-					)
-					{
-						result.get_unsafe(
-							index
-						) =
-							std::move(
-								_elem
-							);
+  for (auto const index : fcppt::make_int_range_count(fcppt::array::size<Type>::value))
+  {
+    fcppt::optional::object<alda::raw::stream::error> error{
+        alda::raw::stream::get_error<Stream>(alda::raw::stream::bind<Stream>(
+            alda::raw::make_generic<Stream, Adapted>(_stream),
+            [&result, index](alda::raw::element_type<Adapted> &&_elem)
+            {
+              result.get_unsafe(index) = std::move(_elem);
 
-						return
-							alda::raw::stream::return_<
-								Stream
-							>(
-								fcppt::unit{}
-							);
-					}
-				)
-			)
-		};
+              return alda::raw::stream::return_<Stream>(fcppt::unit{});
+            }))};
 
-		if(
-			error.has_value()
-		)
-		{
-			return
-				alda::raw::stream::fail<
-					Stream,
-					alda::bindings::array<
-						Type,
-						Adapted
-					>
-				>(
-					std::move(
-						error.get_unsafe().get()
-					)
-				);
-		}
-	}
+    if (error.has_value())
+    {
+      return alda::raw::stream::fail<Stream, alda::bindings::array<Type, Adapted>>(
+          std::move(error.get_unsafe().get()));
+    }
+  }
 
-	return
-		alda::raw::stream::return_<
-			Stream
-		>(
-			std::move(
-				result
-			)
-		);
+  return alda::raw::stream::return_<Stream>(std::move(result));
 }
 
 }
@@ -201,28 +87,12 @@ make_generic(
 namespace alda::raw
 {
 
-template<
-	typename Type,
-	typename Adapted
->
-struct static_size_impl<
-	alda::bindings::array<
-		Type,
-		Adapted
-	>
->
-:
-alda::raw::combine_static_sizes<
-	fcppt::mpl::lambda<
-		fcppt::mpl::mul
-	>,
-	fcppt::array::size<
-		Type
-	>,
-	alda::raw::static_size<
-		Adapted
-	>
->
+template <typename Type, typename Adapted>
+struct static_size_impl<alda::bindings::array<Type, Adapted>>
+    : alda::raw::combine_static_sizes<
+          fcppt::mpl::lambda<fcppt::mpl::mul>,
+          fcppt::array::size<Type>,
+          alda::raw::static_size<Adapted>>
 {
 };
 

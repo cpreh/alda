@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <alda/bindings/static.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <alda/raw/static_size.hpp>
@@ -25,86 +24,34 @@
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace
 {
 
-using
-int_vec2
-=
-fcppt::math::vector::static_<
-	unsigned,
-	2
->;
+using int_vec2 = fcppt::math::vector::static_<unsigned, 2>;
 
-using
-vector_binding
-=
-alda::bindings::static_<
-	int_vec2,
-	alda::bindings::unsigned_<
-		int_vec2::value_type,
-		std::endian::little
-	>
->;
+using vector_binding = alda::bindings::
+    static_<int_vec2, alda::bindings::unsigned_<int_vec2::value_type, std::endian::little>>;
 
-static_assert(
-	alda::raw::static_size<
-		vector_binding
-	>::type::value
-	==
-	sizeof(
-		unsigned
-	)
-	*
-	2U
-);
+static_assert(alda::raw::static_size<vector_binding>::type::value == sizeof(unsigned) * 2U);
 
-using
-either_result_type
-=
-fcppt::either::object<
-	alda::raw::stream::error,
-	int_vec2
->;
+using either_result_type = fcppt::either::object<alda::raw::stream::error, int_vec2>;
 
 }
 
 FCPPT_CATCH_BEGIN
 
-TEST_CASE(
-	"bindings::static",
-	"[alda]"
-)
+TEST_CASE("bindings::static", "[alda]")
 {
-	int_vec2 const test(
-		2U,
-		5U
-	);
+  int_vec2 const test(2U, 5U);
 
-	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
-	std::stringstream stream{};
+  // NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+  std::stringstream stream{};
 
-	alda::serialization::write<
-		vector_binding
-	>(
-		stream,
-		test
-	);
+  alda::serialization::write<vector_binding>(stream, test);
 
-	CHECK(
-		alda::serialization::read<
-			vector_binding
-		>(
-			stream
-		)
-		==
-		fcppt::either::make_success<
-			alda::raw::stream::error
-		>(
-			test
-		)
-	);
+  CHECK(
+      alda::serialization::read<vector_binding>(stream) ==
+      fcppt::either::make_success<alda::raw::stream::error>(test));
 }
 
 FCPPT_CATCH_END

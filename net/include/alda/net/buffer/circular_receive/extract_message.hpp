@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_NET_BUFFER_CIRCULAR_RECEIVE_EXTRACT_MESSAGE_HPP_INCLUDED
 #define ALDA_NET_BUFFER_CIRCULAR_RECEIVE_EXTRACT_MESSAGE_HPP_INCLUDED
 
@@ -14,43 +13,21 @@
 #include <alda/serialization/length/deserialize.hpp>
 #include <alda/serialization/length/remaining_size_function.hpp>
 
-
 namespace alda::net::buffer::circular_receive
 {
 
-template<
-	typename LengthType,
-	typename TypeEnum
->
-alda::message::optional_base_unique_ptr<
-	TypeEnum
->
-extract_message(
-	alda::serialization::context<
-		TypeEnum
-	> const &_context,
-	alda::net::buffer::circular_receive::streambuf &_data // NOLINT(google-runtime-references)
-) // NOLINT(google-runtime-references)
+template <typename LengthType, typename TypeEnum>
+alda::message::optional_base_unique_ptr<TypeEnum> extract_message(
+    alda::serialization::context<TypeEnum> const &_context,
+    alda::net::buffer::circular_receive::streambuf &_data // NOLINT(google-runtime-references)
+    ) // NOLINT(google-runtime-references)
 {
-	alda::serialization::istream stream{
-		&_data
-	};
+  alda::serialization::istream stream{&_data};
 
-	return
-		alda::serialization::length::deserialize<
-			LengthType
-		>(
-			_context,
-			stream,
-			alda::serialization::length::remaining_size_function{
-				[
-					&_data
-				]{
-					return
-						_data.showmanyc();
-				}
-			}
-		);
+  return alda::serialization::length::deserialize<LengthType>(
+      _context, stream, alda::serialization::length::remaining_size_function{[&_data] {
+        return _data.showmanyc();
+      }});
 }
 
 }

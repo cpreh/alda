@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_IMPL_NET_SERVER_DETAIL_OBJECT_IMPL_HPP_INCLUDED
 #define ALDA_IMPL_NET_SERVER_DETAIL_OBJECT_IMPL_HPP_INCLUDED
 
@@ -34,137 +33,86 @@
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace alda::net::server::detail
 {
 
 class object_impl
 {
-	FCPPT_NONMOVABLE(
-		object_impl
-	);
+  FCPPT_NONMOVABLE(object_impl);
+
 public:
-	explicit
-	object_impl(
-		alda::net::parameters const &
-	);
+  explicit object_impl(alda::net::parameters const &);
 
-	~object_impl();
+  ~object_impl();
 
-	void
-	listen(
-		alda::net::port
-	);
+  void listen(alda::net::port);
 
-	[[nodiscard]]
-	alda::net::buffer::circular_send::optional_streambuf_ref
-	send_buffer(
-		alda::net::id
-	);
+  [[nodiscard]] alda::net::buffer::circular_send::optional_streambuf_ref send_buffer(alda::net::id);
 
-	[[nodiscard]]
-	alda::net::server::connection_id_container
-	connections() const;
+  [[nodiscard]] alda::net::server::connection_id_container connections() const;
 
-	void
-	queue_send(
-		alda::net::id
-	);
+  void queue_send(alda::net::id);
 
-	void
-	disconnect(
-		alda::net::id
-	);
+  void disconnect(alda::net::id);
 
-	[[nodiscard]]
-	fcppt::signal::auto_connection
-	register_connect(
-		alda::net::server::connect_callback &&
-	);
+  [[nodiscard]] fcppt::signal::auto_connection
+  register_connect(alda::net::server::connect_callback &&);
 
-	[[nodiscard]]
-	fcppt::signal::auto_connection
-	register_disconnect(
-		alda::net::server::disconnect_callback &&
-	);
+  [[nodiscard]] fcppt::signal::auto_connection
+  register_disconnect(alda::net::server::disconnect_callback &&);
 
-	[[nodiscard]]
-	fcppt::signal::auto_connection
-	register_data(
-		alda::net::server::data_callback &&
-	);
+  [[nodiscard]] fcppt::signal::auto_connection register_data(alda::net::server::data_callback &&);
+
 private:
-	fcppt::log::object log_;
+  fcppt::log::object log_;
 
-	boost::asio::io_service &io_service_;
+  boost::asio::io_service &io_service_;
 
-	alda::net::buffer::max_receive_size const buffer_receive_size_;
+  alda::net::buffer::max_receive_size const buffer_receive_size_;
 
-	alda::net::buffer::max_send_size const buffer_send_size_;
+  alda::net::buffer::max_send_size const buffer_send_size_;
 
-	boost::asio::ip::tcp::acceptor acceptor_;
+  boost::asio::ip::tcp::acceptor acceptor_;
 
-	alda::net::id::value_type id_counter_;
+  alda::net::id::value_type id_counter_;
 
-	alda::net::server::detail::connection_container connections_;
+  alda::net::server::detail::connection_container connections_;
 
-	fcppt::signal::object<
-		alda::net::server::connect_function
-	> connect_signal_;
+  fcppt::signal::object<alda::net::server::connect_function> connect_signal_;
 
-	fcppt::signal::object<
-		alda::net::server::disconnect_function
-	> disconnect_signal_;
+  fcppt::signal::object<alda::net::server::disconnect_function> disconnect_signal_;
 
-	fcppt::signal::object<
-		alda::net::server::data_function
-	> data_signal_;
+  fcppt::signal::object<alda::net::server::data_function> data_signal_;
 
-	void
-	accept();
+  void accept();
 
-	void
-	read_handler(
-		boost::system::error_code const &,
-		std::size_t,
-		alda::net::server::detail::connection & // NOLINT(google-runtime-references)
-	); // NOLINT(google-runtime-references)
+  void read_handler(
+      boost::system::error_code const &,
+      std::size_t,
+      alda::net::server::detail::connection & // NOLINT(google-runtime-references)
+  ); // NOLINT(google-runtime-references)
 
-	void
-	write_handler(
-		boost::system::error_code const &,
-		std::size_t,
-		alda::net::server::detail::connection & // NOLINT(google-runtime-references)
-	); // NOLINT(google-runtime-references)
+  void write_handler(
+      boost::system::error_code const &,
+      std::size_t,
+      alda::net::server::detail::connection & // NOLINT(google-runtime-references)
+  ); // NOLINT(google-runtime-references)
 
-	void
-	accept_handler(
-		boost::system::error_code const &,
-		alda::net::server::detail::connection_unique_ptr &&
-	);
+  void accept_handler(
+      boost::system::error_code const &, alda::net::server::detail::connection_unique_ptr &&);
 
-	void
-	handle_error(
-		fcppt::string const &,
-		boost::system::error_code const &,
-		alda::net::server::detail::connection const &
-	);
+  void handle_error(
+      fcppt::string const &,
+      boost::system::error_code const &,
+      alda::net::server::detail::connection const &);
 
-	void
-	send_data(
-		alda::net::server::detail::connection & // NOLINT(google-runtime-references)
-	); // NOLINT(google-runtime-references)
+  void send_data(alda::net::server::detail::connection & // NOLINT(google-runtime-references)
+  ); // NOLINT(google-runtime-references)
 
-	void
-	receive_data(
-		alda::net::server::detail::connection & // NOLINT(google-runtime-references)
-	); // NOLINT(google-runtime-references)
+  void receive_data(alda::net::server::detail::connection & // NOLINT(google-runtime-references)
+  ); // NOLINT(google-runtime-references)
 
-	[[nodiscard]]
-	alda::net::server::detail::connection &
-	connection(
-		alda::net::id
-	);
+  [[nodiscard]] alda::net::server::detail::connection &connection(alda::net::id);
 };
 
 }

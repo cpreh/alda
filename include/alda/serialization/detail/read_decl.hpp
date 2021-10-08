@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_SERIALIZATION_DETAIL_READ_DECL_HPP_INCLUDED
 #define ALDA_SERIALIZATION_DETAIL_READ_DECL_HPP_INCLUDED
 
@@ -14,42 +13,22 @@
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/tag_fwd.hpp>
 
-
 namespace alda::serialization::detail
 {
 
-template<
-	typename TypeEnum
->
+template <typename TypeEnum>
 class read
 {
 public:
-	using
-	message_unique_ptr
-	=
-	alda::message::base_unique_ptr<
-		TypeEnum
-	>;
+  using message_unique_ptr = alda::message::base_unique_ptr<TypeEnum>;
 
-	explicit
-	read(
-		alda::serialization::istream &
-	);
+  explicit read(alda::serialization::istream &);
 
-	template<
-		typename Message
-	>
-	ALDA_DETAIL_EXTERNAL_SYMBOL
-	message_unique_ptr
-	operator()(
-		fcppt::tag<
-			Message
-		>
-	) const;
+  template <typename Message>
+  ALDA_DETAIL_EXTERNAL_SYMBOL message_unique_ptr operator()(fcppt::tag<Message>) const;
+
 private:
-	fcppt::reference<
-		alda::serialization::istream
-	> stream_;
+  fcppt::reference<alda::serialization::istream> stream_;
 };
 
 }

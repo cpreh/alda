@@ -3,56 +3,33 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_MESSAGE_OBJECT_DECL_HPP_INCLUDED
 #define ALDA_MESSAGE_OBJECT_DECL_HPP_INCLUDED
 
 #include <alda/message/object_fwd.hpp>
 #include <alda/raw/element_type.hpp>
 
-
 namespace alda::message
 {
 
-template<
-	typename Id,
-	typename Type
->
+template <typename Id, typename Type>
 class object
 {
 public:
-	using
-	binding
-	=
-	Type;
+  using binding = Type;
 
-	using
-	element_type
-	=
-	alda::raw::element_type<
-		Type
-	>;
+  using element_type = alda::raw::element_type<Type>;
 
-	using
-	id_type
-	=
-	Id;
+  using id_type = Id;
 
-	explicit
-	object(
-		element_type const &
-	);
+  explicit object(element_type const &);
 
-	explicit
-	object(
-		element_type &&
-	);
+  explicit object(element_type &&);
 
-	[[nodiscard]]
-	element_type const &
-	get() const;
+  [[nodiscard]] element_type const &get() const;
+
 private:
-	element_type value_;
+  element_type value_;
 };
 
 }

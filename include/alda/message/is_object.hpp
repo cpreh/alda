@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_MESSAGE_IS_OBJECT_HPP_INCLUDED
 #define ALDA_MESSAGE_IS_OBJECT_HPP_INCLUDED
 
@@ -15,34 +14,19 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace alda::message
 {
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
-template<
-	typename Type
->
-struct is_object
-:
-std::false_type
+template <typename Type>
+struct is_object : std::false_type
 {
 };
 
-template<
-	typename Id,
-	typename Type
->
-struct is_object<
-	alda::message::object<
-		Id,
-		Type
-	>
->
-:
-std::true_type
+template <typename Id, typename Type>
+struct is_object<alda::message::object<Id, Type>> : std::true_type
 {
 };
 

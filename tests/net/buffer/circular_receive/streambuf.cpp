@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <alda/net/value_type.hpp>
 #include <alda/net/buffer/max_receive_size.hpp>
 #include <alda/net/buffer/circular_receive/part.hpp>
@@ -24,290 +23,121 @@
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace std
 {
 
-std::ostream &
-operator<<(
-	std::ostream &,
-	fcppt::io::buffer const &
-);
+std::ostream &operator<<(std::ostream &, fcppt::io::buffer const &);
 
-std::ostream &
-operator<<(
-	std::ostream &_stream,
-	fcppt::io::buffer const &_buffer
-)
+std::ostream &operator<<(std::ostream &_stream, fcppt::io::buffer const &_buffer)
 {
-	return
-		_stream
-		<<
-		fcppt::container::output(
-			_buffer
-		);
+  return _stream << fcppt::container::output(_buffer);
 }
 
 }
 
 FCPPT_CATCH_BEGIN
 
-TEST_CASE(
-	"net::buffer::circularr_eceive::streambuf",
-	"[alda]"
-)
+TEST_CASE("net::buffer::circularr_eceive::streambuf", "[alda]")
 {
-	alda::net::buffer::circular_receive::streambuf buffer{
-		alda::net::buffer::max_receive_size{
-			2U
-		}
-	};
+  alda::net::buffer::circular_receive::streambuf buffer{alda::net::buffer::max_receive_size{2U}};
 
-	std::istream stream(
-		&buffer
-	);
+  std::istream stream(&buffer);
 
-	{
-		alda::net::buffer::circular_receive::part const next_part{
-			buffer.next_receive_part()
-		};
+  {
+    alda::net::buffer::circular_receive::part const next_part{buffer.next_receive_part()};
 
-		REQUIRE(
-			2U
-			==
-			next_part.size()
-		);
+    REQUIRE(2U == next_part.size());
 
-		*next_part.begin() = '0';
+    *next_part.begin() = '0';
 
-		// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
-		*std::next(
-			next_part.begin()
-		) = '1';
+    // NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+    *std::next(next_part.begin()) = '1';
 
-		buffer.bytes_received(
-			2U
-		);
-	}
+    buffer.bytes_received(2U);
+  }
 
-	CHECK(
-		buffer.showmanyc()
-		==
-		2
-	);
+  CHECK(buffer.showmanyc() == 2);
 
-	CHECK(
-		buffer.next_receive_part().empty()
-	);
+  CHECK(buffer.next_receive_part().empty());
 
-	using
-	optional_char
-	=
-	fcppt::optional::object<
-		char
-	>;
+  using optional_char = fcppt::optional::object<char>;
 
-	REQUIRE(
-		fcppt::io::get(
-			stream
-		)
-		==
-		optional_char(
-			'0'
-		)
-	);
+  REQUIRE(fcppt::io::get(stream) == optional_char('0'));
 
-	REQUIRE(
-		fcppt::io::get(
-			stream
-		)
-		==
-		optional_char(
-			'1'
-		)
-	);
+  REQUIRE(fcppt::io::get(stream) == optional_char('1'));
 
-	REQUIRE(
-		fcppt::io::get(
-			stream
-		)
-		==
-		optional_char()
-	);
+  REQUIRE(fcppt::io::get(stream) == optional_char());
 
-	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
-	stream.clear();
+  // NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+  stream.clear();
 
-	stream.unget();
+  stream.unget();
 
-	REQUIRE(
-		fcppt::io::get(
-			stream
-		)
-		==
-		optional_char(
-			'1'
-		)
-	);
+  REQUIRE(fcppt::io::get(stream) == optional_char('1'));
 
-	{
-		alda::net::buffer::circular_receive::part const next_part{
-			buffer.next_receive_part()
-		};
+  {
+    alda::net::buffer::circular_receive::part const next_part{buffer.next_receive_part()};
 
-		REQUIRE(
-			1U
-			==
-			next_part.size()
-		);
+    REQUIRE(1U == next_part.size());
 
-		*next_part.begin() = '2';
+    *next_part.begin() = '2';
 
-		buffer.bytes_received(
-			1U
-		);
-	}
+    buffer.bytes_received(1U);
+  }
 
-	CHECK(
-		buffer.showmanyc()
-		==
-		1
-	);
+  CHECK(buffer.showmanyc() == 1);
 
-	{
-		alda::net::buffer::circular_receive::part const next_part{
-			buffer.next_receive_part()
-		};
+  {
+    alda::net::buffer::circular_receive::part const next_part{buffer.next_receive_part()};
 
-		REQUIRE(
-			1U
-			==
-			next_part.size()
-		);
+    REQUIRE(1U == next_part.size());
 
-		*next_part.begin() = '3';
+    *next_part.begin() = '3';
 
-		buffer.bytes_received(
-			1U
-		);
-	}
+    buffer.bytes_received(1U);
+  }
 
-	CHECK(
-		buffer.showmanyc()
-		==
-		2
-	);
+  CHECK(buffer.showmanyc() == 2);
 
-	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
-	stream.clear();
+  // NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+  stream.clear();
 
-	REQUIRE(
-		fcppt::io::get(
-			stream
-		)
-		==
-		optional_char(
-			'2'
-		)
-	);
+  REQUIRE(fcppt::io::get(stream) == optional_char('2'));
 
-	CHECK(
-		buffer.showmanyc()
-		==
-		1
-	);
+  CHECK(buffer.showmanyc() == 1);
 
-	REQUIRE(
-		fcppt::io::get(
-			stream
-		)
-		==
-		optional_char(
-			'3'
-		)
-	);
+  REQUIRE(fcppt::io::get(stream) == optional_char('3'));
 
-	CHECK(
-		buffer.showmanyc()
-		==
-		0
-	);
+  CHECK(buffer.showmanyc() == 0);
 
-	REQUIRE(
-		fcppt::io::get(
-			stream
-		)
-		==
-		optional_char()
-	);
+  REQUIRE(fcppt::io::get(stream) == optional_char());
 
-	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
-	stream.clear();
+  // NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+  stream.clear();
 
-	stream.unget();
+  stream.unget();
 
-	CHECK(
-		buffer.showmanyc()
-		==
-		1
-	);
+  CHECK(buffer.showmanyc() == 1);
 
-	stream.unget();
+  stream.unget();
 
-	CHECK(
-		buffer.showmanyc()
-		==
-		2
-	);
+  CHECK(buffer.showmanyc() == 2);
 
-	REQUIRE(
-		fcppt::io::get(
-			stream
-		)
-		==
-		optional_char(
-			'2'
-		)
-	);
+  REQUIRE(fcppt::io::get(stream) == optional_char('2'));
 
-	REQUIRE(
-		fcppt::io::get(
-			stream
-		)
-		==
-		optional_char(
-			'3'
-		)
-	);
+  REQUIRE(fcppt::io::get(stream) == optional_char('3'));
 
-	REQUIRE(
-		fcppt::io::get(
-			stream
-		)
-		==
-		optional_char()
-	);
+  REQUIRE(fcppt::io::get(stream) == optional_char());
 
-	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
-	stream.clear();
+  // NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+  stream.clear();
 
-	stream.unget();
+  stream.unget();
 
-	stream.unget();
+  stream.unget();
 
-	CHECK(
-		fcppt::io::read_chars(
-			stream,
-			2
-		)
-		==
-		fcppt::io::optional_buffer(
-			fcppt::io::buffer{
-				'2',
-				'3'
-			}
-		)
-	);
+  CHECK(
+      fcppt::io::read_chars(stream, 2) == fcppt::io::optional_buffer(fcppt::io::buffer{'2', '3'}));
 }
 
 FCPPT_CATCH_END

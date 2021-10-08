@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_SERIALIZATION_SERIALIZE_HPP_INCLUDED
 #define ALDA_SERIALIZATION_SERIALIZE_HPP_INCLUDED
 
@@ -13,31 +12,16 @@
 #include <alda/serialization/ostream.hpp>
 #include <alda/serialization/write_id.hpp>
 
-
 namespace alda::serialization
 {
 
-template<
-	typename TypeEnum
->
-inline
-void
-serialize(
-	alda::serialization::ostream &_stream,
-	alda::message::base<
-		TypeEnum
-	> const &_message
-)
+template <typename TypeEnum>
+inline void
+serialize(alda::serialization::ostream &_stream, alda::message::base<TypeEnum> const &_message)
 {
-	alda::serialization::write_id(
-		_stream,
-		_message
-	);
+  alda::serialization::write_id(_stream, _message);
 
-	alda::serialization::buffer_to_stream(
-		_stream,
-		_message.to_buffer()
-	);
+  alda::serialization::buffer_to_stream(_stream, _message.to_buffer());
 }
 
 }

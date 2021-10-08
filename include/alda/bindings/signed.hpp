@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_BINDINGS_SIGNED_HPP_INCLUDED
 #define ALDA_BINDINGS_SIGNED_HPP_INCLUDED
 
@@ -30,206 +29,61 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace alda::bindings
 {
 
-template<
-	typename Type,
-	std::endian Endianness
->
-void
-place(
-	alda::raw::dispatch_type<
-		alda::bindings::signed_<
-			Type,
-			Endianness
-		>
-	>,
-	Type const &_value,
-	alda::raw::pointer const _mem
-)
+template <typename Type, std::endian Endianness>
+void place(
+    alda::raw::dispatch_type<alda::bindings::signed_<Type, Endianness>>,
+    Type const &_value,
+    alda::raw::pointer const _mem)
 {
-	using
-	unsigned_type
-	=
-	std::make_unsigned_t<
-		Type
-	>;
+  using unsigned_type = std::make_unsigned_t<Type>;
 
-	Type const null(
-		fcppt::literal<
-			Type
-		>(
-			0
-		)
-	);
+  Type const null(fcppt::literal<Type>(0));
 
-	bool const is_negative(
-		_value
-		<
-		null
-	);
+  bool const is_negative(_value < null);
 
-	Type const max(
-		std::numeric_limits<
-			Type
-		>::max()
-	);
+  Type const max(std::numeric_limits<Type>::max());
 
-	if(
-		is_negative
-		&&
-		(
-			_value + max
-			<
-			null
-		)
-	)
-	{
-		throw alda::exception(
-			FCPPT_TEXT("alda::bindings::signed has encountered a negative value")
-			FCPPT_TEXT(" whose magnitude is larger than the largest positive value!")
-		);
-	}
+  if (is_negative && (_value + max < null))
+  {
+    throw alda::exception(
+        FCPPT_TEXT("alda::bindings::signed has encountered a negative value")
+            FCPPT_TEXT(" whose magnitude is larger than the largest positive value!"));
+  }
 
-	unsigned_type const converted(
-		is_negative
-		?
-			static_cast<
-				unsigned_type
-			>(
-				static_cast<
-					unsigned_type
-				>(
-					-_value
-				)
-				+
-				static_cast<
-					unsigned_type
-				>(
-					max
-				)
-			)
-		:
-			static_cast<
-				unsigned_type
-			>(
-				_value
-			)
-	);
+  unsigned_type const converted(
+      is_negative ? static_cast<unsigned_type>(
+                        static_cast<unsigned_type>(-_value) + static_cast<unsigned_type>(max))
+                  : static_cast<unsigned_type>(_value));
 
-	alda::raw::place<
-		alda::bindings::unsigned_<
-			unsigned_type,
-			Endianness
-		>
-	>(
-		converted,
-		_mem
-	);
+  alda::raw::place<alda::bindings::unsigned_<unsigned_type, Endianness>>(converted, _mem);
 }
 
-template<
-	typename Stream,
-	typename Type,
-	std::endian Endianness
->
-alda::raw::stream::result<
-	Stream,
-	alda::bindings::signed_<
-		Type,
-		Endianness
-	>
->
-make_generic(
-	alda::raw::dispatch_type<
-		alda::bindings::signed_<
-			Type,
-			Endianness
-		>
-	>,
-	alda::raw::dispatch_type<
-		Stream
-	>,
-	alda::raw::stream::reference<
-		Stream
-	> _stream
-)
+template <typename Stream, typename Type, std::endian Endianness>
+alda::raw::stream::result<Stream, alda::bindings::signed_<Type, Endianness>> make_generic(
+    alda::raw::dispatch_type<alda::bindings::signed_<Type, Endianness>>,
+    alda::raw::dispatch_type<Stream>,
+    alda::raw::stream::reference<Stream> _stream)
 {
-	using
-	unsigned_impl
-	=
-	typename
-	alda::bindings::signed_<
-		Type,
-		Endianness
-	>::impl;
+  using unsigned_impl = typename alda::bindings::signed_<Type, Endianness>::impl;
 
-	using
-	unsigned_type
-	=
-	alda::raw::element_type<
-		unsigned_impl
-	>;
+  using unsigned_type = alda::raw::element_type<unsigned_impl>;
 
-	return
-		alda::raw::stream::bind<
-			Stream
-		>(
-			alda::raw::make_generic<
-				Stream,
-				unsigned_impl
-			>(
-				_stream
-			),
-			[](
-				unsigned_type const _converted
-			)
-			{
-				Type const max(
-					std::numeric_limits<
-						Type
-					>::max()
-				);
+  return alda::raw::stream::bind<Stream>(
+      alda::raw::make_generic<Stream, unsigned_impl>(_stream),
+      [](unsigned_type const _converted)
+      {
+        Type const max(std::numeric_limits<Type>::max());
 
-				auto const converted_max(
-					static_cast<
-						unsigned_type
-					>(
-						max
-					)
-				);
+        auto const converted_max(static_cast<unsigned_type>(max));
 
-				return
-					alda::raw::stream::return_<
-						Stream
-					>(
-						_converted
-						>
-						converted_max
-						?
-							static_cast<
-								Type
-							>(
-								-
-								static_cast<
-									Type
-								>(
-									_converted
-									-
-									converted_max
-								)
-							)
-						:
-							static_cast<
-								Type
-							>(
-								_converted
-							)
-					);
-			}
-		);
+        return alda::raw::stream::return_<Stream>(
+            _converted > converted_max
+                ? static_cast<Type>(-static_cast<Type>(_converted - converted_max))
+                : static_cast<Type>(_converted));
+      });
 }
 
 }
@@ -240,24 +94,9 @@ namespace alda::raw
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
-template<
-	typename Type,
-	std::endian Endianness
->
-struct static_size_impl<
-	alda::bindings::signed_<
-		Type,
-		Endianness
-	>
->
-:
-alda::raw::static_size_impl<
-	typename
-	alda::bindings::signed_<
-		Type,
-		Endianness
-	>::impl
->
+template <typename Type, std::endian Endianness>
+struct static_size_impl<alda::bindings::signed_<Type, Endianness>>
+    : alda::raw::static_size_impl<typename alda::bindings::signed_<Type, Endianness>::impl>
 {
 };
 

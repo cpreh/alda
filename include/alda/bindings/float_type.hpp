@@ -3,18 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_BINDINGS_FLOAT_TYPE_HPP_INCLUDED
 #define ALDA_BINDINGS_FLOAT_TYPE_HPP_INCLUDED
-
 
 namespace alda::bindings
 {
 
-using
-float_type
-=
-float;
+using float_type = float;
 
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_NET_CLIENT_ERROR_FUNCTION_HPP_INCLUDED
 #define ALDA_NET_CLIENT_ERROR_FUNCTION_HPP_INCLUDED
 
@@ -12,17 +11,10 @@
 #include <boost/system/error_code.hpp>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace alda::net::client
 {
 
-using
-error_function
-=
-void (
-	fcppt::string const &,
-	boost::system::error_code
-);
+using error_function = void(fcppt::string const &, boost::system::error_code);
 
 }
 

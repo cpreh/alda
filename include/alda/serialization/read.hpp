@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_SERIALIZATION_READ_HPP_INCLUDED
 #define ALDA_SERIALIZATION_READ_HPP_INCLUDED
 
@@ -12,29 +11,14 @@
 #include <alda/raw/stream/result.hpp>
 #include <alda/serialization/istream.hpp>
 
-
 namespace alda::serialization
 {
 
-template<
-	typename Type
->
-inline
-alda::raw::stream::result<
-	alda::raw::stream::istream,
-	Type
->
-read(
-	alda::serialization::istream &_stream
-)
+template <typename Type>
+inline alda::raw::stream::result<alda::raw::stream::istream, Type>
+read(alda::serialization::istream &_stream)
 {
-	return
-		alda::raw::make_generic<
-			alda::raw::stream::istream,
-			Type
-		>(
-			_stream
-		);
+  return alda::raw::make_generic<alda::raw::stream::istream, Type>(_stream);
 }
 
 }

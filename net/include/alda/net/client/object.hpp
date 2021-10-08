@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_NET_CLIENT_OBJECT_HPP_INCLUDED
 #define ALDA_NET_CLIENT_OBJECT_HPP_INCLUDED
 
@@ -21,69 +20,42 @@
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 
-
 namespace alda::net::client
 {
 
 class object
 {
-	FCPPT_NONMOVABLE(
-		object
-	);
+  FCPPT_NONMOVABLE(object);
+
 public:
-	ALDA_NET_DETAIL_SYMBOL
-	explicit
-	object(
-		alda::net::parameters const &
-	);
+  ALDA_NET_DETAIL_SYMBOL
+  explicit object(alda::net::parameters const &);
 
-	ALDA_NET_DETAIL_SYMBOL
-	~object();
+  ALDA_NET_DETAIL_SYMBOL
+  ~object();
 
-	ALDA_NET_DETAIL_SYMBOL
-	void
-	connect(
-		alda::net::host const &,
-		alda::net::port
-	);
+  ALDA_NET_DETAIL_SYMBOL
+  void connect(alda::net::host const &, alda::net::port);
 
-	ALDA_NET_DETAIL_SYMBOL
-	void
-	disconnect();
+  ALDA_NET_DETAIL_SYMBOL
+  void disconnect();
 
-	[[nodiscard]]
-	ALDA_NET_DETAIL_SYMBOL
-	alda::net::buffer::circular_send::streambuf &
-	send_buffer();
+  [[nodiscard]] ALDA_NET_DETAIL_SYMBOL alda::net::buffer::circular_send::streambuf &send_buffer();
 
-	ALDA_NET_DETAIL_SYMBOL
-	void
-	queue_send();
+  ALDA_NET_DETAIL_SYMBOL
+  void queue_send();
 
-	[[nodiscard]]
-	ALDA_NET_DETAIL_SYMBOL
-	fcppt::signal::auto_connection
-	register_connect(
-		alda::net::client::connect_callback &&
-	);
+  [[nodiscard]] ALDA_NET_DETAIL_SYMBOL fcppt::signal::auto_connection
+  register_connect(alda::net::client::connect_callback &&);
 
-	[[nodiscard]]
-	ALDA_NET_DETAIL_SYMBOL
-	fcppt::signal::auto_connection
-	register_error(
-		alda::net::client::error_callback &&
-	);
+  [[nodiscard]] ALDA_NET_DETAIL_SYMBOL fcppt::signal::auto_connection
+  register_error(alda::net::client::error_callback &&);
 
-	[[nodiscard]]
-	ALDA_NET_DETAIL_SYMBOL
-	fcppt::signal::auto_connection
-	register_data(
-		alda::net::client::data_callback &&
-	);
+  [[nodiscard]] ALDA_NET_DETAIL_SYMBOL fcppt::signal::auto_connection
+  register_data(alda::net::client::data_callback &&);
+
 private:
-	fcppt::unique_ptr<
-		alda::net::client::detail::object_impl
-	> const impl_;
+  fcppt::unique_ptr<alda::net::client::detail::object_impl> const impl_;
 };
 
 }

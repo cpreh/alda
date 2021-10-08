@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_BINDINGS_BITFIELD_DECL_HPP_INCLUDED
 #define ALDA_BINDINGS_BITFIELD_DECL_HPP_INCLUDED
 
@@ -14,33 +13,17 @@
 #include <bit>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace alda::bindings
 {
 
-template<
-	typename Type,
-	std::endian Endianness
->
+template <typename Type, std::endian Endianness>
 struct bitfield
 {
-	using
-	element_type
-	=
-	Type;
+  using element_type = Type;
 
-	using
-	wrapped
-	=
-	alda::bindings::array<
-		typename
-		element_type::array_type,
-		alda::bindings::unsigned_<
-			typename
-			element_type::internal_type,
-			Endianness
-		>
-	>;
+  using wrapped = alda::bindings::array<
+      typename element_type::array_type,
+      alda::bindings::unsigned_<typename element_type::internal_type, Endianness>>;
 };
 
 }

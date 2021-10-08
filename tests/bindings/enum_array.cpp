@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <alda/bindings/enum_array.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <alda/raw/static_size.hpp>
@@ -26,119 +25,48 @@
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace
 {
 
 enum class my_enum
 {
-	enum1,
-	enum2,
-	enum3,
-	fcppt_maximum = enum3
+  enum1,
+  enum2,
+  enum3,
+  fcppt_maximum = enum3
 };
 
-using
-int_type
-=
-unsigned;
+using int_type = unsigned;
 
-using
-array
-=
-fcppt::enum_::array<
-	my_enum,
-	int_type
->;
+using array = fcppt::enum_::array<my_enum, int_type>;
 
-using
-unsigned_binding
-=
-alda::bindings::unsigned_<
-	int_type,
-	std::endian::little
->;
+using unsigned_binding = alda::bindings::unsigned_<int_type, std::endian::little>;
 
-using
-array_binding
-=
-alda::bindings::enum_array<
-	array,
-	unsigned_binding
->;
+using array_binding = alda::bindings::enum_array<array, unsigned_binding>;
 
 static_assert(
-	alda::raw::static_size<
-		array_binding
-	>::value
-	==
-	alda::raw::static_size<
-		unsigned_binding
-	>::value
-	*
-	fcppt::enum_::size<
-		my_enum
-	>::value
-);
+    alda::raw::static_size<array_binding>::value ==
+    alda::raw::static_size<unsigned_binding>::value * fcppt::enum_::size<my_enum>::value);
 
-using
-either_result_type
-=
-fcppt::either::object<
-	alda::raw::stream::error,
-	array
->;
+using either_result_type = fcppt::either::object<alda::raw::stream::error, array>;
 
 }
 
 FCPPT_CATCH_BEGIN
 
-TEST_CASE(
-	"bdings::enum_array",
-	"[alda]"
-)
+TEST_CASE("bdings::enum_array", "[alda]")
 {
-	auto const test(
-		fcppt::enum_::array_init<
-			array
-		>(
-			[](
-				my_enum const _element
-			)
-			{
-				return
-					fcppt::cast::enum_to_int<
-						int_type
-					>(
-						_element
-					);
-			}
-		)
-	);
+  auto const test(fcppt::enum_::array_init<array>(
+      [](my_enum const _element) { return fcppt::cast::enum_to_int<int_type>(_element); }));
 
-	// NOLINTNEXTLINE(fuchsia-default-arguments-calls)
-	std::stringstream stream{};
+  // NOLINTNEXTLINE(fuchsia-default-arguments-calls)
+  std::stringstream stream{};
 
-	alda::serialization::write<
-		array_binding
-	>(
-		stream,
-		test
-	);
+  alda::serialization::write<array_binding>(stream, test);
 
-	CHECK(
-		alda::serialization::read<
-			array_binding
-		>(
-			stream
-		)
-		==
-		fcppt::either::make_success<
-			alda::raw::stream::error
-		>(
-			test
-		)
-	);
+  CHECK(
+      alda::serialization::read<array_binding>(stream) ==
+      fcppt::either::make_success<alda::raw::stream::error>(test));
 }
 
 FCPPT_CATCH_END

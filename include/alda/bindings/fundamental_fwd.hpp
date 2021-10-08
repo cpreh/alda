@@ -3,17 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef ALDA_BINDINGS_FUNDAMENTAL_FWD_HPP_INCLUDED
 #define ALDA_BINDINGS_FUNDAMENTAL_FWD_HPP_INCLUDED
-
 
 namespace alda::bindings
 {
 
-template<
-	typename T
->
+template <typename T>
 struct fundamental;
 
 }
