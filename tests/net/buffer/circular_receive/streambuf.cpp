@@ -9,8 +9,8 @@
 #include <alda/net/buffer/circular_receive/streambuf.hpp>
 #include <fcppt/catch/begin.hpp>
 #include <fcppt/catch/end.hpp>
-#include <fcppt/container/output.hpp>
 #include <fcppt/container/raw_vector/comparison.hpp>
+#include <fcppt/container/raw_vector/output.hpp>
 #include <fcppt/io/buffer.hpp>
 #include <fcppt/io/get.hpp>
 #include <fcppt/io/optional_buffer.hpp>
@@ -19,21 +19,9 @@
 #include <fcppt/optional/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch.hpp>
+#include <iterator>
 #include <istream>
-#include <ostream>
 #include <fcppt/config/external_end.hpp>
-
-namespace std
-{
-
-std::ostream &operator<<(std::ostream &, fcppt::io::buffer const &);
-
-std::ostream &operator<<(std::ostream &_stream, fcppt::io::buffer const &_buffer)
-{
-  return _stream << fcppt::container::output(_buffer);
-}
-
-}
 
 FCPPT_CATCH_BEGIN
 
