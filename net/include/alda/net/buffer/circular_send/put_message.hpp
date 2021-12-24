@@ -15,7 +15,6 @@
 #include <alda/serialization/length/serialize.hpp>
 #include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/error.hpp>
 
 namespace alda::net::buffer::circular_send
 {
@@ -44,7 +43,10 @@ template <typename LengthType, typename TypeEnum>
 
   alda::serialization::length::serialize<LengthType>(stream, _message);
 
-  FCPPT_ASSERT_ERROR(!stream.fail());
+  if (stream.fail())
+  {
+    throw alda::exception{FCPPT_TEXT("Stream failed in put_message.")};
+  }
 
   return true;
 }

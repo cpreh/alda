@@ -3,6 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <alda/exception.hpp>
 #include <alda/impl/net/server/detail/connection.hpp>
 #include <alda/impl/net/server/detail/object_impl.hpp>
 #include <alda/net/id.hpp>
@@ -26,7 +27,6 @@
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/config/compiler.hpp>
@@ -272,7 +272,10 @@ void alda::net::server::detail::object_impl::accept_handler(
   std::pair<alda::net::server::detail::connection_container::iterator, bool> const result(
       connections_.emplace(new_id, std::move(_new_connection)));
 
-  FCPPT_ASSERT_ERROR(result.second);
+  if(!result.second)
+  {
+    throw alda::exception{FCPPT_TEXT("Double connection insert!")};
+  }
 
   // send signal to handlers
   connect_signal_(result.first->second->id());
@@ -297,7 +300,10 @@ void alda::net::server::detail::object_impl::handle_error(
 
   alda::net::id const id(_con.id());
 
-  FCPPT_ASSERT_ERROR(connections_.erase(id));
+  if(connections_.erase(id) != 1U)
+  {
+    throw alda::exception{FCPPT_TEXT("Cannot erase connection!")};
+  }
 
   disconnect_signal_(id, error_msg);
 }
@@ -323,7 +329,10 @@ void alda::net::server::detail::object_impl::send_data(alda::net::server::detail
 void alda::net::server::detail::object_impl::receive_data(
     alda::net::server::detail::connection &_con)
 {
-  FCPPT_ASSERT_ERROR(!_con.received_data().next_receive_part().empty());
+  if(_con.received_data().next_receive_part().empty())
+  {
+    throw alda::exception{FCPPT_TEXT("Nothing to receive!")};
+  }
 
   // receive some more
   _con.socket().async_receive(

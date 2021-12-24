@@ -3,6 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <alda/exception.hpp>
 #include <alda/impl/net/client/detail/object_impl.hpp>
 #include <alda/net/host.hpp>
 #include <alda/net/io_service_wrapper.hpp>
@@ -23,7 +24,6 @@
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/config/compiler.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/error.hpp>
@@ -265,7 +265,10 @@ void alda::net::client::detail::object_impl::send_data()
 
 void alda::net::client::detail::object_impl::receive_data()
 {
-  FCPPT_ASSERT_ERROR(!receive_buffer_.next_receive_part().empty());
+  if(receive_buffer_.next_receive_part().empty())
+  {
+    throw alda::exception{FCPPT_TEXT("receive buffer is empty!")};
+  }
 
   socket_.async_receive(
       alda::net::buffer::circular_receive::for_asio(receive_buffer_.next_receive_part()),
