@@ -107,6 +107,6 @@ add_alda_library(
 		${fcppt_core_TARGET}
 		${fcppt_log_TARGET}
 		${ASIO_LIBS}
-	INCLUDE_DIRS
+	SYSTEM_INCLUDE_DIRS
 		${Boost_INCLUDE_DIRS}
 )

@@ -98,6 +98,7 @@ function(
 		COMPILE_FLAGS
 		COMPILE_DEFINITIONS
 		INCLUDE_DIRS
+		SYSTEM_INCLUDE_DIRS
 		LINK_LIBS
 		INTERFACE_LINK_LIBS
 	)
@@ -202,6 +203,13 @@ function(
 			${PUBLIC_INCLUDES}
 		)
 
+		target_include_directories(
+			${TARGET_NAME}
+			SYSTEM
+			PRIVATE
+			${_SYSTEM_INCLUDE_DIRS}
+		)
+
 		if(
 			"${_HAS_IMPL_DIR}"
 		)
@@ -218,6 +226,13 @@ function(
 		INTERFACE
 		${PUBLIC_INCLUDES}
 		"$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
+	)
+
+	target_include_directories(
+		${TARGET_NAME}
+		SYSTEM
+		INTERFACE
+		${_SYSTEM_INCLUDE_DIRS}
 	)
 
 	fcppt_utils_interface_static_link(
@@ -283,6 +298,7 @@ function(
 		COMPILE_FLAGS
 		COMPILE_DEFINITIONS
 		INCLUDE_DIRS
+		SYSTEM_INCLUDE_DIRS
 		LINK_LIBS
 		INTERFACE_LINK_LIBS
 	)
