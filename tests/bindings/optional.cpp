@@ -17,7 +17,7 @@
 #include <fcppt/either/object.hpp>
 #include <fcppt/optional/object.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
 #include <bit>
 #include <cstdint>
 #include <sstream>

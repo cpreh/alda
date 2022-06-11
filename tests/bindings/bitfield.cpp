@@ -17,7 +17,7 @@
 #include <fcppt/either/make_success.hpp>
 #include <fcppt/math/ceil_div_static.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
 #include <bit>
 #include <limits>
 #include <sstream>

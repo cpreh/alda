@@ -1,6 +1,6 @@
 cmake_minimum_required(
 	VERSION
-	2.8.12
+	3.0.0
 )
 
 project(
@@ -21,6 +21,12 @@ include(
 find_package(
 	fcppt
 	REQUIRED
+)
+
+set(
+	FCPPT_UTILS_CLANG_TIDY_WHITELIST
+	"fcppt"
+	"alda"
 )
 
 include(
