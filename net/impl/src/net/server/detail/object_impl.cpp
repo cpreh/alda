@@ -27,7 +27,6 @@
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/config/compiler.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
@@ -40,6 +39,7 @@
 #include <fcppt/log/verbose.hpp>
 #include <fcppt/log/format/optional_function.hpp>
 #include <fcppt/optional/bind.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -344,5 +344,8 @@ void alda::net::server::detail::object_impl::receive_data(
 alda::net::server::detail::connection &
 alda::net::server::detail::object_impl::connection(alda::net::id const _id)
 {
-  return *FCPPT_ASSERT_OPTIONAL_ERROR(fcppt::container::find_opt_mapped(connections_, _id)).get();
+  return *fcppt::optional::to_exception(
+              fcppt::container::find_opt_mapped(connections_, _id),
+              [] { return alda::exception{FCPPT_TEXT("Network connection id not found.")}; })
+              .get();
 }
