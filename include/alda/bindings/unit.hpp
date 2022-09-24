@@ -48,7 +48,7 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template <>
-struct static_size_impl<alda::bindings::unit> : alda::raw::integral_size<0u>
+struct static_size_impl<alda::bindings::unit> : alda::raw::integral_size<0U>
 {
 };
 
