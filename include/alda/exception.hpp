@@ -11,7 +11,6 @@
 #include <alda/detail/symbol.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/assert/information_fwd.hpp>
 
 namespace alda
 {
@@ -21,9 +20,6 @@ class ALDA_DETAIL_CLASS_SYMBOL exception : public fcppt::exception
 public:
   ALDA_DETAIL_SYMBOL
   explicit exception(fcppt::string &&);
-
-  ALDA_DETAIL_SYMBOL
-  explicit exception(fcppt::assert_::information const &);
 
   ALDA_DETAIL_SYMBOL
   exception(exception &&) noexcept;
