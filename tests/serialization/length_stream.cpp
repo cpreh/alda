@@ -238,7 +238,6 @@ TEST_CASE("serialization::length_stream", "[alda]")
                                            {
                                              FCPPT_PP_PUSH_WARNING
                                              FCPPT_PP_DISABLE_CLANG_WARNING(-Wshadow-uncaptured-local)
-                                             // NOLINTNEXTLINE(clang-diagnostic-shadow-uncaptured-local)
                                              CHECK(false);
                                              FCPPT_PP_POP_WARNING
                                            }});
