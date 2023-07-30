@@ -107,6 +107,9 @@ ALDA_MESSAGE_INSTANTIATE_CONCRETE(
 
 ALDA_SERIALIZATION_INSTANTIATE_MESSAGE(type_enum, message2);
 
+FCPPT_CATCH_BEGIN
+// NOLINTBEGIN(misc-const-correctness,cert-err58-cpp,fuchsia-statically-constructed-objects,misc-use-anonymous-namespace,cppcoreguidelines-avoid-do-while)
+
 namespace
 {
 
@@ -153,8 +156,6 @@ public:
 };
 
 }
-
-FCPPT_CATCH_BEGIN
 
 TEST_CASE("serialization dispatch", "[alda]")
 {
@@ -210,4 +211,5 @@ TEST_CASE("serialization dispatch", "[alda]")
   }
 }
 
+// NOLINTEND(misc-const-correctness,cert-err58-cpp,fuchsia-statically-constructed-objects,misc-use-anonymous-namespace,cppcoreguidelines-avoid-do-while)
 FCPPT_CATCH_END

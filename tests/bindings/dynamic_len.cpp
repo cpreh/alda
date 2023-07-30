@@ -44,6 +44,7 @@ using either_result_type = fcppt::either::object<alda::raw::stream::error, uint_
 }
 
 FCPPT_CATCH_BEGIN
+// NOLINTBEGIN(misc-const-correctness,cert-err58-cpp,fuchsia-statically-constructed-objects,misc-use-anonymous-namespace,cppcoreguidelines-avoid-do-while)
 
 TEST_CASE("bindings::dynamic_len", "[alda]")
 {
@@ -60,4 +61,5 @@ TEST_CASE("bindings::dynamic_len", "[alda]")
   CHECK(result == either_result_type{vec});
 }
 
+// NOLINTEND(misc-const-correctness,cert-err58-cpp,fuchsia-statically-constructed-objects,misc-use-anonymous-namespace,cppcoreguidelines-avoid-do-while)
 FCPPT_CATCH_END

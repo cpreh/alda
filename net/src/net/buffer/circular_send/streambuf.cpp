@@ -6,6 +6,9 @@
 #include <alda/net/buffer/circular_send/streambuf.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
+#include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <ios>
@@ -50,6 +53,9 @@ alda::net::buffer::circular_send::streambuf::capacity() const
 
 void alda::net::buffer::circular_send::streambuf::clear() { impl_.clear(); }
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
+
 std::streamsize alda::net::buffer::circular_send::streambuf::xsputn(
     char_type const *const _data, std::streamsize const _size)
 {
@@ -64,6 +70,8 @@ std::streamsize alda::net::buffer::circular_send::streambuf::xsputn(
 
   return to_write;
 }
+
+FCPPT_PP_POP_WARNING
 
 alda::net::buffer::circular_send::streambuf::int_type
 alda::net::buffer::circular_send::streambuf::overflow(int_type const _c)

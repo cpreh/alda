@@ -131,6 +131,9 @@ ALDA_MESSAGE_INSTANTIATE_CONCRETE(
 
 ALDA_SERIALIZATION_INSTANTIATE_MESSAGE(type_enum, message1);
 
+FCPPT_CATCH_BEGIN
+// NOLINTBEGIN(misc-const-correctness,cert-err58-cpp,fuchsia-statically-constructed-objects,misc-use-anonymous-namespace,cppcoreguidelines-avoid-do-while)
+
 namespace
 {
 
@@ -179,8 +182,6 @@ private:
 };
 
 }
-
-FCPPT_CATCH_BEGIN
 
 TEST_CASE("serialization::length_stream", "[alda]")
 {
@@ -231,7 +232,16 @@ TEST_CASE("serialization::length_stream", "[alda]")
           dispatcher_function fun(fcppt::cast::size<std::uint16_t>(index));
 
           dispatcher_object(
-              *_ptr, fun, dispatcher::default_callback{[](message_base const &) { CHECK(false); }});
+              *_ptr,
+              fun,
+              dispatcher::default_callback{[](message_base const &)
+                                           {
+                                             FCPPT_PP_PUSH_WARNING
+                                             FCPPT_PP_DISABLE_CLANG_WARNING(-Wshadow-uncaptured-local)
+                                             // NOLINTNEXTLINE(clang-diagnostic-shadow-uncaptured-local)
+                                             CHECK(false);
+                                             FCPPT_PP_POP_WARNING
+                                           }});
 
           return true;
         }));
@@ -271,4 +281,5 @@ TEST_CASE("serialization::length_stream", "[alda]")
   CHECK(ifs.good());
 }
 
+// NOLINTEND(misc-const-correctness,cert-err58-cpp,fuchsia-statically-constructed-objects,misc-use-anonymous-namespace,cppcoreguidelines-avoid-do-while)
 FCPPT_CATCH_END

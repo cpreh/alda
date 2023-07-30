@@ -32,6 +32,7 @@ set(
 set(
 	FCPPT_UTILS_CLANG_TIDY_ADDITIONAL_CHECKS
 	"-cppcoreguidelines-avoid-const-or-ref-data-members"
+	"-misc-misplaced-const"
 )
 
 include(

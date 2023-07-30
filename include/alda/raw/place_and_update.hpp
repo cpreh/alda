@@ -10,9 +10,15 @@
 #include <alda/raw/needed_size.hpp>
 #include <alda/raw/place.hpp>
 #include <alda/raw/pointer.hpp>
+#include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 namespace alda::raw
 {
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
 
 template <typename Type>
 [[nodiscard]] inline alda::raw::pointer
@@ -22,6 +28,8 @@ place_and_update(alda::raw::element_type<Type> const &_value, alda::raw::pointer
 
   return _data + alda::raw::needed_size<Type>(_value);
 }
+
+FCPPT_PP_POP_WARNING
 
 }
 

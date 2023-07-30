@@ -38,6 +38,7 @@ using either_result_type = fcppt::either::object<alda::raw::stream::error, test_
 }
 
 FCPPT_CATCH_BEGIN
+// NOLINTBEGIN(misc-const-correctness,cert-err58-cpp,fuchsia-statically-constructed-objects,misc-use-anonymous-namespace,cppcoreguidelines-avoid-do-while)
 
 TEST_CASE("bindings::enum", "[alda]")
 {
@@ -56,4 +57,5 @@ TEST_CASE("bindings::enum", "[alda]")
   CHECK(alda::raw::make_generic<alda::raw::stream::istream, enum_binding>(stream).has_failure());
 }
 
+// NOLINTEND(misc-const-correctness,cert-err58-cpp,fuchsia-statically-constructed-objects,misc-use-anonymous-namespace,cppcoreguidelines-avoid-do-while)
 FCPPT_CATCH_END
