@@ -28,7 +28,7 @@ template <typename TypeEnum>
 alda::message::base_unique_ptr<TypeEnum> deserialize(
     alda::serialization::context<TypeEnum> const &_context, alda::serialization::istream &_stream)
 {
-  alda::serialization::detail::read<TypeEnum> cur_reader(_stream);
+  alda::serialization::detail::read<TypeEnum> const cur_reader{_stream};
 
   return fcppt::optional::to_exception(
              fcppt::container::find_opt_mapped(
