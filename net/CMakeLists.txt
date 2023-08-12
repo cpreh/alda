@@ -1,10 +1,7 @@
 find_package(
 	Boost 1.47.0
 	REQUIRED
-	COMPONENTS
-	"system"
 )
-
 
 set(
 	ALDA_NET_FILES
