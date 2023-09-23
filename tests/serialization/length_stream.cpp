@@ -44,6 +44,7 @@
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/output.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/record/element.hpp>
@@ -237,6 +238,7 @@ TEST_CASE("serialization::length_stream", "[alda]")
               dispatcher::default_callback{[](message_base const &)
                                            {
                                              FCPPT_PP_PUSH_WARNING
+                                             FCPPT_PP_DISABLE_GCC_WARNING(-Wshadow)
                                              FCPPT_PP_DISABLE_CLANG_WARNING(-Wshadow-uncaptured-local)
                                              CHECK(false);
                                              FCPPT_PP_POP_WARNING
