@@ -6,7 +6,7 @@
 #ifndef ALDA_BINDINGS_DURATION_HPP_INCLUDED
 #define ALDA_BINDINGS_DURATION_HPP_INCLUDED
 
-#include <alda/bindings/duration_decl.hpp>
+#include <alda/bindings/duration_decl.hpp> // IWYU pragma: export
 #include <alda/raw/dispatch_type.hpp>
 #include <alda/raw/element_type.hpp>
 #include <alda/raw/make_generic.hpp>

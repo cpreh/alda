@@ -134,7 +134,7 @@ int parse_file(std::istream &_stream)
 
         return EXIT_FAILURE;
       },
-      [](alda::raw::element_type<level> &&_level)
+      [](alda::raw::element_type<level> const &_level)
       {
         std::cout << "Success.\n";
 
@@ -183,6 +183,7 @@ int FCPPT_MAIN(int argc, fcppt::args_char **argv)
 
               return EXIT_FAILURE;
             },
+            // NOLINTNEXTLINE(cppcoreguidelines-rvalue-reference-param-not-moved)
             [](std::ifstream &&_stream) { return parse_file(_stream); });
       });
 }

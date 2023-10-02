@@ -10,8 +10,8 @@
 #include <alda/message/base_decl.hpp>
 #include <alda/message/base_unique_ptr.hpp>
 #include <alda/message/init_record.hpp>
-#include <alda/message/instantiate_base.hpp>
-#include <alda/message/instantiate_concrete.hpp>
+#include <alda/message/instantiate_base.hpp> // NOLINT(misc-include-cleaner)
+#include <alda/message/instantiate_concrete.hpp> // NOLINT(misc-include-cleaner)
 #include <alda/message/make_concrete_ptr.hpp>
 #include <alda/message/make_id.hpp>
 #include <alda/message/object.hpp>
@@ -23,7 +23,6 @@
 #include <alda/serialization/instantiate_message.hpp>
 #include <alda/serialization/register_message.hpp>
 #include <alda/serialization/serialize.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/catch/begin.hpp>
 #include <fcppt/catch/end.hpp>
 #include <fcppt/mpl/list/object.hpp>

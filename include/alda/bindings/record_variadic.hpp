@@ -7,6 +7,6 @@
 #define ALDA_BINDINGS_RECORD_VARIADIC_HPP_INCLUDED
 
 #include <alda/bindings/record.hpp>
-#include <alda/bindings/record_variadic_fwd.hpp>
+#include <alda/bindings/record_variadic_fwd.hpp> // IWYU pragma: export
 
 #endif

@@ -6,7 +6,7 @@
 #ifndef ALDA_BINDINGS_ENUM_HPP_INCLUDED
 #define ALDA_BINDINGS_ENUM_HPP_INCLUDED
 
-#include <alda/bindings/enum_decl.hpp>
+#include <alda/bindings/enum_decl.hpp> // IWYU pragma: export
 #include <alda/raw/dispatch_type.hpp>
 #include <alda/raw/element_type.hpp>
 #include <alda/raw/make_generic.hpp>

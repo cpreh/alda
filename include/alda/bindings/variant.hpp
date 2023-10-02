@@ -8,7 +8,7 @@
 
 #include <alda/exception.hpp>
 #include <alda/bindings/unsigned.hpp>
-#include <alda/bindings/variant_decl.hpp>
+#include <alda/bindings/variant_decl.hpp> // IWYU pragma: export
 #include <alda/raw/dispatch_type.hpp>
 #include <alda/raw/element_type.hpp>
 #include <alda/raw/make_generic.hpp>

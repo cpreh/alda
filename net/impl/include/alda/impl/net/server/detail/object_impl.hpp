@@ -74,7 +74,7 @@ private:
 
   boost::asio::ip::tcp::acceptor acceptor_;
 
-  alda::net::id::value_type id_counter_;
+  alda::net::id::value_type id_counter_; // NOLINT(cppcoreguidelines-use-default-member-init)
 
   alda::net::server::detail::connection_container connections_;
 

@@ -7,7 +7,7 @@
 #define ALDA_BINDINGS_DYNAMIC_LEN_HPP_INCLUDED
 
 #include <alda/exception.hpp>
-#include <alda/bindings/dynamic_len_decl.hpp>
+#include <alda/bindings/dynamic_len_decl.hpp> // IWYU pragma: export
 #include <alda/bindings/length_count_policy.hpp>
 #include <alda/bindings/unsigned.hpp>
 #include <alda/raw/dispatch_type.hpp>

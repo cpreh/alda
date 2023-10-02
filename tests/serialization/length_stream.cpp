@@ -15,10 +15,11 @@
 #include <alda/message/base_decl.hpp>
 #include <alda/message/base_unique_ptr.hpp>
 #include <alda/message/init_record.hpp>
-#include <alda/message/instantiate_base.hpp>
-#include <alda/message/instantiate_concrete.hpp>
+#include <alda/message/instantiate_base.hpp> // NOLINT(misc-include-cleaner)
+#include <alda/message/instantiate_concrete.hpp> // NOLINT(misc-include-cleaner)
 #include <alda/message/make_concrete_ptr.hpp>
 #include <alda/message/make_id.hpp>
+#include <alda/message/object.hpp>
 #include <alda/message/optional_base_unique_ptr.hpp>
 #include <alda/raw/element_type.hpp>
 #include <alda/serialization/context_fwd.hpp>
@@ -32,17 +33,15 @@
 #include <alda/serialization/length/remaining_size_function.hpp>
 #include <alda/serialization/length/serialize.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/literal.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/output_to_std_string.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/catch/begin.hpp>
 #include <fcppt/catch/end.hpp>
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/comparison.hpp>
 #include <fcppt/optional/maybe.hpp>
-#include <fcppt/optional/output.hpp>
+#include <fcppt/optional/output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -51,7 +50,7 @@
 #include <fcppt/record/get.hpp>
 #include <fcppt/record/make_label.hpp>
 #include <fcppt/variant/comparison.hpp>
-#include <fcppt/variant/output.hpp>
+#include <fcppt/variant/output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch_test_macros.hpp>
 #include <bit>

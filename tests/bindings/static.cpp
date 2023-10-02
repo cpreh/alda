@@ -10,13 +10,13 @@
 #include <alda/serialization/read.hpp>
 #include <alda/serialization/write.hpp>
 #include <fcppt/catch/begin.hpp>
-#include <fcppt/catch/either.hpp>
+#include <fcppt/catch/either.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/catch/end.hpp>
-#include <fcppt/catch/strong_typedef.hpp>
+#include <fcppt/catch/strong_typedef.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/either/make_success.hpp>
 #include <fcppt/either/object.hpp>
-#include <fcppt/math/vector/comparison.hpp>
-#include <fcppt/math/vector/output.hpp>
+#include <fcppt/math/vector/comparison.hpp> // NOLINT(misc-include-cleaner)
+#include <fcppt/math/vector/output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch_test_macros.hpp>

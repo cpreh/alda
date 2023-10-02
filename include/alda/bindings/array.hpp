@@ -6,7 +6,7 @@
 #ifndef ALDA_BINDINGS_ARRAY_HPP_INCLUDED
 #define ALDA_BINDINGS_ARRAY_HPP_INCLUDED
 
-#include <alda/bindings/array_decl.hpp>
+#include <alda/bindings/array_decl.hpp> // IWYU pragma: export
 #include <alda/raw/combine_static_sizes.hpp>
 #include <alda/raw/dispatch_type.hpp>
 #include <alda/raw/element_type.hpp>

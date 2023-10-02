@@ -54,7 +54,7 @@ private:
 
   alda::net::buffer::circular_receive::streambuf received_data_;
 
-  bool sending_;
+  bool sending_; // NOLINT(cppcoreguidelines-use-default-member-init)
 };
 
 }

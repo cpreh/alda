@@ -7,7 +7,7 @@
 #define ALDA_BINDINGS_OPTIONAL_HPP_INCLUDED
 
 #include <alda/bindings/bool.hpp>
-#include <alda/bindings/optional_decl.hpp>
+#include <alda/bindings/optional_decl.hpp> // IWYU pragma: export
 #include <alda/raw/dispatch_type.hpp>
 #include <alda/raw/element_type.hpp>
 #include <alda/raw/make_generic.hpp>

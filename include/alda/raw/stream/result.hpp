@@ -17,10 +17,10 @@ namespace alda::raw::stream
 {
 
 template <typename Stream, typename Type>
-using result = typename std::conditional<
+using result = std::conditional_t<
     Stream::can_fail,
     fcppt::either::object<alda::raw::stream::error, alda::raw::element_type<Type>>,
-    alda::raw::element_type<Type>>::type;
+    alda::raw::element_type<Type>>;
 
 }
 

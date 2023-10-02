@@ -6,20 +6,21 @@
 #include <alda/bindings/dynamic_len.hpp>
 #include <alda/bindings/fundamental.hpp>
 #include <alda/bindings/unsigned.hpp>
-#include <alda/raw/is_static_size.hpp>
+#include <alda/raw/is_static_size_v.hpp>
 #include <alda/raw/make_generic.hpp>
 #include <alda/raw/static_size.hpp>
 #include <alda/raw/stream/error.hpp>
 #include <alda/raw/stream/istream.hpp>
 #include <alda/serialization/write.hpp>
 #include <fcppt/catch/begin.hpp>
-#include <fcppt/catch/either.hpp>
+#include <fcppt/catch/either.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/catch/end.hpp>
-#include <fcppt/catch/strong_typedef.hpp>
+#include <fcppt/catch/strong_typedef.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/either/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch_test_macros.hpp>
 #include <bit>
+#include <cstdint>
 #include <sstream>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -37,7 +38,7 @@ using uint_vector = std::vector<unsigned>;
 
 using dynamic_len_binding = alda::bindings::dynamic_len<uint_vector, uint_binding, length_binding>;
 
-static_assert(!alda::raw::is_static_size<alda::raw::static_size<dynamic_len_binding>>::value);
+static_assert(!alda::raw::is_static_size_v<alda::raw::static_size<dynamic_len_binding>>);
 
 using either_result_type = fcppt::either::object<alda::raw::stream::error, uint_vector>;
 

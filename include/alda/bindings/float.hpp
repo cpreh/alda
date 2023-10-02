@@ -6,7 +6,7 @@
 #ifndef ALDA_BINDINGS_FLOAT_HPP_INCLUDED
 #define ALDA_BINDINGS_FLOAT_HPP_INCLUDED
 
-#include <alda/bindings/float_decl.hpp>
+#include <alda/bindings/float_decl.hpp> // IWYU pragma: export
 #include <alda/bindings/float_type.hpp>
 #include <alda/bindings/fundamental.hpp>
 #include <alda/detail/symbol.hpp>

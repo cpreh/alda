@@ -20,7 +20,7 @@ namespace alda::raw::stream
 {
 
 template <typename Stream, typename Type>
-inline typename std::enable_if<Stream::can_fail, alda::raw::stream::result<Stream, Type>>::type
+inline std::enable_if_t<Stream::can_fail, alda::raw::stream::result<Stream, Type>>
 return_if(alda::raw::stream::reference<Stream> _stream, alda::raw::element_type<Type> const &_value)
 {
   return Stream::failed(_stream)
@@ -29,7 +29,7 @@ return_if(alda::raw::stream::reference<Stream> _stream, alda::raw::element_type<
 }
 
 template <typename Stream, typename Type>
-inline typename std::enable_if<!Stream::can_fail, alda::raw::stream::result<Stream, Type>>::type
+inline std::enable_if_t<!Stream::can_fail, alda::raw::stream::result<Stream, Type>>
 return_if(alda::raw::stream::reference<Stream>, alda::raw::element_type<Type> const &_value)
 {
   return _value;

@@ -6,7 +6,7 @@
 #ifndef ALDA_NET_PORT_HPP_INCLUDED
 #define ALDA_NET_PORT_HPP_INCLUDED
 
-#include <alda/net/port_fwd.hpp>
+#include <alda/net/port_fwd.hpp> // IWYU pragma: export
 #include <fcppt/strong_typedef.hpp>
 
 #endif

@@ -6,7 +6,7 @@
 #ifndef ALDA_BINDINGS_STRONG_TYPEDEF_HPP_INCLUDED
 #define ALDA_BINDINGS_STRONG_TYPEDEF_HPP_INCLUDED
 
-#include <alda/bindings/strong_typedef_decl.hpp>
+#include <alda/bindings/strong_typedef_decl.hpp> // IWYU pragma: export
 #include <alda/raw/dispatch_type.hpp>
 #include <alda/raw/element_type.hpp>
 #include <alda/raw/make_generic.hpp>

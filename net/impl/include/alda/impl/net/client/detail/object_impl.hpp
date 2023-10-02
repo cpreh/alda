@@ -84,7 +84,7 @@ private:
 
   fcppt::signal::object<alda::net::client::data_function> data_signal_;
 
-  bool sending_;
+  bool sending_; // NOLINT(cppcoreguidelines-use-default-member-init)
 
   void handle_error(fcppt::string const &, boost::system::error_code const &);
 

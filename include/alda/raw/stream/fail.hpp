@@ -24,7 +24,7 @@ namespace alda::raw::stream
 
 template <typename Stream, typename Type>
 [[noreturn]] inline
-    typename std::enable_if<!Stream::can_fail, alda::raw::stream::result<Stream, Type>>::type
+    std::enable_if_t<!Stream::can_fail, alda::raw::stream::result<Stream, Type>>
     fail(fcppt::string const &_error)
 {
   throw alda::raw::stream::failure{
@@ -33,7 +33,7 @@ template <typename Stream, typename Type>
 }
 
 template <typename Stream, typename Type>
-inline typename std::enable_if<Stream::can_fail, alda::raw::stream::result<Stream, Type>>::type
+inline std::enable_if_t<Stream::can_fail, alda::raw::stream::result<Stream, Type>>
 fail(fcppt::string const &_error)
 {
   return alda::raw::stream::result<Stream, Type>(alda::raw::stream::error{_error});

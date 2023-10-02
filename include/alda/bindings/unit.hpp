@@ -6,7 +6,7 @@
 #ifndef ALDA_BINDINGS_UNIT_HPP_INCLUDED
 #define ALDA_BINDINGS_UNIT_HPP_INCLUDED
 
-#include <alda/bindings/unit_decl.hpp>
+#include <alda/bindings/unit_decl.hpp> // IWYU pragma: export
 #include <alda/raw/dispatch_type.hpp>
 #include <alda/raw/element_type.hpp>
 #include <alda/raw/integral_size.hpp>

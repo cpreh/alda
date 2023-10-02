@@ -25,13 +25,12 @@
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
-#include <fcppt/strong_typedef_output.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/strong_typedef_output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
-#include <fcppt/config/compiler.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/log/debug.hpp>
-#include <fcppt/log/error.hpp>
 #include <fcppt/log/name.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/log/out.hpp>
@@ -40,17 +39,17 @@
 #include <fcppt/log/format/optional_function.hpp>
 #include <fcppt/optional/bind.hpp>
 #include <fcppt/optional/to_exception.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/disable_gnu_gcc_warning.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/asio/buffer.hpp>
-#include <boost/asio/io_service.hpp>
+#include <boost/asio/io_service.hpp> // NOLINT(misc-include-cleaner)
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/range/adaptor/map.hpp>
-#include <boost/system/error_code.hpp>
+#include <boost/system/error_code.hpp> // NOLINT(misc-include-cleaner)
 #include <cstddef>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -177,7 +176,7 @@ void alda::net::server::detail::object_impl::accept()
 
     ~handler() = default;
 
-    void operator()(boost::system::error_code const &_error)
+    void operator()(boost::system::error_code const &_error) // NOLINT(misc-include-cleaner)
     {
       object_.accept_handler(_error, std::move(connection_));
     }
@@ -189,9 +188,7 @@ void alda::net::server::detail::object_impl::accept()
   };
 
   FCPPT_PP_PUSH_WARNING
-#if defined(FCPPT_CONFIG_GNU_GCC_COMPILER)
-  FCPPT_PP_DISABLE_GCC_WARNING(-Wzero-as-null-pointer-constant)
-#endif
+  FCPPT_PP_DISABLE_GNU_GCC_WARNING(-Wzero-as-null-pointer-constant)
 
   // NOLINTNEXTLINE(fuchsia-default-arguments-calls)
   acceptor_.async_accept(socket, handler(*this, std::move(con)));
@@ -200,7 +197,7 @@ void alda::net::server::detail::object_impl::accept()
 }
 
 void alda::net::server::detail::object_impl::read_handler(
-    boost::system::error_code const &_error,
+    boost::system::error_code const &_error, // NOLINT(misc-include-cleaner)
     std::size_t const _bytes,
     alda::net::server::detail::connection &_con)
 {
@@ -222,7 +219,7 @@ void alda::net::server::detail::object_impl::read_handler(
 }
 
 void alda::net::server::detail::object_impl::write_handler(
-    boost::system::error_code const &_error,
+    boost::system::error_code const &_error, // NOLINT(misc-include-cleaner)
     std::size_t const _bytes,
     alda::net::server::detail::connection &_con)
 {
@@ -251,7 +248,7 @@ void alda::net::server::detail::object_impl::write_handler(
 }
 
 void alda::net::server::detail::object_impl::accept_handler(
-    boost::system::error_code const &_error,
+    boost::system::error_code const &_error, // NOLINT(misc-include-cleaner)
     alda::net::server::detail::connection_unique_ptr &&_new_connection)
 {
   if (_error)
@@ -287,7 +284,7 @@ void alda::net::server::detail::object_impl::accept_handler(
 
 void alda::net::server::detail::object_impl::handle_error(
     fcppt::string const &_message,
-    boost::system::error_code const &_error,
+    boost::system::error_code const &_error, // NOLINT(misc-include-cleaner)
     alda::net::server::detail::connection const &_con)
 {
   fcppt::string const error_msg(
@@ -322,7 +319,7 @@ void alda::net::server::detail::object_impl::send_data(alda::net::server::detail
 
   _con.socket().async_send(
       boost::asio::buffer(out_data.first, out_data.second),
-      [this, &_con](boost::system::error_code const &_error, std::size_t const _bytes)
+      [this, &_con](boost::system::error_code const &_error, std::size_t const _bytes) // NOLINT(misc-include-cleaner)
       { this->write_handler(_error, _bytes, _con); });
 }
 
@@ -337,7 +334,7 @@ void alda::net::server::detail::object_impl::receive_data(
   // receive some more
   _con.socket().async_receive(
       alda::net::buffer::circular_receive::for_asio(_con.received_data().next_receive_part()),
-      [this, &_con](boost::system::error_code const &_error, std::size_t const _bytes)
+      [this, &_con](boost::system::error_code const &_error, std::size_t const _bytes) // NOLINT(misc-include-cleaner)
       { this->read_handler(_error, _bytes, _con); });
 }
 

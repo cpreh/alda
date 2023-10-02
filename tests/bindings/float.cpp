@@ -13,7 +13,7 @@
 #include <alda/serialization/write.hpp>
 #include <fcppt/unit.hpp>
 #include <fcppt/catch/begin.hpp>
-#include <fcppt/catch/either.hpp>
+#include <fcppt/catch/either.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/catch/end.hpp>
 #include <fcppt/either/apply.hpp>
 #include <fcppt/either/object.hpp>

@@ -6,7 +6,7 @@
 #ifndef ALDA_BINDINGS_FUNDAMENTAL_HPP_INCLUDED
 #define ALDA_BINDINGS_FUNDAMENTAL_HPP_INCLUDED
 
-#include <alda/bindings/fundamental_decl.hpp>
+#include <alda/bindings/fundamental_decl.hpp> // IWYU pragma: export
 #include <alda/raw/const_pointer.hpp>
 #include <alda/raw/dispatch_type.hpp>
 #include <alda/raw/integral_size.hpp>

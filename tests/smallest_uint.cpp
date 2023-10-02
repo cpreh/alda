@@ -5,6 +5,7 @@
 
 #include <alda/smallest_uint.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <cstdint>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 

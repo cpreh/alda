@@ -490,6 +490,7 @@ set(
 	include/alda/raw/element_type.hpp
 	include/alda/raw/integral_size.hpp
 	include/alda/raw/is_static_size.hpp
+	include/alda/raw/is_static_size_v.hpp
 	include/alda/raw/make_generic.hpp
 	include/alda/raw/needed_size.hpp
 	include/alda/raw/needed_size_static.hpp

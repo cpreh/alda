@@ -6,7 +6,7 @@
 #ifndef ALDA_MESSAGE_OPTIONAL_BASE_UNIQUE_PTR_HPP_INCLUDED
 #define ALDA_MESSAGE_OPTIONAL_BASE_UNIQUE_PTR_HPP_INCLUDED
 
-#include <alda/message/optional_base_unique_ptr_fwd.hpp>
+#include <alda/message/optional_base_unique_ptr_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/object_impl.hpp>
 
 #endif

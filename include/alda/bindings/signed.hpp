@@ -7,7 +7,7 @@
 #define ALDA_BINDINGS_SIGNED_HPP_INCLUDED
 
 #include <alda/exception.hpp>
-#include <alda/bindings/signed_decl.hpp>
+#include <alda/bindings/signed_decl.hpp> // IWYU pragma: export
 #include <alda/bindings/unsigned.hpp>
 #include <alda/raw/dispatch_type.hpp>
 #include <alda/raw/make_generic.hpp>

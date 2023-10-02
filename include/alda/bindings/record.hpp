@@ -6,7 +6,7 @@
 #ifndef ALDA_BINDINGS_RECORD_HPP_INCLUDED
 #define ALDA_BINDINGS_RECORD_HPP_INCLUDED
 
-#include <alda/bindings/record_decl.hpp>
+#include <alda/bindings/record_decl.hpp> // IWYU pragma: export
 #include <alda/raw/combine_static_sizes.hpp>
 #include <alda/raw/dispatch_type.hpp>
 #include <alda/raw/element_type.hpp>
@@ -126,6 +126,7 @@ inline std::
 template <typename Types, typename Stream, unsigned Index, unsigned MaxIndex, typename... Args>
 inline std::
     enable_if_t<Index != MaxIndex, alda::raw::stream::result<Stream, alda::bindings::record<Types>>>
+    // NOLINTNEXTLINE(cppcoreguidelines-missing-std-forward)
     read(alda::raw::stream::reference<Stream> _stream, Args &&..._args)
 {
   using element = fcppt::mpl::list::at<Types, fcppt::mpl::size_type<Index>>;

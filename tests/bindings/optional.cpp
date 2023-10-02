@@ -10,10 +10,10 @@
 #include <alda/raw/stream/istream.hpp>
 #include <alda/serialization/write.hpp>
 #include <fcppt/catch/begin.hpp>
-#include <fcppt/catch/either.hpp>
+#include <fcppt/catch/either.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/catch/end.hpp>
-#include <fcppt/catch/optional.hpp>
-#include <fcppt/catch/strong_typedef.hpp>
+#include <fcppt/catch/optional.hpp> // NOLINT(misc-include-cleaner)
+#include <fcppt/catch/strong_typedef.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/either/object.hpp>
 #include <fcppt/optional/object.hpp>
 #include <fcppt/config/external_begin.hpp>

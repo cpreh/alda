@@ -6,7 +6,7 @@
 #ifndef ALDA_MESSAGE_OBJECT_IMPL_HPP_INCLUDED
 #define ALDA_MESSAGE_OBJECT_IMPL_HPP_INCLUDED
 
-#include <alda/message/object_decl.hpp>
+#include <alda/message/object_decl.hpp> // IWYU pragma: export
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>

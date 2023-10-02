@@ -6,7 +6,7 @@
 #ifndef ALDA_CALL_OBJECT_IMPL_HPP_INCLUDED
 #define ALDA_CALL_OBJECT_IMPL_HPP_INCLUDED
 
-#include <alda/call/object_decl.hpp>
+#include <alda/call/object_decl.hpp> // IWYU pragma: export
 #include <alda/call/detail/concrete_decl.hpp>
 #include <alda/call/detail/make_instance.hpp>
 #include <alda/message/base_decl.hpp>

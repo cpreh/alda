@@ -7,7 +7,7 @@
 #define ALDA_BINDINGS_STATIC_HPP_INCLUDED
 
 #include <alda/bindings/array.hpp>
-#include <alda/bindings/static_decl.hpp>
+#include <alda/bindings/static_decl.hpp> // IWYU pragma: export
 #include <alda/raw/dispatch_type.hpp>
 #include <alda/raw/element_type.hpp>
 #include <alda/raw/make_generic.hpp>

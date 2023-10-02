@@ -5,6 +5,7 @@
 
 #include <alda/exception.hpp>
 #include <alda/net/size_type.hpp>
+#include <alda/net/value_type.hpp>
 #include <alda/net/buffer/max_receive_size.hpp>
 #include <alda/net/buffer/circular_receive/part.hpp>
 #include <alda/net/buffer/circular_receive/streambuf.hpp>
@@ -12,7 +13,7 @@
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/cast/truncation_check.hpp>
-#include <fcppt/container/dynamic_array_impl.hpp>
+#include <fcppt/container/dynamic_array_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
