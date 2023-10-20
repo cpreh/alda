@@ -6,7 +6,7 @@
 #ifndef ALDA_SERIALIZATION_ISTREAM_HPP_INCLUDED
 #define ALDA_SERIALIZATION_ISTREAM_HPP_INCLUDED
 
-#include <alda/serialization/istream_fwd.hpp>
+#include <alda/serialization/istream_fwd.hpp> // IWYU pragma: export
 #include <fcppt/config/external_begin.hpp>
 #include <istream>
 #include <fcppt/config/external_end.hpp>
