@@ -6,7 +6,7 @@
 #ifndef ALDA_BINDINGS_ENUM_ARRAY_DECL_HPP_INCLUDED
 #define ALDA_BINDINGS_ENUM_ARRAY_DECL_HPP_INCLUDED
 
-#include <alda/bindings/enum_array_fwd.hpp>
+#include <alda/bindings/enum_array_fwd.hpp> // IWYU pragma: keep
 
 namespace alda::bindings
 {

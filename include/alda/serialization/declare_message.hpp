@@ -8,10 +8,10 @@
 
 #include <alda/detail/export_external_class_instantiation.hpp>
 #include <alda/detail/export_external_function_instantiation.hpp>
-#include <alda/serialization/detail/read_decl.hpp>
-#include <alda/serialization/detail/dispatch/concrete_decl.hpp>
-#include <alda/serialization/detail/dispatch/register_decl.hpp>
-#include <fcppt/tag.hpp>
+#include <alda/serialization/detail/read_decl.hpp> // IWYU pragma: keep
+#include <alda/serialization/detail/dispatch/concrete_decl.hpp> // IWYU pragma: keep
+#include <alda/serialization/detail/dispatch/register_decl.hpp> // IWYU pragma: keep
+#include <fcppt/tag.hpp> // IWYU pragma: keep
 
 #define ALDA_SERIALIZATION_DECLARE_MESSAGE(type_enum, message_type) \
   extern template class ALDA_DETAIL_EXPORT_EXTERNAL_CLASS_INSTANTIATION \

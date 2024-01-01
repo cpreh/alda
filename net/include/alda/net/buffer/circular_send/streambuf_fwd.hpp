@@ -9,7 +9,7 @@
 namespace alda::net::buffer::circular_send
 {
 
-class streambuf;
+class streambuf; // IWYU pragma: export
 
 }
 

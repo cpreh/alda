@@ -7,6 +7,6 @@
 #define ALDA_RAW_BUFFER_HPP_INCLUDED
 
 #include <alda/raw/buffer_fwd.hpp> // IWYU pragma: export
-#include <fcppt/container/raw_vector/object_impl.hpp>
+#include <fcppt/container/raw_vector/object_impl.hpp> // IWYU pragma: keep
 
 #endif

@@ -6,7 +6,7 @@
 #ifndef ALDA_MESSAGE_OBJECT_DECL_HPP_INCLUDED
 #define ALDA_MESSAGE_OBJECT_DECL_HPP_INCLUDED
 
-#include <alda/message/object_fwd.hpp>
+#include <alda/message/object_fwd.hpp> // IWYU pragma: keep
 #include <alda/raw/element_type.hpp>
 
 namespace alda::message

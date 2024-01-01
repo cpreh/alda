@@ -7,7 +7,7 @@
 #define ALDA_SERIALIZATION_SERIALIZE_HPP_INCLUDED
 
 #include <alda/message/base_decl.hpp>
-#include <alda/raw/buffer.hpp>
+#include <alda/raw/buffer.hpp> // IWYU pragma: keep
 #include <alda/serialization/buffer_to_stream.hpp>
 #include <alda/serialization/ostream.hpp>
 #include <alda/serialization/write_id.hpp>

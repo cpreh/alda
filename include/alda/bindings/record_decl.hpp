@@ -6,7 +6,7 @@
 #ifndef ALDA_BINDINGS_RECORD_DECL_HPP_INCLUDED
 #define ALDA_BINDINGS_RECORD_DECL_HPP_INCLUDED
 
-#include <alda/bindings/record_fwd.hpp>
+#include <alda/bindings/record_fwd.hpp> // IWYU pragma: keep
 #include <alda/raw/element_type.hpp>
 #include <fcppt/mpl/bind.hpp>
 #include <fcppt/mpl/lambda.hpp>

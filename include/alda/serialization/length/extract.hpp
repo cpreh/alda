@@ -6,6 +6,7 @@
 #ifndef ALDA_SERIALIZATION_LENGTH_EXTRACT_HPP_INCLUDED
 #define ALDA_SERIALIZATION_LENGTH_EXTRACT_HPP_INCLUDED
 
+#include <alda/exception.hpp>
 #include <alda/raw/make_generic.hpp>
 #include <alda/raw/stream/error.hpp>
 #include <alda/raw/stream/istream.hpp>
@@ -19,7 +20,6 @@
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <ios>
-#include <istream>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 

@@ -9,7 +9,7 @@
 namespace alda::bindings
 {
 
-struct bool_;
+struct bool_; // IWYU pragma: export
 
 }
 

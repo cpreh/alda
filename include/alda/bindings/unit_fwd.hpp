@@ -9,7 +9,7 @@
 namespace alda::bindings
 {
 
-struct unit;
+struct unit; // IWYU pragma: export
 
 }
 

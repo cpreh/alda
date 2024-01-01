@@ -10,7 +10,7 @@ namespace alda::message
 {
 
 template <typename Id, typename Type>
-class object;
+class object; // IWYU pragma: export
 
 }
 

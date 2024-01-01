@@ -9,6 +9,7 @@
 #include <alda/raw/stream/error.hpp>
 #include <alda/serialization/read.hpp>
 #include <alda/serialization/write.hpp>
+#include <fcppt/strong_typedef_comparison.hpp>
 #include <fcppt/array/object.hpp>
 #include <fcppt/catch/begin.hpp>
 #include <fcppt/catch/either.hpp> // NOLINT(misc-include-cleaner)

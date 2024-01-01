@@ -28,9 +28,8 @@
 #include <fcppt/config/external_begin.hpp>
 #include <boost/asio/io_service.hpp>
 #include <boost/asio/ip/tcp.hpp>
-#include <boost/system/error_code.hpp>
+#include <boost/system/error_code.hpp> // IWYU pragma: keep
 #include <cstddef>
-#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 namespace alda::net::client::detail
@@ -86,14 +85,18 @@ private:
 
   bool sending_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 
+  // NOLINTNEXTLINE(misc-include-cleaner)
   void handle_error(fcppt::string const &, boost::system::error_code const &);
-
+  // NOLINTNEXTLINE(misc-include-cleaner)
   void read_handler(boost::system::error_code const &, std::size_t);
 
+  // NOLINTNEXTLINE(misc-include-cleaner)
   void write_handler(boost::system::error_code const &, std::size_t);
 
+  // NOLINTNEXTLINE(misc-include-cleaner)
   void resolve_handler(boost::system::error_code const &, boost::asio::ip::tcp::resolver::iterator);
 
+  // NOLINTNEXTLINE(misc-include-cleaner)
   void connect_handler(boost::system::error_code const &, boost::asio::ip::tcp::resolver::iterator);
 
   void send_data();

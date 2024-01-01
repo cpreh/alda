@@ -8,12 +8,12 @@
 
 #include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/system/error_code.hpp>
+#include <boost/system/error_code.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_end.hpp>
 
 namespace alda::net::client
 {
-
+// NOLINTNEXTLINE(misc-include-cleaner)
 using error_function = void(fcppt::string const &, boost::system::error_code);
 
 }

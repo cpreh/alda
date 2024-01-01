@@ -7,7 +7,7 @@
 #define ALDA_CALL_OBJECT_DECL_HPP_INCLUDED
 
 #include <alda/call/default_callback.hpp>
-#include <alda/call/object_fwd.hpp>
+#include <alda/call/object_fwd.hpp> // IWYU pragma: keep
 #include <alda/call/detail/base_fwd.hpp>
 #include <alda/message/base_fwd.hpp>
 #include <fcppt/nonmovable.hpp>

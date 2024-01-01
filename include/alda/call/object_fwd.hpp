@@ -10,7 +10,7 @@ namespace alda::call
 {
 
 template <typename TypeEnum, typename Messages, typename Callee>
-class object;
+class object; // IWYU pragma: export
 
 }
 

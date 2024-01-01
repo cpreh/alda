@@ -6,9 +6,9 @@
 #ifndef ALDA_SERIALIZATION_CONTEXT_DECL_HPP_INCLUDED
 #define ALDA_SERIALIZATION_CONTEXT_DECL_HPP_INCLUDED
 
-#include <alda/serialization/context_fwd.hpp>
+#include <alda/serialization/context_fwd.hpp> // IWYU pragma: keep
 #include <alda/serialization/detail/dispatch/map.hpp>
-#include <alda/serialization/detail/dispatch/register_fwd.hpp>
+#include <alda/serialization/detail/dispatch/register_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/nonmovable.hpp>
 
 namespace alda::serialization

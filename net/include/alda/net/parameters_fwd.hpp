@@ -9,7 +9,7 @@
 namespace alda::net
 {
 
-class parameters;
+class parameters; // IWYU pragma: export
 
 }
 

@@ -1,9 +1,9 @@
 #ifndef ALDA_CALL_FRIEND_DISPATCHER_HPP_INCLUDED
 #define ALDA_CALL_FRIEND_DISPATCHER_HPP_INCLUDED
 
-#include <alda/call/object_fwd.hpp>
-#include <alda/call/detail/base_fwd.hpp>
-#include <alda/call/detail/concrete_fwd.hpp>
+#include <alda/call/object_fwd.hpp> // IWYU pragma: keep
+#include <alda/call/detail/base_fwd.hpp> // IWYU pragma: keep
+#include <alda/call/detail/concrete_fwd.hpp> // IWYU pragma: keep
 
 #define ALDA_CALL_FRIEND_DISPATCHER \
   template <typename, typename, typename> \

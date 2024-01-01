@@ -6,7 +6,7 @@
 #ifndef ALDA_BINDINGS_SIGNED_DECL_HPP_INCLUDED
 #define ALDA_BINDINGS_SIGNED_DECL_HPP_INCLUDED
 
-#include <alda/bindings/signed_fwd.hpp>
+#include <alda/bindings/signed_fwd.hpp> // IWYU pragma: keep
 #include <alda/bindings/unsigned_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <bit>

@@ -7,7 +7,7 @@
 #define ALDA_MESSAGE_DECLARE_CONCRETE_HPP_INCLUDED
 
 #include <alda/detail/export_external_class_instantiation.hpp>
-#include <alda/message/concrete_decl.hpp>
+#include <alda/message/concrete_decl.hpp> // IWYU pragma: keep
 
 #define ALDA_MESSAGE_DECLARE_CONCRETE(type_enum, message_type) \
   extern template class ALDA_DETAIL_EXPORT_EXTERNAL_CLASS_INSTANTIATION \

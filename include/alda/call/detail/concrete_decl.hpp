@@ -6,9 +6,8 @@
 #ifndef ALDA_CALL_DETAIL_CONCRETE_DECL_HPP_INCLUDED
 #define ALDA_CALL_DETAIL_CONCRETE_DECL_HPP_INCLUDED
 
-#include <alda/call/detail/base_decl.hpp>
-#include <alda/call/detail/concrete_fwd.hpp>
-#include <alda/message/base_fwd.hpp>
+#include <alda/call/detail/base_decl.hpp> // IWYU pragma: keep
+#include <alda/call/detail/concrete_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/nonmovable.hpp>
 
 namespace alda::call::detail

@@ -14,7 +14,7 @@ namespace alda::bindings
 {
 
 template <typename Type, std::endian>
-struct bitfield;
+struct bitfield; // IWYU pragma: export
 
 }
 

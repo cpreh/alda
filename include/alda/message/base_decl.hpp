@@ -8,7 +8,7 @@
 
 #include <alda/detail/external_class_symbol.hpp>
 #include <alda/detail/external_symbol.hpp>
-#include <alda/message/base_fwd.hpp>
+#include <alda/message/base_fwd.hpp> // IWYU pragma: keep
 #include <alda/message/base_unique_ptr.hpp>
 #include <alda/raw/buffer_fwd.hpp>
 #include <alda/raw/size_type.hpp>

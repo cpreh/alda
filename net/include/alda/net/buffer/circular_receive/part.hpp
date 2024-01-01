@@ -8,7 +8,7 @@
 
 #include <alda/net/size_type.hpp>
 #include <alda/net/value_type.hpp>
-#include <alda/net/buffer/circular_receive/part_fwd.hpp>
+#include <alda/net/buffer/circular_receive/part_fwd.hpp> // IWYU pragma: keep
 #include <alda/net/detail/symbol.hpp>
 
 namespace alda::net::buffer::circular_receive

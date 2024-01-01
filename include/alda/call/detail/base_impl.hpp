@@ -6,7 +6,7 @@
 #ifndef ALDA_CALL_DETAIL_BASE_IMPL_HPP_INCLUDED
 #define ALDA_CALL_DETAIL_BASE_IMPL_HPP_INCLUDED
 
-#include <alda/call/detail/base_decl.hpp>
+#include <alda/call/detail/base_decl.hpp> // IWYU pragma: export
 
 template <typename TypeEnum, typename Callee>
 alda::call::detail::base<TypeEnum, Callee>::base() = default;

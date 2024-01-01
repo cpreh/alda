@@ -6,7 +6,7 @@
 #ifndef ALDA_BINDINGS_RECORD_VARIADIC_FWD_HPP_INCLUDED
 #define ALDA_BINDINGS_RECORD_VARIADIC_FWD_HPP_INCLUDED
 
-#include <alda/bindings/record_fwd.hpp>
+#include <alda/bindings/record_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/mpl/list/object.hpp>
 
 namespace alda::bindings

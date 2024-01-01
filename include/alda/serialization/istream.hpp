@@ -8,7 +8,7 @@
 
 #include <alda/serialization/istream_fwd.hpp> // IWYU pragma: export
 #include <fcppt/config/external_begin.hpp>
-#include <istream>
+#include <istream> // IWYU pragma: keep
 #include <fcppt/config/external_end.hpp>
 
 #endif

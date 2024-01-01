@@ -10,7 +10,7 @@ namespace alda::bindings
 {
 
 template <typename Type, typename Adapted>
-struct strong_typedef;
+struct strong_typedef; // IWYU pragma: export
 
 }
 

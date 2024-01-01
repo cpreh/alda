@@ -6,7 +6,7 @@
 #ifndef ALDA_BINDINGS_OPTIONAL_HPP_INCLUDED
 #define ALDA_BINDINGS_OPTIONAL_HPP_INCLUDED
 
-#include <alda/bindings/bool.hpp>
+#include <alda/bindings/bool.hpp> // IWYU pragma: keep
 #include <alda/bindings/optional_decl.hpp> // IWYU pragma: export
 #include <alda/raw/dispatch_type.hpp>
 #include <alda/raw/element_type.hpp>
@@ -22,7 +22,7 @@
 #include <alda/raw/stream/result.hpp>
 #include <alda/raw/stream/return.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/config/compiler.hpp>
+#include <fcppt/config/compiler.hpp> // IWYU pragma: keep
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/object_impl.hpp>

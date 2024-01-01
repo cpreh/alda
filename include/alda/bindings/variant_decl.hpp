@@ -7,7 +7,7 @@
 #define ALDA_BINDINGS_VARIANT_DECL_HPP_INCLUDED
 
 #include <alda/bindings/unsigned_fwd.hpp>
-#include <alda/bindings/variant_fwd.hpp>
+#include <alda/bindings/variant_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/mpl/list/size.hpp>
 #include <fcppt/variant/from_list_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>

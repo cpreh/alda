@@ -6,7 +6,7 @@
 #ifndef ALDA_SERIALIZATION_REGISTER_MESSAGE_HPP_INCLUDED
 #define ALDA_SERIALIZATION_REGISTER_MESSAGE_HPP_INCLUDED
 
-#include <alda/serialization/detail/dispatch/register_impl.hpp>
+#include <alda/serialization/detail/dispatch/register_impl.hpp> // IWYU pragma: keep
 
 #define ALDA_SERIALIZATION_REGISTER_MESSAGE(context, type_enum, message_type) \
 \

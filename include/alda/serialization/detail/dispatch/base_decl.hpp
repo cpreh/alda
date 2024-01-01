@@ -10,7 +10,7 @@
 #include <alda/detail/external_symbol.hpp>
 #include <alda/message/base_unique_ptr.hpp>
 #include <alda/serialization/detail/read_fwd.hpp>
-#include <alda/serialization/detail/dispatch/base_fwd.hpp>
+#include <alda/serialization/detail/dispatch/base_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/nonmovable.hpp>
 
 namespace alda::serialization::detail::dispatch

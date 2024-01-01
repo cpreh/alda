@@ -6,7 +6,7 @@
 #ifndef ALDA_BINDINGS_ARRAY_DECL_HPP_INCLUDED
 #define ALDA_BINDINGS_ARRAY_DECL_HPP_INCLUDED
 
-#include <alda/bindings/array_fwd.hpp>
+#include <alda/bindings/array_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/array/is_object.hpp>
 
 namespace alda::bindings

@@ -7,7 +7,6 @@
 #define ALDA_IMPL_NET_SERVER_DETAIL_CONNECTION_HPP_INCLUDED
 
 #include <alda/net/id.hpp>
-#include <alda/net/value_type.hpp>
 #include <alda/net/buffer/max_receive_size.hpp>
 #include <alda/net/buffer/max_send_size.hpp>
 #include <alda/net/buffer/circular_receive/streambuf.hpp>

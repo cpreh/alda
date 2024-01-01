@@ -7,10 +7,10 @@
 #define ALDA_SERIALIZATION_DETAIL_DISPATCH_REGISTER_IMPL_HPP_INCLUDED
 
 #include <alda/message/detail/extract_id.hpp>
-#include <alda/serialization/context_decl.hpp>
+#include <alda/serialization/context_decl.hpp> // IWYU pragma: keep
 #include <alda/serialization/detail/dispatch/base_decl.hpp>
-#include <alda/serialization/detail/dispatch/concrete_decl.hpp>
-#include <alda/serialization/detail/dispatch/register_decl.hpp>
+#include <alda/serialization/detail/dispatch/concrete_decl.hpp> // IWYU pragma: keep
+#include <alda/serialization/detail/dispatch/register_decl.hpp> // IWYU pragma: export
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>

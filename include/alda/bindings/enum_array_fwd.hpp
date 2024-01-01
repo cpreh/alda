@@ -10,7 +10,7 @@ namespace alda::bindings
 {
 
 template <typename Type, typename Adapted>
-struct enum_array;
+struct enum_array; // IWYU pragma: export
 
 }
 

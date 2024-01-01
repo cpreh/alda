@@ -10,7 +10,7 @@ namespace alda
 {
 
 template <typename Enum>
-struct type_enum;
+struct type_enum; // IWYU pragma: export
 
 }
 

@@ -7,6 +7,6 @@
 #define ALDA_MESSAGE_OBJECT_HPP_INCLUDED
 
 #include <alda/message/object_decl.hpp> // IWYU pragma: export
-#include <alda/message/object_impl.hpp>
+#include <alda/message/object_impl.hpp> // IWYU pragma: keep
 
 #endif

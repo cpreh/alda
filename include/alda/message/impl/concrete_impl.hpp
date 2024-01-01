@@ -6,8 +6,8 @@
 #ifndef ALDA_MESSAGE_IMPL_CONCRETE_IMPL_HPP_INCLUDED
 #define ALDA_MESSAGE_IMPL_CONCRETE_IMPL_HPP_INCLUDED
 
-#include <alda/message/concrete_decl.hpp>
-#include <alda/message/object_impl.hpp>
+#include <alda/message/concrete_decl.hpp> // IWYU pragma: export
+#include <alda/message/object_impl.hpp> // IWYU pragma: keep
 #include <alda/message/object_to_buffer.hpp>
 #include <alda/message/detail/extract_id.hpp>
 #include <alda/raw/buffer.hpp>

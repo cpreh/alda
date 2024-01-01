@@ -6,7 +6,7 @@
 #ifndef ALDA_BINDINGS_STATIC_DECL_HPP_INCLUDED
 #define ALDA_BINDINGS_STATIC_DECL_HPP_INCLUDED
 
-#include <alda/bindings/static_fwd.hpp>
+#include <alda/bindings/static_fwd.hpp> // IWYU pragma: keep
 
 namespace alda::bindings
 {

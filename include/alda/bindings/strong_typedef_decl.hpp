@@ -6,11 +6,8 @@
 #ifndef ALDA_BINDINGS_STRONG_TYPEDEF_DECL_HPP_INCLUDED
 #define ALDA_BINDINGS_STRONG_TYPEDEF_DECL_HPP_INCLUDED
 
-#include <alda/bindings/strong_typedef_fwd.hpp>
+#include <alda/bindings/strong_typedef_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/is_strong_typedef.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 
 namespace alda::bindings
 {

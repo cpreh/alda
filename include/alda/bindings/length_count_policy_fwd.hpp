@@ -9,7 +9,7 @@
 namespace alda::bindings
 {
 
-struct length_count_policy;
+struct length_count_policy; // IWYU pragma: export
 
 }
 

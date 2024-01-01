@@ -24,12 +24,14 @@
 #include <alda/net/server/detail/connection_unique_ptr.hpp>
 #include <alda/net/server/detail/object_impl_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/log/object.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/asio/io_service.hpp>
 #include <boost/asio/ip/tcp.hpp>
-#include <boost/system/error_code.hpp>
+#include <boost/system/error_code.hpp> // IWYU pragma: keep
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
@@ -87,23 +89,23 @@ private:
   void accept();
 
   void read_handler(
-      boost::system::error_code const &,
+      boost::system::error_code const &, // NOLINT(misc-include-cleaner)
       std::size_t,
       alda::net::server::detail::connection & // NOLINT(google-runtime-references)
   ); // NOLINT(google-runtime-references)
 
   void write_handler(
-      boost::system::error_code const &,
+      boost::system::error_code const &, // NOLINT(misc-include-cleaner)
       std::size_t,
       alda::net::server::detail::connection & // NOLINT(google-runtime-references)
   ); // NOLINT(google-runtime-references)
 
   void accept_handler(
-      boost::system::error_code const &, alda::net::server::detail::connection_unique_ptr &&);
+      boost::system::error_code const &, alda::net::server::detail::connection_unique_ptr &&); // NOLINT(misc-include-cleaner)
 
   void handle_error(
       fcppt::string const &,
-      boost::system::error_code const &,
+      boost::system::error_code const &, // NOLINT(misc-include-cleaner)
       alda::net::server::detail::connection const &);
 
   void send_data(alda::net::server::detail::connection & // NOLINT(google-runtime-references)

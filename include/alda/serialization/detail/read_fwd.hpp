@@ -10,7 +10,7 @@ namespace alda::serialization::detail
 {
 
 template <typename TypeEnum>
-class read;
+class read; // IWYU pragma: export
 
 }
 

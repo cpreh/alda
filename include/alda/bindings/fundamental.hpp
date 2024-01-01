@@ -11,7 +11,6 @@
 #include <alda/raw/dispatch_type.hpp>
 #include <alda/raw/integral_size.hpp>
 #include <alda/raw/pointer.hpp>
-#include <alda/raw/size_type.hpp>
 #include <alda/raw/static_size.hpp>
 #include <alda/raw/static_size_impl.hpp>
 #include <alda/raw/detail/copy_n.hpp>

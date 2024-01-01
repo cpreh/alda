@@ -10,7 +10,7 @@ namespace alda::bindings
 {
 
 template <typename Types>
-struct record;
+struct record; // IWYU pragma: export
 
 }
 

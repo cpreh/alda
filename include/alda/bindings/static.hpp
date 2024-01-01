@@ -11,7 +11,6 @@
 #include <alda/raw/dispatch_type.hpp>
 #include <alda/raw/element_type.hpp>
 #include <alda/raw/make_generic.hpp>
-#include <alda/raw/needed_size.hpp>
 #include <alda/raw/place.hpp>
 #include <alda/raw/pointer.hpp>
 #include <alda/raw/static_size_impl.hpp>

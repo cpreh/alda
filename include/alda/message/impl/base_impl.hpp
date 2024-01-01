@@ -6,7 +6,7 @@
 #ifndef ALDA_MESSAGE_IMPL_BASE_IMPL_HPP_INCLUDED
 #define ALDA_MESSAGE_IMPL_BASE_IMPL_HPP_INCLUDED
 
-#include <alda/message/base_decl.hpp>
+#include <alda/message/base_decl.hpp> // IWYU pragma: export
 
 template <typename TypeEnum>
 alda::message::base<TypeEnum>::base() = default;

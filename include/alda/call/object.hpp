@@ -7,8 +7,8 @@
 #define ALDA_CALL_OBJECT_HPP_INCLUDED
 
 #include <alda/call/object_decl.hpp> // IWYU pragma: export
-#include <alda/call/object_impl.hpp>
-#include <alda/call/detail/base_impl.hpp>
-#include <alda/call/detail/concrete_impl.hpp>
+#include <alda/call/object_impl.hpp> // IWYU pragma: keep
+#include <alda/call/detail/base_impl.hpp> // IWYU pragma: keep
+#include <alda/call/detail/concrete_impl.hpp> // IWYU pragma: keep
 
 #endif

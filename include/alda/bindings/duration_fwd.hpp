@@ -10,7 +10,7 @@ namespace alda::bindings
 {
 
 template <typename Adapted, typename Ratio>
-struct duration;
+struct duration; // IWYU pragma: export
 
 }
 

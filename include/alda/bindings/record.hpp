@@ -27,7 +27,7 @@
 #include <fcppt/use.hpp>
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/algorithm/loop.hpp>
-#include <fcppt/algorithm/loop_break_mpl.hpp>
+#include <fcppt/algorithm/loop_break_mpl.hpp> // IWYU pragma: keep
 #include <fcppt/mpl/add.hpp>
 #include <fcppt/mpl/arg.hpp>
 #include <fcppt/mpl/bind.hpp>
@@ -38,7 +38,7 @@
 #include <fcppt/mpl/list/size.hpp>
 #include <fcppt/record/element_to_label.hpp>
 #include <fcppt/record/element_to_type.hpp>
-#include <fcppt/record/from_list.hpp>
+#include <fcppt/record/from_list.hpp> // IWYU pragma: keep
 #include <fcppt/record/get.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>

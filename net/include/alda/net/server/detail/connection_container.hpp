@@ -8,6 +8,7 @@
 
 #include <alda/net/id.hpp>
 #include <alda/net/server/detail/connection_unique_ptr.hpp>
+#include <fcppt/strong_typedef_comparison.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <map>
 #include <fcppt/config/external_end.hpp>

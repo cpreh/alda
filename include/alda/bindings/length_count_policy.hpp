@@ -6,7 +6,7 @@
 #ifndef ALDA_BINDINGS_LENGTH_COUNT_POLICY_HPP_INCLUDED
 #define ALDA_BINDINGS_LENGTH_COUNT_POLICY_HPP_INCLUDED
 
-#include <alda/bindings/length_count_policy_fwd.hpp>
+#include <alda/bindings/length_count_policy_fwd.hpp> // IWYU pragma: keep
 
 namespace alda::bindings
 {

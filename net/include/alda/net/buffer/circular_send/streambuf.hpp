@@ -8,11 +8,12 @@
 
 #include <alda/net/value_type.hpp>
 #include <alda/net/buffer/max_send_size.hpp>
-#include <alda/net/buffer/circular_send/streambuf_fwd.hpp>
+#include <alda/net/buffer/circular_send/streambuf_fwd.hpp> // IWYU pragma: keep
 #include <alda/net/detail/symbol.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/circular_buffer.hpp>
+#include <boost/circular_buffer.hpp> // IWYU pragma: keep
+#include <boost/circular_buffer_fwd.hpp>
 #include <ios>
 #include <streambuf>
 #include <fcppt/config/external_end.hpp>

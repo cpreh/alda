@@ -6,7 +6,7 @@
 #ifndef ALDA_BINDINGS_DYNAMIC_LEN_DECL_HPP_INCLUDED
 #define ALDA_BINDINGS_DYNAMIC_LEN_DECL_HPP_INCLUDED
 
-#include <alda/bindings/dynamic_len_fwd.hpp>
+#include <alda/bindings/dynamic_len_fwd.hpp> // IWYU pragma: keep
 
 namespace alda::bindings
 {

@@ -6,9 +6,9 @@
 #ifndef ALDA_BINDINGS_BITFIELD_HPP_INCLUDED
 #define ALDA_BINDINGS_BITFIELD_HPP_INCLUDED
 
-#include <alda/bindings/array.hpp>
+#include <alda/bindings/array.hpp> // IWYU pragma: keep
 #include <alda/bindings/bitfield_decl.hpp> // IWYU pragma: export
-#include <alda/bindings/unsigned.hpp>
+#include <alda/bindings/unsigned.hpp> // IWYU pragma: keep
 #include <alda/raw/dispatch_type.hpp>
 #include <alda/raw/element_type.hpp>
 #include <alda/raw/make_generic.hpp>

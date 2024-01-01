@@ -9,7 +9,7 @@
 namespace alda::net::buffer::circular_receive
 {
 
-class part;
+class part; // IWYU pragma: export
 
 }
 

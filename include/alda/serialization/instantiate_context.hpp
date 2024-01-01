@@ -6,7 +6,7 @@
 #ifndef ALDA_SERIALIZATION_INSTANTIATE_CONTEXT_HPP_INCLUDED
 #define ALDA_SERIALIZATION_INSTANTIATE_CONTEXT_HPP_INCLUDED
 
-#include <alda/serialization/impl/context_impl.hpp>
+#include <alda/serialization/impl/context_impl.hpp> // IWYU pragma: keep
 
 #define ALDA_SERIALIZATION_INSTANTIATE_CONTEXT(type_enum) \
   template class alda::serialization::context<type_enum>

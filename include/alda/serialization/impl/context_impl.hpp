@@ -6,8 +6,8 @@
 #ifndef ALDA_SERIALIZATION_IMPL_CONTEXT_IMPL_HPP_INCLUDED
 #define ALDA_SERIALIZATION_IMPL_CONTEXT_IMPL_HPP_INCLUDED
 
-#include <alda/serialization/context_decl.hpp>
-#include <alda/serialization/detail/dispatch/base_decl.hpp>
+#include <alda/serialization/context_decl.hpp> // IWYU pragma: export
+#include <alda/serialization/detail/dispatch/base_decl.hpp> // IWYU pragma: keep
 
 template <typename TypeEnum>
 alda::serialization::context<TypeEnum>::context() : handlers_()

@@ -7,6 +7,6 @@
 #define ALDA_RAW_STREAM_ERROR_HPP_INCLUDED
 
 #include <alda/raw/stream/error_fwd.hpp> // IWYU pragma: export
-#include <fcppt/strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 #endif

@@ -7,7 +7,7 @@
 #define ALDA_BINDINGS_OPTIONAL_DECL_HPP_INCLUDED
 
 #include <alda/bindings/bool_fwd.hpp>
-#include <alda/bindings/optional_fwd.hpp>
+#include <alda/bindings/optional_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/optional/object_fwd.hpp>
 
 namespace alda::bindings

@@ -6,7 +6,7 @@
 #ifndef ALDA_NET_IO_SERVICE_WRAPPER_HPP_INCLUDED
 #define ALDA_NET_IO_SERVICE_WRAPPER_HPP_INCLUDED
 
-#include <alda/net/io_service_wrapper_fwd.hpp>
+#include <alda/net/io_service_wrapper_fwd.hpp> // IWYU pragma: keep
 #include <alda/net/detail/symbol.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/config/external_begin.hpp>

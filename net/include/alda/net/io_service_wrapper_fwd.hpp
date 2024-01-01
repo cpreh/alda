@@ -9,7 +9,7 @@
 namespace alda::net
 {
 
-class io_service_wrapper;
+class io_service_wrapper; // IWYU pragma: export
 
 }
 

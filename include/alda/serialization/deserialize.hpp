@@ -15,7 +15,7 @@
 #include <alda/serialization/istream.hpp>
 #include <alda/serialization/detail/message_type.hpp>
 #include <alda/serialization/detail/read_decl.hpp>
-#include <alda/serialization/detail/dispatch/base_decl.hpp>
+#include <alda/serialization/detail/dispatch/base_decl.hpp> // IWYU pragma: keep
 #include <fcppt/text.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/either/to_exception.hpp>

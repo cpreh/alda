@@ -8,8 +8,9 @@
 
 #include <alda/detail/external_symbol.hpp>
 #include <alda/message/base_decl.hpp>
+#include <alda/message/concrete_fwd.hpp> // IWYU pragma: keep
 #include <alda/message/is_object.hpp>
-#include <alda/message/object_decl.hpp>
+#include <alda/message/object_decl.hpp> // IWYU pragma: keep
 #include <alda/raw/buffer_fwd.hpp>
 #include <alda/raw/size_type.hpp>
 

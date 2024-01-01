@@ -7,7 +7,7 @@
 #define ALDA_NET_PARAMETERS_HPP_INCLUDED
 
 #include <alda/net/io_service_wrapper_fwd.hpp>
-#include <alda/net/parameters_fwd.hpp>
+#include <alda/net/parameters_fwd.hpp> // IWYU pragma: keep
 #include <alda/net/buffer/max_receive_size.hpp>
 #include <alda/net/buffer/max_send_size.hpp>
 #include <alda/net/detail/symbol.hpp>

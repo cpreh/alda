@@ -6,7 +6,7 @@
 #ifndef ALDA_BINDINGS_UNSIGNED_HPP_INCLUDED
 #define ALDA_BINDINGS_UNSIGNED_HPP_INCLUDED
 
-#include <alda/bindings/fundamental.hpp>
+#include <alda/bindings/fundamental.hpp> // IWYU pragma: keep
 #include <alda/bindings/unsigned_decl.hpp> // IWYU pragma: export
 #include <alda/raw/dispatch_type.hpp>
 #include <alda/raw/element_type.hpp>

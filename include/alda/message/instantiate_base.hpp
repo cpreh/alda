@@ -6,7 +6,7 @@
 #ifndef ALDA_MESSAGE_INSTANTIATE_BASE_HPP_INCLUDED
 #define ALDA_MESSAGE_INSTANTIATE_BASE_HPP_INCLUDED
 
-#include <alda/message/impl/base_impl.hpp>
+#include <alda/message/impl/base_impl.hpp> // IWYU pragma: keep
 
 #define ALDA_MESSAGE_INSTANTIATE_BASE(type_enum) template class alda::message::base<type_enum>
 

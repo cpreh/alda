@@ -6,7 +6,7 @@
 #ifndef ALDA_MESSAGE_INSTANTIATE_CONCRETE_HPP_INCLUDED
 #define ALDA_MESSAGE_INSTANTIATE_CONCRETE_HPP_INCLUDED
 
-#include <alda/message/impl/concrete_impl.hpp>
+#include <alda/message/impl/concrete_impl.hpp> // IWYU pragma: keep
 
 #define ALDA_MESSAGE_INSTANTIATE_CONCRETE(type_enum, message_type) \
   template class alda::message::concrete<type_enum, message_type>

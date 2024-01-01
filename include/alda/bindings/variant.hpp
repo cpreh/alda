@@ -7,7 +7,7 @@
 #define ALDA_BINDINGS_VARIANT_HPP_INCLUDED
 
 #include <alda/exception.hpp>
-#include <alda/bindings/unsigned.hpp>
+#include <alda/bindings/unsigned.hpp> // IWYU pragma: keep
 #include <alda/bindings/variant_decl.hpp> // IWYU pragma: export
 #include <alda/raw/dispatch_type.hpp>
 #include <alda/raw/element_type.hpp>

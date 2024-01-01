@@ -7,8 +7,8 @@
 #define ALDA_SERIALIZATION_DECLARE_DETAILS_HPP_INCLUDED
 
 #include <alda/detail/export_external_class_instantiation.hpp>
-#include <alda/serialization/detail/read_decl.hpp>
-#include <alda/serialization/detail/dispatch/base_decl.hpp>
+#include <alda/serialization/detail/read_decl.hpp> // IWYU pragma: keep
+#include <alda/serialization/detail/dispatch/base_decl.hpp> // IWYU pragma: keep
 
 #define ALDA_SERIALIZATION_DECLARE_DETAILS(type_enum) \
   extern template class ALDA_DETAIL_EXPORT_EXTERNAL_CLASS_INSTANTIATION \

@@ -1,6 +1,6 @@
 cmake_minimum_required(
 	VERSION
-	3.7.0
+	3.27.0
 )
 
 project(
@@ -29,7 +29,8 @@ set(
 	"alda"
 )
 
-set(
+list(
+	APPEND
 	FCPPT_UTILS_CLANG_TIDY_ADDITIONAL_CHECKS
 	"-cppcoreguidelines-avoid-const-or-ref-data-members"
 	"-misc-misplaced-const"

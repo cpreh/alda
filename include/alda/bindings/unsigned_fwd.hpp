@@ -14,7 +14,7 @@ namespace alda::bindings
 {
 
 template <typename Type, std::endian>
-struct unsigned_;
+struct unsigned_; // IWYU pragma: export
 
 }
 

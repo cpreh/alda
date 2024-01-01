@@ -10,7 +10,7 @@ namespace alda::bindings
 {
 
 template <typename Type, typename Adapted>
-struct optional;
+struct optional; // IWYU pragma: export
 
 }
 

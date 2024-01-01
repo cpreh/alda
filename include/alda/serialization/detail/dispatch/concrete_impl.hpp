@@ -6,8 +6,8 @@
 #ifndef ALDA_SERIALIZATION_DETAIL_DISPATCH_CONCRETE_IMPL_HPP_INCLUDED
 #define ALDA_SERIALIZATION_DETAIL_DISPATCH_CONCRETE_IMPL_HPP_INCLUDED
 
-#include <alda/serialization/detail/read_decl.hpp>
-#include <alda/serialization/detail/dispatch/concrete_decl.hpp>
+#include <alda/serialization/detail/read_decl.hpp> // IWYU pragma: keep
+#include <alda/serialization/detail/dispatch/concrete_decl.hpp> // IWYU pragma: export
 #include <fcppt/tag.hpp>
 
 template <typename TypeEnum, typename Message>

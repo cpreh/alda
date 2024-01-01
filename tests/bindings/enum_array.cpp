@@ -9,6 +9,7 @@
 #include <alda/raw/stream/error.hpp>
 #include <alda/serialization/read.hpp>
 #include <alda/serialization/write.hpp>
+#include <fcppt/strong_typedef_comparison.hpp> // IWYU pragma: keep
 #include <fcppt/cast/enum_to_int.hpp>
 #include <fcppt/catch/begin.hpp>
 #include <fcppt/catch/either.hpp> // NOLINT(misc-include-cleaner)

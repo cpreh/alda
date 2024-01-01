@@ -6,7 +6,7 @@
 #ifndef ALDA_BINDINGS_UNIT_DECL_HPP_INCLUDED
 #define ALDA_BINDINGS_UNIT_DECL_HPP_INCLUDED
 
-#include <alda/bindings/unit_fwd.hpp>
+#include <alda/bindings/unit_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/unit_fwd.hpp>
 
 namespace alda::bindings

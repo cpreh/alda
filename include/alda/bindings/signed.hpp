@@ -10,6 +10,7 @@
 #include <alda/bindings/signed_decl.hpp> // IWYU pragma: export
 #include <alda/bindings/unsigned.hpp>
 #include <alda/raw/dispatch_type.hpp>
+#include <alda/raw/element_type.hpp>
 #include <alda/raw/make_generic.hpp>
 #include <alda/raw/place.hpp>
 #include <alda/raw/pointer.hpp>

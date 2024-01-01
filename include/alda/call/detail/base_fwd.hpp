@@ -10,7 +10,7 @@ namespace alda::call::detail
 {
 
 template <typename TypeEnum, typename Callee>
-class base;
+class base; // IWYU pragma: export
 
 }
 

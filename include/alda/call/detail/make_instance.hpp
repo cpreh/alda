@@ -6,7 +6,7 @@
 #ifndef ALDA_CALL_DETAIL_MAKE_INSTANCE_HPP_INCLUDED
 #define ALDA_CALL_DETAIL_MAKE_INSTANCE_HPP_INCLUDED
 
-#include <alda/call/detail/base_impl.hpp>
+#include <alda/call/detail/base_impl.hpp> // IWYU pragma: keep
 #include <alda/call/detail/concrete_decl.hpp>
 #include <alda/message/detail/extract_id.hpp>
 #include <fcppt/make_unique_ptr.hpp>

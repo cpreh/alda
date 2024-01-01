@@ -7,7 +7,7 @@
 #define ALDA_BINDINGS_UNSIGNED_DECL_HPP_INCLUDED
 
 #include <alda/bindings/fundamental_decl.hpp>
-#include <alda/bindings/unsigned_fwd.hpp>
+#include <alda/bindings/unsigned_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <bit>
 #include <type_traits>

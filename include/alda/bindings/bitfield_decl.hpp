@@ -7,7 +7,7 @@
 #define ALDA_BINDINGS_BITFIELD_DECL_HPP_INCLUDED
 
 #include <alda/bindings/array_fwd.hpp>
-#include <alda/bindings/bitfield_fwd.hpp>
+#include <alda/bindings/bitfield_fwd.hpp> // IWYU pragma: keep
 #include <alda/bindings/unsigned_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <bit>

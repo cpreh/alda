@@ -16,7 +16,7 @@ template <
     typename Adapted,
     typename Length,
     typename LengthPolicy = alda::bindings::length_count_policy>
-struct dynamic_len;
+struct dynamic_len; // IWYU pragma: export
 
 }
 

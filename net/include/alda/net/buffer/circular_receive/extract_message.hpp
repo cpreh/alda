@@ -6,10 +6,11 @@
 #ifndef ALDA_NET_BUFFER_CIRCULAR_RECEIVE_EXTRACT_MESSAGE_HPP_INCLUDED
 #define ALDA_NET_BUFFER_CIRCULAR_RECEIVE_EXTRACT_MESSAGE_HPP_INCLUDED
 
-#include <alda/message/base_decl.hpp>
+#include <alda/message/base_decl.hpp> // IWYU pragma: keep
 #include <alda/message/optional_base_unique_ptr.hpp>
 #include <alda/net/buffer/circular_receive/streambuf.hpp>
 #include <alda/serialization/context_fwd.hpp>
+#include <alda/serialization/istream.hpp>
 #include <alda/serialization/length/deserialize.hpp>
 #include <alda/serialization/length/remaining_size_function.hpp>
 

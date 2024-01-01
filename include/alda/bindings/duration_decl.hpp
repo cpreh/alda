@@ -6,7 +6,7 @@
 #ifndef ALDA_BINDINGS_DURATION_DECL_HPP_INCLUDED
 #define ALDA_BINDINGS_DURATION_DECL_HPP_INCLUDED
 
-#include <alda/bindings/duration_fwd.hpp>
+#include <alda/bindings/duration_fwd.hpp> // IWYU pragma: keep
 #include <alda/raw/element_type.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <chrono>

@@ -6,7 +6,7 @@
 #ifndef ALDA_TYPE_ENUM_HPP_INCLUDED
 #define ALDA_TYPE_ENUM_HPP_INCLUDED
 
-#include <alda/type_enum_fwd.hpp>
+#include <alda/type_enum_fwd.hpp> // IWYU pragma: keep
 
 namespace alda
 {

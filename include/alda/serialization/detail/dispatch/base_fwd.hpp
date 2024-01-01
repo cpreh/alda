@@ -10,7 +10,7 @@ namespace alda::serialization::detail::dispatch
 {
 
 template <typename TypeEnum>
-class base;
+class base; // IWYU pragma: export
 
 }
 

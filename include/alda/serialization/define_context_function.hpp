@@ -6,7 +6,7 @@
 #ifndef ALDA_SERIALIZATION_DEFINE_CONTEXT_FUNCTION_HPP_INCLUDED
 #define ALDA_SERIALIZATION_DEFINE_CONTEXT_FUNCTION_HPP_INCLUDED
 
-#include <alda/serialization/context_decl.hpp>
+#include <alda/serialization/context_decl.hpp> // IWYU pragma: keep
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>

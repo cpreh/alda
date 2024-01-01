@@ -10,7 +10,7 @@ namespace alda::message
 {
 
 template <typename TypeEnum, typename Type>
-class concrete;
+class concrete; // IWYU pragma: export
 
 }
 

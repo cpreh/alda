@@ -8,7 +8,7 @@
 
 #include <alda/detail/external_symbol.hpp>
 #include <alda/serialization/context_fwd.hpp>
-#include <alda/serialization/detail/dispatch/register_fwd.hpp>
+#include <alda/serialization/detail/dispatch/register_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/nonmovable.hpp>
 
 namespace alda::serialization::detail::dispatch

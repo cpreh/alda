@@ -9,7 +9,7 @@
 namespace alda::bindings
 {
 
-struct float_;
+struct float_; // IWYU pragma: export
 
 }
 

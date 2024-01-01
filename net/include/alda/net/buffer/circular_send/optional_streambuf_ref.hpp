@@ -7,6 +7,6 @@
 #define ALDA_NET_BUFFER_CIRCULAR_SEND_OPTIONAL_STREAMBUF_REF_HPP_INCLUDED
 
 #include <alda/net/buffer/circular_send/optional_streambuf_ref_fwd.hpp> // IWYU pragma: export
-#include <fcppt/optional/reference.hpp>
+#include <fcppt/optional/reference.hpp> // IWYU pragma: keep
 
 #endif

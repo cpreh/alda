@@ -8,8 +8,8 @@
 
 #include <alda/exception.hpp>
 #include <alda/bindings/dynamic_len_decl.hpp> // IWYU pragma: export
-#include <alda/bindings/length_count_policy.hpp>
-#include <alda/bindings/unsigned.hpp>
+#include <alda/bindings/length_count_policy.hpp> // IWYU pragma: keep
+#include <alda/bindings/unsigned.hpp> // IWYU pragma: keep
 #include <alda/raw/dispatch_type.hpp>
 #include <alda/raw/element_type.hpp>
 #include <alda/raw/make_generic.hpp>

@@ -15,9 +15,7 @@
 #include <fcppt/algorithm/repeat.hpp>
 #include <fcppt/optional/bind.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <cstddef>
 #include <ios>
-#include <ostream>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 

@@ -6,7 +6,7 @@
 #ifndef ALDA_BINDINGS_FLOAT_DECL_HPP_INCLUDED
 #define ALDA_BINDINGS_FLOAT_DECL_HPP_INCLUDED
 
-#include <alda/bindings/float_fwd.hpp>
+#include <alda/bindings/float_fwd.hpp> // IWYU pragma: keep
 #include <alda/bindings/float_type.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdint>

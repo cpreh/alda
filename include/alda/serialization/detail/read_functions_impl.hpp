@@ -8,7 +8,7 @@
 
 #include <alda/exception.hpp>
 #include <alda/message/make_concrete_ptr.hpp>
-#include <alda/message/object_impl.hpp>
+#include <alda/message/object_impl.hpp> // IWYU pragma: keep
 #include <alda/raw/make_generic.hpp>
 #include <alda/raw/stream/error.hpp>
 #include <alda/raw/stream/istream.hpp>
@@ -19,7 +19,7 @@
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/either/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <typeinfo>
+#include <typeinfo> // IWYU pragma: keep
 #include <fcppt/config/external_end.hpp>
 
 template <typename TypeEnum>

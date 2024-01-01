@@ -6,7 +6,7 @@
 #ifndef ALDA_CALL_DETAIL_BASE_DECL_HPP_INCLUDED
 #define ALDA_CALL_DETAIL_BASE_DECL_HPP_INCLUDED
 
-#include <alda/call/detail/base_fwd.hpp>
+#include <alda/call/detail/base_fwd.hpp> // IWYU pragma: keep
 #include <alda/message/base_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 

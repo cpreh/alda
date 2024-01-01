@@ -15,8 +15,7 @@
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
-#include <typeinfo>
-#include <utility>
+#include <typeinfo> // IWYU pragma: keep
 #include <fcppt/config/external_end.hpp>
 
 namespace alda::raw::stream

@@ -10,7 +10,7 @@ namespace alda::serialization
 {
 
 template <typename TypeEnum>
-class context;
+class context; // IWYU pragma: export
 
 }
 

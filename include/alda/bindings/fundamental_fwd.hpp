@@ -10,7 +10,7 @@ namespace alda::bindings
 {
 
 template <typename T>
-struct fundamental;
+struct fundamental; // IWYU pragma: export
 
 }
 

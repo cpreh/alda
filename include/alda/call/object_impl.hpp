@@ -7,14 +7,14 @@
 #define ALDA_CALL_OBJECT_IMPL_HPP_INCLUDED
 
 #include <alda/call/object_decl.hpp> // IWYU pragma: export
-#include <alda/call/detail/concrete_decl.hpp>
+#include <alda/call/detail/concrete_decl.hpp> // IWYU pragma: keep
 #include <alda/call/detail/make_instance.hpp>
-#include <alda/message/base_decl.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
-#include <fcppt/enum/array_impl.hpp>
+#include <alda/message/base_decl.hpp> // IWYU pragma: keep
+#include <fcppt/unique_ptr_impl.hpp> // IWYU pragma: keep
+#include <fcppt/enum/array_impl.hpp> // IWYU pragma: keep
 #include <fcppt/enum/array_init.hpp>
 #include <fcppt/optional/maybe.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 template <typename TypeEnum, typename Messages, typename Callee>
 alda::call::object<TypeEnum, Messages, Callee>::object()

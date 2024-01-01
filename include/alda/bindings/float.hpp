@@ -7,7 +7,6 @@
 #define ALDA_BINDINGS_FLOAT_HPP_INCLUDED
 
 #include <alda/bindings/float_decl.hpp> // IWYU pragma: export
-#include <alda/bindings/float_type.hpp>
 #include <alda/bindings/fundamental.hpp>
 #include <alda/detail/symbol.hpp>
 #include <alda/raw/const_pointer.hpp>
@@ -20,6 +19,7 @@
 #include <alda/raw/stream/reference.hpp>
 #include <alda/raw/stream/result.hpp>
 #include <alda/raw/stream/return.hpp>
+#include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

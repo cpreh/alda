@@ -10,11 +10,9 @@
 #include <alda/raw/combine_static_sizes.hpp>
 #include <alda/raw/dispatch_type.hpp>
 #include <alda/raw/element_type.hpp>
-#include <alda/raw/integral_size.hpp>
 #include <alda/raw/make_generic.hpp>
 #include <alda/raw/place_and_update.hpp>
 #include <alda/raw/pointer.hpp>
-#include <alda/raw/size_type.hpp>
 #include <alda/raw/static_size.hpp>
 #include <alda/raw/static_size_impl.hpp>
 #include <alda/raw/stream/bind.hpp>
@@ -27,13 +25,11 @@
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/no_init.hpp>
 #include <fcppt/unit.hpp>
-#include <fcppt/array/impl_type.hpp>
 #include <fcppt/array/size.hpp>
 #include <fcppt/mpl/lambda.hpp>
 #include <fcppt/mpl/mul.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <cstddef>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 

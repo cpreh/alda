@@ -6,7 +6,7 @@
 #ifndef ALDA_BINDINGS_FUNDAMENTAL_DECL_HPP_INCLUDED
 #define ALDA_BINDINGS_FUNDAMENTAL_DECL_HPP_INCLUDED
 
-#include <alda/bindings/fundamental_fwd.hpp>
+#include <alda/bindings/fundamental_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
