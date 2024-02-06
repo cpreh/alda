@@ -18,8 +18,8 @@
 #include <fcppt/optional/output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch_test_macros.hpp>
-#include <iterator>
 #include <istream>
+#include <iterator>
 #include <fcppt/config/external_end.hpp>
 
 FCPPT_CATCH_BEGIN
