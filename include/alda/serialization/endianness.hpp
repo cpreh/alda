@@ -13,7 +13,7 @@
 namespace alda::serialization
 {
 
-inline constexpr std::endian endianness() { return std::endian::little; }
+constexpr std::endian endianness() { return std::endian::little; }
 
 }
 

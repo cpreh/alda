@@ -14,13 +14,13 @@ namespace alda::bindings
 struct length_count_policy
 {
   template <typename Value>
-  inline static decltype(auto) place(Value const &_value)
+  static decltype(auto) place(Value const &_value)
   {
     return _value.size();
   }
 
   template <typename Size>
-  inline static Size make(Size const _size)
+  static Size make(Size const _size)
   {
     return _size;
   }

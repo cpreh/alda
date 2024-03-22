@@ -42,7 +42,7 @@
 namespace
 {
 
-enum class message_type
+enum class message_type : std::uint8_t
 {
   message1,
   message2,

@@ -12,27 +12,23 @@
 #include <alda/raw/needed_size_static.hpp>
 #include <alda/raw/size_type.hpp>
 #include <fcppt/not.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
 
 namespace alda::raw
 {
 
 template <typename Type>
-inline std::enable_if_t<alda::raw::is_static_size<Type>::value, alda::raw::size_type>
-needed_size(alda::raw::element_type<Type> const &)
+inline alda::raw::size_type needed_size(alda::raw::element_type<Type> const &)
+  requires(alda::raw::is_static_size<Type>::value)
 {
   return alda::raw::needed_size_static<Type>();
 }
 
 template <typename Type>
-inline std::enable_if_t<fcppt::not_(alda::raw::is_static_size<Type>::value), alda::raw::size_type>
-needed_size(alda::raw::element_type<Type> const &_value)
+inline alda::raw::size_type needed_size(alda::raw::element_type<Type> const &_value)
+  requires(fcppt::not_(alda::raw::is_static_size<Type>::value))
 {
   return needed_size(alda::raw::dispatch_value<Type>(), _value);
 }
-
 }
 
 #endif

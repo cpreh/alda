@@ -23,13 +23,14 @@
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch_test_macros.hpp>
 #include <bit>
+#include <cstdint>
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
 
 namespace
 {
 
-enum class my_enum
+enum class my_enum : std::uint8_t
 {
   enum1,
   enum2,

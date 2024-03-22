@@ -27,10 +27,10 @@ alda::net::client::object::~object() = default;
 
 void alda::net::client::object::connect(alda::net::host const &_host, alda::net::port const _port)
 {
-  return impl_->connect(_host, _port);
+  impl_->connect(_host, _port);
 }
 
-void alda::net::client::object::disconnect() { return impl_->disconnect(); }
+void alda::net::client::object::disconnect() { impl_->disconnect(); }
 
 alda::net::buffer::circular_send::streambuf &alda::net::client::object::send_buffer()
 {

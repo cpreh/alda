@@ -42,8 +42,8 @@ struct make_instance
           fcppt::mpl::lambda<alda::message::detail::extract_id>>>;
 
   template <typename Type>
-  std::enable_if_t<has_message<Type>::value, optional_base_unique_ptr>
-  operator()(Type) const
+  optional_base_unique_ptr operator()(Type) const
+    requires(has_message<Type>::value)
   {
     return optional_base_unique_ptr{fcppt::unique_ptr_to_base<base>(
         fcppt::make_unique_ptr<alda::call::detail::concrete<
@@ -60,13 +60,12 @@ struct make_instance
   }
 
   template <typename Type>
-  std::enable_if_t<!has_message<Type>::value, optional_base_unique_ptr>
-  operator()(Type) const
+  optional_base_unique_ptr operator()(Type) const
+    requires(!has_message<Type>::value)
   {
     return optional_base_unique_ptr();
   }
 };
-
 }
 
 #endif

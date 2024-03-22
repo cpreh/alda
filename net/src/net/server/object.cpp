@@ -26,7 +26,7 @@ alda::net::server::object::object(alda::net::parameters const &_parameters)
 
 alda::net::server::object::~object() = default;
 
-void alda::net::server::object::listen(alda::net::port const _port) { return impl_->listen(_port); }
+void alda::net::server::object::listen(alda::net::port const _port) { impl_->listen(_port); }
 
 alda::net::buffer::circular_send::optional_streambuf_ref
 alda::net::server::object::send_buffer(alda::net::id const _id)
@@ -41,7 +41,7 @@ alda::net::server::connection_id_container alda::net::server::object::connection
 
 void alda::net::server::object::queue_send(alda::net::id const _id)
 {
-  return impl_->queue_send(_id);
+  impl_->queue_send(_id);
 }
 
 void alda::net::server::object::disconnect(alda::net::id const _id) { impl_->disconnect(_id); }

@@ -41,7 +41,6 @@
 #include <fcppt/record/from_list.hpp> // IWYU pragma: keep
 #include <fcppt/record/get.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <type_traits>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -115,19 +114,19 @@ namespace detail
 
 // TODO(philipp): Improve this by making std::tuple usable as a range
 template <typename Types, typename Stream, unsigned Index, unsigned MaxIndex, typename... Args>
-inline std::
-    enable_if_t<Index == MaxIndex, alda::raw::stream::result<Stream, alda::bindings::record<Types>>>
-    read(alda::raw::stream::reference<Stream>, Args &&..._args)
+inline alda::raw::stream::result<Stream, alda::bindings::record<Types>>
+read(alda::raw::stream::reference<Stream>, Args &&..._args)
+  requires(Index == MaxIndex)
 {
   return alda::raw::stream::return_<Stream>(
       alda::raw::element_type<alda::bindings::record<Types>>{std::forward<Args>(_args)...});
 }
 
 template <typename Types, typename Stream, unsigned Index, unsigned MaxIndex, typename... Args>
-inline std::
-    enable_if_t<Index != MaxIndex, alda::raw::stream::result<Stream, alda::bindings::record<Types>>>
-    // NOLINTNEXTLINE(cppcoreguidelines-missing-std-forward)
-    read(alda::raw::stream::reference<Stream> _stream, Args &&..._args)
+inline alda::raw::stream::result<Stream, alda::bindings::record<Types>>
+// NOLINTNEXTLINE(cppcoreguidelines-missing-std-forward)
+read(alda::raw::stream::reference<Stream> _stream, Args &&..._args)
+  requires(Index != MaxIndex)
 {
   using element = fcppt::mpl::list::at<Types, fcppt::mpl::size_type<Index>>;
 
@@ -141,7 +140,6 @@ inline std::
             fcppt::record::element_to_label<element>{} = std::move(_arg));
       });
 }
-
 }
 
 template <typename Types, typename Stream>

@@ -25,7 +25,7 @@
 namespace
 {
 
-enum class test_enum
+enum class test_enum : std::uint8_t
 {
   value0,
   value1,

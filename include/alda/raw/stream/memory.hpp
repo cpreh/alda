@@ -25,7 +25,7 @@ struct memory
   FCPPT_PP_PUSH_WARNING
   FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
 
-  static inline void read(
+  static void read(
       alda::raw::stream::memory::reference _stream,
       alda::raw::size_type const _size,
       alda::raw::pointer const _result)

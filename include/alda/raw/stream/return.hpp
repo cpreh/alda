@@ -17,21 +17,20 @@ namespace alda::raw::stream
 {
 
 template <typename Stream, typename Type>
-inline std::enable_if_t<!Stream::can_fail, Type> return_(Type &&_value)
+inline Type return_(Type &&_value)
+  requires(!Stream::can_fail)
 {
   return std::forward<Type>(_value);
 }
 
 template <typename Stream, typename Type>
-inline std::enable_if_t<
-    Stream::can_fail,
-    fcppt::either::object<alda::raw::stream::error, std::remove_cvref_t<Type>>>
+inline fcppt::either::object<alda::raw::stream::error, std::remove_cvref_t<Type>>
 return_(Type &&_value)
+  requires(Stream::can_fail)
 {
   return fcppt::either::object<alda::raw::stream::error, std::remove_cvref_t<Type>>(
       std::forward<Type>(_value));
 }
-
 }
 
 #endif

@@ -12,16 +12,14 @@
 #include <alda/raw/stream/result.hpp>
 #include <alda/raw/stream/return.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
 
 namespace alda::raw::stream
 {
 
 template <typename Stream, typename Type>
-inline std::enable_if_t<Stream::can_fail, alda::raw::stream::result<Stream, Type>>
+inline alda::raw::stream::result<Stream, Type>
 return_if(alda::raw::stream::reference<Stream> _stream, alda::raw::element_type<Type> const &_value)
+  requires(Stream::can_fail)
 {
   return Stream::failed(_stream)
              ? alda::raw::stream::fail<Stream, Type>(FCPPT_TEXT("Stream failed"))
@@ -29,8 +27,9 @@ return_if(alda::raw::stream::reference<Stream> _stream, alda::raw::element_type<
 }
 
 template <typename Stream, typename Type>
-inline std::enable_if_t<!Stream::can_fail, alda::raw::stream::result<Stream, Type>>
+inline alda::raw::stream::result<Stream, Type>
 return_if(alda::raw::stream::reference<Stream>, alda::raw::element_type<Type> const &_value)
+  requires(!Stream::can_fail)
 {
   return _value;
 }

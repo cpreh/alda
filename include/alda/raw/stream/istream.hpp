@@ -24,7 +24,7 @@ struct istream
 {
   using reference = std::istream &;
 
-  static inline void read(
+  static void read(
       alda::raw::stream::istream::reference _stream,
       alda::raw::size_type const _size,
       alda::raw::pointer const _result)
@@ -36,7 +36,7 @@ struct istream
 
   static constexpr bool const can_fail = true;
 
-  static inline bool failed(alda::raw::stream::istream::reference _stream)
+  static bool failed(alda::raw::stream::istream::reference _stream)
   {
     return _stream.fail();
   }

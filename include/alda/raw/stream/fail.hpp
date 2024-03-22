@@ -14,7 +14,6 @@
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <type_traits>
 #include <typeinfo> // IWYU pragma: keep
 #include <fcppt/config/external_end.hpp>
 
@@ -22,9 +21,8 @@ namespace alda::raw::stream
 {
 
 template <typename Stream, typename Type>
-[[noreturn]] inline
-    std::enable_if_t<!Stream::can_fail, alda::raw::stream::result<Stream, Type>>
-    fail(fcppt::string const &_error)
+[[noreturn]] inline alda::raw::stream::result<Stream, Type> fail(fcppt::string const &_error)
+  requires(!Stream::can_fail)
 {
   throw alda::raw::stream::failure{
       FCPPT_TEXT("Type ") + fcppt::from_std_string(fcppt::type_name_from_info(typeid(Type))) +
@@ -32,12 +30,11 @@ template <typename Stream, typename Type>
 }
 
 template <typename Stream, typename Type>
-inline std::enable_if_t<Stream::can_fail, alda::raw::stream::result<Stream, Type>>
-fail(fcppt::string const &_error)
+inline alda::raw::stream::result<Stream, Type> fail(fcppt::string const &_error)
+  requires(Stream::can_fail)
 {
   return alda::raw::stream::result<Stream, Type>(alda::raw::stream::error{_error});
 }
-
 }
 
 #endif
