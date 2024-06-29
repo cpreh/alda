@@ -34,9 +34,7 @@
 #include <fcppt/log/name.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/log/out.hpp>
-#include <fcppt/log/parameters.hpp>
 #include <fcppt/log/verbose.hpp>
-#include <fcppt/log/format/optional_function.hpp>
 #include <fcppt/optional/bind.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/preprocessor/disable_gnu_gcc_warning.hpp>
@@ -55,7 +53,7 @@
 #include <fcppt/config/external_end.hpp>
 
 alda::net::server::detail::object_impl::object_impl(alda::net::parameters const &_parameters)
-    : log_{_parameters.log_context(), alda::net::log_location(), fcppt::log::parameters{fcppt::log::name{FCPPT_TEXT("server")}, fcppt::log::format::optional_function()}},
+    : log_{_parameters.log_context(), alda::net::log_location(), fcppt::log::name{FCPPT_TEXT("server")}},
       io_service_(_parameters.io_service_wrapper().get()),
       buffer_receive_size_(_parameters.max_receive_size()),
       buffer_send_size_(_parameters.max_send_size()),

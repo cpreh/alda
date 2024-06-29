@@ -28,9 +28,7 @@
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/name.hpp>
 #include <fcppt/log/out.hpp>
-#include <fcppt/log/parameters.hpp>
 #include <fcppt/log/verbose.hpp>
-#include <fcppt/log/format/optional_function.hpp>
 #include <fcppt/optional/object_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/preprocessor/disable_gnu_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -48,7 +46,7 @@
 #include <fcppt/config/external_end.hpp>
 
 alda::net::client::detail::object_impl::object_impl(alda::net::parameters const &_parameters)
-    : log_{_parameters.log_context(), alda::net::log_location(), fcppt::log::parameters{fcppt::log::name{FCPPT_TEXT("client")}, fcppt::log::format::optional_function()}},
+    : log_{_parameters.log_context(), alda::net::log_location(), fcppt::log::name{FCPPT_TEXT("client")}},
       io_service_(_parameters.io_service_wrapper().get()),
       // NOLINTNEXTLINE(fuchsia-default-arguments-calls)
       socket_(io_service_),
