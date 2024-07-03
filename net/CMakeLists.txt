@@ -1,7 +1,4 @@
-find_package(
-	Boost 1.47.0
-	REQUIRED
-)
+find_package(Boost 1.70.0 CONFIG REQUIRED)
 
 set(
 	ALDA_NET_FILES
