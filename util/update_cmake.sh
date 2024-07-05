@@ -2,13 +2,11 @@
 
 set -e -u
 
-update_cmake \
-	CMakeLists.txt \
-	ALDA_FILES \
+update_cmake.sh \
+	files.txt \
 	include \
 	src
 
-update_cmake \
-	net/CMakeLists.txt \
-	ALDA_NET_FILES \
+update_cmake.sh \
+	net/files.txt \
 	net
