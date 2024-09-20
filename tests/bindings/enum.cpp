@@ -15,6 +15,7 @@
 #include <fcppt/catch/end.hpp>
 #include <fcppt/catch/strong_typedef.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/either/object.hpp>
+#include <fcppt/enum/define_max_value.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch_test_macros.hpp>
 #include <bit>
@@ -24,19 +25,19 @@
 
 namespace
 {
-
 enum class test_enum : std::uint8_t
 {
   value0,
-  value1,
-  fcppt_maximum = value1
+  value1
 };
-
+}
+FCPPT_ENUM_DEFINE_MAX_VALUE(test_enum::value1);
+namespace
+{
 using enum_binding =
     alda::bindings::enum_<test_enum, alda::bindings::unsigned_<std::uint8_t, std::endian::little>>;
 
 using either_result_type = fcppt::either::object<alda::raw::stream::error, test_enum>;
-
 }
 
 FCPPT_CATCH_BEGIN

@@ -38,6 +38,7 @@
 #include <fcppt/cast/size.hpp>
 #include <fcppt/catch/begin.hpp>
 #include <fcppt/catch/end.hpp>
+#include <fcppt/enum/define_max_value.hpp>
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/comparison.hpp>
 #include <fcppt/optional/maybe.hpp>
@@ -61,13 +62,14 @@
 
 namespace
 {
-
 enum class message_type : std::uint8_t
 {
-  message1,
-  fcppt_maximum = message1
+  message1
 };
-
+}
+FCPPT_ENUM_DEFINE_MAX_VALUE(message_type::message1);
+namespace
+{
 using type_enum = alda::type_enum<message_type>;
 
 using message_base = alda::message::base<type_enum>;

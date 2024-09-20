@@ -19,6 +19,7 @@
 #include <fcppt/either/object.hpp>
 #include <fcppt/enum/array.hpp>
 #include <fcppt/enum/array_init.hpp>
+#include <fcppt/enum/define_max_value.hpp>
 #include <fcppt/enum/size.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch_test_macros.hpp>
@@ -29,15 +30,16 @@
 
 namespace
 {
-
 enum class my_enum : std::uint8_t
 {
   enum1,
   enum2,
-  enum3,
-  fcppt_maximum = enum3
+  enum3
 };
-
+}
+FCPPT_ENUM_DEFINE_MAX_VALUE(my_enum::enum3);
+namespace
+{
 using int_type = unsigned;
 
 using array = fcppt::enum_::array<my_enum, int_type>;

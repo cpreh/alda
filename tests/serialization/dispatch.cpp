@@ -25,6 +25,7 @@
 #include <alda/serialization/serialize.hpp>
 #include <fcppt/catch/begin.hpp>
 #include <fcppt/catch/end.hpp>
+#include <fcppt/enum/define_max_value.hpp>
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -41,14 +42,15 @@
 
 namespace
 {
-
 enum class message_type : std::uint8_t
 {
   message1,
-  message2,
-  fcppt_maximum = message2
+  message2
 };
-
+}
+FCPPT_ENUM_DEFINE_MAX_VALUE(message_type::message2);
+namespace
+{
 using type_enum = alda::type_enum<message_type>;
 
 using message_base = alda::message::base<type_enum>;

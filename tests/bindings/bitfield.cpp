@@ -16,6 +16,7 @@
 #include <fcppt/container/bitfield/object.hpp>
 #include <fcppt/either/comparison.hpp>
 #include <fcppt/either/make_success.hpp>
+#include <fcppt/enum/define_max_value.hpp>
 #include <fcppt/math/ceil_div_static.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch_test_macros.hpp>
@@ -25,19 +26,22 @@
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
 
+namespace
+{
+enum class test_enum : std::uint8_t
+{
+  test1,
+  test2,
+  test3
+};
+}
+FCPPT_ENUM_DEFINE_MAX_VALUE(test_enum::test3);
+
 FCPPT_CATCH_BEGIN
 // NOLINTBEGIN(misc-const-correctness,cert-err58-cpp,fuchsia-statically-constructed-objects,misc-use-anonymous-namespace,cppcoreguidelines-avoid-do-while)
 
 TEST_CASE("bindings::bitfield", "[alda]")
 {
-  enum class test_enum : std::uint8_t
-  {
-    test1,
-    test2,
-    test3,
-    fcppt_maximum = test3
-  };
-
   using bitfield = fcppt::container::bitfield::object<test_enum, alda::raw::data>;
 
   using bitfield_binding = alda::bindings::bitfield<bitfield, std::endian::little>;
