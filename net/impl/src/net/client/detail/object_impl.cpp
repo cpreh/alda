@@ -187,7 +187,7 @@ void alda::net::client::detail::object_impl::connect_handler(
 {
   if (_error)
   {
-    FCPPT_LOG_ERROR(log_, fcppt::log::out << FCPPT_TEXT("Connection error"))
+    this->handle_error(FCPPT_TEXT("Connection error"), _error);
 
     return;
   }
