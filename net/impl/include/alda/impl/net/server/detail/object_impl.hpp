@@ -29,7 +29,7 @@
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/asio/io_service.hpp>
+#include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/system/error_code.hpp> // IWYU pragma: keep
 #include <cstddef>
@@ -68,7 +68,7 @@ public:
 private:
   fcppt::log::object log_;
 
-  boost::asio::io_service &io_service_;
+  boost::asio::io_context &io_context_;
 
   alda::net::buffer::max_receive_size const buffer_receive_size_;
 

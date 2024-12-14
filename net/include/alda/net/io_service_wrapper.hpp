@@ -10,7 +10,7 @@
 #include <alda/net/detail/symbol.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/asio/io_service.hpp>
+#include <boost/asio/io_context.hpp>
 #include <fcppt/config/external_end.hpp>
 
 namespace alda::net
@@ -20,13 +20,12 @@ class io_service_wrapper
 {
 public:
   ALDA_NET_DETAIL_SYMBOL
-  explicit io_service_wrapper(boost::asio::io_service & // NOLINT(google-runtime-references)
-  ); // NOLINT(google-runtime-references)
+  explicit io_service_wrapper(boost::asio::io_context &); // NOLINT(google-runtime-references)
 
-  [[nodiscard]] ALDA_NET_DETAIL_SYMBOL boost::asio::io_service &get() const;
+  [[nodiscard]] ALDA_NET_DETAIL_SYMBOL boost::asio::io_context &get() const;
 
 private:
-  fcppt::reference<boost::asio::io_service> io_service_;
+  fcppt::reference<boost::asio::io_context> io_context_;
 };
 
 }

@@ -10,7 +10,7 @@
 #include <alda/net/buffer/circular_receive/streambuf.hpp>
 #include <alda/net/buffer/circular_send/streambuf.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/asio/io_service.hpp>
+#include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -18,10 +18,10 @@ alda::net::server::detail::connection::connection(
     alda::net::id const _id,
     alda::net::buffer::max_receive_size const _buffer_receive_size,
     alda::net::buffer::max_send_size const _buffer_send_size,
-    boost::asio::io_service &_io_service)
+    boost::asio::io_context &_io_context)
     : id_(_id),
       // NOLINTNEXTLINE(fuchsia-default-arguments-calls)
-      socket_(_io_service),
+      socket_{_io_context},
       send_data_(_buffer_send_size),
       received_data_(_buffer_receive_size),
       sending_(false)

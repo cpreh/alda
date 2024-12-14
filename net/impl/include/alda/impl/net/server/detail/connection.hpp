@@ -13,7 +13,7 @@
 #include <alda/net/buffer/circular_send/streambuf.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/asio/io_service.hpp>
+#include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -29,8 +29,7 @@ public:
       alda::net::id,
       alda::net::buffer::max_receive_size,
       alda::net::buffer::max_send_size,
-      boost::asio::io_service & // NOLINT(google-runtime-references)
-  ); // NOLINT(google-runtime-references)
+      boost::asio::io_context &); // NOLINT(google-runtime-references)
 
   ~connection();
 

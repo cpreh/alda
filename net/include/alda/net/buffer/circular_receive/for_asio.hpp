@@ -8,13 +8,14 @@
 
 #include <alda/net/buffer/circular_receive/part_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/asio/buffer.hpp>
+// TODO(philipp): Check why this doesn't work:
+#include <boost/asio/buffer.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_end.hpp>
 
 namespace alda::net::buffer::circular_receive
 {
 
-boost::asio::mutable_buffers_1 for_asio(alda::net::buffer::circular_receive::part const &);
+boost::asio::mutable_buffer for_asio(alda::net::buffer::circular_receive::part const &);
 
 }
 

@@ -20,13 +20,11 @@
 #include <alda/net/client/detail/object_impl_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/log/object.hpp>
-#include <fcppt/optional/object_decl.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/asio/io_service.hpp>
+#include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/system/error_code.hpp> // IWYU pragma: keep
 #include <cstddef>
@@ -61,17 +59,11 @@ public:
 private:
   fcppt::log::object log_;
 
-  boost::asio::io_service &io_service_;
+  boost::asio::io_context &io_context_;
 
   boost::asio::ip::tcp::socket socket_;
 
   boost::asio::ip::tcp::resolver resolver_;
-
-  using query_unique_ptr = fcppt::unique_ptr<boost::asio::ip::tcp::resolver::query>;
-
-  using optional_query_unique_ptr = fcppt::optional::object<query_unique_ptr>;
-
-  optional_query_unique_ptr query_;
 
   alda::net::buffer::circular_receive::streambuf receive_buffer_;
 
@@ -94,10 +86,10 @@ private:
   void write_handler(boost::system::error_code const &, std::size_t);
 
   // NOLINTNEXTLINE(misc-include-cleaner)
-  void resolve_handler(boost::system::error_code const &, boost::asio::ip::tcp::resolver::iterator);
+  void resolve_handler(boost::system::error_code const &, boost::asio::ip::tcp::resolver::results_type const &);
 
   // NOLINTNEXTLINE(misc-include-cleaner)
-  void connect_handler(boost::system::error_code const &, boost::asio::ip::tcp::resolver::iterator);
+  void connect_handler(boost::system::error_code const &, boost::asio::ip::tcp::endpoint const &);
 
   void send_data();
 

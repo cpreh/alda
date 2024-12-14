@@ -44,7 +44,7 @@
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/asio/buffer.hpp>
-#include <boost/asio/io_service.hpp> // NOLINT(misc-include-cleaner)
+#include <boost/asio/io_context.hpp> // NOLINT(misc-include-cleaner)
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/range/adaptor/map.hpp>
 #include <boost/system/error_code.hpp> // NOLINT(misc-include-cleaner)
@@ -54,11 +54,11 @@
 
 alda::net::server::detail::object_impl::object_impl(alda::net::parameters const &_parameters)
     : log_{_parameters.log_context(), alda::net::log_location(), fcppt::log::name{FCPPT_TEXT("server")}},
-      io_service_(_parameters.io_service_wrapper().get()),
+      io_context_{_parameters.io_service_wrapper().get()},
       buffer_receive_size_(_parameters.max_receive_size()),
       buffer_send_size_(_parameters.max_send_size()),
       // NOLINTNEXTLINE(fuchsia-default-arguments-calls)
-      acceptor_(io_service_),
+      acceptor_{io_context_},
       id_counter_(0U),
       connections_(),
       connect_signal_(),
@@ -146,7 +146,7 @@ void alda::net::server::detail::object_impl::accept()
 {
   alda::net::server::detail::connection_unique_ptr con(
       fcppt::make_unique_ptr<alda::net::server::detail::connection>(
-          alda::net::id(id_counter_++), buffer_receive_size_, buffer_send_size_, io_service_));
+          alda::net::id(id_counter_++), buffer_receive_size_, buffer_send_size_, this->io_context_));
 
   boost::asio::ip::tcp::socket &socket(con->socket());
 
