@@ -9,31 +9,22 @@
 #include <alda/raw/stream/error.hpp>
 #include <alda/raw/stream/failure.hpp>
 #include <alda/raw/stream/result.hpp>
-#include <fcppt/from_std_string.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/type_name_from_info.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <typeinfo> // IWYU pragma: keep
-#include <fcppt/config/external_end.hpp>
 
 namespace alda::raw::stream
 {
 
 template <typename Stream, typename Type>
-[[noreturn]] inline alda::raw::stream::result<Stream, Type> fail(fcppt::string const &_error)
+[[noreturn]] inline alda::raw::stream::result<Stream, Type> fail(alda::raw::stream::error const _error)
   requires(!Stream::can_fail)
 {
-  throw alda::raw::stream::failure{
-      FCPPT_TEXT("Type ") + fcppt::from_std_string(fcppt::type_name_from_info(typeid(Type))) +
-      FCPPT_TEXT(": ") + _error};
+  throw alda::raw::stream::failure{_error};
 }
 
 template <typename Stream, typename Type>
-inline alda::raw::stream::result<Stream, Type> fail(fcppt::string const &_error)
+inline alda::raw::stream::result<Stream, Type> fail(alda::raw::stream::error const _error)
   requires(Stream::can_fail)
 {
-  return alda::raw::stream::result<Stream, Type>(alda::raw::stream::error{_error});
+  return alda::raw::stream::result<Stream, Type>{_error};
 }
 }
 

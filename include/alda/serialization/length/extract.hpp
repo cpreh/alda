@@ -9,10 +9,12 @@
 #include <alda/exception.hpp>
 #include <alda/raw/make_generic.hpp>
 #include <alda/raw/stream/error.hpp>
+#include <alda/raw/stream/error_output.hpp> // IWYU pragma: keep
 #include <alda/raw/stream/istream.hpp>
 #include <alda/serialization/istream.hpp>
 #include <alda/serialization/length/remaining_size_function.hpp>
 #include <alda/serialization/length/detail/binding.hpp>
+#include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
@@ -42,9 +44,11 @@ fcppt::optional::object<LengthType> extract(
                    alda::raw::make_generic<
                        alda::raw::stream::istream,
                        alda::serialization::length::detail::binding<LengthType>>(_stream),
-                   [](alda::raw::stream::error const &_error) {
+                   [](alda::raw::stream::error const &_error)
+                   {
                      return alda::exception{
-                         FCPPT_TEXT("Invalid remaining size in stream: ") + _error.get()};
+                         FCPPT_TEXT("Invalid remaining size in stream: ") +
+                         fcppt::output_to_fcppt_string(_error)};
                    })};
 }
 

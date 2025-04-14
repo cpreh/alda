@@ -10,12 +10,14 @@
 #include <alda/message/base_unique_ptr.hpp>
 #include <alda/raw/make_generic.hpp>
 #include <alda/raw/stream/error.hpp>
+#include <alda/raw/stream/error_output.hpp> // IWYU pragma: keep
 #include <alda/raw/stream/istream.hpp>
 #include <alda/serialization/context_decl.hpp>
 #include <alda/serialization/istream.hpp>
 #include <alda/serialization/detail/message_type.hpp>
 #include <alda/serialization/detail/read_decl.hpp>
 #include <alda/serialization/detail/dispatch/base_decl.hpp> // IWYU pragma: keep
+#include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/either/to_exception.hpp>
@@ -37,9 +39,9 @@ alda::message::base_unique_ptr<TypeEnum> deserialize(
                      alda::raw::make_generic<
                          alda::raw::stream::istream,
                          alda::serialization::detail::message_type<TypeEnum>>(_stream),
-                     [](alda::raw::stream::error const &_message) {
+                     [](alda::raw::stream::error const &_error) {
                        return alda::exception{
-                           FCPPT_TEXT("Invalid message type: ") + _message.get()};
+                           FCPPT_TEXT("Invalid message type: ") + fcppt::output_to_fcppt_string(_error)};
                      })),
              [] { return alda::exception(FCPPT_TEXT("No handler for a message found.")); })
       .get()

@@ -7,11 +7,15 @@
 #define ALDA_RAW_STREAM_RETURN_IF_HPP_INCLUDED
 
 #include <alda/raw/element_type.hpp>
+#include <alda/raw/stream/error.hpp>
 #include <alda/raw/stream/fail.hpp>
 #include <alda/raw/stream/reference.hpp>
 #include <alda/raw/stream/result.hpp>
 #include <alda/raw/stream/return.hpp>
-#include <fcppt/text.hpp>
+#include <alda/raw/stream/stream_fail.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <typeinfo> // IWYU pragma: keep
+#include <fcppt/config/external_end.hpp>
 
 namespace alda::raw::stream
 {
@@ -22,7 +26,9 @@ return_if(alda::raw::stream::reference<Stream> _stream, alda::raw::element_type<
   requires(Stream::can_fail)
 {
   return Stream::failed(_stream)
-             ? alda::raw::stream::fail<Stream, Type>(FCPPT_TEXT("Stream failed"))
+             ? alda::raw::stream::fail<Stream, Type>(alda::raw::stream::error{
+                   typeid(Type),
+                   alda::raw::stream::error::variant{alda::raw::stream::stream_fail{}}})
              : alda::raw::stream::return_<Stream>(_value);
 }
 

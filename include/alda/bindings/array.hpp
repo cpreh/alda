@@ -71,7 +71,7 @@ alda::raw::stream::result<Stream, alda::bindings::array<Type, Adapted>> make_gen
     if (error.has_value())
     {
       return alda::raw::stream::fail<Stream, alda::bindings::array<Type, Adapted>>(
-          std::move(error.get_unsafe().get()));
+          std::move(error.get_unsafe()));
     }
   }
 

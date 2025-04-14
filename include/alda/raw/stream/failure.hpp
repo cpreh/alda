@@ -9,8 +9,8 @@
 #include <alda/exception.hpp>
 #include <alda/detail/class_symbol.hpp>
 #include <alda/detail/symbol.hpp>
+#include <alda/raw/stream/error.hpp>
 #include <alda/raw/stream/failure_fwd.hpp>
-#include <fcppt/string.hpp>
 
 namespace alda::raw::stream
 {
@@ -19,7 +19,7 @@ class ALDA_DETAIL_CLASS_SYMBOL failure : public alda::exception
 {
 public:
   ALDA_DETAIL_SYMBOL
-  explicit failure(fcppt::string &&);
+  explicit failure(alda::raw::stream::error);
 
   ALDA_DETAIL_SYMBOL
   failure(failure &&) noexcept;
@@ -35,6 +35,11 @@ public:
 
   ALDA_DETAIL_SYMBOL
   ~failure() noexcept override;
+
+  [[nodiscard]]
+  ALDA_DETAIL_SYMBOL alda::raw::stream::error const &get() const;
+private:
+  alda::raw::stream::error error_;
 };
 
 }

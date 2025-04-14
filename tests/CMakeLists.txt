@@ -22,39 +22,39 @@ endfunction()
 add_alda_test(smallest_uint NO_CODE)
 
 add_alda_test(bindings/array LINK_LIBS fcppt_catch_interface
-              ${fcppt_core_TARGET})
+              ${fcppt_core_TARGET} ${alda_TARGET})
 
 add_alda_test(bindings/bitfield LINK_LIBS fcppt_catch_interface
-              ${fcppt_core_TARGET})
+              ${fcppt_core_TARGET} ${alda_TARGET})
 
 add_alda_test(bindings/duration LINK_LIBS fcppt_catch_interface
-              ${fcppt_core_TARGET})
+              ${fcppt_core_TARGET} ${alda_TARGET})
 
 add_alda_test(bindings/dynamic_len LINK_LIBS fcppt_catch_interface
               ${fcppt_core_TARGET} ${alda_TARGET})
 
 add_alda_test(bindings/enum LINK_LIBS fcppt_catch_interface
-              ${fcppt_core_TARGET})
+              ${fcppt_core_TARGET} ${alda_TARGET})
 
 add_alda_test(bindings/enum_array LINK_LIBS fcppt_catch_interface
-              ${fcppt_core_TARGET})
+              ${fcppt_core_TARGET} ${alda_TARGET})
 
 add_alda_test(bindings/float LINK_LIBS fcppt_catch_interface ${alda_TARGET})
 
 add_alda_test(bindings/optional LINK_LIBS fcppt_catch_interface
-              ${fcppt_core_TARGET})
+              ${fcppt_core_TARGET} ${alda_TARGET})
 
 add_alda_test(bindings/record LINK_LIBS fcppt_catch_interface
-              ${fcppt_core_TARGET})
+              ${fcppt_core_TARGET} ${alda_TARGET})
 
 add_alda_test(bindings/signed LINK_LIBS fcppt_catch_interface
               ${fcppt_core_TARGET} ${alda_TARGET})
 
 add_alda_test(bindings/static LINK_LIBS fcppt_catch_interface
-              ${fcppt_core_TARGET})
+              ${fcppt_core_TARGET} ${alda_TARGET})
 
 add_alda_test(bindings/strong_typedef LINK_LIBS fcppt_catch_interface
-              ${fcppt_core_TARGET})
+              ${fcppt_core_TARGET} ${alda_TARGET})
 
 add_alda_test(bindings/unit LINK_LIBS fcppt_core_interface)
 

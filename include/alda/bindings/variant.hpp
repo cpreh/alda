@@ -18,15 +18,16 @@
 #include <alda/raw/pointer.hpp>
 #include <alda/raw/size_type.hpp>
 #include <alda/raw/stream/bind.hpp>
+#include <alda/raw/stream/error.hpp>
 #include <alda/raw/stream/fail.hpp>
+#include <alda/raw/stream/int_error.hpp>
+#include <alda/raw/stream/int_error_kind.hpp>
 #include <alda/raw/stream/reference.hpp>
 #include <alda/raw/stream/result.hpp>
 #include <alda/raw/stream/return.hpp>
-#include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/tag_type.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/use.hpp>
-#include <fcppt/cast/promote_int.hpp>
 #include <fcppt/cast/truncation_check.hpp>
 #include <fcppt/mpl/list/at.hpp>
 #include <fcppt/mpl/list/index_of.hpp>
@@ -35,6 +36,7 @@
 #include <fcppt/variant/apply.hpp>
 #include <fcppt/variant/from_list.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <typeinfo> // IWYU pragma: keep
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -102,8 +104,10 @@ alda::raw::stream::result<Stream, alda::bindings::variant<Types, AdaptedTypes>> 
             [_index]
             {
               return alda::raw::stream::fail<Stream, alda::bindings::variant<Types, AdaptedTypes>>(
-                  FCPPT_TEXT("Invalid index: ") +
-                  fcppt::output_to_fcppt_string(fcppt::cast::promote_int(_index)));
+                  alda::raw::stream::error{
+                      typeid(typename binding::element_type),
+                      alda::raw::stream::error::variant{alda::raw::stream::int_error{
+                          alda::raw::stream::int_error_kind::invalid_variant_index, _index}}});
             });
       });
 }
@@ -117,9 +121,9 @@ alda::raw::size_type needed_size(
 
   using index_type = typename binding::index_type;
 
-  auto const index(fcppt::optional::to_exception(
+  auto const index{fcppt::optional::to_exception(
       fcppt::cast::truncation_check<alda::raw::element_type<index_type>>(_value.type_index()),
-      [] { return alda::exception{FCPPT_TEXT("variant index too large")}; }));
+      [] { return alda::exception{FCPPT_TEXT("variant index too large")}; })};
 
   return alda::raw::needed_size<index_type>(index) +
          fcppt::variant::apply(

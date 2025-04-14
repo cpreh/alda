@@ -14,12 +14,13 @@
 #include <alda/raw/pointer.hpp>
 #include <alda/raw/static_size_impl.hpp>
 #include <alda/raw/stream/bind.hpp>
+#include <alda/raw/stream/error.hpp>
 #include <alda/raw/stream/fail.hpp>
+#include <alda/raw/stream/int_error.hpp>
+#include <alda/raw/stream/int_error_kind.hpp>
 #include <alda/raw/stream/reference.hpp>
 #include <alda/raw/stream/result.hpp>
 #include <alda/raw/stream/return.hpp>
-#include <fcppt/output_to_fcppt_string.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/cast/enum_to_int.hpp>
 #include <fcppt/cast/promote_int.hpp>
 #include <fcppt/enum/from_int.hpp>
@@ -27,6 +28,10 @@
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <typeinfo> // IWYU pragma: keep
+#include <fcppt/config/external_end.hpp>
 
 namespace alda::bindings
 {
@@ -56,8 +61,11 @@ inline alda::raw::stream::result<Stream, alda::bindings::enum_<Enum, Adapted>> m
             [_element]
             {
               return alda::raw::stream::fail<Stream, alda::bindings::enum_<Enum, Adapted>>(
-                  FCPPT_TEXT("Invalid value ") +
-                  fcppt::output_to_fcppt_string(fcppt::cast::promote_int(_element)));
+                  alda::raw::stream::error{
+                      typeid(Enum),
+                      alda::raw::stream::error::variant{alda::raw::stream::int_error{
+                          alda::raw::stream::int_error_kind::invalid_enum,
+                          static_cast<std::uintmax_t>(fcppt::cast::promote_int(_element))}}});
             },
             [](Enum const _value) { return alda::raw::stream::return_<Stream>(_value); });
       });

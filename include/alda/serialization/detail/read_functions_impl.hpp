@@ -11,9 +11,11 @@
 #include <alda/message/object_impl.hpp> // IWYU pragma: keep
 #include <alda/raw/make_generic.hpp>
 #include <alda/raw/stream/error.hpp>
+#include <alda/raw/stream/error_output.hpp> // IWYU pragma: keep
 #include <alda/raw/stream/istream.hpp>
 #include <alda/serialization/detail/read_decl.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/tag.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
@@ -35,7 +37,7 @@ alda::serialization::detail::read<TypeEnum>::operator()(fcppt::tag<Message>) con
         return alda::exception{
             FCPPT_TEXT("Message stream failed while reading message ") +
             fcppt::from_std_string(fcppt::type_name_from_info(typeid(Message))) +
-            FCPPT_TEXT(" with error: ") + _error.get()};
+            FCPPT_TEXT(" with error: ") + fcppt::output_to_fcppt_string(_error)};
       })});
 }
 

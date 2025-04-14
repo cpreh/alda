@@ -129,10 +129,16 @@ include/alda/raw/static_size_impl.hpp
 include/alda/raw/stream/bind.hpp
 include/alda/raw/stream/error_fwd.hpp
 include/alda/raw/stream/error.hpp
+include/alda/raw/stream/error_output.hpp
 include/alda/raw/stream/fail.hpp
 include/alda/raw/stream/failure_fwd.hpp
 include/alda/raw/stream/failure.hpp
 include/alda/raw/stream/get_error.hpp
+include/alda/raw/stream/int_error_fwd.hpp
+include/alda/raw/stream/int_error.hpp
+include/alda/raw/stream/int_error_kind_fwd.hpp
+include/alda/raw/stream/int_error_kind.hpp
+include/alda/raw/stream/int_error_kind_to_string.hpp
 include/alda/raw/stream/istream_fwd.hpp
 include/alda/raw/stream/istream.hpp
 include/alda/raw/stream/memory_fwd.hpp
@@ -142,6 +148,8 @@ include/alda/raw/stream/reference.hpp
 include/alda/raw/stream/result.hpp
 include/alda/raw/stream/return.hpp
 include/alda/raw/stream/return_if.hpp
+include/alda/raw/stream/stream_fail_fwd.hpp
+include/alda/raw/stream/stream_fail.hpp
 include/alda/raw/to_buffer.hpp
 include/alda/raw/to_static_buffer.hpp
 include/alda/serialization/buffer_to_stream.hpp
@@ -194,4 +202,8 @@ include/alda/type_enum.hpp
 src/bindings/float.cpp
 src/exception.cpp
 src/log_location.cpp
+src/raw/stream/error.cpp
+src/raw/stream/error_output.cpp
 src/raw/stream/failure.cpp
+src/raw/stream/int_error.cpp
+src/raw/stream/int_error_kind_to_string.cpp

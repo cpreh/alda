@@ -7,12 +7,12 @@
 #include <alda/raw/element_type.hpp>
 #include <alda/raw/make_generic.hpp>
 #include <alda/raw/stream/error.hpp>
+#include <alda/raw/stream/error_output.hpp>
 #include <alda/raw/stream/istream.hpp>
 #include <fcppt/args_char.hpp>
 #include <fcppt/args_from_second.hpp>
 #include <fcppt/main.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/array/object_impl.hpp>
 #include <fcppt/either/match.hpp>
