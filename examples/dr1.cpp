@@ -39,6 +39,7 @@
 #include <bit>
 #include <cstdint>
 #include <cstdlib>
+#include <exception>
 #include <filesystem>
 #include <fstream>
 #include <ios>
@@ -157,9 +158,10 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Wmissing-declarations)
 
 int FCPPT_MAIN(int argc, fcppt::args_char **argv)
+try
 {
-  auto const parser(fcppt::options::argument<path_label, fcppt::string>{
-      fcppt::options::long_name{FCPPT_TEXT("filename")}, fcppt::options::optional_help_text{}});
+  auto const parser{fcppt::options::argument<path_label, fcppt::string>{
+      fcppt::options::long_name{FCPPT_TEXT("filename")}, fcppt::options::optional_help_text{}}};
 
   return fcppt::either::match(
       fcppt::options::parse(parser, fcppt::args_from_second(argc, argv)),
@@ -186,6 +188,11 @@ int FCPPT_MAIN(int argc, fcppt::args_char **argv)
             // NOLINTNEXTLINE(cppcoreguidelines-rvalue-reference-param-not-moved)
             [](std::ifstream &&_stream) { return parse_file(_stream); });
       });
+}
+catch(std::exception const &_error)
+{
+  std::cerr << _error.what() << '\n';
+  return EXIT_FAILURE;
 }
 
 FCPPT_PP_POP_WARNING

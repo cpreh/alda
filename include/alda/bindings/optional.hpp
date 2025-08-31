@@ -86,7 +86,7 @@ alda::raw::size_type needed_size(
       _opt_value,
       fcppt::const_(ret),
       [
-#if defined(FCPPT_CONFIG_MSVC_COMPILER)
+#ifdef FCPPT_CONFIG_MSVC_COMPILER
           ret
 #endif
   ](Type const &_value) { return ret + alda::raw::needed_size<Adapted>(_value); });

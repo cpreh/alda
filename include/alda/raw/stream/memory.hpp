@@ -32,6 +32,7 @@ struct memory
   {
     alda::raw::detail::copy_n(_stream, _size, _result);
 
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
     _stream += _size;
   }
 

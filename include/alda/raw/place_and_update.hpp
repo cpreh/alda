@@ -26,6 +26,7 @@ place_and_update(alda::raw::element_type<Type> const &_value, alda::raw::pointer
 {
   alda::raw::place<Type>(_value, _data);
 
+  // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
   return _data + alda::raw::needed_size<Type>(_value);
 }
 
