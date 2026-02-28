@@ -52,11 +52,12 @@ public:
   ALDA_NET_DETAIL_SYMBOL
   void clear();
 
-private:
+protected:
   std::streamsize xsputn(char_type const *, std::streamsize) override;
 
   int_type overflow(int_type) override;
 
+private:
   impl_type impl_;
 };
 

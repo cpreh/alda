@@ -21,13 +21,13 @@ class concrete : public alda::call::detail::base<TypeEnum, Callee>
   using base_type = alda::call::detail::base<TypeEnum, Callee>;
 
 public:
-  using message_type = typename base_type::message_type;
+  using message_type = base_type::message_type;
 
   concrete();
 
   ~concrete() override;
 
-  typename Callee::result_type call(Callee &, message_type const &) const override;
+  Callee::result_type call(Callee &, message_type const &) const override;
 };
 
 }

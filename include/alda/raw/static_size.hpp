@@ -12,7 +12,7 @@ namespace alda::raw
 {
 
 template <typename T>
-using static_size = typename alda::raw::static_size_impl<T>::type;
+using static_size = alda::raw::static_size_impl<T>::type;
 
 }
 

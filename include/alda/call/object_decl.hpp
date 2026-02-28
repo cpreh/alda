@@ -23,7 +23,7 @@ class object
 {
   FCPPT_NONMOVABLE(object);
 
-  using result_type = typename Callee::result_type;
+  using result_type = Callee::result_type;
 
   using base = alda::call::detail::base<TypeEnum, Callee>;
 

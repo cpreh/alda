@@ -26,7 +26,7 @@ public:
 
   using message_type = alda::message::base<TypeEnum>;
 
-  virtual typename Callee::result_type call(Callee &, message_type const &) const = 0;
+  virtual Callee::result_type call(Callee &, message_type const &) const = 0;
 };
 
 }

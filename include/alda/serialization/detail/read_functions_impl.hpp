@@ -26,7 +26,7 @@
 
 template <typename TypeEnum>
 template <typename Message>
-typename alda::serialization::detail::read<TypeEnum>::message_unique_ptr
+alda::serialization::detail::read<TypeEnum>::message_unique_ptr
 alda::serialization::detail::read<TypeEnum>::operator()(fcppt::tag<Message>) const
 {
   return alda::message::make_concrete_ptr<TypeEnum>(Message{fcppt::either::to_exception(

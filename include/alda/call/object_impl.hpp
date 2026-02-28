@@ -30,12 +30,12 @@ object<TypeEnum, Messages, Callee>::~object() = default;
 }
 
 template <typename TypeEnum, typename Messages, typename Callee>
-typename alda::call::object<TypeEnum, Messages, Callee>::result_type
+alda::call::object<TypeEnum, Messages, Callee>::result_type
 alda::call::object<TypeEnum, Messages, Callee>::operator()(
     message_base const &_message, Callee &_callee, default_callback const &_default_callback) const
 {
   return fcppt::optional::maybe(
-      instances_[_message.type()],
+      instances_[_message.type()], // NOLINT(cppcoreguidelines-pro-bounds-avoid-unchecked-container-access)
       [&_message, &_default_callback] { return _default_callback(_message); },
       [&_callee, &_message](base_unique_ptr const &_dispatcher)
       { return _dispatcher->call(_callee, _message); });

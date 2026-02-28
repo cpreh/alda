@@ -10,7 +10,7 @@ namespace alda::message
 {
 
 template <typename Object>
-using element_type = typename Object::element_type;
+using element_type = Object::element_type;
 
 }
 

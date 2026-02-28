@@ -13,7 +13,8 @@
 namespace alda::message
 {
 
-template <typename EnumType, typename EnumType::type MessageType>
+template <typename EnumType, EnumType::type MessageType>
+// NOLINTNEXTLINE(readability-redundant-typename)
 using make_id = std::integral_constant<typename EnumType::type, MessageType>;
 
 }

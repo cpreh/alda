@@ -23,7 +23,7 @@ concrete<TypeEnum, Callee, Message>::~concrete() = default;
 }
 
 template <typename TypeEnum, typename Callee, typename Message>
-typename Callee::result_type alda::call::detail::concrete<TypeEnum, Callee, Message>::call(
+Callee::result_type alda::call::detail::concrete<TypeEnum, Callee, Message>::call(
     Callee &_callee, message_type const &_message) const
 {
   return _callee(

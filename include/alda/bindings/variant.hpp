@@ -51,7 +51,7 @@ void place(
 {
   using binding = alda::bindings::variant<Types, AdaptedTypes>;
 
-  using index_type = typename binding::index_type;
+  using index_type = binding::index_type;
 
   auto const index(fcppt::optional::to_exception(
       fcppt::cast::truncation_check<alda::raw::element_type<index_type>>(_value.type_index()),
@@ -77,7 +77,7 @@ alda::raw::stream::result<Stream, alda::bindings::variant<Types, AdaptedTypes>> 
 {
   using binding = alda::bindings::variant<Types, AdaptedTypes>;
 
-  using index_type = typename binding::index_type;
+  using index_type = binding::index_type;
 
   return alda::raw::stream::bind<Stream>(
       alda::raw::make_generic<Stream, index_type>(_stream),
@@ -119,7 +119,7 @@ alda::raw::size_type needed_size(
 {
   using binding = alda::bindings::variant<Types, AdaptedTypes>;
 
-  using index_type = typename binding::index_type;
+  using index_type = binding::index_type;
 
   auto const index{fcppt::optional::to_exception(
       fcppt::cast::truncation_check<alda::raw::element_type<index_type>>(_value.type_index()),

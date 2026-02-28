@@ -38,7 +38,7 @@ enum class test_enum : std::uint8_t
 FCPPT_ENUM_DEFINE_MAX_VALUE(test_enum::test3);
 
 FCPPT_CATCH_BEGIN
-// NOLINTBEGIN(misc-const-correctness,cert-err58-cpp,fuchsia-statically-constructed-objects,misc-use-anonymous-namespace,cppcoreguidelines-avoid-do-while)
+// NOLINTBEGIN(bugprone-throwing-static-initialization,misc-const-correctness,cert-err58-cpp,fuchsia-statically-constructed-objects,misc-use-anonymous-namespace,cppcoreguidelines-avoid-do-while)
 
 TEST_CASE("bindings::bitfield", "[alda]")
 {
@@ -55,6 +55,7 @@ TEST_CASE("bindings::bitfield", "[alda]")
 
   bitfield test(bitfield::null());
 
+  // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-avoid-unchecked-container-access)
   test[test_enum::test2] = true;
 
   // NOLINTNEXTLINE(fuchsia-default-arguments-calls)
@@ -67,5 +68,5 @@ TEST_CASE("bindings::bitfield", "[alda]")
       fcppt::either::make_success<alda::raw::stream::error>(test));
 }
 
-// NOLINTEND(misc-const-correctness,cert-err58-cpp,fuchsia-statically-constructed-objects,misc-use-anonymous-namespace,cppcoreguidelines-avoid-do-while)
+// NOLINTEND(bugprone-throwing-static-initialization,misc-const-correctness,cert-err58-cpp,fuchsia-statically-constructed-objects,misc-use-anonymous-namespace,cppcoreguidelines-avoid-do-while)
 FCPPT_CATCH_END

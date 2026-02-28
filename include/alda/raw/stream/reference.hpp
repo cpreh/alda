@@ -10,7 +10,7 @@ namespace alda::raw::stream
 {
 
 template <typename Stream>
-using reference = typename Stream::reference;
+using reference = Stream::reference;
 
 }
 

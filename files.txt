@@ -85,7 +85,6 @@ include/alda/message/concrete_fwd.hpp
 include/alda/message/declare_base.hpp
 include/alda/message/declare_concrete.hpp
 include/alda/message/detail/extract_id.hpp
-include/alda/message/detail/extract_id_tpl.hpp
 include/alda/message/element_type.hpp
 include/alda/message/impl/base_impl.hpp
 include/alda/message/impl/concrete_impl.hpp

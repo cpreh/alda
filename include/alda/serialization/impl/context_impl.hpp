@@ -21,7 +21,7 @@ context<TypeEnum>::~context() = default;
 }
 
 template <typename TypeEnum>
-typename alda::serialization::context<TypeEnum>::dispatch_map const &
+alda::serialization::context<TypeEnum>::dispatch_map const &
 alda::serialization::context<TypeEnum>::handlers() const
 {
   return handlers_;

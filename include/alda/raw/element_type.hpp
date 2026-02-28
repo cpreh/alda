@@ -10,7 +10,7 @@ namespace alda::raw
 {
 
 template <typename Element>
-using element_type = typename Element::element_type;
+using element_type = Element::element_type;
 
 }
 

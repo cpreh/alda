@@ -20,7 +20,7 @@ concrete<TypeEnum, Message>::~concrete() = default;
 }
 
 template <typename TypeEnum, typename Message>
-typename alda::serialization::detail::dispatch::concrete<TypeEnum, Message>::message_unique_ptr
+alda::serialization::detail::dispatch::concrete<TypeEnum, Message>::message_unique_ptr
 alda::serialization::detail::dispatch::concrete<TypeEnum, Message>::on_dispatch(
     reader const &_reader) const
 {

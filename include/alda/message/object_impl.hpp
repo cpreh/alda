@@ -22,7 +22,7 @@ alda::message::object<Id, Type>::object(element_type &&_value) : value_(std::mov
 }
 
 template <typename Id, typename Type>
-typename alda::message::object<Id, Type>::element_type const &
+alda::message::object<Id, Type>::element_type const &
 alda::message::object<Id, Type>::get() const
 {
   return value_;

@@ -68,7 +68,7 @@ alda::raw::stream::result<Stream, alda::bindings::signed_<Type, Endianness>> mak
     alda::raw::dispatch_type<Stream>,
     alda::raw::stream::reference<Stream> _stream)
 {
-  using unsigned_impl = typename alda::bindings::signed_<Type, Endianness>::impl;
+  using unsigned_impl = alda::bindings::signed_<Type, Endianness>::impl;
 
   using unsigned_type = alda::raw::element_type<unsigned_impl>;
 

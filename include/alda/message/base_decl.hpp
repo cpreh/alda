@@ -36,9 +36,9 @@ protected:
   base &operator=(base &&) noexcept;
 
 public:
-  using type_enum = typename TypeEnum::type;
+  using type_enum = TypeEnum::type;
 
-  using unique_ptr = typename alda::message::base_unique_ptr<TypeEnum>;
+  using unique_ptr = alda::message::base_unique_ptr<TypeEnum>;
 
   virtual ~base() = 0;
 

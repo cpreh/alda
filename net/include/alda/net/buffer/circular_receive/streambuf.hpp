@@ -50,9 +50,8 @@ public:
   void clear();
 
   ALDA_NET_DETAIL_SYMBOL
-  std::streamsize showmanyc() override;
-
-private:
+  std::streamsize showmanyc() override; // NOLINT(misc-override-with-different-visibility)
+protected:
   int_type uflow() override;
 
   int_type underflow() override;
@@ -61,6 +60,7 @@ private:
 
   int_type pbackfail(int_type) override;
 
+private:
   using raw_container = fcppt::container::dynamic_array<alda::net::value_type>;
 
   using iterator = raw_container::pointer;

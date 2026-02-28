@@ -41,7 +41,7 @@ void place(
 {
   using binding = alda::bindings::optional<Type, Adapted>;
 
-  using bool_type = typename binding::bool_type;
+  using bool_type = binding::bool_type;
 
   _mem = alda::raw::place_and_update<bool_type>(_opt_value.has_value(), _mem);
 
@@ -55,7 +55,7 @@ alda::raw::stream::result<Stream, alda::bindings::optional<Type, Adapted>> make_
     alda::raw::dispatch_type<Stream>,
     alda::raw::stream::reference<Stream> _stream)
 {
-  using bool_type = typename alda::bindings::optional<Type, Adapted>::bool_type;
+  using bool_type = alda::bindings::optional<Type, Adapted>::bool_type;
 
   return alda::raw::stream::bind<Stream>(
       alda::raw::make_generic<Stream, bool_type>(_stream),
@@ -78,7 +78,7 @@ alda::raw::size_type needed_size(
 {
   using binding = alda::bindings::optional<Type, Adapted>;
 
-  using bool_type = typename binding::bool_type;
+  using bool_type = binding::bool_type;
 
   constexpr alda::raw::size_type const ret(alda::raw::needed_size_static<bool_type>());
 

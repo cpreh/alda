@@ -45,7 +45,7 @@ inline alda::raw::stream::result<Stream, alda::bindings::unsigned_<Type, Endiann
     alda::raw::dispatch_type<Stream>,
     alda::raw::stream::reference<Stream> _stream)
 {
-  using impl_type = typename alda::bindings::unsigned_<Type, Endianness>::impl;
+  using impl_type = alda::bindings::unsigned_<Type, Endianness>::impl;
 
   return alda::raw::stream::bind<Stream>(
       alda::raw::make_generic<Stream, impl_type>(_stream),

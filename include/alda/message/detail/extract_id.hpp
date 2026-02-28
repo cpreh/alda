@@ -6,13 +6,11 @@
 #ifndef ALDA_MESSAGE_DETAIL_EXTRACT_ID_HPP_INCLUDED
 #define ALDA_MESSAGE_DETAIL_EXTRACT_ID_HPP_INCLUDED
 
-#include <alda/message/detail/extract_id_tpl.hpp>
-
 namespace alda::message::detail
 {
 
 template <typename Message>
-using extract_id = typename alda::message::detail::extract_id_tpl<Message>::type;
+using extract_id = Message::id_type;
 
 }
 

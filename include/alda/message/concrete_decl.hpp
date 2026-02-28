@@ -23,7 +23,7 @@ class concrete : public alda::message::base<TypeEnum>
   using base_type = alda::message::base<TypeEnum>;
 
 public:
-  using type_enum = typename base_type::type_enum;
+  using type_enum = base_type::type_enum;
 
   static_assert(alda::message::is_object<Type>::value, "Type is not an alda::message::object");
 
@@ -49,8 +49,7 @@ public:
 
   [[nodiscard]] ALDA_DETAIL_EXTERNAL_SYMBOL Type const &value() const;
 
-private:
-  using unique_ptr = typename base_type::unique_ptr;
+  using unique_ptr = base_type::unique_ptr;
 
   [[nodiscard]] type_enum type() const override;
 
@@ -60,6 +59,7 @@ private:
 
   [[nodiscard]] unique_ptr clone() const override;
 
+private:
   Type value_;
 };
 

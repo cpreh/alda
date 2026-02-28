@@ -27,9 +27,9 @@ public:
   ALDA_DETAIL_EXTERNAL_SYMBOL
   ~concrete() override;
 
-  using message_unique_ptr = typename base_type::message_unique_ptr;
+  using message_unique_ptr = base_type::message_unique_ptr;
 
-  using reader = typename base_type::reader;
+  using reader = base_type::reader;
 
   [[nodiscard]] ALDA_DETAIL_EXTERNAL_SYMBOL message_unique_ptr
   on_dispatch(reader const &) const override;

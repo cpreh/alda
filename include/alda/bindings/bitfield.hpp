@@ -46,7 +46,7 @@ alda::raw::stream::result<Stream, alda::bindings::bitfield<Type, Endianness>> ma
     alda::raw::dispatch_type<Stream>,
     alda::raw::stream::reference<Stream> _stream)
 {
-  using wrapped = typename alda::bindings::bitfield<Type, Endianness>::wrapped;
+  using wrapped = alda::bindings::bitfield<Type, Endianness>::wrapped;
 
   return alda::raw::stream::bind<Stream>(
       alda::raw::make_generic<Stream, wrapped>(_stream),

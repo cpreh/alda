@@ -52,7 +52,7 @@ Type const &alda::message::concrete<TypeEnum, Type>::value() const
 }
 
 template <typename TypeEnum, typename Type>
-typename alda::message::concrete<TypeEnum, Type>::type_enum
+alda::message::concrete<TypeEnum, Type>::type_enum
 alda::message::concrete<TypeEnum, Type>::type() const
 {
   return alda::message::detail::extract_id<Type>::value;
@@ -71,7 +71,7 @@ alda::raw::buffer alda::message::concrete<TypeEnum, Type>::to_buffer() const
 }
 
 template <typename TypeEnum, typename Type>
-typename alda::message::concrete<TypeEnum, Type>::unique_ptr
+alda::message::concrete<TypeEnum, Type>::unique_ptr
 alda::message::concrete<TypeEnum, Type>::clone() const
 {
   return fcppt::unique_ptr_to_base<base_type>(fcppt::make_unique_ptr<concrete>(*this));
