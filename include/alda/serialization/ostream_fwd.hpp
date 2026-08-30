@@ -13,7 +13,7 @@
 namespace alda::serialization
 {
 
-using ostream = std::ostream;
+using std::ostream;
 
 }
 

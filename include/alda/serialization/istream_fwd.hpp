@@ -13,7 +13,7 @@
 namespace alda::serialization
 {
 
-using istream = std::istream;
+using std::istream;
 
 }
 
